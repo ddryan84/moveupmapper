@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Move Up Mapper</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YCEFCLSHX0"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YCEFCLSHX0');
+  </script>
+</head>
+<body>
+<div class="app">
+
+  <!-- Page Nav -->
+  <div class="page-nav no-print">
+    <a href="index.html" class="site-brand">
+      <div class="brand-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+          <line x1="12" y1="9" x2="12" y2="5"/><polyline points="10 7 12 5 14 7"/>
+        </svg>
+      </div>
+      <span class="brand-name">Move Up Mapper</span>
+    </a>
+    <div class="page-nav-links">
+      <a href="index.html" class="page-nav-link">Home Swap Calculator</a>
+      <a href="rvb.html"   class="page-nav-link">Rent vs. Buy Analysis</a>
+      <a href="faq.html"   class="page-nav-link">FAQ</a>
+      <a href="about.html" class="page-nav-link active">About</a>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-icon" style="background:#0f766e">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+    </div>
+    <div>
+      <h1>About This Site</h1>
+      <p class="header-sub">Purpose, tools, and how the math works</p>
+    </div>
+  </header>
+
+  <!-- Content card -->
+  <div class="card wide-card" style="margin-top:8px">
+    <div class="prose">
+
+      <section class="prose-section">
+        <h2>Why This Site Exists</h2>
+        <p>
+          Most people make their biggest financial decisions — buying a home, deciding whether to keep
+          renting, considering a move — with incomplete information. Mortgage calculators show you a monthly
+          payment. Rent vs. buy comparisons flatten complex, multi-year dynamics into a single oversimplified
+          number. And almost none of them show their math.
+        </p>
+        <p>
+          This site was built to do better. The goal is to give anyone — whether you're a first-time buyer,
+          a long-term renter, or someone weighing a move — a clear, honest picture of what each path actually
+          costs over time, built on real financial math rather than rounded estimates.
+        </p>
+        <p>
+          Everything here is free. Nothing requires an account. Your inputs never leave your browser.
+        </p>
+      </section>
+
+      <section class="prose-section">
+        <h2>The Tools</h2>
+
+        <div class="about-tool-block">
+          <div class="about-tool-header">
+            <div class="about-tool-icon" style="background:#4f46e5">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 3v18h18"/><polyline points="7 16 11 12 15 16 21 8"/>
+              </svg>
+            </div>
+            <span class="about-tool-name">Rent vs. Buy Analysis</span>
+          </div>
+          <p>
+            The centerpiece of the site. Rather than giving you a single break-even number, this tool
+            models the full financial picture across a custom time horizon of 5 to 30 years.
+          </p>
+          <p>
+            <strong>Monthly Cost Comparison</strong> tracks every dollar you'd spend renting versus buying,
+            year by year, across your full horizon. The buying side includes principal and interest, property
+            taxes with annual growth, PMI with automatic drop-off when your loan-to-value ratio reaches 80%,
+            homeowner's insurance, and maintenance costs that scale with your home's appreciated value. The
+            renting side compounds rent at a realistic annual increase. The chart shows exactly where the
+            crossover happens — the year buying becomes cheaper on a monthly basis.
+          </p>
+          <p>
+            <strong>Equity vs. Invested Capital Growth</strong> answers the harder question: which path
+            builds more wealth? The equity line tracks the value you've actively built through ownership —
+            principal paid down plus home appreciation above your purchase price. The invested capital line
+            models what happens if a renter invests the same initial capital at a market rate of return,
+            while also reinvesting the annual savings from lower monthly costs. Both scenarios get a fair
+            comparison.
+          </p>
+          <p>
+            Supporting detail panels break down Year 1 monthly costs by category, show cumulative totals
+            over your full horizon, and display how your amortization split — the ratio of principal to
+            interest — shifts between early and later years of your loan.
+          </p>
+          <a href="rvb.html" class="about-tool-link">Open Rent vs. Buy Analysis →</a>
+        </div>
+
+        <div class="about-tool-block">
+          <div class="about-tool-header">
+            <div class="about-tool-icon" style="background:#818cf8">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 16V4m0 0L3 8m4-4l4 4"/><path d="M17 8v12m0 0l4-4m-4 4l-4-4"/>
+              </svg>
+            </div>
+            <span class="about-tool-name">Home Swap Calculator</span>
+          </div>
+          <p>
+            Designed for people weighing a move from one home to another — or modeling a first purchase
+            for the very first time. Enter the details of your current financial position and a prospective
+            home side by side to see a full cost breakdown, including your post-purchase cash position,
+            monthly affordability relative to income benchmarks, and how your buying power shifts over the
+            next decade.
+          </p>
+          <p>
+            The <strong>Affordable Price Range</strong> section lets you set a target monthly housing cost
+            and instantly see what purchase price that budget supports — along with an absolute ceiling based
+            on the 36% of income lender threshold and a comparison to your prospective price. The
+            <strong>Buying Power Over Time</strong> chart shows how income growth, home appreciation, and
+            cost headwinds interact to expand or compress your range over ten years, letting you stress-test
+            both optimistic and conservative scenarios.
+          </p>
+          <p>
+            First-time buyers and existing owners each get a tailored input mode. Scenario A/B tabs let you
+            run two complete comparisons side by side without losing your work — useful for comparing two
+            properties, two down payment strategies, or a "buy now vs. wait" decision.
+          </p>
+          <a href="index.html" class="about-tool-link">Open Home Swap Calculator →</a>
+        </div>
+      </section>
+
+      <section class="prose-section">
+        <h2>How the Math Works</h2>
+        <p>
+          Financial calculators often treat their models as black boxes. This site does not.
+        </p>
+        <p>
+          <strong>Mortgage amortization</strong> uses the standard closed-form formula for remaining loan
+          balance at any point in time — the same calculation used by lenders. This means the
+          interest-to-principal ratio is correctly front-loaded in early years, not averaged across the loan.
+        </p>
+        <p>
+          <strong>PMI drop-off</strong> is calculated month by month. The tool tracks your declining loan
+          balance alongside your home's appreciated value and identifies the exact month your
+          loan-to-value ratio crosses 80% — at which point PMI is removed from the monthly cost projection.
+          This drop is visible as a labeled callout on the Monthly Cost Comparison chart.
+        </p>
+        <p>
+          <strong>Opportunity cost</strong> is applied as a genuine compound return, not a flat addition.
+          The invested capital scenario grows your initial lump sum annually, and each year's cost
+          differential — whether buying costs more or renting costs more — is added to or subtracted from
+          the portfolio and compounds forward. This avoids overstating the renter's investment position.
+        </p>
+        <p>
+          <strong>Maintenance costs</strong> are calculated as a percentage of your home's appreciated
+          value each year, not just the original purchase price. This reflects the reality that upkeep
+          costs tend to rise alongside the value and age of the property.
+        </p>
+        <p>
+          Default values across both tools are calibrated to 2026 national averages — current mortgage
+          rates, median home prices, typical PMI premiums, national property tax averages, and long-run
+          historical returns. Every input can be adjusted to match your specific situation.
+        </p>
+      </section>
+
+      <section class="prose-section">
+        <h2>Your Data</h2>
+        <p>
+          All calculations happen entirely in your browser. Your inputs are saved in your browser's local
+          storage so your settings persist between visits — but that data is never transmitted to any server,
+          never stored in a database, and never shared with anyone.
+        </p>
+        <p>
+          This site uses Google Analytics to understand how visitors interact with the tools and displays
+          ads through Google AdSense. Both services may collect anonymized usage data through standard
+          browser cookies. See the <a href="privacy.html">Privacy Policy</a> for full details.
+        </p>
+      </section>
+
+      <section class="prose-section prose-section--last">
+        <h2>A Note on Limitations</h2>
+        <p>
+          These tools are designed to inform, not to decide. Real estate decisions involve factors that no
+          calculator can fully capture: neighborhood trajectory, job stability, local market conditions,
+          the emotional value of ownership, and much more. The numbers this site produces are a starting
+          point for a conversation — ideally one that includes a qualified mortgage professional, financial
+          advisor, or real estate agent who knows your specific situation.
+        </p>
+        <p>
+          <strong>Nothing on this site constitutes financial, mortgage, tax, or legal advice.</strong>
+        </p>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer no-print">
+    <span>© 2026</span>
+    <span class="footer-sep">·</span>
+    <a href="privacy.html">Privacy Policy</a>
+  </footer>
+
+</div>
+</body>
+</html>
