@@ -19,8 +19,22 @@
 
   <!-- Page Nav -->
   <div class="page-nav no-print">
-    <a href="index.html" class="page-nav-link">Home Swap Calculator</a>
-    <a href="rvb.html"   class="page-nav-link active">Rent vs. Buy Analysis</a>
+    <a href="index.html" class="site-brand">
+      <div class="brand-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+          <line x1="12" y1="9" x2="12" y2="5"/><polyline points="10 7 12 5 14 7"/>
+        </svg>
+      </div>
+      <span class="brand-name">Move Up Mapper</span>
+    </a>
+    <div class="page-nav-links">
+      <a href="index.html" class="page-nav-link">Home Swap Calculator</a>
+      <a href="rvb.html"   class="page-nav-link active">Rent vs. Buy Analysis</a>
+      <a href="faq.html"   class="page-nav-link">FAQ</a>
+      <a href="about.html" class="page-nav-link">About</a>
+    </div>
   </div>
 
   <!-- Header -->
@@ -32,7 +46,7 @@
     </div>
     <div>
       <h1>Rent vs. Buy Analysis</h1>
-      <p class="header-sub">Compare renting and buying over a 10-year horizon</p>
+      <p class="header-sub">Compare the true long-term cost of renting versus buying</p>
     </div>
     <div style="margin-left:auto;display:flex;gap:8px;align-items:center;flex-shrink:0">
       <button class="btn-text" id="resetBtn">Reset</button>
@@ -42,10 +56,10 @@
 
   <!-- Description -->
   <div class="desc-box">
-    Compare the true financial cost of renting versus buying over 10 years. Monthly buy costs include
-    principal &amp; interest, property taxes, and PMI. The equity chart uses proper amortization
-    (front-loaded interest) and subtracts closing costs so the comparison reflects your real net
-    position. All fields are independent of the Home Swap Calculator.
+    Compare the true financial cost of renting versus buying over your selected horizon. Monthly buy costs
+    include principal &amp; interest, property taxes, and PMI (auto-dropped when LTV reaches 80%). The equity
+    chart tracks wealth built through ownership — down payment, principal paid, and appreciation — versus
+    investing that same capital in the market. All fields are independent of the Home Swap Calculator.
   </div>
 
   <!-- Disclaimer -->
@@ -55,73 +69,9 @@
   </div>
 
   <!-- ── Input Grid ── -->
-  <div class="calc-grid">
+  <div class="calc-grid calc-grid--2col">
 
-    <!-- Card 1: Financial Profile -->
-    <div class="card">
-      <div class="card-head">
-        <div class="card-icon" style="background:#4f46e5">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>
-          </svg>
-        </div>
-        <div>
-          <div class="card-title">Financial Profile</div>
-          <div class="card-sub">Your income, savings &amp; growth assumptions</div>
-        </div>
-      </div>
-      <div class="card-body">
-
-        <div class="field">
-          <label>MONTHLY TAKE-HOME PAY</label>
-          <div class="input-wrap prefix">
-            <span class="affix">$</span>
-            <input type="number" id="monthlyPay" min="0" step="100">
-          </div>
-          <div class="helper">After-tax monthly income</div>
-        </div>
-
-        <div class="two-col">
-          <div class="field">
-            <label>SAVINGS RATE</label>
-            <div class="input-wrap suffix">
-              <input type="number" id="savingsGrowthPct" min="0" max="100" step="1">
-              <span class="affix">%</span>
-            </div>
-            <div class="helper">% of monthly pay saved</div>
-          </div>
-          <div class="field">
-            <label>WAGE GROWTH</label>
-            <div class="input-wrap suffix">
-              <input type="number" id="wageGrowth" min="0" max="20" step="0.1">
-              <span class="affix">%</span>
-            </div>
-            <div class="helper">Annual income growth</div>
-          </div>
-        </div>
-
-        <div class="field">
-          <label>EXPENDABLE CASH (SAVINGS)</label>
-          <div class="input-wrap prefix">
-            <span class="affix">$</span>
-            <input type="number" id="expendableCash" min="0" step="1000">
-          </div>
-          <div class="helper">Total liquid savings available</div>
-        </div>
-
-        <div class="field">
-          <label>OPPORTUNITY COST</label>
-          <div class="input-wrap suffix">
-            <input type="number" id="opportunityCost" min="0" max="30" step="0.1">
-            <span class="affix">%</span>
-          </div>
-          <div class="helper">Annual return if savings stay invested instead of used as a down payment</div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- Card 2: Renting Scenario -->
+    <!-- Card 1: Renting Scenario -->
     <div class="card">
       <div class="card-head">
         <div class="card-icon" style="background:#6366f1">
@@ -142,7 +92,6 @@
             <span class="affix">$</span>
             <input type="number" id="rent" min="0" step="50">
           </div>
-          <div class="helper">Base monthly rent payment</div>
         </div>
 
         <div class="field">
@@ -161,7 +110,6 @@
               <input type="number" id="rentIncrease" min="0" max="20" step="0.1">
               <span class="affix">%</span>
             </div>
-            <div class="helper">Expected yearly rent growth</div>
           </div>
           <div class="field">
             <label>INFLATION RATE</label>
@@ -173,15 +121,19 @@
           </div>
         </div>
 
-        <div class="rvb-info-box">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-          <span>Rent increases compound annually. Renters insurance grows with the inflation rate.</span>
+        <div class="field">
+          <label>OPPORTUNITY COST</label>
+          <div class="input-wrap suffix">
+            <input type="number" id="opportunityCost" min="0" max="30" step="0.1">
+            <span class="affix">%</span>
+          </div>
+          <div class="helper">Annual return if down payment &amp; closing costs were invested instead</div>
         </div>
 
       </div>
     </div>
 
-    <!-- Card 3: Buying Scenario -->
+    <!-- Card 2: Buying Scenario -->
     <div class="card">
       <div class="card-head">
         <div class="card-icon" style="background:#16a34a">
@@ -201,23 +153,21 @@
           PURCHASE &amp; FINANCING
         </div>
 
-        <div class="field">
-          <label>HOME PRICE</label>
-          <div class="input-wrap prefix">
-            <span class="affix">$</span>
-            <input type="number" id="purchasePrice" min="0" step="1000">
+        <div class="three-col">
+          <div class="field">
+            <label>HOME PRICE</label>
+            <div class="input-wrap prefix">
+              <span class="affix">$</span>
+              <input type="number" id="purchasePrice" min="0" step="1000">
+            </div>
           </div>
-          <div class="helper">Expected purchase price</div>
-        </div>
-
-        <div class="two-col">
           <div class="field">
             <label>DOWN PAYMENT</label>
             <div class="input-wrap prefix">
               <span class="affix">$</span>
               <input type="number" id="downPayment" min="0" step="1000">
             </div>
-            <div class="helper">Upfront payment; used vs. invested in Chart 2</div>
+            <div class="helper">Used vs. invested in Chart 2</div>
           </div>
           <div class="field">
             <label>CLOSING COSTS</label>
@@ -229,14 +179,13 @@
           </div>
         </div>
 
-        <div class="two-col">
+        <div class="three-col">
           <div class="field">
             <label>MORTGAGE RATE</label>
             <div class="input-wrap suffix">
               <input type="number" id="mortgageRate" min="0" max="30" step="0.05">
               <span class="affix">%</span>
             </div>
-            <div class="helper">Annual interest rate</div>
           </div>
           <div class="field">
             <label>LOAN TERM</label>
@@ -244,16 +193,23 @@
               <input type="number" id="mortgageTerm" min="1" max="40" step="1">
               <span class="affix">yrs</span>
             </div>
-            <div class="helper">Mortgage length</div>
+          </div>
+          <div class="field">
+            <label>MONTHLY PMI</label>
+            <div class="input-wrap prefix">
+              <span class="affix">$</span>
+              <input type="number" id="monthlyPMI" min="0" step="10">
+            </div>
+            <div class="helper">Required if down &lt; 20%; auto-drops at 80% LTV</div>
           </div>
         </div>
 
         <div class="section-label mt-sm">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-          TAXES, PMI &amp; GROWTH
+          TAXES &amp; GROWTH
         </div>
 
-        <div class="two-col">
+        <div class="three-col">
           <div class="field">
             <label>PROPERTY TAX RATE</label>
             <div class="input-wrap suffix">
@@ -270,17 +226,6 @@
             </div>
             <div class="helper">Annual property tax growth</div>
           </div>
-        </div>
-
-        <div class="two-col">
-          <div class="field">
-            <label>MONTHLY PMI</label>
-            <div class="input-wrap prefix">
-              <span class="affix">$</span>
-              <input type="number" id="monthlyPMI" min="0" step="10">
-            </div>
-            <div class="helper">Required if down &lt; 20%; auto-drops when LTV ≤ 80%</div>
-          </div>
           <div class="field">
             <label>HOME VALUE GROWTH</label>
             <div class="input-wrap suffix">
@@ -295,6 +240,22 @@
     </div>
 
   </div><!-- end calc-grid -->
+
+  <!-- ── Analysis Horizon ── -->
+  <div class="card wide-card horizon-card no-print">
+    <div class="horizon-inner">
+      <div class="horizon-label-group">
+        <span class="horizon-title">ANALYSIS HORIZON</span>
+        <div class="horizon-value-display"><span id="horizonDisplay">10</span> <span class="horizon-unit">years</span></div>
+      </div>
+      <div class="horizon-slider-row">
+        <span class="horizon-edge-label">5 yrs</span>
+        <input type="range" id="horizonSlider" min="5" max="30" step="1" value="10">
+        <span class="horizon-edge-label">30 yrs</span>
+      </div>
+      <div class="horizon-note">All charts, totals, and projections update to reflect your selected horizon.</div>
+    </div>
+  </div>
 
   <!-- ── Summary Stats ── -->
   <div class="card wide-card">
@@ -331,7 +292,7 @@
       </div>
 
       <div class="bp-stat">
-        <div class="bp-stat-label">10-YEAR VERDICT</div>
+        <div class="bp-stat-label"><span class="dynamic-yr-label">10</span>-YEAR VERDICT</div>
         <div style="margin-top:6px"><span id="stat-winner" class="pb-badge badge-green">—</span></div>
         <div class="bp-stat-delta" id="stat-equity-diff">—</div>
       </div>
@@ -349,7 +310,7 @@
       </div>
       <div>
         <div class="card-title">Monthly Cost Comparison</div>
-        <div class="card-sub">Total monthly housing cost: rent vs. buy (P&amp;I + property tax + PMI) over 10 years</div>
+        <div class="card-sub">Total monthly housing cost: rent vs. buy (P&amp;I + property tax + PMI) over your selected horizon</div>
       </div>
     </div>
     <div class="bp-layout">
@@ -387,7 +348,7 @@
           </div>
         </div>
         <div class="ctrl-section">
-          <div class="ctrl-section-title">10-YEAR TOTALS</div>
+          <div class="ctrl-section-title"><span class="dynamic-yr-label">10</span>-YEAR TOTALS</div>
           <div class="net-section">
             <div class="net-row">
               <span style="color:var(--indigo);font-weight:600">Total rent paid</span>
@@ -396,6 +357,14 @@
             <div class="net-row" style="margin-top:4px">
               <span style="color:#16a34a;font-weight:600">Total P&amp;I paid</span>
               <span id="side-totalpi">—</span>
+            </div>
+            <div class="net-row" style="margin-top:2px;padding-left:10px">
+              <span style="color:var(--text-muted)">↳ Principal paid</span>
+              <span id="side-total-principal" style="color:#16a34a">—</span>
+            </div>
+            <div class="net-row" style="margin-top:2px;padding-left:10px">
+              <span style="color:var(--text-muted)">↳ Interest paid</span>
+              <span id="side-total-interest" style="color:var(--red)">—</span>
             </div>
             <div class="net-row" style="margin-top:4px">
               <span style="color:#16a34a;font-weight:600">Total prop. taxes</span>
@@ -440,7 +409,7 @@
       </div>
       <div>
         <div class="card-title">Equity vs. Invested Capital Growth</div>
-        <div class="card-sub">Net home equity (after closing costs) vs. investing the same capital over 10 years</div>
+        <div class="card-sub">Home equity built (down payment + principal paid + appreciation) vs. investing the same capital</div>
       </div>
     </div>
     <div class="bp-layout">
@@ -449,13 +418,13 @@
           <canvas id="wealthChart"></canvas>
         </div>
         <div class="chart-footnote">
-          <strong>Net home equity</strong> = appreciated home value − remaining loan balance (proper amortization, front-loaded interest) − closing costs. Starts below your down payment because closing costs are immediately sunk.
+          <strong>Home equity built</strong> = down payment + principal paid to date (proper amortization, front-loaded interest) + home appreciation above purchase price. Tracks wealth created through ownership without deducting the outstanding loan balance.
           <strong>Invested capital</strong> = your down payment + closing costs compounded at the opportunity cost rate — what that same money would grow to in the market.
         </div>
       </div>
       <div class="bp-controls">
         <div class="ctrl-section">
-          <div class="ctrl-section-title">AMORTIZATION: YR 1 VS YR 10</div>
+          <div class="ctrl-section-title">AMORTIZATION: YR 1 VS YR <span class="dynamic-yr-label">10</span></div>
           <div class="net-section">
             <div style="font-size:10px;font-weight:700;letter-spacing:.05em;color:var(--text-muted);margin-bottom:5px">YEAR 1 (of annual P&amp;I payments)</div>
             <div class="net-row">
@@ -466,34 +435,34 @@
               <span>→ Interest paid</span>
               <span id="side-interest-yr1" style="font-weight:500;color:var(--red)">—</span>
             </div>
-            <div style="font-size:10px;font-weight:700;letter-spacing:.05em;color:var(--text-muted);margin:10px 0 5px">YEAR 10 (of annual P&amp;I payments)</div>
+            <div style="font-size:10px;font-weight:700;letter-spacing:.05em;color:var(--text-muted);margin:10px 0 5px">YEAR <span class="dynamic-yr-label">10</span> (of annual P&amp;I payments)</div>
             <div class="net-row">
               <span>→ Principal paid</span>
-              <span id="side-principal-yr10" style="font-weight:500;color:#16a34a">—</span>
+              <span id="side-principal-yr-last" style="font-weight:500;color:#16a34a">—</span>
             </div>
             <div class="net-row" style="margin-top:3px">
               <span>→ Interest paid</span>
-              <span id="side-interest-yr10" style="font-weight:500;color:var(--red)">—</span>
+              <span id="side-interest-yr-last" style="font-weight:500;color:var(--red)">—</span>
             </div>
           </div>
         </div>
         <div class="ctrl-section">
-          <div class="ctrl-section-title">AT YEAR 10</div>
+          <div class="ctrl-section-title">AT YEAR <span class="dynamic-yr-label">10</span></div>
           <div class="net-section">
             <div class="net-row">
-              <span style="color:#16a34a;font-weight:600">Net equity</span>
-              <span id="side-equity10">—</span>
+              <span style="color:#16a34a;font-weight:600">Home equity built</span>
+              <span id="side-equity-last">—</span>
             </div>
             <div class="net-row" style="margin-top:4px">
               <span style="color:var(--indigo);font-weight:600">Invested capital</span>
-              <span id="side-savings10">—</span>
+              <span id="side-savings-last">—</span>
             </div>
           </div>
         </div>
         <div class="ctrl-section">
           <div class="ctrl-section-title">BREAK-EVEN</div>
           <div style="font-size:22px;font-weight:700;color:var(--text);padding:4px 0" id="stat-break-even-2">—</div>
-          <div style="font-size:11px;color:var(--text-muted)">Year equity surpasses invested capital</div>
+          <div style="font-size:11px;color:var(--text-muted)">Year home equity built surpasses invested capital</div>
         </div>
         <div class="ctrl-section">
           <div class="ctrl-section-title">GROWTH RATES</div>
@@ -522,9 +491,21 @@
     </div>
   </div>
 
+  <footer class="site-footer no-print">
+    <div class="footer-links">
+      <a href="index.html">Home Swap Calculator</a>
+      <a href="rvb.html">Rent vs. Buy Analysis</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+      <a href="privacy.html">Privacy</a>
+    </div>
+    <div class="footer-note">For informational purposes only. Not financial advice. &copy; 2026</div>
+  </footer>
+
 </div><!-- end .app -->
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
 <script src="rvb.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
