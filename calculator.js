@@ -104,11 +104,12 @@ function calcAnnualPropertyTax(s, price) {
   return s.propertyTaxDollar;
 }
 
-function calcAffordablePrice(s, targetMonthly, dpPool) {
+function calcAffordablePrice(s, targetMonthly, dpPool, hoiMonthly) {
   const K = mortgageFactor(s.interestRate);
   const dp = Math.max(0, dpPool);
+  const hoi = hoiMonthly !== undefined ? hoiMonthly : s.homeownersInsurance;
   // HOI is a fixed monthly cost independent of price — deduct it before solving
-  const budget = Math.max(0, targetMonthly - s.homeownersInsurance);
+  const budget = Math.max(0, targetMonthly - hoi);
   let price;
   if (s.taxMode === 'percent') {
     const taxMonthly = s.propertyTaxPercent / 100 / 12;
@@ -206,14 +207,16 @@ function calculate(s) {
       equity_t = equity * Math.pow(1 + effEquityGrowth / 100, t);
     }
     const saleProceeds_t = Math.max(0, equity_t - homeVal_t * s.realtorFee / 100);
-    // Transaction costs inflate over time — waiting costs more in nominal terms
-    const fixedCosts_t = fixedCosts * Math.pow(1 + s.inflationRate / 100, t);
+    // Transaction costs and HOI inflate over time
+    const inflFactor_t  = Math.pow(1 + s.inflationRate / 100, t);
+    const fixedCosts_t  = fixedCosts * inflFactor_t;
+    const hoi_t         = s.homeownersInsurance * inflFactor_t;
     const dpPool_t = Math.max(0, saleProceeds_t + cashPool - fixedCosts_t);
-    const comfort_t = calcAffordablePrice(s, income_t * 0.28, dpPool_t);
-    const ceiling_t = calcAffordablePrice(s, income_t * 0.36, dpPool_t);
-    const annualTax_t = annualTax * Math.pow(1 + effPropTaxGrowth / 100, t);
+    const comfort_t = calcAffordablePrice(s, income_t * 0.28, dpPool_t, hoi_t);
+    const ceiling_t = calcAffordablePrice(s, income_t * 0.36, dpPool_t, hoi_t);
+    const annualTax_t   = annualTax * Math.pow(1 + effPropTaxGrowth / 100, t);
     const annualMaint_t = s.purchasePrice * (s.maintenanceRate / 100) * Math.pow(1 + effMaintenanceGrowth / 100, t);
-    const costBurden_t = annualTax_t + annualMaint_t;
+    const costBurden_t  = annualTax_t + annualMaint_t + hoi_t * 12;
     const targetPrice_t = s.targetPriceMode === 'rising'
       ? s.purchasePrice * Math.pow(1 + s.targetPriceGrowth / 100, t)
       : s.purchasePrice;
@@ -472,11 +475,12 @@ function render(c, s) {
 
   setText('bp-footnote',
     '* Interest rate held constant at ' + fmtPct(s.interestRate) +
-    '. Maintenance estimated at ' + fmtPct(s.maintenanceRate) + ' of prospective home price/yr. Cash pool starts at your ' +
-    'expendable cash, grows via investment returns each year, plus new annual savings equal to ' +
-    'Savings % × growing monthly pay × 12. Transaction costs (lender fees, repairs, moving) ' +
-    'inflate at the Inflation Rate each year. Buying power reflects max affordable purchase price ' +
-    'given projected income, down payment, and carrying costs.'
+    '. Maintenance estimated at ' + fmtPct(s.maintenanceRate) + ' of prospective home price/yr. ' +
+    'Annual cost burden includes property taxes, maintenance, and homeowners insurance. ' +
+    'Homeowners insurance and transaction costs (lender fees, repairs, moving) inflate at the Inflation Rate each year. ' +
+    'Buying power reflects max affordable purchase price given projected income, down payment, and inflation-adjusted carrying costs. ' +
+    'Cash pool starts at your expendable cash, grows via investment returns each year, plus new annual savings equal to ' +
+    'Savings % × growing monthly pay × 12.'
   );
 
   updateBpChart(c, s);
