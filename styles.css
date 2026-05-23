@@ -247,6 +247,7 @@ canvas { display: block; width: 100% !important; }
 /* ── Form Fields ── */
 .field { margin-bottom: 16px; }
 .field:last-child { margin-bottom: 0; }
+#loanDetailsFields { margin-bottom: 16px; }
 label {
   display: block;
   font-size: 11px;
@@ -303,12 +304,15 @@ label {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
+  margin-bottom: 16px;
 }
 .three-col {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 10px;
+  margin-bottom: 16px;
 }
+.two-col:last-child, .three-col:last-child { margin-bottom: 0; }
 .field-row-head {
   display: flex;
   align-items: center;
@@ -352,6 +356,22 @@ label {
   transition: all .15s;
 }
 .mode-btn.active { background: var(--indigo); color: white; }
+
+.buyer-mode-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+}
+.buyer-mode-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
 
 /* ── Results Card ── */
 .results-card {
@@ -907,7 +927,7 @@ details[open] > .faq-q::after {
 }
 
 /* ── Horizon Slider ── */
-.horizon-card { overflow: visible; }
+.horizon-card { overflow: visible; margin-bottom: 28px; }
 .horizon-inner {
   display: flex;
   align-items: center;

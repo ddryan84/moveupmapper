@@ -2,9 +2,31 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rent vs. Buy Analysis</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Rent vs. Buy Calculator — Move Up Mapper</title>
+  <meta name="description" content="Compare the true long-term cost of renting vs. buying a home. Amortization-accurate charts, PMI tracking, and equity vs. invested capital projections. Free, no sign-up.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Move Up Mapper">
+  <meta property="og:title" content="Rent vs. Buy Calculator — Move Up Mapper">
+  <meta property="og:description" content="Compare the true long-term cost of renting vs. buying a home. Amortization-accurate charts, PMI tracking, and equity vs. invested capital projections. Free, no sign-up.">
+  <meta property="og:url" content="https://www.moveupmapper.com/rvb.html">
+  <link rel="canonical" href="https://www.moveupmapper.com/rvb.html">
+  <link rel="stylesheet" href="styles.css?v=2">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Rent vs. Buy Calculator",
+    "url": "https://www.moveupmapper.com/rvb.html",
+    "description": "Compare the true long-term cost of renting vs. buying a home with amortization-accurate charts, PMI tracking, and equity vs. invested capital projections.",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "isAccessibleForFree": true,
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "provider": { "@type": "Organization", "name": "Move Up Mapper", "url": "https://www.moveupmapper.com" }
+  }
+  </script>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-YCEFCLSHX0"></script>
   <script>
@@ -22,9 +44,10 @@
     <a href="index.html" class="site-brand">
       <div class="brand-icon">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
-          <polyline points="9 22 9 12 15 12 15 22"/>
-          <line x1="12" y1="9" x2="12" y2="5"/><polyline points="10 7 12 5 14 7"/>
+          <polyline points="9 6 12 3 15 6"/>
+          <line x1="12" y1="3" x2="12" y2="9"/>
+          <path d="M2 15 L12 9 L22 15 V22 H2 Z"/>
+          <path d="M9 22 V17 H15 V22"/>
         </svg>
       </div>
       <span class="brand-name">Move Up Mapper</span>
@@ -66,6 +89,22 @@
   <div class="disclaimer-bar">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
     <span><strong>Not financial advice.</strong> This tool is for informational purposes only. It does not constitute financial, mortgage, tax, or legal advice. Consult a qualified professional before making any real estate or financial decisions.</span>
+  </div>
+
+  <!-- ── Analysis Horizon ── -->
+  <div class="card wide-card horizon-card no-print">
+    <div class="horizon-inner">
+      <div class="horizon-label-group">
+        <span class="horizon-title">ANALYSIS HORIZON</span>
+        <div class="horizon-value-display"><span id="horizonDisplay">10</span> <span class="horizon-unit">years</span></div>
+      </div>
+      <div class="horizon-slider-row">
+        <span class="horizon-edge-label">5 yrs</span>
+        <input type="range" id="horizonSlider" min="5" max="30" step="1" value="10">
+        <span class="horizon-edge-label">30 yrs</span>
+      </div>
+      <div class="horizon-note">All charts, totals, and projections update to reflect your selected horizon.</div>
+    </div>
   </div>
 
   <!-- ── Input Grid ── -->
@@ -146,7 +185,7 @@
           <div class="card-sub">Prospective home purchase details</div>
         </div>
       </div>
-      <div class="card-body">
+      <div class="card-section">
 
         <div class="section-label">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
@@ -167,7 +206,7 @@
               <span class="affix">$</span>
               <input type="number" id="downPayment" min="0" step="1000">
             </div>
-            <div class="helper">Used vs. invested in Chart 2</div>
+            <div class="helper"><span id="dp-pct-live" style="color:var(--indigo);font-weight:600">—</span> · used vs. invested in Chart 2</div>
           </div>
           <div class="field">
             <label>CLOSING COSTS</label>
@@ -175,7 +214,7 @@
               <span class="affix">$</span>
               <input type="number" id="closingCosts" min="0" step="500">
             </div>
-            <div class="helper">Lender fees, title, escrow, etc.</div>
+            <div class="helper">Lender fees, title, escrow</div>
           </div>
         </div>
 
@@ -200,13 +239,16 @@
               <span class="affix">$</span>
               <input type="number" id="monthlyPMI" min="0" step="10">
             </div>
-            <div class="helper">Required if down &lt; 20%; auto-drops at 80% LTV</div>
+            <div class="helper">Auto-drops to $0 at 80% LTV</div>
           </div>
         </div>
 
-        <div class="section-label mt-sm">
+      </div>
+      <div class="card-section" style="border-top: 1px solid var(--border)">
+
+        <div class="section-label">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-          TAXES &amp; GROWTH
+          TAXES, GROWTH &amp; COSTS
         </div>
 
         <div class="three-col">
@@ -216,15 +258,15 @@
               <input type="number" id="propTaxRate" min="0" max="5" step="0.05">
               <span class="affix">%</span>
             </div>
-            <div class="helper">Annual tax as % of home price</div>
+            <div class="helper">Annual % of home price</div>
           </div>
           <div class="field">
-            <label>TAX INCREASE / YR</label>
+            <label>TAX GROWTH / YR</label>
             <div class="input-wrap suffix">
               <input type="number" id="propTaxGrowth" min="0" max="10" step="0.1">
               <span class="affix">%</span>
             </div>
-            <div class="helper">Annual property tax growth</div>
+            <div class="helper">Annual tax increase</div>
           </div>
           <div class="field">
             <label>HOME VALUE GROWTH</label>
@@ -232,7 +274,26 @@
               <input type="number" id="homeGrowth" min="0" max="20" step="0.1">
               <span class="affix">%</span>
             </div>
-            <div class="helper">Expected annual appreciation</div>
+            <div class="helper">Expected appreciation</div>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div class="field">
+            <label>HOME MAINTENANCE</label>
+            <div class="input-wrap suffix">
+              <input type="number" id="maintenancePct" min="0" max="10" step="0.1" value="1">
+              <span class="affix">%</span>
+            </div>
+            <div class="helper">Annual upkeep as % of home value (typically 1–2%)</div>
+          </div>
+          <div class="field">
+            <label>MONTHLY HOA</label>
+            <div class="input-wrap prefix">
+              <span class="affix">$</span>
+              <input type="number" id="monthlyHOA" min="0" step="10" value="0">
+            </div>
+            <div class="helper">Fixed monthly fee; enter 0 if none</div>
           </div>
         </div>
 
@@ -240,22 +301,6 @@
     </div>
 
   </div><!-- end calc-grid -->
-
-  <!-- ── Analysis Horizon ── -->
-  <div class="card wide-card horizon-card no-print">
-    <div class="horizon-inner">
-      <div class="horizon-label-group">
-        <span class="horizon-title">ANALYSIS HORIZON</span>
-        <div class="horizon-value-display"><span id="horizonDisplay">10</span> <span class="horizon-unit">years</span></div>
-      </div>
-      <div class="horizon-slider-row">
-        <span class="horizon-edge-label">5 yrs</span>
-        <input type="range" id="horizonSlider" min="5" max="30" step="1" value="10">
-        <span class="horizon-edge-label">30 yrs</span>
-      </div>
-      <div class="horizon-note">All charts, totals, and projections update to reflect your selected horizon.</div>
-    </div>
-  </div>
 
   <!-- ── Summary Stats ── -->
   <div class="card wide-card">
@@ -310,7 +355,7 @@
       </div>
       <div>
         <div class="card-title">Monthly Cost Comparison</div>
-        <div class="card-sub">Total monthly housing cost: rent vs. buy (P&amp;I + property tax + PMI) over your selected horizon</div>
+        <div class="card-sub">Total monthly housing cost: rent vs. buy (P&amp;I + tax + PMI + maintenance + HOA) over your selected horizon</div>
       </div>
     </div>
     <div class="bp-layout">
@@ -320,8 +365,8 @@
         </div>
         <div class="chart-footnote">
           <strong>Rent</strong> compounds at your annual rent increase rate; renters insurance grows with inflation.
-          <strong>Buy</strong> includes fixed P&amp;I, property taxes (growing at your tax increase rate), and PMI until
-          LTV reaches 80%. Excludes homeowners insurance and maintenance.
+          <strong>Buy</strong> includes fixed P&amp;I, property taxes (growing at your tax increase rate), PMI until
+          LTV reaches 80%, maintenance (your % × current home value each year), and HOA (flat monthly). Excludes homeowners insurance.
         </div>
       </div>
       <div class="bp-controls">
@@ -339,6 +384,14 @@
             <div class="net-row" style="margin-top:4px">
               <span>PMI</span>
               <span id="side-pmi-yr1" style="font-weight:500">—</span>
+            </div>
+            <div class="net-row" style="margin-top:4px">
+              <span>Maintenance</span>
+              <span id="side-maintenance-yr1" style="font-weight:500">—</span>
+            </div>
+            <div class="net-row" style="margin-top:4px">
+              <span>HOA</span>
+              <span id="side-hoa-yr1" style="font-weight:500">—</span>
             </div>
             <div class="r-divider"></div>
             <div class="net-row r-bold">
@@ -491,6 +544,127 @@
     </div>
   </div>
 
+  <!-- ── Key Concepts ── -->
+  <div class="card wide-card">
+    <div class="card-head">
+      <div class="card-icon" style="background:#0f766e">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-title">Key Concepts &amp; How It Works</div>
+        <div class="card-sub">Plain-English explanations of every input, the math behind each chart, and important assumptions</div>
+      </div>
+    </div>
+    <div class="glossary-body">
+
+      <div class="gloss-group">
+        <div class="gloss-group-title">Calculator Inputs</div>
+        <div class="gloss-grid">
+          <div class="gloss-item">
+            <div class="gloss-term">Opportunity Cost Rate</div>
+            <div class="gloss-def">The annual return you'd earn by investing your down payment and closing costs in the market instead of buying. This is used to model how the renter's capital grows over time in Chart 2. A common baseline is 7% — the long-run average real return of a diversified equity portfolio.</div>
+          </div>
+          <div class="gloss-item">
+            <div class="gloss-term">Rent Increase</div>
+            <div class="gloss-def">The annual rate at which your rent escalates. Historical U.S. rent growth has averaged 3–5% per year, though it varies significantly by market. A higher rent increase rate makes renting more expensive over time and improves the relative cost of buying.</div>
+          </div>
+          <div class="gloss-item">
+            <div class="gloss-term">Down Payment</div>
+            <div class="gloss-def">The upfront cash applied toward the purchase price. A larger down payment reduces your loan, lowers monthly P&amp;I, and may eliminate PMI if it reaches 20% of the home price. In Chart 2, the down payment is also the starting value of the renter's investment pool — the capital they keep invested instead of putting into a home.</div>
+          </div>
+          <div class="gloss-item">
+            <div class="gloss-term">Closing Costs</div>
+            <div class="gloss-def">Lender fees, title insurance, escrow charges, and prepaid items due at closing — typically 1.5–3% of the loan amount. In this calculator, closing costs are added to the renter's starting investment pool in Chart 2, since those funds would otherwise be invested if the purchase didn't happen.</div>
+          </div>
+          <div class="gloss-item">
+            <div class="gloss-term">Monthly PMI</div>
+            <div class="gloss-def">Private Mortgage Insurance, required by most lenders when your down payment is less than 20% of the purchase price. It protects the lender — not you — against default. This calculator automatically drops PMI to $0 once your loan balance reaches 80% of the original purchase price, and marks that year on Chart 1.</div>
+          </div>
+          <div class="gloss-item">
+            <div class="gloss-term">Home Maintenance</div>
+            <div class="gloss-def">Annual upkeep costs expressed as a percentage of the home's current value — covering routine repairs, system replacements, and general maintenance. Because it's tied to home value, this cost grows with appreciation. Financial planners commonly estimate 1–2% per year, though newer homes tend toward the lower end.</div>
+          </div>
+          <div class="gloss-item">
+            <div class="gloss-term">Monthly HOA</div>
+            <div class="gloss-def">A fixed monthly fee charged by a homeowners association for shared amenities and community maintenance. Unlike maintenance, HOA fees are set by the association — not tied to home value — so they're modeled here as a flat dollar amount that does not grow with appreciation.</div>
+          </div>
+          <div class="gloss-item">
+            <div class="gloss-term">Property Tax Rate &amp; Growth</div>
+            <div class="gloss-def">Annual property tax as a percentage of the original purchase price, with a separate annual growth rate applied each year. Tax rates vary widely by state and county — from under 0.5% to over 2%. The growth rate accounts for annual reassessments and local rate changes, historically averaging 2–3%.</div>
+          </div>
+          <div class="gloss-item">
+            <div class="gloss-term">Home Value Growth</div>
+            <div class="gloss-def">Expected annual appreciation applied to the home's market value. This affects equity accumulation, the maintenance cost calculation, and the equity chart. Long-run U.S. home price appreciation has averaged roughly 3–4% annually, though local markets differ substantially.</div>
+          </div>
+          <div class="gloss-item">
+            <div class="gloss-term">Analysis Horizon</div>
+            <div class="gloss-def">The number of years over which all projections are run. A shorter horizon typically favors renting — buying involves high upfront costs that take years to recover. A longer horizon increasingly favors buying as equity compounds and the fixed mortgage payment becomes cheaper relative to rising rents.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gloss-group">
+        <div class="gloss-group-title">How the Calculations Work</div>
+        <div class="gloss-grid">
+          <div class="gloss-item">
+            <div class="gloss-term">Monthly Cost Comparison (Chart 1)</div>
+            <div class="gloss-def">Each year's buying cost sums five components: mortgage P&amp;I (fixed for the life of the loan), property tax (grows annually), PMI (drops once the loan reaches 80% LTV), home maintenance (grows with home value), and HOA (flat). Renting cost adds rent (grows annually) and renters insurance (grows with inflation). The chart plots both over your horizon so you can see when — and by how much — one becomes cheaper than the other.</div>
+          </div>
+          <div class="gloss-item">
+            <div class="gloss-term">Break-Even Year</div>
+            <div class="gloss-def">The first year in which the cumulative cost of buying (including closing costs) falls below the cumulative cost of renting. Before that year, renting has cost less in total; after it, buying has. Closing costs push the break-even out — a higher closing cost means more years needed to recover the purchase expense. The break-even year is shown in the Summary Stats panel.</div>
+          </div>
+          <div class="gloss-item">
+            <div class="gloss-term">Equity (Chart 2)</div>
+            <div class="gloss-def">The buyer's equity at each year is the sum of three parts: the original down payment, the principal paid down on the mortgage to date (derived from amortization), and the appreciation gained on the home's value since purchase. This represents the net wealth locked in the home if you were to sell at that point, before selling costs.</div>
+          </div>
+          <div class="gloss-item">
+            <div class="gloss-term">Renter's Invested Capital (Chart 2)</div>
+            <div class="gloss-def">Models how the renter's capital grows over time. The starting pool is the down payment plus closing costs — money the renter keeps invested instead of putting into a home. Each year, the pool grows at the opportunity cost rate. In years where buying is more expensive, the renter also adds the cost difference to their pool. In years where renting is more expensive, the pool absorbs that gap (floored at zero).</div>
+          </div>
+          <div class="gloss-item">
+            <div class="gloss-term">PMI Drop-Off Tracking</div>
+            <div class="gloss-def">Rather than estimating when PMI ends, this calculator tracks your mortgage balance month-by-month using closed-form amortization to find the exact month your balance falls to 80% of the original purchase price — the standard LTV threshold for PMI cancellation. The annotated vertical line on Chart 1 marks that year precisely.</div>
+          </div>
+          <div class="gloss-item">
+            <div class="gloss-term">Amortization Model</div>
+            <div class="gloss-def">Mortgage P&amp;I is computed using the standard fixed-payment amortization formula. The loan balance at any point in time is derived algebraically from the original loan amount, interest rate, term, and number of payments made — no month-by-month loop is needed. This gives accurate principal-paid and interest-paid totals for any horizon.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gloss-group">
+        <div class="gloss-group-title">Assumptions &amp; Limitations</div>
+        <div class="gloss-grid">
+          <div class="gloss-item">
+            <div class="gloss-term">Fixed-Rate Mortgage Only</div>
+            <div class="gloss-def">This calculator models a 30-year (or custom term) fixed-rate mortgage. Adjustable-rate mortgages (ARMs), interest-only loans, and FHA/VA products with different PMI structures are not modeled. If you're considering an ARM, the true long-term cost comparison will differ from what this tool shows.</div>
+          </div>
+          <div class="gloss-item">
+            <div class="gloss-term">Tax Benefits Not Included</div>
+            <div class="gloss-def">The mortgage interest deduction and property tax deduction are not factored into buying costs. For itemizers in higher tax brackets, this means the calculator slightly overstates the true after-tax cost of buying. The effect is most significant in the early years of the loan when interest makes up the majority of each payment.</div>
+          </div>
+          <div class="gloss-item">
+            <div class="gloss-term">Constant Growth Rates</div>
+            <div class="gloss-def">All growth rates — rent, home value, inflation, property tax — are assumed constant year over year. In reality, these fluctuate significantly. The tool is best used to compare scenarios and stress-test assumptions (e.g., what if rent grows at 6% instead of 3%?) rather than to predict a precise outcome.</div>
+          </div>
+          <div class="gloss-item">
+            <div class="gloss-term">Renter Investment Discipline</div>
+            <div class="gloss-def">The renter's invested capital model assumes the renter consistently invests both the initial down payment capital and any monthly cost savings. In practice, this requires financial discipline — money not spent on housing doesn't automatically end up invested. If the renter spends rather than invests the difference, Chart 2's renter line overstates their actual wealth accumulation.</div>
+          </div>
+          <div class="gloss-item">
+            <div class="gloss-term">Selling Costs Not Included</div>
+            <div class="gloss-def">The equity figures in Chart 2 do not deduct selling costs (realtor fees, transfer taxes, etc.) that would reduce actual net proceeds at sale. When comparing buying vs. renting over a short horizon, factor in 5–6% of home value in selling costs — which can meaningfully shift the break-even calculation.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
   <footer class="site-footer no-print">
     <div class="footer-links">
       <a href="index.html">Home Swap Calculator</a>
@@ -506,7 +680,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
-<script src="rvb.js"></script>
+<script src="rvb.js?v=4"></script>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     // Mirror read-only display values in side panel assumption rows
@@ -524,14 +698,6 @@
       });
     }
     mirrors.forEach(([src]) => document.getElementById(src)?.addEventListener('input', syncMirrors));
-
-    // Keep Chart 2 break-even in sync with summary bar value
-    const orig = document.getElementById('stat-break-even');
-    const dup  = document.getElementById('stat-break-even-2');
-    if (orig && dup) {
-      new MutationObserver(() => { dup.textContent = orig.textContent; })
-        .observe(orig, { childList: true, characterData: true, subtree: true });
-    }
 
     syncMirrors();
   });

@@ -2,9 +2,31 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home Swap Calculator</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Home Swap Calculator — Move Up Mapper</title>
+  <meta name="description" content="Estimate your new mortgage payment, monthly costs, and cash position when trading up or down to a different home. Free calculator, no sign-up required.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Move Up Mapper">
+  <meta property="og:title" content="Home Swap Calculator — Move Up Mapper">
+  <meta property="og:description" content="Estimate your new mortgage payment, monthly costs, and cash position when trading up or down to a different home. Free calculator, no sign-up required.">
+  <meta property="og:url" content="https://www.moveupmapper.com/index.html">
+  <link rel="canonical" href="https://www.moveupmapper.com/index.html">
+  <link rel="stylesheet" href="styles.css?v=2">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Home Swap Calculator",
+    "url": "https://www.moveupmapper.com/index.html",
+    "description": "Estimate your new mortgage payment, monthly costs, and cash position when trading up or down to a different home.",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "isAccessibleForFree": true,
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "provider": { "@type": "Organization", "name": "Move Up Mapper", "url": "https://www.moveupmapper.com" }
+  }
+  </script>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-YCEFCLSHX0"></script>
   <script>
@@ -22,9 +44,10 @@
     <a href="index.html" class="site-brand">
       <div class="brand-icon">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
-          <polyline points="9 22 9 12 15 12 15 22"/>
-          <line x1="12" y1="9" x2="12" y2="5"/><polyline points="10 7 12 5 14 7"/>
+          <polyline points="9 6 12 3 15 6"/>
+          <line x1="12" y1="3" x2="12" y2="9"/>
+          <path d="M2 15 L12 9 L22 15 V22 H2 Z"/>
+          <path d="M9 22 V17 H15 V22"/>
         </svg>
       </div>
       <span class="brand-name">Move Up Mapper</span>
@@ -94,9 +117,12 @@
           <div class="card-title" id="currentHomeTitle">Your Current Home</div>
           <div class="card-sub" id="currentHomeSub">What you're working with today</div>
         </div>
-        <div class="mode-toggle" style="align-self:flex-start;margin-top:2px;flex-shrink:0">
+      </div>
+      <div class="buyer-mode-bar">
+        <span class="buyer-mode-label">Buyer type</span>
+        <div class="mode-toggle">
           <button class="mode-btn active" id="buyerModeOwner">Owner</button>
-          <button class="mode-btn" id="buyerModeFirst">First-Time</button>
+          <button class="mode-btn" id="buyerModeFirst">First-Time Buyer</button>
         </div>
       </div>
       <div class="card-body">
@@ -438,7 +464,6 @@
           </button>
           <div class="slider-wrap">
             <input type="range" id="targetSlider" min="0" max="100">
-            <div class="slider-zones" id="sliderZones"></div>
           </div>
           <button class="slider-step" id="sliderUp">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
@@ -452,7 +477,7 @@
           <span id="a-sliderMax"></span>
         </div>
         <div class="affordable-meta">
-          <p>Available down payment: <strong id="a-dp"></strong></p>
+          <p>Available down payment (after fees &amp; costs): <strong id="a-dp"></strong></p>
           <p>Rate used: <strong id="a-rate"></strong> · 30-yr fixed</p>
         </div>
       </div>
@@ -683,7 +708,7 @@
   </div>
 
 
-  <!-- ── Section 5: Key Terms & Concepts ── -->
+  <!-- ── Section 4: Key Terms & Concepts ── -->
   <div class="card wide-card" id="glossarySection">
     <div class="card-head">
       <div class="card-icon icon-glossary">
@@ -809,95 +834,6 @@
       </div>
 
     </div><!-- /glossary-body -->
-  </div>
-
-
-  <!-- ── Section 6: FAQ ── -->
-  <div class="card wide-card" id="faqSection">
-    <div class="card-head">
-      <div class="card-icon icon-faq">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>
-        </svg>
-      </div>
-      <div>
-        <div class="card-title">Frequently Asked Questions</div>
-        <div class="card-sub">Common questions about selling, buying, and using this calculator</div>
-      </div>
-    </div>
-    <div class="faq-body">
-
-      <details class="faq-item" open>
-        <summary class="faq-q">What is the 28% rule for housing costs?</summary>
-        <div class="faq-a">
-          The 28% rule is a guideline suggesting that your monthly housing costs — mortgage P&amp;I, property taxes, and insurance — should not exceed 28% of your monthly take-home pay. Staying below this threshold generally leaves enough income for savings, debt repayment, and everyday spending. It's considered the "comfort zone" for long-term housing affordability, and it's the green threshold you'll see throughout this calculator.
-        </div>
-      </details>
-
-      <details class="faq-item">
-        <summary class="faq-q">What does the 36% ceiling mean, and what happens if I exceed it?</summary>
-        <div class="faq-a">
-          The 36% ceiling is the upper limit most lenders use when qualifying borrowers. If your housing-to-income ratio would exceed 36%, you may be denied for the mortgage, offered a higher rate, or required to put more money down. Even if you're approved, a payment above 36% leaves very little margin for unexpected expenses, income disruptions, or other financial goals. This calculator flags it in red as a hard caution — not necessarily a dealbreaker, but a sign to look for a lower purchase price or a larger down payment.
-        </div>
-      </details>
-
-      <details class="faq-item">
-        <summary class="faq-q">What's the difference between equity and loan balance — and which should I enter?</summary>
-        <div class="faq-a">
-          Equity is what you <em>own</em>: home value minus mortgage balance. Loan balance is what you <em>owe</em>. Enter whichever number you know — the calculator converts automatically using your home valuation. If you're unsure of your exact equity, check your most recent mortgage statement for the "unpaid principal balance," then switch the input to Loan Balance mode and enter that number instead.
-        </div>
-      </details>
-
-      <details class="faq-item">
-        <summary class="faq-q">When does it financially make sense to sell and buy at the same time?</summary>
-        <div class="faq-a">
-          Selling and buying simultaneously tends to make the most financial sense when: (1) your current home has appreciated enough to fund a meaningful down payment, (2) your income has grown to support a higher payment, (3) you can put at least 10–20% down on the new home, and (4) your housing-to-income ratio stays below 36%. This calculator is designed to evaluate all four conditions simultaneously. The Buying Power chart also helps answer whether waiting 1–3 years would meaningfully improve your position.
-        </div>
-      </details>
-
-      <details class="faq-item">
-        <summary class="faq-q">What is PMI, and when can I stop paying it?</summary>
-        <div class="faq-a">
-          PMI (Private Mortgage Insurance) is a monthly premium required by most lenders when your down payment is less than 20% of the purchase price. It protects the lender — not you — against default. Typical costs range from $50 to $300/month depending on loan size and credit. Once you've built 20% equity in the home through appreciation, loan paydown, or a combination of both, you can typically request cancellation in writing. Under the Homeowners Protection Act, lenders must automatically cancel PMI once you reach 22% equity based on the original amortization schedule.
-        </div>
-      </details>
-
-      <details class="faq-item">
-        <summary class="faq-q">How accurate are the 10-year buying power projections?</summary>
-        <div class="faq-a">
-          The projections are planning estimates, not forecasts. They're most useful for stress-testing scenarios: try setting wage growth to 1% and home price growth to 5% to model a pessimistic case, then flip it to see an optimistic one. The interest rate is held constant at today's rate, which is a simplification — in reality, if you're buying in a future year, you'd face whatever rates prevail then. The real value of the chart is understanding how sensitive your buying power is to changes in income growth versus cost headwinds, not predicting a specific number.
-        </div>
-      </details>
-
-      <details class="faq-item">
-        <summary class="faq-q">Should I include my partner's income in Monthly Take-Home Pay?</summary>
-        <div class="faq-a">
-          Yes — if you'll be qualifying for the mortgage jointly, enter your combined after-tax monthly income. This gives you a realistic housing-to-income ratio based on your actual household budget. If only one partner is on the mortgage, enter only that person's income to see the true qualifying ratio lenders will use — even if the other income helps in practice.
-        </div>
-      </details>
-
-      <details class="faq-item">
-        <summary class="faq-q">How do I use the Scenario A/B tabs effectively?</summary>
-        <div class="faq-a">
-          The scenario tabs let you compare two situations side by side without losing your inputs. A common workflow: set up Scenario A with your first-choice home, then click "Copy A → B" and adjust just the purchase price or interest rate in Scenario B. Switch back and forth to compare results — cash position, monthly costs, and 10-year projections update independently. You can also use the tabs to compare a "buy now" vs. "wait 2 years" scenario by adjusting all the inputs to reflect projected future conditions.
-        </div>
-      </details>
-
-      <details class="faq-item">
-        <summary class="faq-q">What are typical realtor fees, and are they negotiable?</summary>
-        <div class="faq-a">
-          Historically, total realtor commissions ran 5–6% of the sale price, split between the seller's agent and buyer's agent. Following the 2024 National Association of Realtors (NAR) settlement, buyer agent compensation is no longer embedded in the listing and must be negotiated separately. In practice, total fees have become more variable — 4–5% is a reasonable planning estimate, though flat-fee and discount brokers can reduce this significantly if you're willing to take a more active role in the sale process.
-        </div>
-      </details>
-
-      <details class="faq-item">
-        <summary class="faq-q">How should I choose the growth rates and headwind assumptions?</summary>
-        <div class="faq-a">
-          The defaults are calibrated to long-run historical averages: 3% wage growth, 3% home appreciation, 7% investment return, 2–3% inflation. For a conservative scenario, reduce wage growth and investment returns, and raise home price growth and inflation. For an optimistic scenario, flip those. The "Net Growth vs. Headwinds" box in the bottom right of the Buying Power section summarizes the balance — a positive net rate means your buying power is improving over time; a negative rate means costs are outpacing your income growth.
-        </div>
-      </details>
-
-    </div><!-- /faq-body -->
   </div>
 
 

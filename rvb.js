@@ -1,6 +1,6 @@
 'use strict';
 
-const RVB_LS_KEY = 'rvbCalc_v2';
+const RVB_LS_KEY = 'rvbCalc_v3';
 
 const DEFAULTS = {
   opportunityCost: 7,
@@ -16,7 +16,9 @@ const DEFAULTS = {
   propTaxRate: 1.2,
   propTaxGrowth: 2,
   monthlyPMI: 0,
+  monthlyHOA: 0,
   closingCosts: 9000,
+  maintenancePct: 1,
   horizonYears: 10,
 };
 
@@ -44,15 +46,14 @@ function loanBalance(principal, annualRate, termYears, months) {
   return principal * (Math.pow(1 + r, n) - Math.pow(1 + r, months)) / (Math.pow(1 + r, n) - 1);
 }
 
-// Month at which LTV drops to 80% via paydown + appreciation.
-function computePMIDropOff(loan, purchasePrice, annualRate, termYears, homeGrowth) {
+// Month at which loan balance falls to 80% of original purchase price (standard LTV threshold).
+function computePMIDropOff(loan, purchasePrice, annualRate, termYears) {
   if (purchasePrice <= 0) return 0;
   if (loan <= 0 || loan / purchasePrice <= 0.80) return 0;
   const n = termYears * 12;
   for (let m = 1; m <= n; m++) {
     const bal = loanBalance(loan, annualRate, termYears, m);
-    const hv  = purchasePrice * Math.pow(1 + homeGrowth / 100, m / 12);
-    if (hv > 0 && bal / hv <= 0.80) return m;
+    if (bal / purchasePrice <= 0.80) return m;
   }
   return Infinity;
 }
@@ -66,7 +67,7 @@ function calculate(s) {
   const dpPct = s.purchasePrice > 0 ? (s.downPayment / s.purchasePrice) * 100 : 0;
 
   const pmiDropOff     = s.monthlyPMI > 0
-    ? computePMIDropOff(loan, s.purchasePrice, s.mortgageRate, s.mortgageTerm, s.homeGrowth)
+    ? computePMIDropOff(loan, s.purchasePrice, s.mortgageRate, s.mortgageTerm)
     : 0;
   const pmiRequired    = s.monthlyPMI > 0 && pmiDropOff > 0;
   const pmiDropOffYear = pmiRequired && isFinite(pmiDropOff) ? Math.ceil(pmiDropOff / 12) : null;
@@ -84,9 +85,11 @@ function calculate(s) {
   const principalLastYr = Math.max(0, balYrPrev - balYrLast);
   const interestLastYr  = balYrPrev > 0 ? Math.max(0, pi * 12 - principalLastYr) : 0;
 
-  const propTaxMonthlyYr1 = (s.purchasePrice * s.propTaxRate / 100) / 12;
-  const pmiMonthlyYr1     = pmiRequired ? s.monthlyPMI : 0;
-  const buyMonthlyYr1     = pi + propTaxMonthlyYr1 + pmiMonthlyYr1;
+  const propTaxMonthlyYr1    = (s.purchasePrice * s.propTaxRate / 100) / 12;
+  const pmiMonthlyYr1        = pmiRequired ? s.monthlyPMI : 0;
+  const maintenanceMonthlyYr1 = (s.purchasePrice * (s.maintenancePct / 100)) / 12;
+  const hoaMonthlyYr1        = s.monthlyHOA;
+  const buyMonthlyYr1        = pi + propTaxMonthlyYr1 + pmiMonthlyYr1 + maintenanceMonthlyYr1 + hoaMonthlyYr1;
 
   /* ── Year-by-year projection ── */
   const rentMonthlyCosts = [];
@@ -111,15 +114,17 @@ function calculate(s) {
                       + s.rentersInsurance * Math.pow(1 + s.inflation / 100, t);
     rentMonthlyCosts.push(rentMonthly);
 
-    const propTaxMonthly = (s.purchasePrice * s.propTaxRate / 100)
-                         * Math.pow(1 + s.propTaxGrowth / 100, t) / 12;
-    const pmiThisYear    = pmiRequired && (t * 12) < pmiDropOff ? s.monthlyPMI : 0;
-    const buyMonthly     = pi + propTaxMonthly + pmiThisYear;
+    const homeVal           = s.purchasePrice * Math.pow(1 + s.homeGrowth / 100, t);
+    const propTaxMonthly    = (s.purchasePrice * s.propTaxRate / 100)
+                            * Math.pow(1 + s.propTaxGrowth / 100, t) / 12;
+    const pmiThisYear       = pmiRequired && (t * 12) < pmiDropOff ? s.monthlyPMI : 0;
+    // Maintenance grows with home value — % of current home value each year.
+    const maintenanceMonthly = homeVal * (s.maintenancePct / 100) / 12;
+    const buyMonthly        = pi + propTaxMonthly + pmiThisYear + maintenanceMonthly + s.monthlyHOA;
     buyMonthlyCosts.push(buyMonthly);
 
     // Equity = down payment + principal paid to date + home appreciation above purchase price.
     // Tracks wealth built through ownership; does not deduct the outstanding loan balance.
-    const homeVal       = s.purchasePrice * Math.pow(1 + s.homeGrowth / 100, t);
     const principalPaid = Math.max(0, loan - loanBalance(loan, s.mortgageRate, s.mortgageTerm, t * 12));
     const appreciation  = Math.max(0, homeVal - s.purchasePrice);
     equityValues.push(s.downPayment + principalPaid + appreciation);
@@ -162,7 +167,7 @@ function calculate(s) {
     totalPrincipalPaid, totalInterestPaid,
     equityLast:  equityValues[YEARS],
     savingsLast: savingsValues[YEARS],
-    buyMonthlyYr1, propTaxMonthlyYr1, pmiMonthlyYr1,
+    buyMonthlyYr1, propTaxMonthlyYr1, pmiMonthlyYr1, maintenanceMonthlyYr1, hoaMonthlyYr1,
     principalYr1, interestYr1,
     principalLastYr, interestLastYr,
   };
@@ -227,11 +232,19 @@ function render(c, s) {
     winnerEl.className   = 'pb-badge ' + (buying ? 'badge-green' : 'badge-amber');
   }
 
+  // Down payment % of home price
+  const dpPctLive = s.purchasePrice > 0
+    ? (s.downPayment / s.purchasePrice * 100).toFixed(1) + '% of price'
+    : '—';
+  setText('dp-pct-live', dpPctLive);
+
   // Chart 1 side panel
-  setText('side-pi',        fmt(c.pi));
-  setText('side-proptax',   fmt(c.propTaxMonthlyYr1));
-  setText('side-pmi-yr1',   c.pmiMonthlyYr1 > 0 ? fmt(c.pmiMonthlyYr1) : '—');
-  setText('side-buytotal',  fmt(c.buyMonthlyYr1));
+  setText('side-pi',               fmt(c.pi));
+  setText('side-proptax',          fmt(c.propTaxMonthlyYr1));
+  setText('side-pmi-yr1',          c.pmiMonthlyYr1 > 0 ? fmt(c.pmiMonthlyYr1) : '—');
+  setText('side-maintenance-yr1',  fmt(c.maintenanceMonthlyYr1));
+  setText('side-hoa-yr1',          fmt(c.hoaMonthlyYr1));
+  setText('side-buytotal',         fmt(c.buyMonthlyYr1));
   setText('side-totalrent',      fmt(c.totalRentPaid));
   setText('side-totalpi',        fmt(c.totalPIPaid));
   setText('side-total-principal', fmt(c.totalPrincipalPaid));
@@ -379,7 +392,7 @@ function populateFields() {
     'opportunityCost',
     'rent', 'rentersInsurance', 'rentIncrease', 'inflation',
     'purchasePrice', 'downPayment', 'mortgageRate', 'mortgageTerm', 'homeGrowth',
-    'propTaxRate', 'propTaxGrowth', 'monthlyPMI', 'closingCosts',
+    'propTaxRate', 'propTaxGrowth', 'monthlyPMI', 'monthlyHOA', 'closingCosts', 'maintenancePct',
   ];
   fields.forEach(key => {
     const el = document.getElementById(key);
@@ -392,21 +405,34 @@ function populateFields() {
 }
 
 function bindInputs() {
-  function num(key) {
+  function num(key, afterUpdate) {
     const el = document.getElementById(key);
     if (!el) return;
     el.addEventListener('input', () => {
       const v = parseFloat(el.value);
       state[key] = isNaN(v) ? DEFAULTS[key] : v;
+      if (afterUpdate) afterUpdate();
       recalc();
     });
   }
 
+  // Auto-clear PMI when down payment reaches ≥ 20% of home price.
+  function pmiAutoReset() {
+    if (state.purchasePrice > 0 && state.downPayment / state.purchasePrice >= 0.20 && state.monthlyPMI > 0) {
+      state.monthlyPMI = 0;
+      const el = document.getElementById('monthlyPMI');
+      if (el) el.value = 0;
+    }
+  }
+
   ['opportunityCost',
    'rent', 'rentersInsurance', 'rentIncrease', 'inflation',
-   'purchasePrice', 'downPayment', 'mortgageRate', 'mortgageTerm', 'homeGrowth',
-   'propTaxRate', 'propTaxGrowth', 'monthlyPMI', 'closingCosts',
-  ].forEach(num);
+   'mortgageRate', 'mortgageTerm', 'homeGrowth',
+   'propTaxRate', 'propTaxGrowth', 'monthlyPMI', 'monthlyHOA', 'closingCosts', 'maintenancePct',
+  ].forEach(key => num(key));
+
+  num('purchasePrice', pmiAutoReset);
+  num('downPayment',   pmiAutoReset);
 
   const horizonSlider = document.getElementById('horizonSlider');
   if (horizonSlider) {

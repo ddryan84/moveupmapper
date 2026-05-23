@@ -107,20 +107,22 @@ function calcAnnualPropertyTax(s, price) {
 function calcAffordablePrice(s, targetMonthly, dpPool) {
   const K = mortgageFactor(s.interestRate);
   const dp = Math.max(0, dpPool);
+  // HOI is a fixed monthly cost independent of price — deduct it before solving
+  const budget = Math.max(0, targetMonthly - s.homeownersInsurance);
   let price;
   if (s.taxMode === 'percent') {
     const taxMonthly = s.propertyTaxPercent / 100 / 12;
-    price = (targetMonthly + dp * K) / (K + taxMonthly);
+    price = (budget + dp * K) / (K + taxMonthly);
   } else {
     const fixedTaxMonthly = s.propertyTaxDollar / 12;
-    const loanPayment = targetMonthly - fixedTaxMonthly;
+    const loanPayment = budget - fixedTaxMonthly;
     if (loanPayment <= 0) return dp;
     price = dp + loanPayment / K;
   }
   price = Math.max(0, price);
   // If PMI would apply, subtract it and recalculate once
   if (dp / price < 0.20) {
-    const effectiveTarget = targetMonthly - s.monthlyPMI;
+    const effectiveTarget = budget - s.monthlyPMI;
     if (effectiveTarget > 0) {
       if (s.taxMode === 'percent') {
         const taxMonthly = s.propertyTaxPercent / 100 / 12;
@@ -578,7 +580,7 @@ function bindInputs() {
   ptEl.value = s.taxMode === 'dollar' ? s.propertyTaxDollar : s.propertyTaxPercent;
   ptEl.addEventListener('input', () => {
     const v = parseFloat(ptEl.value) || 0;
-    if (s.taxMode === 'dollar') setState({ propertyTaxDollar: v });
+    if (getState().taxMode === 'dollar') setState({ propertyTaxDollar: v });
     else setState({ propertyTaxPercent: v });
   });
 
@@ -678,17 +680,22 @@ async function fetchMortgageRate() {
 
 /* ── Init ── */
 function init() {
-  // Load from storage or use defaults
+  // Start with defaults, then overlay any saved state
   scenarios.a = { ...DEFAULTS, _rateIsDefault: true };
   scenarios.b = { ...DEFAULTS, _rateIsDefault: true };
+  load();
+  if (!scenarios.a) scenarios.a = { ...DEFAULTS, _rateIsDefault: true };
+  if (!scenarios.b) scenarios.b = { ...DEFAULTS, _rateIsDefault: true };
 
   initCharts();
   switchScenario(activeScenario);
 
-  // Always mark the rate input so fetchMortgageRate fills it on every load
+  // Only auto-fill the rate from FRED when the scenario is still on the placeholder default
   const rateEl = document.getElementById('interestRate');
-  if (rateEl) rateEl.dataset.rateIsDefault = 'true';
-  rateEl && rateEl.addEventListener('input', () => rateEl.removeAttribute('data-rate-is-default'), { once: true });
+  if (rateEl && scenarios[activeScenario]._rateIsDefault) {
+    rateEl.dataset.rateIsDefault = 'true';
+  }
+  rateEl?.addEventListener('input', () => rateEl.removeAttribute('data-rate-is-default'), { once: true });
 
   fetchMortgageRate();
 
