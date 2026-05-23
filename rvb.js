@@ -17,6 +17,7 @@ const DEFAULTS = {
   propTaxGrowth: 2,
   monthlyPMI: 0,
   monthlyHOA: 0,
+  monthlyHOI: 150,
   closingCosts: 9000,
   maintenancePct: 1,
   horizonYears: 10,
@@ -89,7 +90,8 @@ function calculate(s) {
   const pmiMonthlyYr1        = pmiRequired ? s.monthlyPMI : 0;
   const maintenanceMonthlyYr1 = (s.purchasePrice * (s.maintenancePct / 100)) / 12;
   const hoaMonthlyYr1        = s.monthlyHOA;
-  const buyMonthlyYr1        = pi + propTaxMonthlyYr1 + pmiMonthlyYr1 + maintenanceMonthlyYr1 + hoaMonthlyYr1;
+  const hoiMonthlyYr1        = s.monthlyHOI;
+  const buyMonthlyYr1        = pi + propTaxMonthlyYr1 + pmiMonthlyYr1 + maintenanceMonthlyYr1 + hoaMonthlyYr1 + hoiMonthlyYr1;
 
   /* ── Year-by-year projection ── */
   const rentMonthlyCosts = [];
@@ -120,7 +122,8 @@ function calculate(s) {
     const pmiThisYear       = pmiRequired && (t * 12) < pmiDropOff ? s.monthlyPMI : 0;
     // Maintenance grows with home value — % of current home value each year.
     const maintenanceMonthly = homeVal * (s.maintenancePct / 100) / 12;
-    const buyMonthly        = pi + propTaxMonthly + pmiThisYear + maintenanceMonthly + s.monthlyHOA;
+    const hoiMonthly        = s.monthlyHOI * Math.pow(1 + s.inflation / 100, t);
+    const buyMonthly        = pi + propTaxMonthly + pmiThisYear + maintenanceMonthly + s.monthlyHOA + hoiMonthly;
     buyMonthlyCosts.push(buyMonthly);
 
     // Equity = down payment + principal paid to date + home appreciation above purchase price.
@@ -167,7 +170,7 @@ function calculate(s) {
     totalPrincipalPaid, totalInterestPaid,
     equityLast:  equityValues[YEARS],
     savingsLast: savingsValues[YEARS],
-    buyMonthlyYr1, propTaxMonthlyYr1, pmiMonthlyYr1, maintenanceMonthlyYr1, hoaMonthlyYr1,
+    buyMonthlyYr1, propTaxMonthlyYr1, pmiMonthlyYr1, maintenanceMonthlyYr1, hoaMonthlyYr1, hoiMonthlyYr1,
     principalYr1, interestYr1,
     principalLastYr, interestLastYr,
   };
@@ -244,6 +247,7 @@ function render(c, s) {
   setText('side-pmi-yr1',          c.pmiMonthlyYr1 > 0 ? fmt(c.pmiMonthlyYr1) : '—');
   setText('side-maintenance-yr1',  fmt(c.maintenanceMonthlyYr1));
   setText('side-hoa-yr1',          fmt(c.hoaMonthlyYr1));
+  setText('side-hoi-yr1',          fmt(c.hoiMonthlyYr1));
   setText('side-buytotal',         fmt(c.buyMonthlyYr1));
   setText('side-totalrent',      fmt(c.totalRentPaid));
   setText('side-totalpi',        fmt(c.totalPIPaid));
@@ -297,7 +301,7 @@ function initCharts() {
         labels: yearLabels(),
         datasets: [
           { label: 'Rent (monthly total)',  data: [], borderColor: '#6366f1', backgroundColor: 'rgba(99,102,241,0.07)', fill: true, tension: 0.3, pointRadius: 4, pointHoverRadius: 6 },
-          { label: 'Buy (P&I + tax + PMI)', data: [], borderColor: '#16a34a', backgroundColor: 'rgba(22,163,74,0.07)',  fill: true, tension: 0.2, pointRadius: 4, pointHoverRadius: 6 },
+          { label: 'Buy (all ownership costs)', data: [], borderColor: '#16a34a', backgroundColor: 'rgba(22,163,74,0.07)',  fill: true, tension: 0.2, pointRadius: 4, pointHoverRadius: 6 },
         ],
       },
       options: {
@@ -392,7 +396,7 @@ function populateFields() {
     'opportunityCost',
     'rent', 'rentersInsurance', 'rentIncrease', 'inflation',
     'purchasePrice', 'downPayment', 'mortgageRate', 'mortgageTerm', 'homeGrowth',
-    'propTaxRate', 'propTaxGrowth', 'monthlyPMI', 'monthlyHOA', 'closingCosts', 'maintenancePct',
+    'propTaxRate', 'propTaxGrowth', 'monthlyPMI', 'monthlyHOA', 'monthlyHOI', 'closingCosts', 'maintenancePct',
   ];
   fields.forEach(key => {
     const el = document.getElementById(key);
@@ -428,7 +432,7 @@ function bindInputs() {
   ['opportunityCost',
    'rent', 'rentersInsurance', 'rentIncrease', 'inflation',
    'mortgageRate', 'mortgageTerm', 'homeGrowth',
-   'propTaxRate', 'propTaxGrowth', 'monthlyPMI', 'monthlyHOA', 'closingCosts', 'maintenancePct',
+   'propTaxRate', 'propTaxGrowth', 'monthlyPMI', 'monthlyHOA', 'monthlyHOI', 'closingCosts', 'maintenancePct',
   ].forEach(key => num(key));
 
   num('purchasePrice', pmiAutoReset);
