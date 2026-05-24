@@ -12,7 +12,10 @@
   <meta property="og:description" content="Estimate your new mortgage payment, monthly costs, and cash position when trading up or down to a different home. Free calculator, no sign-up required.">
   <meta property="og:url" content="https://www.moveupmapper.com/index.html">
   <link rel="canonical" href="https://www.moveupmapper.com/index.html">
-  <link rel="stylesheet" href="styles.css?v=2">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=3">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -279,46 +282,53 @@
           <div class="helper" id="taxHelper">≈1.00% of purchase price</div>
         </div>
 
-        <div class="section-label mt-sm">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-          TRANSACTION COSTS
-        </div>
-
-        <div class="two-col">
-          <div class="field">
-            <label>REALTOR FEES</label>
-            <div class="input-wrap suffix">
-              <input type="number" id="realtorFee" min="0" max="20" step="0.1">
-              <span class="affix">%</span>
-            </div>
-            <div class="helper">% of current sale price</div>
+        <button type="button" class="section-collapse-hdr mt-sm" id="txCostsToggle" aria-expanded="false">
+          <div class="section-label">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            TRANSACTION COSTS
           </div>
+          <svg class="collapse-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+
+        <div class="section-collapse-body" id="txCostsBody" style="max-height:0">
+
+          <div class="two-col">
+            <div class="field">
+              <label>REALTOR FEES</label>
+              <div class="input-wrap suffix">
+                <input type="number" id="realtorFee" min="0" max="20" step="0.1">
+                <span class="affix">%</span>
+              </div>
+              <div class="helper">% of current sale price</div>
+            </div>
+            <div class="field">
+              <label>LENDER FEES</label>
+              <div class="input-wrap prefix">
+                <span class="affix">$</span>
+                <input type="number" id="lenderFees" min="0" step="500">
+              </div>
+              <div class="helper">Closing costs</div>
+            </div>
+          </div>
+
           <div class="field">
-            <label>LENDER FEES</label>
+            <label>REPAIR COSTS</label>
             <div class="input-wrap prefix">
               <span class="affix">$</span>
-              <input type="number" id="lenderFees" min="0" step="500">
+              <input type="number" id="repairCosts" min="0" step="500">
             </div>
-            <div class="helper">Closing costs</div>
+            <div class="helper">Pre-move-in repairs</div>
           </div>
-        </div>
 
-        <div class="field">
-          <label>REPAIR COSTS</label>
-          <div class="input-wrap prefix">
-            <span class="affix">$</span>
-            <input type="number" id="repairCosts" min="0" step="500">
+          <div class="field">
+            <label>MOVING EXPENSES</label>
+            <div class="input-wrap prefix">
+              <span class="affix">$</span>
+              <input type="number" id="movingExpenses" min="0" step="500">
+            </div>
+            <div class="helper">Truck, packing, misc.</div>
           </div>
-          <div class="helper">Pre-move-in repairs</div>
-        </div>
 
-        <div class="field">
-          <label>MOVING EXPENSES</label>
-          <div class="input-wrap prefix">
-            <span class="affix">$</span>
-            <input type="number" id="movingExpenses" min="0" step="500">
-          </div>
-          <div class="helper">Truck, packing, misc.</div>
         </div>
 
       </div>
@@ -852,5 +862,16 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script src="calculator.js"></script>
+<script>
+  (function() {
+    var hdr = document.getElementById('txCostsToggle');
+    var body = document.getElementById('txCostsBody');
+    hdr.addEventListener('click', function() {
+      var expanded = hdr.getAttribute('aria-expanded') === 'true';
+      hdr.setAttribute('aria-expanded', String(!expanded));
+      body.style.maxHeight = expanded ? '0' : body.scrollHeight + 'px';
+    });
+  })();
+</script>
 </body>
 </html>

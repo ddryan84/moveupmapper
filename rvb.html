@@ -12,7 +12,10 @@
   <meta property="og:description" content="Compare the true long-term cost of renting vs. buying a home. Amortization-accurate charts, PMI tracking, and equity vs. invested capital projections. Free, no sign-up.">
   <meta property="og:url" content="https://www.moveupmapper.com/rvb.html">
   <link rel="canonical" href="https://www.moveupmapper.com/rvb.html">
-  <link rel="stylesheet" href="styles.css?v=2">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=3">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -246,63 +249,70 @@
       </div>
       <div class="card-section" style="border-top: 1px solid var(--border)">
 
-        <div class="section-label">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-          TAXES, GROWTH &amp; COSTS
-        </div>
+        <button type="button" class="section-collapse-hdr" id="assumptionsToggle" aria-expanded="false">
+          <div class="section-label">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            TAXES, GROWTH &amp; COSTS
+          </div>
+          <svg class="collapse-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
 
-        <div class="three-col">
-          <div class="field">
-            <label>PROPERTY TAX RATE</label>
-            <div class="input-wrap suffix">
-              <input type="number" id="propTaxRate" min="0" max="5" step="0.05">
-              <span class="affix">%</span>
-            </div>
-            <div class="helper">Annual % of home price</div>
-          </div>
-          <div class="field">
-            <label>TAX GROWTH / YR</label>
-            <div class="input-wrap suffix">
-              <input type="number" id="propTaxGrowth" min="0" max="10" step="0.1">
-              <span class="affix">%</span>
-            </div>
-            <div class="helper">Annual tax increase</div>
-          </div>
-          <div class="field">
-            <label>HOME VALUE GROWTH</label>
-            <div class="input-wrap suffix">
-              <input type="number" id="homeGrowth" min="0" max="20" step="0.1">
-              <span class="affix">%</span>
-            </div>
-            <div class="helper">Expected appreciation</div>
-          </div>
-        </div>
+        <div class="section-collapse-body" id="assumptionsBody" style="max-height:0">
 
-        <div class="three-col">
-          <div class="field">
-            <label>HOME MAINTENANCE</label>
-            <div class="input-wrap suffix">
-              <input type="number" id="maintenancePct" min="0" max="10" step="0.1" value="1">
-              <span class="affix">%</span>
+          <div class="three-col">
+            <div class="field">
+              <label>PROPERTY TAX RATE</label>
+              <div class="input-wrap suffix">
+                <input type="number" id="propTaxRate" min="0" max="5" step="0.05">
+                <span class="affix">%</span>
+              </div>
+              <div class="helper">Annual % of home price</div>
             </div>
-            <div class="helper">Annual upkeep as % of home value (typically 1–2%)</div>
-          </div>
-          <div class="field">
-            <label>MONTHLY HOA</label>
-            <div class="input-wrap prefix">
-              <span class="affix">$</span>
-              <input type="number" id="monthlyHOA" min="0" step="10" value="0">
+            <div class="field">
+              <label>TAX GROWTH / YR</label>
+              <div class="input-wrap suffix">
+                <input type="number" id="propTaxGrowth" min="0" max="10" step="0.1">
+                <span class="affix">%</span>
+              </div>
+              <div class="helper">Annual tax increase</div>
             </div>
-            <div class="helper">Fixed monthly fee; enter 0 if none</div>
-          </div>
-          <div class="field">
-            <label>HOMEOWNERS INSURANCE</label>
-            <div class="input-wrap prefix">
-              <span class="affix">$</span>
-              <input type="number" id="monthlyHOI" min="0" step="5" value="150">
+            <div class="field">
+              <label>HOME VALUE GROWTH</label>
+              <div class="input-wrap suffix">
+                <input type="number" id="homeGrowth" min="0" max="20" step="0.1">
+                <span class="affix">%</span>
+              </div>
+              <div class="helper">Expected appreciation</div>
             </div>
-            <div class="helper">Monthly premium — inflates with general inflation rate</div>
           </div>
+
+          <div class="three-col">
+            <div class="field">
+              <label>HOME MAINTENANCE</label>
+              <div class="input-wrap suffix">
+                <input type="number" id="maintenancePct" min="0" max="10" step="0.1" value="1">
+                <span class="affix">%</span>
+              </div>
+              <div class="helper">Annual upkeep as % of home value (typically 1–2%)</div>
+            </div>
+            <div class="field">
+              <label>MONTHLY HOA</label>
+              <div class="input-wrap prefix">
+                <span class="affix">$</span>
+                <input type="number" id="monthlyHOA" min="0" step="10" value="0">
+              </div>
+              <div class="helper">Fixed monthly fee; enter 0 if none</div>
+            </div>
+            <div class="field">
+              <label>HOMEOWNERS INSURANCE</label>
+              <div class="input-wrap prefix">
+                <span class="affix">$</span>
+                <input type="number" id="monthlyHOI" min="0" step="5" value="150">
+              </div>
+              <div class="helper">Monthly premium — inflates with general inflation rate</div>
+            </div>
+          </div>
+
         </div>
 
       </div>
@@ -694,6 +704,17 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
 <script src="rvb.js?v=4"></script>
+<script>
+  (function() {
+    var hdr = document.getElementById('assumptionsToggle');
+    var body = document.getElementById('assumptionsBody');
+    hdr.addEventListener('click', function() {
+      var expanded = hdr.getAttribute('aria-expanded') === 'true';
+      hdr.setAttribute('aria-expanded', String(!expanded));
+      body.style.maxHeight = expanded ? '0' : body.scrollHeight + 'px';
+    });
+  })();
+</script>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     // Mirror read-only display values in side panel assumption rows

@@ -31,11 +31,15 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { font-size: 15px; }
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   background: var(--page-bg);
   color: var(--text);
   line-height: 1.5;
   min-height: 100vh;
+}
+h1, h2, .brand-name, .card-title {
+  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  letter-spacing: 0;
 }
 body::before {
   content: '';
@@ -296,21 +300,32 @@ label {
   min-width: 0;
 }
 .helper {
-  margin-top: 4px;
+  margin-top: 0;
   font-size: 11.5px;
   color: var(--text-muted);
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.2s ease, opacity 0.15s ease, margin-top 0.15s ease;
+}
+.field:focus-within .helper {
+  max-height: 3em;
+  opacity: 1;
+  margin-top: 4px;
 }
 .two-col {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
   margin-bottom: 16px;
+  align-items: start;
 }
 .three-col {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 10px;
   margin-bottom: 16px;
+  align-items: start;
 }
 .two-col:last-child, .three-col:last-child { margin-bottom: 0; }
 .field-row-head {
@@ -331,6 +346,36 @@ label {
   margin-bottom: 12px;
 }
 .mt-sm { margin-top: 16px; }
+
+/* ── Collapsible Sections ── */
+.section-collapse-hdr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+  background: var(--indigo-light);
+  border: 1.5px solid #c7d2fe;
+  border-radius: var(--radius-sm);
+  padding: 5px 8px;
+  width: 100%;
+  text-align: left;
+  margin-bottom: 12px;
+}
+.section-collapse-hdr:hover { background: #e0e7ff; }
+.section-collapse-hdr .section-label { margin-bottom: 0; color: var(--indigo); }
+.collapse-chevron {
+  color: var(--indigo);
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+.section-collapse-hdr[aria-expanded="true"] .collapse-chevron {
+  transform: rotate(180deg);
+}
+.section-collapse-body {
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
 
 /* ── Toggle Buttons ── */
 .btn-toggle {
