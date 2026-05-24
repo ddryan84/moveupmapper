@@ -868,7 +868,23 @@
     hdr.addEventListener('click', function() {
       var expanded = hdr.getAttribute('aria-expanded') === 'true';
       hdr.setAttribute('aria-expanded', String(!expanded));
-      body.style.maxHeight = expanded ? '0' : body.scrollHeight + 'px';
+      if (expanded) {
+        body.style.overflow = 'hidden';
+        body.style.maxHeight = body.scrollHeight + 'px';
+        requestAnimationFrame(function() {
+          requestAnimationFrame(function() {
+            body.style.maxHeight = '0';
+          });
+        });
+      } else {
+        body.style.overflow = 'hidden';
+        body.style.maxHeight = body.scrollHeight + 'px';
+        body.addEventListener('transitionend', function onEnd() {
+          body.removeEventListener('transitionend', onEnd);
+          body.style.overflow = 'visible';
+          body.style.maxHeight = 'none';
+        });
+      }
     });
   })();
 </script>
