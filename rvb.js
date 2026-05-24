@@ -10,6 +10,8 @@ const DEFAULTS = {
   inflation: 3,
   purchasePrice: 450000,
   downPayment: 90000,
+  dpMode: 'dollar',
+  downPaymentPct: 20,
   mortgageRate: 6.875,
   mortgageTerm: 30,
   homeGrowth: 3,
@@ -18,6 +20,8 @@ const DEFAULTS = {
   monthlyPMI: 0,
   monthlyHOA: 0,
   monthlyHOI: 150,
+  hoiMode: 'dollar',
+  hoiPct: 0.4,
   closingCosts: 9000,
   maintenancePct: 1,
   horizonYears: 10,
@@ -235,11 +239,19 @@ function render(c, s) {
     winnerEl.className   = 'pb-badge ' + (buying ? 'badge-green' : 'badge-amber');
   }
 
-  // Down payment % of home price
+  // Down payment helper
   const dpPctLive = s.purchasePrice > 0
     ? (s.downPayment / s.purchasePrice * 100).toFixed(1) + '% of price'
     : '—';
-  setText('dp-pct-live', dpPctLive);
+  setText('dp-pct-live', s.dpMode === 'percent' ? '= ' + fmt(s.downPayment) : dpPctLive);
+
+  // HOI helper
+  const hoiHelperEl = document.getElementById('hoiHelperRvb');
+  if (hoiHelperEl) {
+    hoiHelperEl.textContent = s.hoiMode === 'percent'
+      ? '= ' + fmt(s.monthlyHOI) + '/mo · inflates with inflation rate'
+      : 'Monthly premium — inflates with general inflation rate';
+  }
 
   // Chart 1 side panel
   setText('side-pi',               fmt(c.pi));
@@ -375,7 +387,57 @@ function updateWealthChart(c) {
 
 /* ── State & persistence ── */
 
+function recomputeFromPct() {
+  if (state.dpMode === 'percent') {
+    state.downPayment = (state.downPaymentPct / 100) * state.purchasePrice;
+  }
+  if (state.hoiMode === 'percent') {
+    state.monthlyHOI = state.purchasePrice * (state.hoiPct / 100) / 12;
+  }
+}
+
+function syncDpInput(mode) {
+  const el = document.getElementById('downPayment');
+  const affix = document.getElementById('dpAffix');
+  const wrap = document.getElementById('dpInputWrap');
+  if (!el) return;
+  if (mode === 'percent') {
+    if (affix) affix.textContent = '%';
+    if (wrap) { wrap.classList.add('suffix'); wrap.classList.remove('prefix'); }
+    el.step = '0.5';
+    el.value = state.downPaymentPct;
+  } else {
+    if (affix) affix.textContent = '$';
+    if (wrap) { wrap.classList.remove('suffix'); wrap.classList.add('prefix'); }
+    el.step = '1000';
+    el.value = state.downPayment;
+  }
+  document.getElementById('dpModeDollar')?.classList.toggle('active', mode === 'dollar');
+  document.getElementById('dpModePercent')?.classList.toggle('active', mode === 'percent');
+}
+
+function syncHoiInput(mode) {
+  const el = document.getElementById('monthlyHOI');
+  const affix = document.getElementById('hoiAffixRvb');
+  const wrap = document.getElementById('hoiInputWrapRvb');
+  if (!el) return;
+  if (mode === 'percent') {
+    if (affix) affix.textContent = '%';
+    if (wrap) { wrap.classList.add('suffix'); wrap.classList.remove('prefix'); }
+    el.step = '0.05';
+    el.value = state.hoiPct;
+  } else {
+    if (affix) affix.textContent = '$';
+    if (wrap) { wrap.classList.remove('suffix'); wrap.classList.add('prefix'); }
+    el.step = '5';
+    el.value = state.monthlyHOI;
+  }
+  document.getElementById('hoiModeDollarRvb')?.classList.toggle('active', mode === 'dollar');
+  document.getElementById('hoiModePctRvb')?.classList.toggle('active', mode === 'percent');
+}
+
 function recalc() {
+  recomputeFromPct();
   render(calculate(state), state);
   save();
 }
@@ -395,8 +457,8 @@ function populateFields() {
   const fields = [
     'opportunityCost',
     'rent', 'rentersInsurance', 'rentIncrease', 'inflation',
-    'purchasePrice', 'downPayment', 'mortgageRate', 'mortgageTerm', 'homeGrowth',
-    'propTaxRate', 'propTaxGrowth', 'monthlyPMI', 'monthlyHOA', 'monthlyHOI', 'closingCosts', 'maintenancePct',
+    'purchasePrice', 'mortgageRate', 'mortgageTerm', 'homeGrowth',
+    'propTaxRate', 'propTaxGrowth', 'monthlyPMI', 'monthlyHOA', 'closingCosts', 'maintenancePct',
   ];
   fields.forEach(key => {
     const el = document.getElementById(key);
@@ -406,6 +468,9 @@ function populateFields() {
   const slider = document.getElementById('horizonSlider');
   if (slider) slider.value = state.horizonYears ?? 10;
   setText('horizonDisplay', state.horizonYears ?? 10);
+
+  syncDpInput(state.dpMode ?? 'dollar');
+  syncHoiInput(state.hoiMode ?? 'dollar');
 }
 
 function bindInputs() {
@@ -432,11 +497,71 @@ function bindInputs() {
   ['opportunityCost',
    'rent', 'rentersInsurance', 'rentIncrease', 'inflation',
    'mortgageRate', 'mortgageTerm', 'homeGrowth',
-   'propTaxRate', 'propTaxGrowth', 'monthlyPMI', 'monthlyHOA', 'monthlyHOI', 'closingCosts', 'maintenancePct',
+   'propTaxRate', 'propTaxGrowth', 'monthlyPMI', 'monthlyHOA', 'closingCosts', 'maintenancePct',
   ].forEach(key => num(key));
 
   num('purchasePrice', pmiAutoReset);
-  num('downPayment',   pmiAutoReset);
+
+  const dpEl = document.getElementById('downPayment');
+  if (dpEl) {
+    dpEl.addEventListener('input', () => {
+      const v = parseFloat(dpEl.value);
+      const val = isNaN(v) ? 0 : v;
+      if (state.dpMode === 'percent') {
+        state.downPaymentPct = val;
+      } else {
+        state.downPayment = val;
+      }
+      pmiAutoReset();
+      recalc();
+    });
+  }
+
+  const hoiEl = document.getElementById('monthlyHOI');
+  if (hoiEl) {
+    hoiEl.addEventListener('input', () => {
+      const v = parseFloat(hoiEl.value);
+      const val = isNaN(v) ? 0 : v;
+      if (state.hoiMode === 'percent') {
+        state.hoiPct = val;
+      } else {
+        state.monthlyHOI = val;
+      }
+      recalc();
+    });
+  }
+
+  document.getElementById('dpModeDollar')?.addEventListener('click', () => {
+    if (state.dpMode === 'dollar') return;
+    state.dpMode = 'dollar';
+    syncDpInput('dollar');
+    recalc();
+  });
+  document.getElementById('dpModePercent')?.addEventListener('click', () => {
+    if (state.dpMode === 'percent') return;
+    state.downPaymentPct = state.purchasePrice > 0
+      ? parseFloat((state.downPayment / state.purchasePrice * 100).toFixed(1))
+      : 20;
+    state.dpMode = 'percent';
+    syncDpInput('percent');
+    recalc();
+  });
+
+  document.getElementById('hoiModeDollarRvb')?.addEventListener('click', () => {
+    if (state.hoiMode === 'dollar') return;
+    state.hoiMode = 'dollar';
+    syncHoiInput('dollar');
+    recalc();
+  });
+  document.getElementById('hoiModePctRvb')?.addEventListener('click', () => {
+    if (state.hoiMode === 'percent') return;
+    state.hoiPct = state.purchasePrice > 0
+      ? parseFloat((state.monthlyHOI * 12 / state.purchasePrice * 100).toFixed(2))
+      : 0.4;
+    state.hoiMode = 'percent';
+    syncHoiInput('percent');
+    recalc();
+  });
 
   const horizonSlider = document.getElementById('horizonSlider');
   if (horizonSlider) {

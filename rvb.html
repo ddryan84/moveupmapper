@@ -197,9 +197,15 @@
             </div>
           </div>
           <div class="field">
-            <label>DOWN PAYMENT</label>
-            <div class="input-wrap prefix">
-              <span class="affix">$</span>
+            <div class="field-row-head">
+              <label>DOWN PAYMENT</label>
+              <div class="mode-toggle">
+                <button class="mode-btn active" id="dpModeDollar">$</button>
+                <button class="mode-btn" id="dpModePercent">%</button>
+              </div>
+            </div>
+            <div class="input-wrap prefix" id="dpInputWrap">
+              <span class="affix" id="dpAffix">$</span>
               <input type="number" id="downPayment" min="0" step="1000">
             </div>
             <div class="helper"><span id="dp-pct-live" style="color:var(--indigo);font-weight:600">—</span> · used vs. invested in Chart 2</div>
@@ -297,12 +303,18 @@
               <div class="helper">Fixed monthly fee; enter 0 if none</div>
             </div>
             <div class="field">
-              <label>HOMEOWNERS INSURANCE</label>
-              <div class="input-wrap prefix">
-                <span class="affix">$</span>
-                <input type="number" id="monthlyHOI" min="0" step="5" value="150">
+              <div class="field-row-head">
+                <label>HOMEOWNERS INSURANCE</label>
+                <div class="mode-toggle">
+                  <button class="mode-btn active" id="hoiModeDollarRvb">$</button>
+                  <button class="mode-btn" id="hoiModePctRvb">%</button>
+                </div>
               </div>
-              <div class="helper">Monthly premium — inflates with general inflation rate</div>
+              <div class="input-wrap prefix" id="hoiInputWrapRvb">
+                <span class="affix" id="hoiAffixRvb">$</span>
+                <input type="number" id="monthlyHOI" min="0" step="5">
+              </div>
+              <div class="helper" id="hoiHelperRvb">Monthly premium — inflates with general inflation rate</div>
             </div>
           </div>
 
@@ -696,7 +708,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
-<script src="rvb.js?v=4"></script>
+<script src="rvb.js?v=5"></script>
 <script>
   (function() {
     var hdr = document.getElementById('assumptionsToggle');

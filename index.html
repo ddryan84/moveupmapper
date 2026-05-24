@@ -252,12 +252,18 @@
         </div>
 
         <div class="field">
-          <label>HOMEOWNERS INSURANCE</label>
-          <div class="input-wrap prefix">
-            <span class="affix">$</span>
+          <div class="field-row-head">
+            <label>HOMEOWNERS INSURANCE</label>
+            <div class="mode-toggle">
+              <button class="mode-btn active" id="hoiModeDollar">$</button>
+              <button class="mode-btn" id="hoiModePct">%</button>
+            </div>
+          </div>
+          <div class="input-wrap prefix" id="hoiInputWrap">
+            <span class="affix" id="hoiAffix">$</span>
             <input type="number" id="homeownersInsurance" min="0" step="10">
           </div>
-          <div class="helper">Monthly homeowners insurance premium</div>
+          <div class="helper" id="hoiHelper">Monthly homeowners insurance premium</div>
         </div>
 
         <div class="field">

@@ -40,6 +40,8 @@ const DEFAULTS = {
   targetPriceGrowth: 3,
   // Recurring ownership costs
   homeownersInsurance: 150,
+  hoiMode:             'dollar',
+  hoiPct:              0.4,
   maintenanceRate:    1.0,   // % of purchase price per year
 };
 
@@ -107,7 +109,7 @@ function calcAnnualPropertyTax(s, price) {
 function calcAffordablePrice(s, targetMonthly, dpPool, hoiMonthly) {
   const K = mortgageFactor(s.interestRate);
   const dp = Math.max(0, dpPool);
-  const hoi = hoiMonthly !== undefined ? hoiMonthly : s.homeownersInsurance;
+  const hoi = hoiMonthly !== undefined ? hoiMonthly : (s.hoiMode === 'percent' ? s.purchasePrice * s.hoiPct / 100 / 12 : s.homeownersInsurance);
   // HOI is a fixed monthly cost independent of price — deduct it before solving
   const budget = Math.max(0, targetMonthly - hoi);
   let price;
@@ -159,7 +161,7 @@ function calculate(s) {
   const annualTax = calcAnnualPropertyTax(s, s.purchasePrice);
   const taxMonthly = annualTax / 12;
   const pmi = dpPct < 0.20 ? s.monthlyPMI : 0;
-  const hoiMonthly = s.homeownersInsurance;
+  const hoiMonthly = s.hoiMode === 'percent' ? s.purchasePrice * s.hoiPct / 100 / 12 : s.homeownersInsurance;
   const totalMonthly = mortgagePI + taxMonthly + pmi + hoiMonthly;
   const ratio = s.monthlyIncome > 0 ? totalMonthly / s.monthlyIncome : 0;
   const monthlyRemaining = s.monthlyIncome - totalMonthly;
@@ -167,8 +169,8 @@ function calculate(s) {
   // Affordable range
   const targetMonthly = s.monthlyIncome * (s.targetSliderPct / 100);
   const ceilingMonthly = s.monthlyIncome * 0.36;
-  const targetPrice   = calcAffordablePrice(s, targetMonthly,  dpPool);
-  const ceilingPrice  = calcAffordablePrice(s, ceilingMonthly, dpPool);
+  const targetPrice   = calcAffordablePrice(s, targetMonthly,  dpPool, hoiMonthly);
+  const ceilingPrice  = calcAffordablePrice(s, ceilingMonthly, dpPool, hoiMonthly);
 
   // Property tax helper text
   const taxPctOfPrice = s.purchasePrice > 0 ? annualTax / s.purchasePrice * 100 : 0;
@@ -210,7 +212,8 @@ function calculate(s) {
     // Transaction costs and HOI inflate over time
     const inflFactor_t  = Math.pow(1 + s.inflationRate / 100, t);
     const fixedCosts_t  = fixedCosts * inflFactor_t;
-    const hoi_t         = s.homeownersInsurance * inflFactor_t;
+    const baseHoi       = s.hoiMode === 'percent' ? s.purchasePrice * s.hoiPct / 100 / 12 : s.homeownersInsurance;
+    const hoi_t         = baseHoi * inflFactor_t;
     const dpPool_t = Math.max(0, saleProceeds_t + cashPool - fixedCosts_t);
     const comfort_t = calcAffordablePrice(s, income_t * 0.28, dpPool_t, hoi_t);
     const ceiling_t = calcAffordablePrice(s, income_t * 0.36, dpPool_t, hoi_t);
@@ -364,6 +367,12 @@ function render(c, s) {
     }
   }
   setText('r-hoi', fmt(c.hoiMonthly));
+  const hoiHelperEl = $('hoiHelper');
+  if (hoiHelperEl) {
+    hoiHelperEl.textContent = s.hoiMode === 'percent'
+      ? '= ' + fmt(c.hoiMonthly) + '/mo (' + s.hoiPct.toFixed(2) + '% of price/yr)'
+      : 'Monthly homeowners insurance premium';
+  }
   setText('r-totalMonthly', fmt(c.totalMonthly));
   setText('r-income', fmt(s.monthlyIncome));
 
@@ -574,7 +583,18 @@ function bindInputs() {
   num('purchasePrice');
   num('interestRate');
   num('monthlyPMI');
-  num('homeownersInsurance');
+  const hoiEl = $('homeownersInsurance');
+  if (hoiEl) {
+    hoiEl.value = s.hoiMode === 'percent' ? s.hoiPct : s.homeownersInsurance;
+    hoiEl.addEventListener('input', () => {
+      const v = parseFloat(hoiEl.value) || 0;
+      if (getState().hoiMode === 'percent') {
+        setState({ hoiPct: v });
+      } else {
+        setState({ homeownersInsurance: v });
+      }
+    });
+  }
   num('realtorFee');
   num('lenderFees');
   num('repairCosts');
@@ -634,6 +654,27 @@ function syncTaxInput(mode) {
   $('taxModeDollar').classList.toggle('active', mode === 'dollar');
 }
 
+function syncHoiInput(mode) {
+  const s = getState();
+  const el = $('homeownersInsurance');
+  const affix = $('hoiAffix');
+  const wrap = $('hoiInputWrap');
+  if (!el) return;
+  if (mode === 'percent') {
+    if (affix) affix.textContent = '%';
+    if (wrap) { wrap.classList.add('suffix'); wrap.classList.remove('prefix'); }
+    el.step = '0.05';
+    el.value = s.hoiPct;
+  } else {
+    if (affix) affix.textContent = '$';
+    if (wrap) { wrap.classList.remove('suffix'); wrap.classList.add('prefix'); }
+    el.step = '10';
+    el.value = s.homeownersInsurance;
+  }
+  $('hoiModeDollar')?.classList.toggle('active', mode === 'dollar');
+  $('hoiModePct')?.classList.toggle('active', mode === 'percent');
+}
+
 /* ── Scenario switching ── */
 function switchScenario(to) {
   activeScenario = to;
@@ -647,6 +688,7 @@ function switchScenario(to) {
   // Rebind inputs
   bindInputs();
   syncTaxInput(getState().taxMode);
+  syncHoiInput(getState().hoiMode || 'dollar');
   recalcAndRender();
 }
 
@@ -774,6 +816,23 @@ function init() {
       setState({ taxMode: 'dollar', propertyTaxDollar: Math.round(dol) });
       syncTaxInput('dollar');
     }
+  });
+
+  // HOI mode toggle (bound once)
+  $('hoiModeDollar')?.addEventListener('click', () => {
+    const cur = getState();
+    if (cur.hoiMode === 'dollar') return;
+    setState({ hoiMode: 'dollar' });
+    syncHoiInput('dollar');
+  });
+  $('hoiModePct')?.addEventListener('click', () => {
+    const cur = getState();
+    if (cur.hoiMode === 'percent') return;
+    const pct = cur.purchasePrice > 0
+      ? parseFloat((cur.homeownersInsurance * 12 / cur.purchasePrice * 100).toFixed(2))
+      : 0.4;
+    setState({ hoiMode: 'percent', hoiPct: pct });
+    syncHoiInput('percent');
   });
 
   // Print
