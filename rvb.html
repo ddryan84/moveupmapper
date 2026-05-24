@@ -716,7 +716,27 @@
     hdr.addEventListener('click', function() {
       var expanded = hdr.getAttribute('aria-expanded') === 'true';
       hdr.setAttribute('aria-expanded', String(!expanded));
-      body.style.maxHeight = expanded ? '0' : body.scrollHeight + 'px';
+      if (expanded) {
+        // Closing: pin current height first so CSS has a value to animate FROM,
+        // then collapse to 0 on the next two frames (double rAF ensures paint).
+        body.style.overflow = 'hidden';
+        body.style.maxHeight = body.scrollHeight + 'px';
+        requestAnimationFrame(function() {
+          requestAnimationFrame(function() {
+            body.style.maxHeight = '0';
+          });
+        });
+      } else {
+        // Opening: animate to content height, then lift the clip so helper
+        // text shown on field focus is never cut off.
+        body.style.overflow = 'hidden';
+        body.style.maxHeight = body.scrollHeight + 'px';
+        body.addEventListener('transitionend', function onEnd() {
+          body.removeEventListener('transitionend', onEnd);
+          body.style.overflow = 'visible';
+          body.style.maxHeight = 'none';
+        });
+      }
     });
   })();
 </script>
