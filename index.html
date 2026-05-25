@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=4">
+  <link rel="stylesheet" href="styles.css?v=12">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -175,6 +175,7 @@
               <div class="helper">Annual interest rate on existing mortgage</div>
             </div>
           </div>
+
         </div>
 
         <!-- First-time buyer context note -->
@@ -199,6 +200,64 @@
             <input type="number" id="monthlyIncome" min="0" step="100">
           </div>
           <div class="helper">After-tax monthly income</div>
+        </div>
+
+        <div id="sellCostsSection">
+          <button type="button" class="section-collapse-hdr mt-sm" id="sellCostsToggle" aria-expanded="false">
+            <div class="section-label">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+              SELLING COSTS
+            </div>
+            <svg class="collapse-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+
+          <div class="section-collapse-body" id="sellCostsBody" style="max-height:0;overflow:hidden">
+
+            <div class="two-col">
+              <div class="field">
+                <label>AGENT COMMISSION</label>
+                <div class="input-wrap suffix">
+                  <input type="number" id="realtorFee" min="0" max="20" step="0.1">
+                  <span class="affix">%</span>
+                </div>
+                <div class="helper">% of your home's sale price</div>
+              </div>
+              <div class="field">
+                <label>TRANSFER TAX</label>
+                <div class="input-wrap suffix">
+                  <input type="number" id="transferTaxPct" min="0" max="5" step="0.05">
+                  <span class="affix">%</span>
+                </div>
+                <div class="helper">Excise tax on sale; typically 0.1%–2.0%</div>
+                <a href="https://www.google.com/search?q=real+estate+transfer+tax+rate+by+state" target="_blank" rel="noopener" class="field-lookup-link">Look up your state →</a>
+              </div>
+            </div>
+
+            <div class="two-col">
+              <div class="field">
+                <label>PREP &amp; STAGING</label>
+                <div class="input-wrap prefix">
+                  <span class="affix">$</span>
+                  <input type="number" id="preSaleRepairs" min="0" step="500">
+                </div>
+                <div class="helper">Pre-sale prep &amp; repairs</div>
+              </div>
+              <div class="field">
+                <label>SELLER TITLE FEES</label>
+                <div class="input-wrap prefix">
+                  <span class="affix">$</span>
+                  <input type="number" id="sellerTitleFees" min="0" step="500">
+                </div>
+                <div class="helper">Title insurance + escrow fees</div>
+              </div>
+            </div>
+
+            <div class="fill-estimates-row">
+              <button type="button" class="fill-estimates-btn" id="fillSellEstimates">Fill in estimates</button>
+              <div class="fill-estimates-note">Based on national averages — adjust to match your quotes</div>
+            </div>
+
+          </div>
         </div>
 
       </div>
@@ -281,42 +340,52 @@
           <div class="helper" id="taxHelper">≈1.00% of purchase price</div>
         </div>
 
-        <button type="button" class="section-collapse-hdr mt-sm" id="txCostsToggle" aria-expanded="false">
+        <button type="button" class="section-collapse-hdr mt-sm" id="buyCostsToggle" aria-expanded="false">
           <div class="section-label">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-            TRANSACTION COSTS
+            BUYING COSTS
           </div>
           <svg class="collapse-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
 
-        <div class="section-collapse-body" id="txCostsBody" style="max-height:0">
+        <div class="section-collapse-body" id="buyCostsBody" style="max-height:0;overflow:hidden">
 
           <div class="two-col">
-            <div class="field">
-              <label>REALTOR FEES</label>
-              <div class="input-wrap suffix">
-                <input type="number" id="realtorFee" min="0" max="20" step="0.1">
-                <span class="affix">%</span>
-              </div>
-              <div class="helper">% of current sale price</div>
-            </div>
             <div class="field">
               <label>LENDER FEES</label>
               <div class="input-wrap prefix">
                 <span class="affix">$</span>
                 <input type="number" id="lenderFees" min="0" step="500">
               </div>
-              <div class="helper">Closing costs</div>
+              <div class="helper">Origination &amp; closing costs</div>
+            </div>
+            <div class="field">
+              <label>BUYER TITLE FEES</label>
+              <div class="input-wrap prefix">
+                <span class="affix">$</span>
+                <input type="number" id="buyerTitleFees" min="0" step="500">
+              </div>
+              <div class="helper">Title insurance + escrow fees</div>
             </div>
           </div>
 
-          <div class="field">
-            <label>REPAIR COSTS</label>
-            <div class="input-wrap prefix">
-              <span class="affix">$</span>
-              <input type="number" id="repairCosts" min="0" step="500">
+          <div class="two-col">
+            <div class="field">
+              <label>REPAIRS &amp; RENO</label>
+              <div class="input-wrap prefix">
+                <span class="affix">$</span>
+                <input type="number" id="repairCosts" min="0" step="500">
+              </div>
+              <div class="helper">Pre-move-in repairs</div>
             </div>
-            <div class="helper">Pre-move-in repairs</div>
+            <div class="field">
+              <label>PRE-PAID ESCROW</label>
+              <div class="input-wrap prefix">
+                <span class="affix">$</span>
+                <input type="number" id="prePaidEscrow" min="0" step="500">
+              </div>
+              <div class="helper" id="prePaidEscrowHelper">3 mo. of taxes &amp; insurance upfront</div>
+            </div>
           </div>
 
           <div class="field">
@@ -326,6 +395,11 @@
               <input type="number" id="movingExpenses" min="0" step="500">
             </div>
             <div class="helper">Truck, packing, misc.</div>
+          </div>
+
+          <div class="fill-estimates-row">
+            <button type="button" class="fill-estimates-btn" id="fillBuyEstimates">Fill in estimates</button>
+            <div class="fill-estimates-note">Based on national averages — adjust to match your quotes</div>
           </div>
 
         </div>
@@ -346,7 +420,7 @@
       <div class="results-section">
         <div class="results-sec-title">CASH POSITION</div>
         <div class="r-row">
-          <span>Sale proceeds (equity – realtor fees)</span>
+          <span>Sale proceeds (equity – selling costs)</span>
           <span id="r-saleProceeds"></span>
         </div>
         <div class="r-row">
@@ -367,8 +441,16 @@
           <span id="r-lenderFees"></span>
         </div>
         <div class="r-row">
-          <span>Repair costs</span>
+          <span>Buyer title fees</span>
+          <span id="r-buyerTitleFees"></span>
+        </div>
+        <div class="r-row">
+          <span>Repairs &amp; reno</span>
           <span id="r-repairCosts"></span>
+        </div>
+        <div class="r-row">
+          <span>Pre-paid escrow</span>
+          <span id="r-prePaidEscrow"></span>
         </div>
         <div class="r-row">
           <span>Moving expenses</span>
@@ -860,32 +942,38 @@
 </div><!-- /app -->
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<script src="calculator.js"></script>
+<script src="calculator.js?v=2"></script>
 <script>
   (function() {
-    var hdr = document.getElementById('txCostsToggle');
-    var body = document.getElementById('txCostsBody');
-    hdr.addEventListener('click', function() {
-      var expanded = hdr.getAttribute('aria-expanded') === 'true';
-      hdr.setAttribute('aria-expanded', String(!expanded));
-      if (expanded) {
-        body.style.overflow = 'hidden';
-        body.style.maxHeight = body.scrollHeight + 'px';
-        requestAnimationFrame(function() {
+    function makeCollapse(toggleId, bodyId) {
+      var hdr = document.getElementById(toggleId);
+      var body = document.getElementById(bodyId);
+      if (!hdr || !body) return;
+      hdr.addEventListener('click', function() {
+        var expanded = hdr.getAttribute('aria-expanded') === 'true';
+        hdr.setAttribute('aria-expanded', String(!expanded));
+        if (expanded) {
+          body.style.overflow = 'hidden';
+          body.style.maxHeight = body.scrollHeight + 'px';
           requestAnimationFrame(function() {
-            body.style.maxHeight = '0';
+            requestAnimationFrame(function() {
+              body.style.maxHeight = '0';
+            });
           });
-        });
-      } else {
-        body.style.overflow = 'hidden';
-        body.style.maxHeight = body.scrollHeight + 'px';
-        body.addEventListener('transitionend', function onEnd() {
-          body.removeEventListener('transitionend', onEnd);
-          body.style.overflow = 'visible';
-          body.style.maxHeight = 'none';
-        });
-      }
-    });
+        } else {
+          body.style.overflow = 'hidden';
+          body.style.maxHeight = body.scrollHeight + 'px';
+          setTimeout(function() {
+            if (hdr.getAttribute('aria-expanded') === 'true') {
+              body.style.overflow = 'visible';
+              body.style.maxHeight = 'none';
+            }
+          }, 350);
+        }
+      });
+    }
+    makeCollapse('sellCostsToggle', 'sellCostsBody');
+    makeCollapse('buyCostsToggle',  'buyCostsBody');
   })();
 </script>
 </body>

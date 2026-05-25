@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=4">
+  <link rel="stylesheet" href="styles.css?v=12">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -256,7 +256,7 @@
           <svg class="collapse-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
 
-        <div class="section-collapse-body" id="assumptionsBody" style="max-height:0">
+        <div class="section-collapse-body" id="assumptionsBody" style="max-height:0;overflow:hidden">
 
           <div class="three-col">
             <div class="field">
@@ -731,11 +731,12 @@
         // text shown on field focus is never cut off.
         body.style.overflow = 'hidden';
         body.style.maxHeight = body.scrollHeight + 'px';
-        body.addEventListener('transitionend', function onEnd() {
-          body.removeEventListener('transitionend', onEnd);
-          body.style.overflow = 'visible';
-          body.style.maxHeight = 'none';
-        });
+        setTimeout(function() {
+          if (hdr.getAttribute('aria-expanded') === 'true') {
+            body.style.overflow = 'visible';
+            body.style.maxHeight = 'none';
+          }
+        }, 350);
       }
     });
   })();

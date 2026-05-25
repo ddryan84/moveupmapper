@@ -19,10 +19,18 @@ const DEFAULTS = {
   taxMode:        'percent',  // 'percent' | 'dollar'
   propertyTaxDollar:  0,
   propertyTaxPercent: 1.0,
-  realtorFee:     5,
-  lenderFees:     0,
-  repairCosts:    0,
-  movingExpenses: 0,
+  // Selling costs
+  realtorFee:      5,
+  transferTaxPct:  0,
+  preSaleRepairs:  0,
+  sellerTitleFees: 0,
+  // Buying costs
+  lenderFees:           0,
+  buyerTitleFees:       0,
+  repairCosts:          0,
+  prePaidEscrow:        0,
+  prePaidEscrowManual:  false,
+  movingExpenses:       0,
   // Affordable range
   targetSliderPct: 28,       // 0–50% of income
   // Growth rates
@@ -143,25 +151,31 @@ function calcAffordablePrice(s, targetMonthly, dpPool, hoiMonthly) {
 function calculate(s) {
   const K = mortgageFactor(s.interestRate);
   const equity = s.buyerMode === 'firstTime' ? 0 : calcEquity(s);
-  const realtorFees = s.buyerMode === 'firstTime' ? 0 : s.homeValuation * s.realtorFee / 100;
+  const isFirst = s.buyerMode === 'firstTime';
+  const realtorFees    = isFirst ? 0 : s.homeValuation * s.realtorFee / 100;
+  const transferTax    = isFirst ? 0 : s.homeValuation * s.transferTaxPct / 100;
+  const sellingCosts   = realtorFees + transferTax + (isFirst ? 0 : s.preSaleRepairs + s.sellerTitleFees);
   // First-time buyers have no current home — zero out rates that only apply to existing owners
-  const effHomeValGrowth     = s.buyerMode === 'firstTime' ? 0 : s.homeValGrowth;
-  const effEquityGrowth      = s.buyerMode === 'firstTime' ? 0 : s.equityGrowth;
-  const effPropTaxGrowth     = s.buyerMode === 'firstTime' ? 0 : s.propTaxGrowth;
-  const effMaintenanceGrowth = s.buyerMode === 'firstTime' ? 0 : s.maintenanceGrowth;
-  const saleProceeds = Math.max(0, equity - realtorFees);
+  const effHomeValGrowth     = isFirst ? 0 : s.homeValGrowth;
+  const effEquityGrowth      = isFirst ? 0 : s.equityGrowth;
+  const effPropTaxGrowth     = isFirst ? 0 : s.propTaxGrowth;
+  const effMaintenanceGrowth = isFirst ? 0 : s.maintenanceGrowth;
+  const saleProceeds = Math.max(0, equity - sellingCosts);
   const totalCash = saleProceeds + s.expendableCash;
-  const fixedCosts = s.lenderFees + s.repairCosts + s.movingExpenses;
-  const dpPool = Math.max(0, totalCash - fixedCosts);
+  // Compute tax and HOI early — needed for auto-escrow calculation
+  const annualTax = calcAnnualPropertyTax(s, s.purchasePrice);
+  const taxMonthly = annualTax / 12;
+  const hoiMonthly = s.hoiMode === 'percent' ? s.purchasePrice * s.hoiPct / 100 / 12 : s.homeownersInsurance;
+  const autoEscrow = s.purchasePrice > 0 ? Math.round((taxMonthly + hoiMonthly) * 3) : 0;
+  const effectiveEscrow = s.prePaidEscrowManual ? s.prePaidEscrow : autoEscrow;
+  const buyingCosts = s.lenderFees + s.buyerTitleFees + s.repairCosts + effectiveEscrow + s.movingExpenses;
+  const dpPool = Math.max(0, totalCash - buyingCosts);
   const downPayment = Math.min(dpPool, s.purchasePrice);
-  const cashRemaining = Math.max(0, totalCash - downPayment - fixedCosts);
+  const cashRemaining = Math.max(0, totalCash - downPayment - buyingCosts);
   const dpPct = s.purchasePrice > 0 ? downPayment / s.purchasePrice : 0;
   const loan = Math.max(0, s.purchasePrice - downPayment);
   const mortgagePI = loan * K;
-  const annualTax = calcAnnualPropertyTax(s, s.purchasePrice);
-  const taxMonthly = annualTax / 12;
   const pmi = dpPct < 0.20 ? s.monthlyPMI : 0;
-  const hoiMonthly = s.hoiMode === 'percent' ? s.purchasePrice * s.hoiPct / 100 / 12 : s.homeownersInsurance;
   const totalMonthly = mortgagePI + taxMonthly + pmi + hoiMonthly;
   const ratio = s.monthlyIncome > 0 ? totalMonthly / s.monthlyIncome : 0;
   const monthlyRemaining = s.monthlyIncome - totalMonthly;
@@ -208,13 +222,14 @@ function calculate(s) {
     } else {
       equity_t = equity * Math.pow(1 + effEquityGrowth / 100, t);
     }
-    const saleProceeds_t = Math.max(0, equity_t - homeVal_t * s.realtorFee / 100);
-    // Transaction costs and HOI inflate over time
-    const inflFactor_t  = Math.pow(1 + s.inflationRate / 100, t);
-    const fixedCosts_t  = fixedCosts * inflFactor_t;
-    const baseHoi       = s.hoiMode === 'percent' ? s.purchasePrice * s.hoiPct / 100 / 12 : s.homeownersInsurance;
-    const hoi_t         = baseHoi * inflFactor_t;
-    const dpPool_t = Math.max(0, saleProceeds_t + cashPool - fixedCosts_t);
+    const inflFactor_t        = Math.pow(1 + s.inflationRate / 100, t);
+    const sellingPctCosts_t   = (s.realtorFee + s.transferTaxPct) / 100;
+    const sellingFixedCosts_t = (s.preSaleRepairs + s.sellerTitleFees) * inflFactor_t;
+    const saleProceeds_t      = Math.max(0, equity_t - homeVal_t * sellingPctCosts_t - sellingFixedCosts_t);
+    const buyingCosts_t       = buyingCosts * inflFactor_t;
+    const baseHoi             = s.hoiMode === 'percent' ? s.purchasePrice * s.hoiPct / 100 / 12 : s.homeownersInsurance;
+    const hoi_t               = baseHoi * inflFactor_t;
+    const dpPool_t = Math.max(0, saleProceeds_t + cashPool - buyingCosts_t);
     const comfort_t = calcAffordablePrice(s, income_t * 0.28, dpPool_t, hoi_t);
     const ceiling_t = calcAffordablePrice(s, income_t * 0.36, dpPool_t, hoi_t);
     const annualTax_t   = annualTax * Math.pow(1 + effPropTaxGrowth / 100, t);
@@ -238,11 +253,12 @@ function calculate(s) {
   const netRate = avgGrowth - avgHeadwind;
 
   return {
-    equity, realtorFees, saleProceeds, totalCash, fixedCosts, downPayment, cashRemaining,
+    equity, realtorFees, transferTax, sellingCosts, saleProceeds, totalCash, buyingCosts, downPayment, cashRemaining,
     dpPct, loan, mortgagePI, annualTax, taxMonthly, pmi, hoiMonthly, totalMonthly, ratio, monthlyRemaining,
     K, dpPool, taxPctOfPrice, taxDollarEquiv,
     targetMonthly, ceilingMonthly, targetPrice, ceilingPrice,
     bpData, avgGrowth, avgHeadwind, netRate,
+    autoEscrow, effectiveEscrow,
   };
 }
 
@@ -344,8 +360,33 @@ function render(c, s) {
   setText('r-dpLabel', 'Down payment');
   setText('r-downPayment', fmt(c.downPayment) + ' (' + fmtPct(c.dpPct * 100, 1) + ')');
   setText('r-lenderFees', fmt(s.lenderFees));
+  setText('r-buyerTitleFees', fmt(s.buyerTitleFees));
   setText('r-repairCosts', fmt(s.repairCosts));
+  setText('r-prePaidEscrow', fmt(c.effectiveEscrow));
   setText('r-movingExpenses', fmt(s.movingExpenses));
+
+  // Auto-fill pre-paid escrow when not manually overridden
+  const escrowInputEl = $('prePaidEscrow');
+  if (escrowInputEl && !s.prePaidEscrowManual) {
+    escrowInputEl.value = c.autoEscrow;
+    if (s.prePaidEscrow !== c.autoEscrow) {
+      scenarios[activeScenario].prePaidEscrow = c.autoEscrow;
+      save();
+    }
+  }
+  const escrowHelperEl = $('prePaidEscrowHelper');
+  if (escrowHelperEl) {
+    if (s.prePaidEscrowManual) {
+      escrowHelperEl.innerHTML = 'Manual · <a href="#" class="helper-link" id="escrowAutoLink">reset to auto (' + fmt(c.autoEscrow) + ')</a>';
+      const autoLink = $('escrowAutoLink');
+      if (autoLink) autoLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        setState({ prePaidEscrowManual: false });
+      }, { once: true });
+    } else {
+      escrowHelperEl.textContent = c.autoEscrow > 0 ? 'Auto: 3 mo. taxes & insurance' : '3 mo. of taxes & insurance upfront';
+    }
+  }
   const crEl = $('r-cashRemaining');
   crEl.textContent = fmt(c.cashRemaining);
   crEl.className = c.cashRemaining > 0 ? 'green' : '';
@@ -486,7 +527,8 @@ function render(c, s) {
     '* Interest rate held constant at ' + fmtPct(s.interestRate) +
     '. Maintenance estimated at ' + fmtPct(s.maintenanceRate) + ' of prospective home price/yr. ' +
     'Annual cost burden includes property taxes, maintenance, and homeowners insurance. ' +
-    'Homeowners insurance and transaction costs (lender fees, repairs, moving) inflate at the Inflation Rate each year. ' +
+    'Homeowners insurance and buying costs (lender fees, title/escrow, repairs, pre-paid escrow, moving) inflate at the Inflation Rate each year. ' +
+    'Selling costs (agent commission, transfer tax) scale with projected home value; pre-sale repairs and seller title fees inflate at the Inflation Rate. ' +
     'Buying power reflects max affordable purchase price given projected income, down payment, and inflation-adjusted carrying costs. ' +
     'Cash pool starts at your expendable cash, grows via investment returns each year, plus new annual savings equal to ' +
     'Savings % × growing monthly pay × 12.'
@@ -494,6 +536,46 @@ function render(c, s) {
 
   updateBpChart(c, s);
   syncTargetPriceMode(s.targetPriceMode);
+}
+
+/* ── Fill Estimates ── */
+function fillSellingEstimates() {
+  const s = getState();
+  const patch = {};
+  if (s.sellerTitleFees === 0 && s.homeValuation > 0) {
+    patch.sellerTitleFees = Math.round(s.homeValuation * 0.005);
+    const el = $('sellerTitleFees');
+    if (el) el.value = patch.sellerTitleFees;
+  }
+  if (Object.keys(patch).length === 0) return;
+  setState(patch);
+  const btn = $('fillSellEstimates');
+  if (btn) { btn.textContent = 'Estimates filled!'; setTimeout(() => { btn.textContent = 'Fill in estimates'; }, 2000); }
+}
+
+function fillBuyingEstimates() {
+  const s = getState();
+  const c = calculate(s);
+  const patch = {};
+  if (s.lenderFees === 0 && c.loan > 0) {
+    patch.lenderFees = Math.round(c.loan * 0.015);
+    const el = $('lenderFees');
+    if (el) el.value = patch.lenderFees;
+  }
+  if (s.buyerTitleFees === 0 && s.purchasePrice > 0) {
+    patch.buyerTitleFees = Math.round(s.purchasePrice * 0.0075);
+    const el = $('buyerTitleFees');
+    if (el) el.value = patch.buyerTitleFees;
+  }
+  if (s.movingExpenses === 0) {
+    patch.movingExpenses = 3000;
+    const el = $('movingExpenses');
+    if (el) el.value = 3000;
+  }
+  if (Object.keys(patch).length === 0) return;
+  setState(patch);
+  const btn = $('fillBuyEstimates');
+  if (btn) { btn.textContent = 'Estimates filled!'; setTimeout(() => { btn.textContent = 'Fill in estimates'; }, 2000); }
 }
 
 /* ── Recalculate & Render ── */
@@ -518,6 +600,8 @@ function syncBuyerMode(mode) {
   firstBtn.classList.toggle('active',  isFirst);
   if (ownerFields) ownerFields.style.display = isFirst ? 'none' : '';
   if (ftNote)      ftNote.style.display      = isFirst ? ''     : 'none';
+  const sellSection = $('sellCostsSection');
+  if (sellSection) sellSection.style.display = isFirst ? 'none' : '';
 
   setText('currentHomeTitle', isFirst ? 'Your Financial Profile'            : 'Your Current Home');
   setText('currentHomeSub',   isFirst ? 'No current home — first-time buyer' : 'What you\'re working with today');
@@ -525,7 +609,7 @@ function syncBuyerMode(mode) {
   if (cashHelper) cashHelper.textContent = isFirst ? 'Total savings available for a down payment' : 'Savings you can put toward the purchase';
 
   // Grey out / restore the four growth-rate inputs that only apply to current homeowners
-  const ownerOnlyInputs = ['realtorFee', 'homeValGrowth', 'equityGrowth', 'propTaxGrowth', 'maintenanceGrowth'];
+  const ownerOnlyInputs = ['homeValGrowth', 'equityGrowth', 'propTaxGrowth', 'maintenanceGrowth'];
   const s = getState();
   for (const id of ownerOnlyInputs) {
     const el = $(id);
@@ -596,8 +680,19 @@ function bindInputs() {
     });
   }
   num('realtorFee');
+  num('transferTaxPct');
+  num('preSaleRepairs');
+  num('sellerTitleFees');
   num('lenderFees');
+  num('buyerTitleFees');
   num('repairCosts');
+  const escrowEl = $('prePaidEscrow');
+  if (escrowEl) {
+    if (s.prePaidEscrowManual) escrowEl.value = s.prePaidEscrow;
+    escrowEl.addEventListener('input', () => {
+      setState({ prePaidEscrow: parseFloat(escrowEl.value) || 0, prePaidEscrowManual: true });
+    });
+  }
   num('movingExpenses');
 
   const ptEl = $('propertyTax');
@@ -834,6 +929,10 @@ function init() {
     setState({ hoiMode: 'percent', hoiPct: pct });
     syncHoiInput('percent');
   });
+
+  // Fill estimates
+  $('fillSellEstimates')?.addEventListener('click', fillSellingEstimates);
+  $('fillBuyEstimates')?.addEventListener('click', fillBuyingEstimates);
 
   // Print
   $('printBtn').addEventListener('click', () => window.print());

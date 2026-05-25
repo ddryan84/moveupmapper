@@ -15,7 +15,7 @@ const DEFAULTS = {
   mortgageRate: 6.875,
   mortgageTerm: 30,
   homeGrowth: 3,
-  propTaxRate: 1.2,
+  propTaxRate: 1.0,
   propTaxGrowth: 2,
   monthlyPMI: 0,
   monthlyHOA: 0,
