@@ -1396,6 +1396,54 @@ details.adv-section[open] .adv-chevron { transform: rotate(180deg); }
 /* 4-column withdrawal stats grid */
 .rvb-stats-grid--4 { grid-template-columns: repeat(4, 1fr); }
 
+/* ── Mobile (≤ 480px) ── */
+@media (max-width: 480px) {
+  /* Container — tighter side padding */
+  .app { padding-left: 12px; padding-right: 12px; }
+
+  /* Page header — wrap action buttons below title on narrow screens */
+  .app-header { flex-wrap: wrap; padding: 12px 0 8px; gap: 8px; }
+  .app-header h1 { font-size: 18px; }
+  .header-icon { width: 36px; height: 36px; border-radius: 8px; }
+  .header-actions {
+    width: 100%;
+    margin-left: 0 !important;
+    justify-content: flex-end;
+  }
+
+  /* Scenario bar — right-align action row when it wraps */
+  .scenario-actions { width: 100%; justify-content: flex-end; }
+
+  /* Card internals — reduce padding throughout */
+  .card-head         { padding: 14px 14px 12px; }
+  .card-body,
+  .card-section      { padding: 14px 14px; }
+  .results-section   { padding: 10px 12px; }
+  .buyer-mode-bar    { padding: 10px 14px; }
+  .horizon-inner     { padding: 12px 14px; gap: 12px; }
+  .bp-controls       { padding: 12px; }
+  .glossary-body     { padding: 4px 14px 16px; }
+  .faq-body          { padding: 8px 14px 16px; }
+  .desc-box          { padding: 12px 14px; }
+  .prose             { padding: 16px 14px; }
+
+  /* Input column grids → single column */
+  .two-col, .three-col { grid-template-columns: 1fr; }
+
+  /* 4-column withdrawal stats → 2 columns */
+  .rvb-stats-grid--4 { grid-template-columns: repeat(2, 1fr); }
+
+  /* Stat tiles */
+  .bp-stat       { padding: 12px 14px; }
+  .bp-stat-value { font-size: 18px; }
+
+  /* Toggle buttons — slightly taller touch target */
+  .mode-btn { padding: 5px 10px; }
+
+  /* Footer */
+  .footer-links { flex-wrap: wrap; gap: 12px; justify-content: center; }
+}
+
 /* ── Print ── */
 @media print {
   body { background: white; }
