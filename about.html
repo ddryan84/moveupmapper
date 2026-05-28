@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=12">
+  <link rel="stylesheet" href="styles.css?v=17">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -36,21 +36,22 @@
   </script>
 </head>
 <body>
-<div class="app">
-
-  <!-- Page Nav -->
-  <div class="page-nav no-print">
+<nav class="site-nav no-print">
+  <div class="site-nav-inner">
     <a href="index.html" class="site-brand">
       <img src="favicon.svg" width="28" height="28" alt="" style="border-radius:7px;flex-shrink:0;display:block">
       <span class="brand-name">Move Up Mapper</span>
     </a>
     <div class="page-nav-links">
-      <a href="index.html" class="page-nav-link">Home Swap Calculator</a>
-      <a href="rvb.html"   class="page-nav-link">Rent vs. Buy Analysis</a>
-      <a href="faq.html"   class="page-nav-link">FAQ</a>
-      <a href="about.html" class="page-nav-link active">About</a>
+      <a href="index.html"    class="page-nav-link">Home Swap Calculator</a>
+      <a href="rvb.html"      class="page-nav-link">Rent vs. Buy Analysis</a>
+      <a href="compound.html" class="page-nav-link">Compound Growth</a>
+      <a href="faq.html"      class="page-nav-link">FAQ</a>
+      <a href="about.html"    class="page-nav-link active">About</a>
     </div>
   </div>
+</nav>
+<div class="app">
 
   <!-- Header -->
   <header class="app-header">
@@ -160,6 +161,70 @@
           </p>
           <a href="index.html" class="about-tool-link">Open Home Swap Calculator →</a>
         </div>
+
+        <div class="about-tool-block">
+          <div class="about-tool-header">
+            <div class="about-tool-icon" style="background:#0891b2">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>
+              </svg>
+            </div>
+            <span class="about-tool-name">Compound Growth Calculator</span>
+          </div>
+          <p>
+            Built for anyone modeling long-term savings or investment growth — whether planning for retirement,
+            a major purchase, or simply understanding how compounding works over time. Unlike basic compound
+            interest calculators, this tool accounts for two dynamics that simple models miss.
+          </p>
+          <p>
+            <strong>Growing Contribution Schedule</strong> models what happens when you save a fixed percentage
+            of a salary that rises over time. Instead of assuming flat annual deposits, the calculator compounds
+            your contribution amount at a separate annual growth rate — producing the non-linear, accelerating
+            deposit curve that more accurately reflects real saving behavior. The side panel shows exactly how
+            your annual contribution in Year N compares to Year 1, making the compounding effect of income
+            growth visible.
+          </p>
+          <p>
+            <strong>Contribution Frequency</strong> lets you choose between weekly, biweekly, monthly,
+            quarterly, or annual deposit schedules. Each uses the algebraically correct sub-annual compounding
+            rate so that more frequent contributions properly reflect the additional time they spend earning
+            returns — not just an annual approximation.
+          </p>
+          <p>
+            <strong>Return Variance Band</strong> adds an optimistic and pessimistic scenario around your base
+            return rate. Each scenario's values — final balance, inflation-adjusted purchasing power, total
+            gain, and compounding crossover year — update independently when you isolate a single scenario
+            using the chart toggles, giving you a concrete sense of the outcome range rather than a single
+            projected number.
+          </p>
+          <p>
+            <strong>Purchasing Power Adjustment</strong> expresses every projected balance in today's dollars.
+            Because inflation compounds in the same direction as price increases, the gap between a nominal
+            balance and its real purchasing power widens substantially over long horizons — a 30-year
+            projection at 3% inflation carries 143% total price growth, not 90%. The calculator makes this
+            concrete with a dedicated callout showing the nominal balance, the real equivalent, and the
+            purchasing power gap.
+          </p>
+          <p>
+            An <strong>Advanced section</strong> adds expense ratios, advisory fees, and an annual tax drag
+            estimate for taxable accounts. All fee inputs reduce the effective annual return before simulation,
+            so their compounding drag is fully captured. The chart sidebar shows the lifetime dollar cost of
+            fees alongside the no-fee final value for direct comparison.
+          </p>
+          <p>
+            The <strong>Withdrawal Phase</strong> extends the simulation beyond accumulation into the drawdown
+            period. Once enabled, a second chart appears showing how long your portfolio lasts under your
+            withdrawal scenario — whether you specify a fixed dollar amount or a percentage of the remaining
+            balance. The simulation applies the same return rate, subtracts your annual withdrawal, and runs
+            until the portfolio is depleted or 50 years have passed. A <strong>sustainable withdrawal</strong>
+            figure shows the amount your portfolio can pay out indefinitely without ever depleting — the point
+            where annual withdrawals equal the portfolio's return. When Inflation Adjusted is enabled, the
+            withdrawal amount grows each year at your inflation rate to maintain purchasing power, and a
+            hint below the input field shows what your stated withdrawal becomes by the end of your horizon,
+            making the compounding obligation visible upfront.
+          </p>
+          <a href="compound.html" class="about-tool-link">Open Compound Growth Calculator →</a>
+        </div>
       </section>
 
       <section class="prose-section">
@@ -232,6 +297,7 @@
     <div class="footer-links">
       <a href="index.html">Home Swap Calculator</a>
       <a href="rvb.html">Rent vs. Buy Analysis</a>
+      <a href="compound.html">Compound Growth</a>
       <a href="faq.html">FAQ</a>
       <a href="about.html">About</a>
       <a href="privacy.html">Privacy</a>

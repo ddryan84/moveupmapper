@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=12">
+  <link rel="stylesheet" href="styles.css?v=17">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -40,21 +40,22 @@
   </script>
 </head>
 <body>
-<div class="app">
-
-  <!-- Page Nav -->
-  <div class="page-nav no-print">
+<nav class="site-nav no-print">
+  <div class="site-nav-inner">
     <a href="index.html" class="site-brand">
       <img src="favicon.svg" width="28" height="28" alt="" style="border-radius:7px;flex-shrink:0;display:block">
       <span class="brand-name">Move Up Mapper</span>
     </a>
     <div class="page-nav-links">
-      <a href="index.html" class="page-nav-link">Home Swap Calculator</a>
-      <a href="rvb.html"   class="page-nav-link active">Rent vs. Buy Analysis</a>
-      <a href="faq.html"   class="page-nav-link">FAQ</a>
-      <a href="about.html" class="page-nav-link">About</a>
+      <a href="index.html"    class="page-nav-link">Home Swap Calculator</a>
+      <a href="rvb.html"      class="page-nav-link active">Rent vs. Buy Analysis</a>
+      <a href="compound.html" class="page-nav-link">Compound Growth</a>
+      <a href="faq.html"      class="page-nav-link">FAQ</a>
+      <a href="about.html"    class="page-nav-link">About</a>
     </div>
   </div>
+</nav>
+<div class="app">
 
   <!-- Header -->
   <header class="app-header">
@@ -321,6 +322,79 @@
         </div>
 
       </div>
+
+      <div class="card-section" style="border-top: 1px solid var(--border)">
+
+        <button type="button" class="section-collapse-hdr" id="taxBenefitsToggle" aria-expanded="false">
+          <div class="section-label">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            TAX BENEFITS
+          </div>
+          <svg class="collapse-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+
+        <div class="section-collapse-body" id="taxBenefitsBody" style="max-height:0;overflow:hidden">
+
+          <div class="two-col">
+            <div class="field">
+              <div class="field-row-head">
+                <label>DO YOU ITEMIZE?</label>
+                <div class="mode-toggle">
+                  <button class="mode-btn active" id="itemizeNo">No</button>
+                  <button class="mode-btn" id="itemizeYes">Yes</button>
+                </div>
+              </div>
+              <div style="margin-top:4px;font-size:11px;color:var(--text-muted)">Replaces the standard deduction</div>
+            </div>
+            <div class="field">
+              <label>FILING STATUS</label>
+              <div class="filing-toggle">
+                <button class="mode-btn active" id="filingStatusSingle" data-tooltip="Single filer">Single</button>
+                <button class="mode-btn" id="filingStatusMfj" data-tooltip="Married Filing Jointly">MFJ</button>
+                <button class="mode-btn" id="filingStatusMfs" data-tooltip="Married Filing Separately">MFS</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="two-col" style="display:none" id="taxBracketField">
+            <div class="field">
+              <label>MARGINAL TAX BRACKET (2025)</label>
+              <select id="taxBracket" class="input-select">
+                <option value="22">22% · $48,476 – $103,350</option>
+              </select>
+            </div>
+            <div class="field" id="stateTaxRateField">
+              <label>STATE INCOME TAX RATE</label>
+              <div class="input-wrap suffix">
+                <input type="number" id="stateTaxRate" min="0" max="20" step="0.1" value="0">
+                <span class="affix">%</span>
+              </div>
+              <div class="helper">Enter 0 for no-income-tax states (FL, TX, WA, NV…). Assumes state conformity.</div>
+            </div>
+          </div>
+
+          <div class="rvb-info-box">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span>Estimate only — assumes deductible interest + property taxes (up to $10K SALT cap) exceed the <strong id="std-deduction-ref">$15,000</strong> standard deduction for your filing status. Consult a tax advisor for your actual benefit.</span>
+          </div>
+
+          <div style="display:none;margin-top:10px;font-size:11px;color:var(--text-muted);line-height:1.5" id="taxSavingsNote">
+            <strong style="color:var(--text-muted)">Tax savings ≠ tax refund.</strong> These figures represent a reduction in your federal and state income tax liability — not a dollar-for-dollar refund. Your actual refund (or amount owed) depends on your total withholding, other deductions, and credits for the year.
+          </div>
+          <div class="net-section" id="taxBenefitOutput" style="display:none;margin-top:12px">
+            <div class="net-row">
+              <span>Est. annual tax savings (Yr 1)</span>
+              <span id="tax-savings-yr1" style="color:#16a34a;font-weight:600">—</span>
+            </div>
+            <div class="net-row" style="margin-top:4px">
+              <span>Est. total savings (<span class="dynamic-yr-label">10</span> yrs)</span>
+              <span id="tax-savings-total" style="color:#16a34a;font-weight:600">—</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
     </div>
 
   </div><!-- end calc-grid -->
@@ -337,7 +411,7 @@
       </div>
 
       <div class="bp-stat">
-        <div class="bp-stat-label">MONTHLY BUY COST (YR 1)</div>
+        <div class="bp-stat-label">MONTHLY BUY COST (YR 1)<span id="buy-stat-tax-label" style="display:none;font-weight:400;text-transform:none;font-size:10px;letter-spacing:0"> · after tax</span></div>
         <div class="bp-stat-value" id="stat-monthly-buy">—</div>
         <div class="bp-stat-delta" id="stat-dp-pct">—</div>
       </div>
@@ -391,6 +465,7 @@
           <strong>Rent</strong> compounds at your annual rent increase rate; renters insurance grows with inflation.
           <strong>Buy</strong> includes fixed P&amp;I, property taxes (growing at your tax increase rate), PMI until
           LTV reaches 80%, maintenance (your % × current home value each year), HOA (flat monthly), and homeowners insurance (grows with inflation).
+          <span id="chart-tax-note" style="display:none"><strong>Tax savings</strong> are subtracted from the buy line each year based on your bracket and state rate — estimated annual savings, not a guaranteed monthly cash flow.</span>
         </div>
       </div>
       <div class="bp-controls">
@@ -420,6 +495,10 @@
             <div class="net-row" style="margin-top:4px">
               <span>Homeowners insurance</span>
               <span id="side-hoi-yr1" style="font-weight:500">—</span>
+            </div>
+            <div class="net-row" id="side-tax-savings-row" style="display:none;margin-top:4px">
+              <span style="color:#16a34a">Est. tax savings</span>
+              <span id="side-tax-savings" style="font-weight:500;color:#16a34a">—</span>
             </div>
             <div class="r-divider"></div>
             <div class="net-row r-bold">
@@ -573,8 +652,8 @@
   </div>
 
   <!-- ── Key Concepts ── -->
-  <div class="card wide-card">
-    <div class="card-head">
+  <details class="card wide-card glossary-card">
+    <summary class="card-head">
       <div class="card-icon" style="background:#0f766e">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
@@ -584,7 +663,8 @@
         <div class="card-title">Key Concepts &amp; How It Works</div>
         <div class="card-sub">Plain-English explanations of every input, the math behind each chart, and important assumptions</div>
       </div>
-    </div>
+      <svg class="adv-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left:auto;flex-shrink:0"><polyline points="6 9 12 15 18 9"/></svg>
+    </summary>
     <div class="glossary-body">
 
       <div class="gloss-group">
@@ -660,6 +740,10 @@
             <div class="gloss-term">Amortization Model</div>
             <div class="gloss-def">Mortgage P&amp;I is computed using the standard fixed-payment amortization formula. The loan balance at any point in time is derived algebraically from the original loan amount, interest rate, term, and number of payments made — no month-by-month loop is needed. This gives accurate principal-paid and interest-paid totals for any horizon.</div>
           </div>
+          <div class="gloss-item">
+            <div class="gloss-term">Tax Savings Calculation (Optional)</div>
+            <div class="gloss-def">When Tax Benefits are enabled, the calculator estimates the annual income tax savings from itemizing deductions and subtracts them from the buy cost each year. The math runs in two parts. Federal savings: (mortgage interest that year + property tax that year, capped at $10,000 under the SALT limit) × your federal marginal rate. State savings: (mortgage interest + property tax, no SALT cap applied) × your state marginal rate. Mortgage interest is computed year-by-year using proper amortization — interest is front-loaded and declines each year as the principal balance falls, so the tax benefit is largest early in the loan and diminishes over time. The resulting annual savings are divided by 12 and subtracted from each year's monthly buy cost, which flows into Chart 1, the cost crossover calculation, and Chart 2's savings pool (since lower buy costs leave the renter less of a gap to reinvest). Totals shown in the Tax Benefits panel accumulate these year-by-year estimates across your full horizon.</div>
+          </div>
         </div>
       </div>
 
@@ -671,8 +755,8 @@
             <div class="gloss-def">This calculator models a 30-year (or custom term) fixed-rate mortgage. Adjustable-rate mortgages (ARMs), interest-only loans, and FHA/VA products with different PMI structures are not modeled. If you're considering an ARM, the true long-term cost comparison will differ from what this tool shows.</div>
           </div>
           <div class="gloss-item">
-            <div class="gloss-term">Tax Benefits Not Included</div>
-            <div class="gloss-def">The mortgage interest deduction and property tax deduction are not factored into buying costs. For itemizers in higher tax brackets, this means the calculator slightly overstates the true after-tax cost of buying. The effect is most significant in the early years of the loan when interest makes up the majority of each payment.</div>
+            <div class="gloss-term">Tax Benefits (Optional)</div>
+            <div class="gloss-def">When enabled, the estimated federal and state income tax savings from itemizing — mortgage interest plus property taxes (capped at $10,000 under the federal SALT limit) — are subtracted from the buy cost in both charts and all summary stats. This makes the rent vs. buy comparison reflect after-tax ownership costs. The deduction is most valuable in early loan years when interest is highest and for itemizers in the 22%+ brackets. Tax savings reduce your tax liability; they are not a direct refund. Consult a tax advisor for your actual benefit.</div>
           </div>
           <div class="gloss-item">
             <div class="gloss-term">Constant Growth Rates</div>
@@ -690,13 +774,14 @@
       </div>
 
     </div>
-  </div>
+  </details>
 
 
   <footer class="site-footer no-print">
     <div class="footer-links">
       <a href="index.html">Home Swap Calculator</a>
       <a href="rvb.html">Rent vs. Buy Analysis</a>
+      <a href="compound.html">Compound Growth</a>
       <a href="faq.html">FAQ</a>
       <a href="about.html">About</a>
       <a href="privacy.html">Privacy</a>
@@ -708,7 +793,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
-<script src="rvb.js?v=5"></script>
+<script src="rvb.js?v=9"></script>
 <script>
   (function() {
     var hdr = document.getElementById('assumptionsToggle');
@@ -761,6 +846,34 @@
 
     syncMirrors();
   });
+</script>
+<script>
+  (function() {
+    var hdr = document.getElementById('taxBenefitsToggle');
+    var body = document.getElementById('taxBenefitsBody');
+    hdr.addEventListener('click', function() {
+      var expanded = hdr.getAttribute('aria-expanded') === 'true';
+      hdr.setAttribute('aria-expanded', String(!expanded));
+      if (expanded) {
+        body.style.overflow = 'hidden';
+        body.style.maxHeight = body.scrollHeight + 'px';
+        requestAnimationFrame(function() {
+          requestAnimationFrame(function() {
+            body.style.maxHeight = '0';
+          });
+        });
+      } else {
+        body.style.overflow = 'hidden';
+        body.style.maxHeight = body.scrollHeight + 'px';
+        setTimeout(function() {
+          if (hdr.getAttribute('aria-expanded') === 'true') {
+            body.style.overflow = 'visible';
+            body.style.maxHeight = 'none';
+          }
+        }, 350);
+      }
+    });
+  })();
 </script>
 </body>
 </html>

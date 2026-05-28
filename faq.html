@@ -5,17 +5,17 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FAQ — Move Up Mapper</title>
-  <meta name="description" content="Answers to common questions about the Move Up Mapper home swap calculator and rent vs. buy analysis tool — how the math works and what each field means.">
+  <meta name="description" content="Answers to common questions about the Move Up Mapper calculators — home swapping, rent vs. buy analysis, and compound growth — how the math works and what each field means.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Move Up Mapper">
   <meta property="og:title" content="FAQ — Move Up Mapper">
-  <meta property="og:description" content="Answers to common questions about the Move Up Mapper home swap calculator and rent vs. buy analysis tool — how the math works and what each field means.">
+  <meta property="og:description" content="Answers to common questions about the Move Up Mapper calculators — home swapping, rent vs. buy analysis, and compound growth — how the math works and what each field means.">
   <meta property="og:url" content="https://www.moveupmapper.com/faq.html">
   <link rel="canonical" href="https://www.moveupmapper.com/faq.html">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=12">
+  <link rel="stylesheet" href="styles.css?v=17">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -80,6 +80,36 @@
         "@type": "Question",
         "name": "Is my data saved or shared anywhere?",
         "acceptedAnswer": { "@type": "Answer", "text": "No. All calculator inputs are saved only in your browser's local storage so your settings persist between visits. Nothing you enter is transmitted to any server, stored in a database, or shared with anyone." }
+      },
+      {
+        "@type": "Question",
+        "name": "How should I choose my Annual Return and Return Variance in the Compound Growth Calculator?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The Annual Return is your expected average over the full horizon. 7% is a common long-run baseline for a diversified equity portfolio. Return Variance adds an optimistic and pessimistic band around that base rate — a variance of 2% means the Optimistic scenario uses 9% and the Pessimistic uses 5%. For a stock-heavy portfolio, 1–3% variance is reasonable. For bonds or a balanced mix, reduce both the base return and the variance." }
+      },
+      {
+        "@type": "Question",
+        "name": "What does the compounding crossover year mean?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The compounding crossover is the year when your portfolio's annual investment returns first exceed your annual contributions. Before that point, your deposits are the primary engine of growth. After it, the portfolio's earnings take over and growth accelerates on its own. For most savers it arrives somewhere between Year 10 and Year 20, depending on the return rate and contribution level." }
+      },
+      {
+        "@type": "Question",
+        "name": "Why does the inflation-adjusted balance look so much smaller than the nominal figure?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Because inflation compounds continuously, the gap between a nominal balance and its real purchasing power widens substantially over long horizons. A $1,000,000 balance 30 years from now at 3% annual inflation is only worth about $412,000 in today's dollars. Over a 30-year horizon at 3% inflation, prices roughly 2.4× — meaning your nominal balance needs to be 2.4× higher just to match today's purchasing power." }
+      },
+      {
+        "@type": "Question",
+        "name": "How does the Withdrawal Phase work in the Compound Growth Calculator?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The Withdrawal Phase models the drawdown period — what happens after you stop contributing and start spending your portfolio. Set your annual withdrawal as a fixed dollar amount or a percentage of the remaining balance. The simulation picks up from your accumulation end balance, applies your return rate, subtracts your withdrawal each year, and runs until the portfolio depletes or 50 years pass. A second chart shows the drawdown trajectory across base, optimistic, and pessimistic scenarios." }
+      },
+      {
+        "@type": "Question",
+        "name": "What is a sustainable withdrawal rate?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The sustainable withdrawal is the annual amount your portfolio can pay out indefinitely without ever depleting — the point where withdrawals equal the portfolio's annual return. It's calculated as: portfolio balance × net annual return rate. Withdrawing above this causes the balance to shrink over time. When Inflation Adjusted is enabled, the real sustainable withdrawal is balance × (return rate − inflation rate), representing the amount you can withdraw indefinitely while also keeping pace with inflation." }
+      },
+      {
+        "@type": "Question",
+        "name": "What does Inflation Adjusted do in the Withdrawal Phase?",
+        "acceptedAnswer": { "@type": "Answer", "text": "With Inflation Adjusted on, your withdrawal amount grows each year at your inflation rate to maintain the same purchasing power throughout the drawdown period. If you withdraw $50,000 in Year 1 at 3% inflation, you'd withdraw $51,500 in Year 2, $53,045 in Year 3, and so on. This is more realistic for retirement planning but depletes the portfolio faster than a fixed nominal withdrawal." }
       }
     ]
   }
@@ -94,21 +124,22 @@
   </script>
 </head>
 <body>
-<div class="app">
-
-  <!-- Page Nav -->
-  <div class="page-nav no-print">
+<nav class="site-nav no-print">
+  <div class="site-nav-inner">
     <a href="index.html" class="site-brand">
       <img src="favicon.svg" width="28" height="28" alt="" style="border-radius:7px;flex-shrink:0;display:block">
       <span class="brand-name">Move Up Mapper</span>
     </a>
     <div class="page-nav-links">
-      <a href="index.html" class="page-nav-link">Home Swap Calculator</a>
-      <a href="rvb.html"   class="page-nav-link">Rent vs. Buy Analysis</a>
-      <a href="faq.html"   class="page-nav-link active">FAQ</a>
-      <a href="about.html" class="page-nav-link">About</a>
+      <a href="index.html"    class="page-nav-link">Home Swap Calculator</a>
+      <a href="rvb.html"      class="page-nav-link">Rent vs. Buy Analysis</a>
+      <a href="compound.html" class="page-nav-link">Compound Growth</a>
+      <a href="faq.html"      class="page-nav-link active">FAQ</a>
+      <a href="about.html"    class="page-nav-link">About</a>
     </div>
   </div>
+</nav>
+<div class="app">
 
   <!-- Header -->
   <header class="app-header">
@@ -119,7 +150,7 @@
     </div>
     <div>
       <h1>Frequently Asked Questions</h1>
-      <p class="header-sub">Common questions about home buying, renting, and using these calculators</p>
+      <p class="header-sub">Common questions about home buying, renting, long-term saving, and using these calculators</p>
     </div>
   </header>
 
@@ -210,6 +241,50 @@
         </div>
       </details>
 
+      <div class="faq-section-label">Compound Growth Calculator</div>
+
+      <details class="faq-item">
+        <summary class="faq-q">How should I choose my Annual Return and Return Variance?</summary>
+        <div class="faq-a">
+          The Annual Return is your expected average over the full horizon. 7% is a common long-run baseline for a diversified equity portfolio — roughly the historical average of U.S. stocks net of inflation, before fees. Return Variance adds an optimistic and pessimistic band around that base: a variance of 2% means the Optimistic scenario uses 9% and the Pessimistic uses 5%. The band is designed to help you think in ranges rather than a single projected number. For a stock-heavy portfolio, 1–3% variance is reasonable. For bonds or a balanced mix, reduce both the base return and the variance accordingly. Use the chart toggles to isolate a single scenario and see its full stats in the summary panel.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">What does the compounding crossover year mean?</summary>
+        <div class="faq-a">
+          The compounding crossover is the year when your portfolio's annual investment returns first exceed your annual contributions. Before that point, your deposits are the primary engine of growth — what you put in matters more than what the market adds. After it, the portfolio's earnings take over and growth accelerates on its own. For most savers it arrives somewhere between Year 10 and Year 20, depending on the return rate and contribution level. The dashed "Contributions only" line on the growth chart makes this concrete: it shows what your balance would be with zero return, so the gap between it and the base line is the compounding added on top.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">Why does the inflation-adjusted balance look so much smaller than the nominal figure?</summary>
+        <div class="faq-a">
+          Because inflation compounds in the same direction as price increases, the gap between a nominal balance and its real purchasing power widens substantially over long horizons. A $1,000,000 balance 30 years from now at 3% annual inflation is only worth about $412,000 in today's dollars — a 59% reduction in purchasing power. The Purchasing Power section on the calculator makes this explicit: it shows your projected nominal balance, what it's worth in today's dollars, and the gap between the two. Over a 30-year horizon at 3% inflation, prices roughly 2.4× — meaning your nominal balance needs to be 2.4× higher just to match today's purchasing power.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">How does the Withdrawal Phase work, and when should I use it?</summary>
+        <div class="faq-a">
+          The Withdrawal Phase models the drawdown period — what happens to your portfolio after you stop contributing and start spending it. Enable it in the Withdrawal Phase section of the input card, then set your annual withdrawal as a fixed dollar amount or a percentage of the remaining balance. The simulation picks up from whatever balance your portfolio reaches at the end of the accumulation period, applies your return rate, subtracts your withdrawal each year, and runs until the portfolio is depleted or 50 years have passed. A second chart appears showing the full drawdown trajectory across base, optimistic, and pessimistic scenarios. Use it to model retirement income: if you save for 25 years and then withdraw $60,000/year, the chart shows how long your portfolio lasts under each scenario.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">What is a sustainable withdrawal rate, and how is it calculated?</summary>
+        <div class="faq-a">
+          The sustainable withdrawal is the annual amount your portfolio can pay out indefinitely without ever depleting — the point where withdrawals exactly equal the portfolio's annual return and the balance stays flat. It's calculated as: portfolio value at withdrawal start × net annual return rate. For example, a $1,000,000 portfolio earning 7% net can sustain $70,000/year indefinitely. Withdrawing above this causes the balance to shrink over time, eventually to zero. Below it, the portfolio continues to grow. When Inflation Adjusted is enabled, the calculator also shows the real sustainable withdrawal — calculated as portfolio value × (return rate − inflation rate) — representing what you can withdraw indefinitely while also keeping pace with inflation.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">What does "Inflation Adjusted" do in the Withdrawal Phase?</summary>
+        <div class="faq-a">
+          With Inflation Adjusted on, your withdrawal amount grows each year at your inflation rate to maintain the same purchasing power throughout the drawdown period. If you withdraw $50,000 in Year 1 at 3% inflation, you'd withdraw $51,500 in Year 2, $53,045 in Year 3, and so on — because what costs $50,000 today will cost more in future years. The hint that appears below the withdrawal input field shows exactly what your stated amount grows to by the end of your accumulation horizon, so you can see the full compounding obligation upfront. The "grows to" figure in the withdrawal stats card shows the endpoint within the actual withdrawal period. Withdrawing a growing amount is more realistic for retirement planning but depletes the portfolio faster than a fixed nominal withdrawal.
+        </div>
+      </details>
+
     </div><!-- /faq-body -->
   </div>
 
@@ -218,6 +293,7 @@
     <div class="footer-links">
       <a href="index.html">Home Swap Calculator</a>
       <a href="rvb.html">Rent vs. Buy Analysis</a>
+      <a href="compound.html">Compound Growth</a>
       <a href="faq.html">FAQ</a>
       <a href="about.html">About</a>
       <a href="privacy.html">Privacy</a>

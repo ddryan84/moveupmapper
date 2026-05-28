@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=12">
+  <link rel="stylesheet" href="styles.css?v=17">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -40,21 +40,22 @@
   </script>
 </head>
 <body>
-<div class="app">
-
-  <!-- Page Nav -->
-  <div class="page-nav no-print">
+<nav class="site-nav no-print">
+  <div class="site-nav-inner">
     <a href="index.html" class="site-brand">
       <img src="favicon.svg" width="28" height="28" alt="" style="border-radius:7px;flex-shrink:0;display:block">
       <span class="brand-name">Move Up Mapper</span>
     </a>
     <div class="page-nav-links">
-      <a href="index.html" class="page-nav-link active">Home Swap Calculator</a>
-      <a href="rvb.html"   class="page-nav-link">Rent vs. Buy Analysis</a>
-      <a href="faq.html"   class="page-nav-link">FAQ</a>
-      <a href="about.html" class="page-nav-link">About</a>
+      <a href="index.html"    class="page-nav-link active">Home Swap Calculator</a>
+      <a href="rvb.html"      class="page-nav-link">Rent vs. Buy Analysis</a>
+      <a href="compound.html" class="page-nav-link">Compound Growth</a>
+      <a href="faq.html"      class="page-nav-link">FAQ</a>
+      <a href="about.html"    class="page-nav-link">About</a>
     </div>
   </div>
+</nav>
+<div class="app">
 
   <!-- Scenario Tabs Bar -->
   <div class="scenario-bar no-print">
@@ -800,8 +801,8 @@
 
 
   <!-- ── Section 4: Key Terms & Concepts ── -->
-  <div class="card wide-card" id="glossarySection">
-    <div class="card-head">
+  <details class="card wide-card glossary-card" id="glossarySection">
+    <summary class="card-head">
       <div class="card-icon icon-glossary">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
@@ -811,7 +812,8 @@
         <div class="card-title">Key Terms &amp; Concepts</div>
         <div class="card-sub">Plain-English explanations of every term used in this calculator</div>
       </div>
-    </div>
+      <svg class="adv-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left:auto;flex-shrink:0"><polyline points="6 9 12 15 18 9"/></svg>
+    </summary>
     <div class="glossary-body">
 
       <div class="gloss-group">
@@ -925,13 +927,14 @@
       </div>
 
     </div><!-- /glossary-body -->
-  </div>
+  </details>
 
 
   <footer class="site-footer no-print">
     <div class="footer-links">
       <a href="index.html">Home Swap Calculator</a>
       <a href="rvb.html">Rent vs. Buy Analysis</a>
+      <a href="compound.html">Compound Growth</a>
       <a href="faq.html">FAQ</a>
       <a href="about.html">About</a>
       <a href="privacy.html">Privacy</a>

@@ -41,12 +41,6 @@ h1, h2, .brand-name, .card-title {
   font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
   letter-spacing: 0;
 }
-body::before {
-  content: '';
-  display: block;
-  height: 3px;
-  background: linear-gradient(90deg, var(--indigo) 0%, var(--indigo-mid) 100%);
-}
 input[type=number] { -moz-appearance: textfield; appearance: textfield; }
 input[type=number]::-webkit-outer-spin-button,
 input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; }
@@ -57,7 +51,7 @@ canvas { display: block; width: 100% !important; }
 .app {
   max-width: 1160px;
   margin: 0 auto;
-  padding: 0 20px 60px;
+  padding: 16px 20px 60px;
 }
 
 /* ── Scenario Bar ── */
@@ -351,6 +345,73 @@ label {
   text-align: center;
   font-style: italic;
 }
+.input-select {
+  display: block;
+  width: 100%;
+  padding: 8px 32px 8px 10px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") no-repeat right 10px center;
+  font-size: 14px;
+  color: var(--text);
+  font-family: inherit;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: border-color .15s;
+}
+.input-select:focus {
+  outline: none;
+  border-color: var(--indigo);
+  box-shadow: 0 0 0 3px rgba(79,70,229,.1);
+}
+/* Filing status toggle — like mode-toggle but allows tooltip overflow */
+.filing-toggle {
+  display: flex;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: visible;
+}
+.filing-toggle .mode-btn {
+  position: relative;
+  flex: 1;
+}
+.filing-toggle .mode-btn:first-child { border-radius: 4px 0 0 4px; }
+.filing-toggle .mode-btn:last-child  { border-radius: 0 4px 4px 0; }
+/* Tooltip */
+.filing-toggle .mode-btn[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1f2937;
+  color: white;
+  font-size: 11px;
+  font-weight: 400;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  z-index: 100;
+}
+.filing-toggle .mode-btn[data-tooltip]::before {
+  content: '';
+  position: absolute;
+  bottom: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  border: 4px solid transparent;
+  border-top-color: #1f2937;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  z-index: 100;
+}
+.filing-toggle .mode-btn[data-tooltip]:hover::after,
+.filing-toggle .mode-btn[data-tooltip]:hover::before { opacity: 1; }
 .two-col {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -955,14 +1016,35 @@ details[open] > .faq-q::after {
 }
 .faq-a em { font-style: italic; color: var(--text); }
 
-/* ── Page Nav ── */
-.page-nav {
+.faq-section-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 18px 4px 6px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── Site Nav ── */
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: white;
+  border-top: 3px solid var(--indigo);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 2px 8px rgba(0,0,0,.05);
+}
+.site-nav-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding: 12px 0 0;
-  flex-wrap: wrap;
+  gap: 16px;
+  height: 54px;
 }
 .site-brand {
   display: flex;
@@ -992,25 +1074,35 @@ details[open] > .faq-q::after {
 }
 .page-nav-links {
   display: flex;
-  gap: 4px;
-  flex-wrap: wrap;
+  align-items: stretch;
+  height: 100%;
 }
 .page-nav-link {
-  padding: 5px 16px;
-  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
   font-size: 13px;
   font-weight: 500;
   color: var(--text-muted);
   text-decoration: none;
-  border: 1.5px solid var(--border);
-  background: white;
-  transition: all .15s;
+  border: none;
+  border-bottom: 2px solid transparent;
+  background: none;
+  border-radius: 0;
+  white-space: nowrap;
+  transition: color .15s, border-color .15s;
 }
-.page-nav-link:hover { border-color: var(--indigo-mid); color: var(--indigo); }
+.page-nav-link:hover { color: var(--text); border-bottom-color: var(--indigo-mid); }
 .page-nav-link.active {
-  background: var(--indigo);
-  border-color: var(--indigo);
-  color: white;
+  color: var(--indigo);
+  font-weight: 600;
+  border-bottom-color: var(--indigo);
+}
+@media (max-width: 640px) {
+  .site-nav-inner { gap: 8px; }
+  .page-nav-links { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .page-nav-link { padding: 0 10px; font-size: 12px; }
+  .brand-name { display: none; }
 }
 
 /* ── Horizon Slider ── */
@@ -1195,6 +1287,114 @@ details[open] > .faq-q::after {
 }
 .footer-links a:hover { color: var(--indigo); }
 .footer-note { line-height: 1.6; }
+
+/* ── Compound Growth Calculator ── */
+.compound-infl-card {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+.compound-infl-stat {
+  flex: 1;
+  min-width: 160px;
+}
+.compound-infl-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+.compound-infl-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1;
+}
+.compound-infl-note {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 6px;
+  line-height: 1.5;
+}
+.compound-infl-divider {
+  width: 1px;
+  align-self: stretch;
+  background: var(--border);
+  flex-shrink: 0;
+}
+
+/* Advanced collapsible section (compound page) */
+.adv-section { border-top: 1px solid var(--border); }
+.adv-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 20px;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  list-style: none;
+  user-select: none;
+}
+.adv-toggle::-webkit-details-marker { display: none; }
+.adv-toggle:hover { color: var(--text); }
+.adv-chevron { margin-left: auto; transition: transform 0.2s; flex-shrink: 0; }
+details.adv-section[open] .adv-chevron { transform: rotate(180deg); }
+
+/* Scenario visibility toggles (chart) */
+.scenario-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  border: 1.5px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.scenario-toggle.active {
+  background: var(--surface);
+  color: var(--text);
+  border-color: #9ca3af;
+}
+.scenario-toggle .toggle-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Withdrawal inflation hint */
+.wd-infl-hint {
+  margin-top: 6px;
+  padding: 5px 8px;
+  font-size: 11px;
+  line-height: 1.4;
+  color: #b45309;
+  background: rgba(245, 158, 11, 0.08);
+  border-left: 2px solid rgba(245, 158, 11, 0.45);
+  border-radius: 0 4px 4px 0;
+}
+
+/* Collapsible glossary card */
+.glossary-card > summary { list-style: none; cursor: pointer; user-select: none; }
+.glossary-card > summary::-webkit-details-marker { display: none; }
+.glossary-card > summary::marker { display: none; }
+.glossary-card[open] .adv-chevron { transform: rotate(180deg); }
+
+/* 4-column withdrawal stats grid */
+.rvb-stats-grid--4 { grid-template-columns: repeat(4, 1fr); }
 
 /* ── Print ── */
 @media print {

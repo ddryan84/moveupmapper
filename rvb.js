@@ -25,11 +25,58 @@ const DEFAULTS = {
   closingCosts: 9000,
   maintenancePct: 1,
   horizonYears: 10,
+  itemizeDeductions: false,
+  taxBracket: 22,
+  filingStatus: 'single',
+  stateTaxRate: 0,
 };
+
+// 2025 federal tax brackets by filing status
+const TAX_BRACKETS = {
+  single: [
+    { rate: 10, label: '10% · up to $11,925' },
+    { rate: 12, label: '12% · $11,926 – $48,475' },
+    { rate: 22, label: '22% · $48,476 – $103,350' },
+    { rate: 24, label: '24% · $103,351 – $197,300' },
+    { rate: 32, label: '32% · $197,301 – $250,525' },
+    { rate: 35, label: '35% · $250,526 – $626,350' },
+    { rate: 37, label: '37% · over $626,350' },
+  ],
+  mfj: [
+    { rate: 10, label: '10% · up to $23,850' },
+    { rate: 12, label: '12% · $23,851 – $96,950' },
+    { rate: 22, label: '22% · $96,951 – $206,700' },
+    { rate: 24, label: '24% · $206,701 – $394,600' },
+    { rate: 32, label: '32% · $394,601 – $501,050' },
+    { rate: 35, label: '35% · $501,051 – $751,600' },
+    { rate: 37, label: '37% · over $751,600' },
+  ],
+  mfs: [
+    { rate: 10, label: '10% · up to $11,925' },
+    { rate: 12, label: '12% · $11,926 – $48,475' },
+    { rate: 22, label: '22% · $48,476 – $103,350' },
+    { rate: 24, label: '24% · $103,351 – $197,300' },
+    { rate: 32, label: '32% · $197,301 – $250,525' },
+    { rate: 35, label: '35% · $250,526 – $375,800' },
+    { rate: 37, label: '37% · over $375,800' },
+  ],
+};
+
+const STANDARD_DEDUCTIONS = { single: 15000, mfj: 30000, mfs: 15000 };
 
 let state = { ...DEFAULTS };
 let costChart = null;
 let wealthChart = null;
+
+function updateBracketOptions(filingStatus) {
+  const el = document.getElementById('taxBracket');
+  if (!el) return;
+  const brackets = TAX_BRACKETS[filingStatus] || TAX_BRACKETS.single;
+  const currentRate = state.taxBracket;
+  el.innerHTML = brackets.map(b =>
+    `<option value="${b.rate}"${b.rate === currentRate ? ' selected' : ''}>${b.label}</option>`
+  ).join('');
+}
 
 /* ── Mortgage math ── */
 
@@ -90,6 +137,18 @@ function calculate(s) {
   const principalLastYr = Math.max(0, balYrPrev - balYrLast);
   const interestLastYr  = balYrPrev > 0 ? Math.max(0, pi * 12 - principalLastYr) : 0;
 
+  // Tax benefit: federal (SALT cap $10K) + state (no SALT cap) deductions
+  const propTaxAnnualYr1     = s.purchasePrice * s.propTaxRate / 100;
+  const stateRate            = (s.stateTaxRate || 0) / 100;
+  const federalSavingsYr1    = s.itemizeDeductions
+    ? (interestYr1 + Math.min(propTaxAnnualYr1, 10000)) * (s.taxBracket / 100)
+    : 0;
+  const stateSavingsYr1      = s.itemizeDeductions
+    ? (interestYr1 + propTaxAnnualYr1) * stateRate
+    : 0;
+  const taxSavingsYr1        = federalSavingsYr1 + stateSavingsYr1;
+  const taxSavingsMonthlyYr1 = taxSavingsYr1 / 12;
+
   const propTaxMonthlyYr1    = (s.purchasePrice * s.propTaxRate / 100) / 12;
   const pmiMonthlyYr1        = pmiRequired ? s.monthlyPMI : 0;
   const maintenanceMonthlyYr1 = (s.purchasePrice * (s.maintenancePct / 100)) / 12;
@@ -108,6 +167,7 @@ function calculate(s) {
   let totalRentPaid       = 0;
   let totalPIPaid         = 0;
   let totalPropTaxPaid    = 0;
+  let totalTaxSavings     = 0;
 
   // Savings pool tracks the renter's invested capital iteratively:
   // each year it compounds at the opportunity cost rate and absorbs the
@@ -149,12 +209,28 @@ function calculate(s) {
       savingsValues.push(savingsPool);
     }
 
+    // Compute per-year tax savings and fold into effective buy cost for this year.
+    // Applied after the savings pool reads buyMonthlyCosts[t-1] (previous iteration),
+    // so the adjustment is picked up correctly by the pool in the next iteration.
+    let yearTaxSavings = 0;
+    if (s.itemizeDeductions && loan > 0) {
+      const balT  = Math.max(0, loan - principalPaid);
+      const balT1 = loanBalance(loan, s.mortgageRate, s.mortgageTerm, (t + 1) * 12);
+      const principalThisYear = Math.max(0, balT - balT1);
+      const interestThisYear  = balT > 0 ? Math.max(0, pi * 12 - principalThisYear) : 0;
+      const propTaxThisYear   = propTaxMonthly * 12;
+      yearTaxSavings = (interestThisYear + Math.min(propTaxThisYear, 10000)) * (s.taxBracket / 100)
+                     + (interestThisYear + propTaxThisYear) * stateRate;
+    }
+    buyMonthlyCosts[t] -= yearTaxSavings / 12;
+
     if (equityBreakEvenYear === null && equityValues[t] >= savingsValues[t] && t > 0)
       equityBreakEvenYear = t;
-    if (costCrossoverYear === null && rentMonthly >= buyMonthly)
+    if (costCrossoverYear === null && rentMonthly >= buyMonthlyCosts[t])
       costCrossoverYear = t;
 
     if (t < YEARS) {
+      totalTaxSavings  += yearTaxSavings;
       totalRentPaid    += rentMonthly * 12;
       totalPIPaid      += pi * 12;
       totalPropTaxPaid += propTaxMonthly * 12;
@@ -177,6 +253,7 @@ function calculate(s) {
     buyMonthlyYr1, propTaxMonthlyYr1, pmiMonthlyYr1, maintenanceMonthlyYr1, hoaMonthlyYr1, hoiMonthlyYr1,
     principalYr1, interestYr1,
     principalLastYr, interestLastYr,
+    taxSavingsYr1, taxSavingsMonthlyYr1, totalTaxSavings,
   };
 }
 
@@ -200,7 +277,7 @@ function render(c, s) {
 
   // Summary bar
   setText('stat-monthly-rent', fmt(c.rentMonthlyCosts[0]));
-  setText('stat-monthly-buy',  fmt(c.buyMonthlyYr1));
+  setText('stat-monthly-buy',  fmt(c.buyMonthlyCosts[0]));
   setText('stat-dp-pct',       c.dpPct.toFixed(1) + '% down · ' + fmt(c.loan) + ' loan');
 
   // PMI status
@@ -260,7 +337,7 @@ function render(c, s) {
   setText('side-maintenance-yr1',  fmt(c.maintenanceMonthlyYr1));
   setText('side-hoa-yr1',          fmt(c.hoaMonthlyYr1));
   setText('side-hoi-yr1',          fmt(c.hoiMonthlyYr1));
-  setText('side-buytotal',         fmt(c.buyMonthlyYr1));
+  setText('side-buytotal',         fmt(c.buyMonthlyCosts[0]));
   setText('side-totalrent',      fmt(c.totalRentPaid));
   setText('side-totalpi',        fmt(c.totalPIPaid));
   setText('side-total-principal', fmt(c.totalPrincipalPaid));
@@ -275,7 +352,37 @@ function render(c, s) {
   setText('side-equity-last',       fmt(c.equityLast));
   setText('side-savings-last',      fmt(c.savingsLast));
 
-  updateCostChart(c);
+  // Tax benefit outputs
+  const stdDedEl = document.getElementById('std-deduction-ref');
+  if (stdDedEl) {
+    const stdDed = STANDARD_DEDUCTIONS[s.filingStatus] || 15000;
+    stdDedEl.textContent = '$' + stdDed.toLocaleString('en-US');
+  }
+  const taxBenefitOutputEl = document.getElementById('taxBenefitOutput');
+  if (taxBenefitOutputEl) taxBenefitOutputEl.style.display = s.itemizeDeductions ? 'block' : 'none';
+  const taxSavingsNoteEl = document.getElementById('taxSavingsNote');
+  if (taxSavingsNoteEl) taxSavingsNoteEl.style.display = s.itemizeDeductions ? 'block' : 'none';
+  const taxBracketFieldEl = document.getElementById('taxBracketField');
+  if (taxBracketFieldEl) taxBracketFieldEl.style.display = s.itemizeDeductions ? 'grid' : 'none';
+  if (s.itemizeDeductions) {
+    setText('tax-savings-yr1',   fmt(c.taxSavingsYr1));
+    setText('tax-savings-total', fmt(c.totalTaxSavings));
+  }
+
+  // Side panel tax savings deduction row
+  const sideTaxRowEl = document.getElementById('side-tax-savings-row');
+  if (sideTaxRowEl) sideTaxRowEl.style.display = s.itemizeDeductions ? 'flex' : 'none';
+  if (s.itemizeDeductions) {
+    setText('side-tax-savings', '−' + fmt(c.taxSavingsMonthlyYr1));
+  }
+
+  // Summary stat label suffix and chart footnote note
+  const buyStatTaxLabelEl = document.getElementById('buy-stat-tax-label');
+  if (buyStatTaxLabelEl) buyStatTaxLabelEl.style.display = s.itemizeDeductions ? 'inline' : 'none';
+  const chartTaxNoteEl = document.getElementById('chart-tax-note');
+  if (chartTaxNoteEl) chartTaxNoteEl.style.display = s.itemizeDeductions ? 'inline' : 'none';
+
+  updateCostChart(c, s);
   updateWealthChart(c);
 }
 
@@ -342,11 +449,14 @@ function initCharts() {
   }
 }
 
-function updateCostChart(c) {
+function updateCostChart(c, s) {
   if (!costChart) return;
   costChart.data.labels = yearLabels();
   costChart.data.datasets[0].data = c.rentMonthlyCosts;
   costChart.data.datasets[1].data = c.buyMonthlyCosts;
+  costChart.data.datasets[1].label = s && s.itemizeDeductions
+    ? 'Buy (after tax savings)'
+    : 'Buy (all ownership costs)';
 
   const showPMI = c.pmiRequired && c.pmiDropOffYear != null
                   && isFinite(c.pmiDropOff) && c.pmiDropOffYear <= c.YEARS;
@@ -459,6 +569,7 @@ function populateFields() {
     'rent', 'rentersInsurance', 'rentIncrease', 'inflation',
     'purchasePrice', 'mortgageRate', 'mortgageTerm', 'homeGrowth',
     'propTaxRate', 'propTaxGrowth', 'monthlyPMI', 'monthlyHOA', 'closingCosts', 'maintenancePct',
+    'stateTaxRate',
   ];
   fields.forEach(key => {
     const el = document.getElementById(key);
@@ -468,6 +579,14 @@ function populateFields() {
   const slider = document.getElementById('horizonSlider');
   if (slider) slider.value = state.horizonYears ?? 10;
   setText('horizonDisplay', state.horizonYears ?? 10);
+
+  document.getElementById('itemizeNo')?.classList.toggle('active', !state.itemizeDeductions);
+  document.getElementById('itemizeYes')?.classList.toggle('active', !!state.itemizeDeductions);
+  const fs = state.filingStatus ?? 'single';
+  document.getElementById('filingStatusSingle')?.classList.toggle('active', fs === 'single');
+  document.getElementById('filingStatusMfj')?.classList.toggle('active', fs === 'mfj');
+  document.getElementById('filingStatusMfs')?.classList.toggle('active', fs === 'mfs');
+  updateBracketOptions(fs);
 
   syncDpInput(state.dpMode ?? 'dollar');
   syncHoiInput(state.hoiMode ?? 'dollar');
@@ -498,6 +617,7 @@ function bindInputs() {
    'rent', 'rentersInsurance', 'rentIncrease', 'inflation',
    'mortgageRate', 'mortgageTerm', 'homeGrowth',
    'propTaxRate', 'propTaxGrowth', 'monthlyPMI', 'monthlyHOA', 'closingCosts', 'maintenancePct',
+   'stateTaxRate',
   ].forEach(key => num(key));
 
   num('purchasePrice', pmiAutoReset);
@@ -560,6 +680,38 @@ function bindInputs() {
       : 0.4;
     state.hoiMode = 'percent';
     syncHoiInput('percent');
+    recalc();
+  });
+
+  ['single', 'mfj', 'mfs'].forEach(fs => {
+    const btnId = 'filingStatus' + fs.charAt(0).toUpperCase() + fs.slice(1);
+    document.getElementById(btnId)?.addEventListener('click', () => {
+      if (state.filingStatus === fs) return;
+      state.filingStatus = fs;
+      document.getElementById('filingStatusSingle')?.classList.toggle('active', fs === 'single');
+      document.getElementById('filingStatusMfj')?.classList.toggle('active', fs === 'mfj');
+      document.getElementById('filingStatusMfs')?.classList.toggle('active', fs === 'mfs');
+      updateBracketOptions(fs);
+      recalc();
+    });
+  });
+
+  document.getElementById('itemizeNo')?.addEventListener('click', () => {
+    if (!state.itemizeDeductions) return;
+    state.itemizeDeductions = false;
+    document.getElementById('itemizeNo')?.classList.add('active');
+    document.getElementById('itemizeYes')?.classList.remove('active');
+    recalc();
+  });
+  document.getElementById('itemizeYes')?.addEventListener('click', () => {
+    if (state.itemizeDeductions) return;
+    state.itemizeDeductions = true;
+    document.getElementById('itemizeYes')?.classList.add('active');
+    document.getElementById('itemizeNo')?.classList.remove('active');
+    recalc();
+  });
+  document.getElementById('taxBracket')?.addEventListener('change', () => {
+    state.taxBracket = parseInt(document.getElementById('taxBracket').value) || 22;
     recalc();
   });
 
