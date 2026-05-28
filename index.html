@@ -4,30 +4,26 @@
   <meta charset="UTF-8">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home Swap Calculator — Move Up Mapper</title>
-  <meta name="description" content="Estimate your new mortgage payment, monthly costs, and cash position when trading up or down to a different home. Free calculator, no sign-up required.">
+  <title>Move Up Mapper — Free Housing & Investment Calculators</title>
+  <meta name="description" content="Free housing calculators for real decisions. Compare renting vs. buying, model a home swap, or project long-term investment growth. No account required.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Move Up Mapper">
-  <meta property="og:title" content="Home Swap Calculator — Move Up Mapper">
-  <meta property="og:description" content="Estimate your new mortgage payment, monthly costs, and cash position when trading up or down to a different home. Free calculator, no sign-up required.">
-  <meta property="og:url" content="https://www.moveupmapper.com/index.html">
-  <link rel="canonical" href="https://www.moveupmapper.com/index.html">
+  <meta property="og:title" content="Move Up Mapper — Free Housing & Investment Calculators">
+  <meta property="og:description" content="Free housing calculators for real decisions. Compare renting vs. buying, model a home swap, or project long-term investment growth. No account required.">
+  <meta property="og:url" content="https://www.moveupmapper.com/">
+  <link rel="canonical" href="https://www.moveupmapper.com/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=18">
+  <link rel="stylesheet" href="styles.css?v=19">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Home Swap Calculator",
-    "url": "https://www.moveupmapper.com/index.html",
-    "description": "Estimate your new mortgage payment, monthly costs, and cash position when trading up or down to a different home.",
-    "applicationCategory": "FinanceApplication",
-    "operatingSystem": "Any",
-    "isAccessibleForFree": true,
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-    "provider": { "@type": "Organization", "name": "Move Up Mapper", "url": "https://www.moveupmapper.com" }
+    "@type": "WebSite",
+    "name": "Move Up Mapper",
+    "url": "https://www.moveupmapper.com",
+    "description": "Free housing calculators to help you think through buying, swapping, or renting a home. No account or personal data required.",
+    "publisher": { "@type": "Organization", "name": "Move Up Mapper", "url": "https://www.moveupmapper.com" }
   }
   </script>
   <!-- Google tag (gtag.js) -->
@@ -47,7 +43,7 @@
       <span class="brand-name">Move Up Mapper</span>
     </a>
     <div class="page-nav-links">
-      <a href="index.html"    class="page-nav-link active">Home Swap Calculator</a>
+      <a href="swap.html"     class="page-nav-link">Home Swap Calculator</a>
       <a href="rvb.html"      class="page-nav-link">Rent vs. Buy Analysis</a>
       <a href="compound.html" class="page-nav-link">Compound Growth</a>
       <a href="faq.html"      class="page-nav-link">FAQ</a>
@@ -57,882 +53,113 @@
 </nav>
 <div class="app">
 
-  <!-- Scenario Tabs Bar -->
-  <div class="scenario-bar no-print">
-    <div class="scenario-tabs">
-      <button class="scenario-tab active" data-scenario="a">Scenario A</button>
-      <button class="scenario-tab" data-scenario="b">Scenario B</button>
+  <!-- Hero -->
+  <section class="landing-hero">
+    <div class="landing-hero-text">
+      <h1>Housing decisions start with better math.</h1>
+      <p>Three free calculators that model the full financial picture — not just a monthly payment. No account or personal data required.</p>
     </div>
-    <div class="scenario-actions">
-      <button class="btn-text" id="copyScenario">Copy A → B</button>
-      <button class="btn-text" id="resetScenario">Reset</button>
-      <button class="btn-print" id="printBtn">⎙ Print / Export PDF</button>
-    </div>
-  </div>
+    <div class="tool-grid">
 
-  <!-- Header -->
-  <header class="app-header">
-    <div class="header-icon">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M7 16V4m0 0L3 8m4-4l4 4"/><path d="M17 8v12m0 0l4-4m-4 4l-4-4"/>
-      </svg>
-    </div>
-    <div>
-      <h1>Home Swap Calculator</h1>
-      <p class="header-sub">Can you afford to sell and buy?</p>
-    </div>
-  </header>
-
-  <!-- Description -->
-  <div class="desc-box">
-    This calculator helps you decide whether selling your current home and buying a new one makes
-    financial sense right now — and over the next decade. Enter your current home's equity and income
-    alongside your target home's price and financing details to instantly see your cash position,
-    monthly affordability, and long-term buying power. Adjust the growth and cost assumptions to
-    stress-test optimistic or conservative scenarios before making one of the biggest financial
-    decisions of your life.
-  </div>
-
-  <!-- Disclaimer -->
-  <div class="disclaimer-bar">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-    <span><strong>Not financial advice.</strong> This tool is for informational purposes only. It does not constitute financial, mortgage, tax, or legal advice. Consult a qualified professional before making any real estate or financial decisions.</span>
-  </div>
-
-  <!-- ── Section 1: Main Calculator Grid ── -->
-  <div class="calc-grid">
-
-    <!-- Left: Current Home / Financial Profile -->
-    <div class="card">
-      <div class="card-head">
-        <div class="card-icon icon-home">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+      <a href="rvb.html" class="tool-card">
+        <div class="tool-card-icon" style="background:#4f46e5">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 3v18h18"/><polyline points="7 16 11 12 15 16 21 8"/>
           </svg>
         </div>
-        <div style="flex:1;min-width:0">
-          <div class="card-title" id="currentHomeTitle">Your Current Home</div>
-          <div class="card-sub" id="currentHomeSub">What you're working with today</div>
-        </div>
-      </div>
-      <div class="buyer-mode-bar">
-        <span class="buyer-mode-label">Buyer type</span>
-        <div class="mode-toggle">
-          <button class="mode-btn active" id="buyerModeOwner">Owner</button>
-          <button class="mode-btn" id="buyerModeFirst">First-Time Buyer</button>
-        </div>
-      </div>
-      <div class="card-body">
+        <div class="tool-card-name">Rent vs. Buy Analysis</div>
+        <div class="tool-card-desc">Model the full cost of renting versus buying over 5 to 30 years — with amortization-accurate charts, PMI tracking, and equity vs. invested capital comparisons.</div>
+        <div class="tool-card-cta">Open calculator <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </a>
 
-        <!-- Owner-only fields — hidden for first-time buyers -->
-        <div id="homeOwnerFields">
-          <div class="field">
-            <label>HOME VALUATION</label>
-            <div class="input-wrap prefix">
-              <span class="affix">$</span>
-              <input type="number" id="homeValuation" min="0" step="1000">
-            </div>
-            <div class="helper">Estimated market value of your current home</div>
-          </div>
-
-          <div class="field">
-            <div class="field-row-head">
-              <label id="equityLabel">EQUITY</label>
-              <button class="btn-toggle" id="equityToggle">Switch to Loan Balance</button>
-            </div>
-            <div class="input-wrap prefix">
-              <span class="affix">$</span>
-              <input type="number" id="equityValue" min="0" step="1000">
-            </div>
-            <div class="helper" id="equityHelper">How much of your home you own outright</div>
-          </div>
-
-          <!-- Loan detail fields — visible only in Loan Balance mode -->
-          <div id="loanDetailsFields" style="display:none">
-            <div class="two-col">
-              <div class="field">
-                <label>MORTGAGE TERM</label>
-                <div class="input-wrap suffix">
-                  <input type="number" id="mortgageTerm" min="1" max="40" step="1">
-                  <span class="affix">yrs</span>
-                </div>
-                <div class="helper">Original loan length</div>
-              </div>
-              <div class="field">
-                <label>YEARS REMAINING</label>
-                <div class="input-wrap suffix">
-                  <input type="number" id="termRemainder" min="0" max="40" step="1">
-                  <span class="affix">yrs</span>
-                </div>
-                <div class="helper">Years left on loan</div>
-              </div>
-            </div>
-            <div class="field">
-              <label>CURRENT LOAN RATE</label>
-              <div class="input-wrap suffix">
-                <input type="number" id="currentMortgageRate" min="0" max="30" step="0.05">
-                <span class="affix">%</span>
-              </div>
-              <div class="helper">Annual interest rate on existing mortgage</div>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- First-time buyer context note -->
-        <div id="firstTimeBuyerNote" class="first-time-note" style="display:none">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-          <span>No home to sell — your available savings and income growth are the foundation of your buying power. Use the Buying Power section below to model how your down payment builds over time.</span>
-        </div>
-
-        <div class="field">
-          <label id="expendableCashLabel">EXPENDABLE CASH</label>
-          <div class="input-wrap prefix">
-            <span class="affix">$</span>
-            <input type="number" id="expendableCash" min="0" step="1000">
-          </div>
-          <div class="helper" id="expendableCashHelper">Savings you can put toward the purchase</div>
-        </div>
-
-        <div class="field">
-          <label>MONTHLY TAKE-HOME PAY</label>
-          <div class="input-wrap prefix">
-            <span class="affix">$</span>
-            <input type="number" id="monthlyIncome" min="0" step="100">
-          </div>
-          <div class="helper">After-tax monthly income</div>
-        </div>
-
-        <div id="sellCostsSection">
-          <button type="button" class="section-collapse-hdr mt-sm" id="sellCostsToggle" aria-expanded="false">
-            <div class="section-label">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-              SELLING COSTS
-            </div>
-            <svg class="collapse-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-
-          <div class="section-collapse-body" id="sellCostsBody" style="max-height:0;overflow:hidden">
-
-            <div class="two-col">
-              <div class="field">
-                <label>AGENT COMMISSION</label>
-                <div class="input-wrap suffix">
-                  <input type="number" id="realtorFee" min="0" max="20" step="0.1">
-                  <span class="affix">%</span>
-                </div>
-                <div class="helper">% of your home's sale price</div>
-              </div>
-              <div class="field">
-                <label>TRANSFER TAX</label>
-                <div class="input-wrap suffix">
-                  <input type="number" id="transferTaxPct" min="0" max="5" step="0.05">
-                  <span class="affix">%</span>
-                </div>
-                <div class="helper">Excise tax on sale; typically 0.1%–2.0%</div>
-                <a href="https://www.google.com/search?q=real+estate+transfer+tax+rate+by+state" target="_blank" rel="noopener" class="field-lookup-link">Look up your state →</a>
-              </div>
-            </div>
-
-            <div class="two-col">
-              <div class="field">
-                <label>PREP &amp; STAGING</label>
-                <div class="input-wrap prefix">
-                  <span class="affix">$</span>
-                  <input type="number" id="preSaleRepairs" min="0" step="500">
-                </div>
-                <div class="helper">Pre-sale prep &amp; repairs</div>
-              </div>
-              <div class="field">
-                <label>SELLER TITLE FEES</label>
-                <div class="input-wrap prefix">
-                  <span class="affix">$</span>
-                  <input type="number" id="sellerTitleFees" min="0" step="500">
-                </div>
-                <div class="helper">Title insurance + escrow fees</div>
-              </div>
-            </div>
-
-            <div class="fill-estimates-row">
-              <button type="button" class="fill-estimates-btn" id="fillSellEstimates">Fill in estimates</button>
-              <div class="fill-estimates-note">Based on national averages — adjust to match your quotes</div>
-            </div>
-
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- Middle: Prospective Home -->
-    <div class="card">
-      <div class="card-head">
-        <div class="card-icon icon-building">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="3" width="20" height="18" rx="2"/><path d="M8 3v18M16 3v18M2 9h20M2 15h20"/>
+      <a href="swap.html" class="tool-card">
+        <div class="tool-card-icon" style="background:#818cf8">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 16V4m0 0L3 8m4-4l4 4"/><path d="M17 8v12m0 0l4-4m-4 4l-4-4"/>
           </svg>
         </div>
+        <div class="tool-card-name">Home Swap Calculator</div>
+        <div class="tool-card-desc">Compare your current home against a prospective one — monthly affordability, post-purchase cash position, and how your buying power shifts over the next decade.</div>
+        <div class="tool-card-cta">Open calculator <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </a>
+
+      <a href="compound.html" class="tool-card">
+        <div class="tool-card-icon" style="background:#0891b2">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>
+          </svg>
+        </div>
+        <div class="tool-card-name">Compound Growth Calculator</div>
+        <div class="tool-card-desc">Project long-term savings growth with growing contributions, variable return scenarios, fee drag, inflation adjustment, and a retirement drawdown phase.</div>
+        <div class="tool-card-cta">Open calculator <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- Market Context -->
+  <section class="landing-section">
+    <div class="landing-section-head">
+      <h2>Market Context</h2>
+      <p>Historical data to calibrate your assumptions. Static annual averages from public sources — useful context for anyone modeling a housing or investment decision today.</p>
+    </div>
+
+    <!-- Chart 1: Affordability Trends -->
+    <div class="card wide-card" style="margin-top:16px">
+      <div class="card-head">
         <div>
-          <div class="card-title">Prospective Home</div>
-          <div class="card-sub">The home you want to buy</div>
+          <div class="card-title">Housing Affordability, 2000–2024</div>
+          <div class="card-sub">All series indexed to 2000 = 100, so growth rates are directly comparable regardless of unit</div>
         </div>
       </div>
       <div class="card-body">
-
-        <div class="section-label">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-          PURCHASE &amp; FINANCING
-        </div>
-
-        <div class="field">
-          <label>PURCHASE PRICE</label>
-          <div class="input-wrap prefix">
-            <span class="affix">$</span>
-            <input type="number" id="purchasePrice" min="0" step="1000">
+        <div class="chart-controls">
+          <div class="cleg-anchor">
+            <span class="cleg-line" style="background:#4f46e5"></span>
+            <span>Median Home Price</span>
+          </div>
+          <div class="chart-toggles">
+            <span class="toggle-label">Overlays:</span>
+            <button class="chart-toggle-btn active" data-series="1">
+              <span class="toggle-line" style="background:#16a34a"></span>Median Income
+            </button>
+            <button class="chart-toggle-btn" data-series="2">
+              <span class="toggle-line" style="background:#d97706"></span>CPI Inflation
+            </button>
+            <button class="chart-toggle-btn" data-series="3">
+              <span class="toggle-line" style="background:#0891b2"></span>Housing Supply
+            </button>
           </div>
         </div>
-
-        <div class="two-col">
-          <div class="field">
-            <label>INTEREST RATE</label>
-            <div class="input-wrap suffix">
-              <input type="number" id="interestRate" min="0" max="30" step="0.05">
-              <span class="affix">%</span>
-            </div>
-            <div class="helper">30-yr fixed rate</div>
-          </div>
-          <div class="field">
-            <label>MONTHLY PMI</label>
-            <div class="input-wrap prefix">
-              <span class="affix">$</span>
-              <input type="number" id="monthlyPMI" min="0" step="10">
-            </div>
-            <div class="helper">If down payment &lt; 20%</div>
-          </div>
+        <div class="context-chart-wrap">
+          <canvas id="affordabilityChart"></canvas>
         </div>
-
-        <div class="field">
-          <div class="field-row-head">
-            <label>HOMEOWNERS INSURANCE</label>
-            <div class="mode-toggle">
-              <button class="mode-btn active" id="hoiModeDollar">$</button>
-              <button class="mode-btn" id="hoiModePct">%</button>
-            </div>
-          </div>
-          <div class="input-wrap prefix" id="hoiInputWrap">
-            <span class="affix" id="hoiAffix">$</span>
-            <input type="number" id="homeownersInsurance" min="0" step="10">
-          </div>
-          <div class="helper" id="hoiHelper">Monthly homeowners insurance premium</div>
-        </div>
-
-        <div class="field">
-          <div class="field-row-head">
-            <label>Annual Property Tax</label>
-            <div class="mode-toggle">
-              <button class="mode-btn active" id="taxModePercent" data-mode="percent">%</button>
-              <button class="mode-btn" id="taxModeDollar" data-mode="dollar">$</button>
-            </div>
-          </div>
-          <div class="input-wrap prefix" id="taxInputWrap">
-            <span class="affix" id="taxAffix">$</span>
-            <input type="number" id="propertyTax" min="0" step="100">
-          </div>
-          <div class="helper" id="taxHelper">≈1.00% of purchase price</div>
-        </div>
-
-        <button type="button" class="section-collapse-hdr mt-sm" id="buyCostsToggle" aria-expanded="false">
-          <div class="section-label">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-            BUYING COSTS
-          </div>
-          <svg class="collapse-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-
-        <div class="section-collapse-body" id="buyCostsBody" style="max-height:0;overflow:hidden">
-
-          <div class="two-col">
-            <div class="field">
-              <label>LENDER FEES</label>
-              <div class="input-wrap prefix">
-                <span class="affix">$</span>
-                <input type="number" id="lenderFees" min="0" step="500">
-              </div>
-              <div class="helper">Origination &amp; closing costs</div>
-            </div>
-            <div class="field">
-              <label>BUYER TITLE FEES</label>
-              <div class="input-wrap prefix">
-                <span class="affix">$</span>
-                <input type="number" id="buyerTitleFees" min="0" step="500">
-              </div>
-              <div class="helper">Title insurance + escrow fees</div>
-            </div>
-          </div>
-
-          <div class="two-col">
-            <div class="field">
-              <label>REPAIRS &amp; RENO</label>
-              <div class="input-wrap prefix">
-                <span class="affix">$</span>
-                <input type="number" id="repairCosts" min="0" step="500">
-              </div>
-              <div class="helper">Pre-move-in repairs</div>
-            </div>
-            <div class="field">
-              <label>PRE-PAID ESCROW</label>
-              <div class="input-wrap prefix">
-                <span class="affix">$</span>
-                <input type="number" id="prePaidEscrow" min="0" step="500">
-              </div>
-              <div class="helper" id="prePaidEscrowHelper">3 mo. of taxes &amp; insurance upfront</div>
-            </div>
-          </div>
-
-          <div class="field">
-            <label>MOVING EXPENSES</label>
-            <div class="input-wrap prefix">
-              <span class="affix">$</span>
-              <input type="number" id="movingExpenses" min="0" step="500">
-            </div>
-            <div class="helper">Truck, packing, misc.</div>
-          </div>
-
-          <div class="fill-estimates-row">
-            <button type="button" class="fill-estimates-btn" id="fillBuyEstimates">Fill in estimates</button>
-            <div class="fill-estimates-note">Based on national averages — adjust to match your quotes</div>
-          </div>
-
-        </div>
-
+        <div class="chart-data-source">Sources: FRED (MSPUS, MSACSR), U.S. Census Bureau, BLS CPI-U. Annual averages. Housing supply = months of new home inventory (FRED MSACSR).</div>
       </div>
     </div>
 
-    <!-- Right: Results -->
-    <div class="card results-card">
-      <div class="results-head">
-        <span class="results-dot"></span>
-        <h2>Results</h2>
-      </div>
-
-      <div id="affordabilityAlert" class="alert hidden"></div>
-
-      <!-- Cash Position -->
-      <div class="results-section">
-        <div class="results-sec-title">CASH POSITION</div>
-        <div class="r-row">
-          <span>Sale proceeds (equity – selling costs)</span>
-          <span id="r-saleProceeds"></span>
-        </div>
-        <div class="r-row">
-          <span>Expendable cash</span>
-          <span id="r-expendableCash"></span>
-        </div>
-        <div class="r-row r-total">
-          <span>Total cash available</span>
-          <span id="r-totalCash" class="green"></span>
-        </div>
-        <div class="r-divider"></div>
-        <div class="r-row">
-          <span id="r-dpLabel">Down payment</span>
-          <span id="r-downPayment"></span>
-        </div>
-        <div class="r-row">
-          <span>Lender fees</span>
-          <span id="r-lenderFees"></span>
-        </div>
-        <div class="r-row">
-          <span>Buyer title fees</span>
-          <span id="r-buyerTitleFees"></span>
-        </div>
-        <div class="r-row">
-          <span>Repairs &amp; reno</span>
-          <span id="r-repairCosts"></span>
-        </div>
-        <div class="r-row">
-          <span>Pre-paid escrow</span>
-          <span id="r-prePaidEscrow"></span>
-        </div>
-        <div class="r-row">
-          <span>Moving expenses</span>
-          <span id="r-movingExpenses"></span>
-        </div>
-        <div class="r-row r-total">
-          <span>Cash remaining after purchase</span>
-          <span id="r-cashRemaining" class="green"></span>
+    <!-- Chart 2: Mortgage Rate History -->
+    <div class="card wide-card">
+      <div class="card-head">
+        <div>
+          <div class="card-title">Mortgage Rate History, 1990–2024</div>
+          <div class="card-sub">30 and 15-year fixed, annual averages. Current rates in long-term context.</div>
         </div>
       </div>
-
-      <!-- Monthly Costs -->
-      <div class="results-section">
-        <div class="results-sec-title">MONTHLY COSTS</div>
-        <div class="r-row">
-          <span id="r-mortgageLabel">Mortgage (P&amp;I)</span>
-          <span id="r-mortgage"></span>
+      <div class="card-body">
+        <div class="context-chart-wrap">
+          <canvas id="rateChart"></canvas>
         </div>
-        <div class="r-row">
-          <span>Property tax</span>
-          <span id="r-propTax"></span>
-        </div>
-        <div class="r-row" id="r-pmiRow">
-          <span>PMI</span>
-          <span id="r-pmi"></span>
-        </div>
-        <div class="r-row">
-          <span>Homeowners insurance</span>
-          <span id="r-hoi"></span>
-        </div>
-        <div class="r-row r-total">
-          <span>Total monthly housing</span>
-          <span id="r-totalMonthly"></span>
-        </div>
-        <div class="r-row">
-          <span>Monthly take-home pay</span>
-          <span id="r-income"></span>
-        </div>
-        <div class="r-row r-bold">
-          <span>Housing-to-income ratio</span>
-          <span id="r-ratio"></span>
-        </div>
-
-        <!-- Ratio bar -->
-        <div class="ratio-bar-outer">
-          <div class="ratio-bar-track">
-            <div class="ratio-bar-fill" id="r-ratioFill"></div>
-            <div class="ratio-marker ideal-marker"></div>
-            <div class="ratio-marker max-marker"></div>
-          </div>
-          <div class="ratio-bar-labels">
-            <span>0%</span>
-            <span class="label-ideal">28% ideal</span>
-            <span class="label-max">36% max</span>
-            <span>50%+</span>
-          </div>
-        </div>
-
-        <!-- Monthly remaining -->
-        <div class="monthly-remaining">
-          <div class="monthly-remaining-row">
-            <div class="mr-icon">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-            </div>
-            <span>Monthly remaining</span>
-            <span id="r-monthlyRemaining" class="mr-value"></span>
-          </div>
-          <div class="helper">After housing costs, for all other expenses</div>
-        </div>
+        <div class="chart-data-source">Source: Freddie Mac Primary Mortgage Market Survey (PMMS). Annual averages. 15-year fixed data begins 1991.</div>
       </div>
     </div>
 
-  </div><!-- /calc-grid -->
+  </section>
 
-
-  <!-- ── Section 2: Affordable Price Range ── -->
-  <div class="card wide-card" id="affordableSection">
-    <div class="card-head">
-      <div class="card-icon icon-light">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/>
-          <line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/>
-          <line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/>
-          <line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/>
-          <circle cx="12" cy="12" r="4"/>
-        </svg>
-      </div>
-      <div>
-        <div class="card-title">Affordable Price Range</div>
-        <div class="card-sub">Based on your inputs — adjust your target monthly cost to see what you can afford</div>
-      </div>
-    </div>
-    <div class="affordable-grid">
-      <div class="affordable-left">
-        <div class="field-row-head" style="margin-bottom:8px">
-          <label style="font-size:11px;letter-spacing:.06em;color:var(--text-muted)">TARGET MONTHLY HOUSING COST</label>
-          <span id="a-pctLabel" class="pct-badge"></span>
-        </div>
-        <div class="slider-row">
-          <button class="slider-step" id="sliderDown">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="slider-wrap">
-            <input type="range" id="targetSlider" min="0" max="100">
-          </div>
-          <button class="slider-step" id="sliderUp">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
-          </button>
-        </div>
-        <div id="a-sliderValue" class="slider-value"></div>
-        <div class="slider-range-labels">
-          <span id="a-sliderMin"></span>
-          <span class="label-ideal">28% ideal</span>
-          <span class="label-caution">36% caution</span>
-          <span id="a-sliderMax"></span>
-        </div>
-        <div class="affordable-meta">
-          <p>Available down payment (after fees &amp; costs): <strong id="a-dp"></strong></p>
-          <p>Rate used: <strong id="a-rate"></strong> · 30-yr fixed</p>
-        </div>
-      </div>
-      <div class="affordable-right">
-        <div class="price-box target-price-box">
-          <div class="pb-label">AT YOUR TARGET BUDGET</div>
-          <div class="pb-price" id="a-targetPrice"></div>
-          <div class="pb-sub" id="a-targetSub"></div>
-        </div>
-        <div class="price-box ceiling-price-box">
-          <div class="pb-label">ABSOLUTE CEILING (36% OF INCOME)</div>
-          <div class="pb-price" id="a-ceilingPrice"></div>
-          <div class="pb-sub" id="a-ceilingSub"></div>
-        </div>
-        <div class="price-box prospective-price-box" id="a-prospectiveBox">
-          <div class="pb-label">YOUR PROSPECTIVE PRICE</div>
-          <div class="pb-price" id="a-prospectivePrice"></div>
-          <div class="pb-badge" id="a-prospectiveBadge"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- ── Section 3: Buying Power Over Time ── -->
-  <div class="card wide-card" id="buyingPowerSection">
-    <div class="card-head">
-      <div class="card-icon icon-chart">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-        </svg>
-      </div>
-      <div>
-        <div class="card-title">Buying Power Over Time</div>
-        <div class="card-sub">How growth &amp; cost trends shift your affordable home price over the next 10 years</div>
-      </div>
-    </div>
-
-    <div class="bp-summary">
-      <div class="bp-stat">
-        <div class="bp-stat-label">COMFORT PRICE IN 10 YRS</div>
-        <div class="bp-stat-value" id="bp-comfortPrice"></div>
-        <div class="bp-stat-delta green" id="bp-comfortDelta"></div>
-      </div>
-      <div class="bp-stat">
-        <div class="bp-stat-label">CEILING PRICE IN 10 YRS (36%)</div>
-        <div class="bp-stat-value" id="bp-ceilingPrice"></div>
-        <div class="bp-stat-delta green" id="bp-ceilingDelta"></div>
-      </div>
-      <div class="bp-stat">
-        <div class="bp-stat-label">ANNUAL COST BURDEN IN 10 YRS</div>
-        <div class="bp-stat-value" id="bp-costBurden"></div>
-        <div class="bp-stat-delta red" id="bp-costDelta"></div>
-      </div>
-    </div>
-
-    <div class="bp-layout">
-      <div class="bp-chart-area">
-        <canvas id="buyingPowerChart" height="280"></canvas>
-        <div class="chart-legend">
-          <span class="leg-item leg-comfort">● Comfort (28%)</span>
-          <span class="leg-item leg-ceiling">● Ceiling (36%)</span>
-          <span class="leg-item leg-dp">· · Down payment</span>
-          <span class="leg-item leg-burden">● Annual cost burden</span>
-          <span class="leg-item leg-target" id="leg-targetPrice">– – Target price (fixed)</span>
-        </div>
-        <p class="chart-footnote" id="bp-footnote"></p>
-      </div>
-
-      <div class="bp-controls">
-
-        <div class="ctrl-section">
-          <div class="ctrl-section-title">TARGET PRICE ASSUMPTION</div>
-          <div class="ctrl-row">
-            <div class="ctrl-info">
-              <div class="ctrl-icon headwind-icon">⇥</div>
-              <div>
-                <div class="ctrl-name">Target price over time</div>
-                <div class="ctrl-sub">Does your target home stay flat or also rise?</div>
-              </div>
-            </div>
-            <div class="ctrl-input">
-              <div class="mode-toggle">
-                <button class="mode-btn active" id="tpModeFixed">Fixed</button>
-                <button class="mode-btn" id="tpModeRising">Rising</button>
-              </div>
-            </div>
-          </div>
-          <div class="ctrl-row" id="targetPriceGrowthRow" style="display:none">
-            <div class="ctrl-info">
-              <div class="ctrl-icon headwind-icon">↗</div>
-              <div>
-                <div class="ctrl-name">Target price growth</div>
-                <div class="ctrl-sub">Annual appreciation of your target home</div>
-              </div>
-            </div>
-            <div class="ctrl-input">
-              <input type="number" id="targetPriceGrowth" min="0" max="20" step="0.5">
-              <span class="ctrl-unit">%</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="ctrl-section">
-          <div class="ctrl-section-title">GROWTH RATES (ANNUAL)</div>
-
-          <div class="ctrl-row">
-            <div class="ctrl-info">
-              <div class="ctrl-icon growth-icon">↗</div>
-              <div><div class="ctrl-name">Wage growth</div><div class="ctrl-sub">Annual take-home income increase</div></div>
-            </div>
-            <div class="ctrl-input">
-              <input type="number" id="wageGrowth" min="0" max="20" step="0.5">
-              <span class="ctrl-unit">%</span>
-            </div>
-          </div>
-
-          <div class="ctrl-row">
-            <div class="ctrl-info">
-              <div class="ctrl-icon growth-icon">↗</div>
-              <div><div class="ctrl-name">Home valuation growth</div><div class="ctrl-sub">Your current home appreciates</div></div>
-            </div>
-            <div class="ctrl-input">
-              <input type="number" id="homeValGrowth" min="0" max="20" step="0.5">
-              <span class="ctrl-unit">%</span>
-            </div>
-          </div>
-
-          <div class="ctrl-row">
-            <div class="ctrl-info">
-              <div class="ctrl-icon growth-icon">↗</div>
-              <div><div class="ctrl-name">Equity growth</div><div class="ctrl-sub" id="equityGrowthSub">Equity portion appreciation</div></div>
-            </div>
-            <div class="ctrl-input">
-              <input type="number" id="equityGrowth" min="0" max="20" step="0.5">
-              <span class="ctrl-unit">%</span>
-            </div>
-          </div>
-
-          <div class="ctrl-row">
-            <div class="ctrl-info">
-              <div class="ctrl-icon growth-icon">↗</div>
-              <div><div class="ctrl-name">Savings / cash growth</div><div class="ctrl-sub">% of monthly pay saved annually</div></div>
-            </div>
-            <div class="ctrl-input">
-              <input type="number" id="savingsRate" min="0" max="50" step="0.5">
-              <span class="ctrl-unit">%</span>
-            </div>
-          </div>
-
-          <div class="ctrl-row">
-            <div class="ctrl-info">
-              <div class="ctrl-icon growth-icon">↗</div>
-              <div><div class="ctrl-name">Investment growth</div><div class="ctrl-sub">Annual return on accumulated cash</div></div>
-            </div>
-            <div class="ctrl-input">
-              <input type="number" id="investmentGrowth" min="0" max="30" step="0.5">
-              <span class="ctrl-unit">%</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="ctrl-section">
-          <div class="ctrl-section-title">COST HEADWINDS (ANNUAL)</div>
-
-          <div class="ctrl-row">
-            <div class="ctrl-info">
-              <div class="ctrl-icon headwind-icon">↘</div>
-              <div><div class="ctrl-name">Property tax increase</div><div class="ctrl-sub">Annual property tax growth</div></div>
-            </div>
-            <div class="ctrl-input">
-              <input type="number" id="propTaxGrowth" min="0" max="20" step="0.5">
-              <span class="ctrl-unit">%</span>
-            </div>
-          </div>
-
-          <div class="ctrl-row">
-            <div class="ctrl-info">
-              <div class="ctrl-icon headwind-icon">↘</div>
-              <div><div class="ctrl-name">Inflation rate</div><div class="ctrl-sub">General cost of living increase</div></div>
-            </div>
-            <div class="ctrl-input">
-              <input type="number" id="inflationRate" min="0" max="20" step="0.5">
-              <span class="ctrl-unit">%</span>
-            </div>
-          </div>
-
-          <div class="ctrl-row">
-            <div class="ctrl-info">
-              <div class="ctrl-icon headwind-icon">↘</div>
-              <div><div class="ctrl-name">Maintenance cost increase</div><div class="ctrl-sub">Annual rise in upkeep costs</div></div>
-            </div>
-            <div class="ctrl-input">
-              <input type="number" id="maintenanceGrowth" min="0" max="20" step="0.5">
-              <span class="ctrl-unit">%</span>
-            </div>
-          </div>
-
-          <div class="ctrl-row">
-            <div class="ctrl-info">
-              <div class="ctrl-icon headwind-icon">↘</div>
-              <div><div class="ctrl-name">Annual maintenance rate</div><div class="ctrl-sub">% of home value for upkeep per year</div></div>
-            </div>
-            <div class="ctrl-input">
-              <input type="number" id="maintenanceRate" min="0" max="5" step="0.1">
-              <span class="ctrl-unit">%</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="ctrl-section net-section">
-          <div class="ctrl-section-title">NET GROWTH VS. HEADWINDS</div>
-          <div class="net-row">
-            <span>Avg growth:</span>
-            <span id="bp-avgGrowth" class="green"></span>
-          </div>
-          <div class="net-row">
-            <span>Avg headwind:</span>
-            <span id="bp-avgHeadwind" class="red"></span>
-          </div>
-          <div class="net-total">
-            <span id="bp-netRate"></span>
-            <span class="net-label">net annual rate</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- ── Section 4: Key Terms & Concepts ── -->
-  <details class="card wide-card glossary-card" id="glossarySection">
-    <summary class="card-head">
-      <div class="card-icon icon-glossary">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
-        </svg>
-      </div>
-      <div>
-        <div class="card-title">Key Terms &amp; Concepts</div>
-        <div class="card-sub">Plain-English explanations of every term used in this calculator</div>
-      </div>
-      <svg class="adv-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left:auto;flex-shrink:0"><polyline points="6 9 12 15 18 9"/></svg>
-    </summary>
-    <div class="glossary-body">
-
-      <div class="gloss-group">
-        <div class="gloss-group-title">Your Financial Inputs</div>
-        <div class="gloss-grid">
-          <div class="gloss-item">
-            <div class="gloss-term">Home Valuation</div>
-            <div class="gloss-def">The estimated current market value of your home — what a buyer would likely pay today. The best sources are recent comparable sales (comps) in your neighborhood, a broker price opinion, or an online estimate as a starting point.</div>
-          </div>
-          <div class="gloss-item">
-            <div class="gloss-term">Equity</div>
-            <div class="gloss-def">The portion of your home's value that you actually own, free of the mortgage. Calculated as market value minus your remaining loan balance. If your home is worth $350,000 and you owe $230,000, your equity is $120,000 — and that's the cash you'll ultimately walk away with at closing.</div>
-          </div>
-          <div class="gloss-item">
-            <div class="gloss-term">Loan Balance</div>
-            <div class="gloss-def">The remaining amount you still owe on your current mortgage. You can find this on your monthly statement or servicer portal. The calculator accepts either equity or loan balance — use whichever number you know, and it converts automatically.</div>
-          </div>
-          <div class="gloss-item">
-            <div class="gloss-term">Expendable Cash</div>
-            <div class="gloss-def">Savings you're prepared to put toward the purchase — money beyond what you need for everyday expenses and an emergency fund. This stacks on top of your sale proceeds to form your total buying power.</div>
-          </div>
-          <div class="gloss-item">
-            <div class="gloss-term">Monthly Take-Home Pay</div>
-            <div class="gloss-def">Your actual after-tax monthly income — what hits your bank account, not your gross salary. If you're paid bi-weekly, multiply one paycheck by 26 and divide by 12. Include a spouse or partner's income here if you're qualifying jointly.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="gloss-group">
-        <div class="gloss-group-title">Financing &amp; Monthly Costs</div>
-        <div class="gloss-grid">
-          <div class="gloss-item">
-            <div class="gloss-term">Down Payment</div>
-            <div class="gloss-def">The upfront cash you apply toward the new home's purchase price. A larger down payment means a smaller loan, lower monthly payment, and — critically — avoiding PMI if you reach 20%. In this calculator, the down payment is whatever cash remains after subtracting lender fees, repair costs, and moving expenses from your total available funds.</div>
-          </div>
-          <div class="gloss-item">
-            <div class="gloss-term">P&amp;I (Principal &amp; Interest)</div>
-            <div class="gloss-def">The core component of your monthly mortgage payment. Principal is the portion that reduces what you owe; interest is the cost of borrowing. On a 30-year fixed mortgage, this amount stays constant for the life of the loan — it's the most predictable part of your housing cost.</div>
-          </div>
-          <div class="gloss-item">
-            <div class="gloss-term">PMI — Private Mortgage Insurance</div>
-            <div class="gloss-def">A monthly fee required by most lenders when your down payment is less than 20% of the purchase price. PMI protects the lender (not you) in case of default. It typically runs $50–$300/month and can usually be cancelled once you reach 20% equity through appreciation or loan paydown.</div>
-          </div>
-          <div class="gloss-item">
-            <div class="gloss-term">Interest Rate</div>
-            <div class="gloss-def">The annual cost of borrowing money, expressed as a percentage of the loan balance. On a 30-year fixed mortgage, this rate is locked in at closing and never changes — a key advantage in a rising-rate environment. Even a 0.5% difference can change your monthly payment by $100–$200 on a $400k loan.</div>
-          </div>
-          <div class="gloss-item">
-            <div class="gloss-term">Annual Property Tax</div>
-            <div class="gloss-def">A recurring tax charged by your local government based on the assessed value of your home. Rates vary widely — from under 0.5% in some states to over 2% in others. This calculator lets you enter the amount as either an annual dollar figure or a percentage of the purchase price.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="gloss-group">
-        <div class="gloss-group-title">Affordability Thresholds</div>
-        <div class="gloss-grid">
-          <div class="gloss-item">
-            <div class="gloss-term">Housing-to-Income Ratio</div>
-            <div class="gloss-def">The percentage of your monthly take-home pay that goes toward total housing costs (mortgage P&amp;I, property tax, and PMI). This is the single most important affordability metric — it determines whether the monthly payment is sustainable over the long term, not just whether you can technically qualify for the loan.</div>
-          </div>
-          <div class="gloss-item">
-            <div class="gloss-term">The 28% Rule</div>
-            <div class="gloss-def">A widely used financial guideline suggesting your monthly housing costs should not exceed 28% of your take-home pay. Below this threshold, most households can comfortably cover housing alongside savings, debt repayment, and everyday expenses. This is the "comfort zone" marker shown in green throughout the calculator.</div>
-          </div>
-          <div class="gloss-item">
-            <div class="gloss-term">The 36% Ceiling</div>
-            <div class="gloss-def">The upper boundary used by most lenders when qualifying borrowers. Exceeding 36% is a warning sign — you may still get approved, but the payment may leave little margin for unexpected costs, income disruption, or other financial goals. This is the threshold shown in amber/red throughout the calculator.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="gloss-group">
-        <div class="gloss-group-title">Transaction Costs</div>
-        <div class="gloss-grid">
-          <div class="gloss-item">
-            <div class="gloss-term">Sale Proceeds</div>
-            <div class="gloss-def">The net cash you receive after selling your current home — your equity minus realtor commissions. This is the primary source of your down payment on the new home. If you owe more than the home is worth (underwater), sale proceeds would be zero and you'd need to cover the shortfall at closing.</div>
-          </div>
-          <div class="gloss-item">
-            <div class="gloss-term">Realtor Fees</div>
-            <div class="gloss-def">Commission paid to real estate agents at the sale closing, historically 5–6% of the sale price and split between buyer's and seller's agents. Following the 2024 NAR settlement, commission structures are more negotiable than before — but 4–5% remains a reasonable estimate for planning purposes.</div>
-          </div>
-          <div class="gloss-item">
-            <div class="gloss-term">Lender Fees / Closing Costs</div>
-            <div class="gloss-def">Upfront charges from your new mortgage lender to process and fund the loan — including origination fees, underwriting, appraisal, title insurance, and prepaid interest. Typically 1–2% of the loan amount, or $6,000–$10,000 on a $400k mortgage. These come out of your cash at closing, not from the sale proceeds.</div>
-          </div>
-          <div class="gloss-item">
-            <div class="gloss-term">Repair Costs</div>
-            <div class="gloss-def">Pre-move-in repairs or improvements on the new home that you expect to pay out of pocket before or shortly after moving in. Including a realistic figure here prevents surprises — even "move-in ready" homes often need $3,000–$8,000 in early work.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="gloss-group">
-        <div class="gloss-group-title">Long-Term Projections</div>
-        <div class="gloss-grid">
-          <div class="gloss-item">
-            <div class="gloss-term">Buying Power</div>
-            <div class="gloss-def">The maximum home price you could afford at a given point in time, given your projected income, available down payment, current interest rates, and affordability thresholds. As income grows and your cash pool compounds, buying power typically increases even if home prices rise — the Buying Power chart shows you by how much over the next decade.</div>
-          </div>
-          <div class="gloss-item">
-            <div class="gloss-term">Annual Cost Burden</div>
-            <div class="gloss-def">The recurring yearly ownership costs beyond the fixed mortgage payment: property taxes, maintenance (estimated at 1% of home value per year), and homeowners insurance. Unlike P&amp;I, these costs grow over time — taxes at their own rate, maintenance at its own rate, and insurance at the general Inflation Rate. The 10-year projection shows how much heavier this combined burden becomes.</div>
-          </div>
-          <div class="gloss-item">
-            <div class="gloss-term">Cash Pool Growth</div>
-            <div class="gloss-def">How your available savings compound over time while you wait to buy. The model starts with your expendable cash, adds a percentage of your growing income as annual savings, and applies investment returns each year. This drives the "Down payment" line on the Buying Power chart — showing how your future down payment grows if you delay the purchase.</div>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- /glossary-body -->
-  </details>
-
-
+  <!-- Footer -->
   <footer class="site-footer no-print">
     <div class="footer-links">
-      <a href="index.html">Home Swap Calculator</a>
+      <a href="swap.html">Home Swap Calculator</a>
       <a href="rvb.html">Rent vs. Buy Analysis</a>
       <a href="compound.html">Compound Growth</a>
       <a href="faq.html">FAQ</a>
@@ -942,42 +169,243 @@
     <div class="footer-note">For informational purposes only. Not financial advice. &copy; 2026</div>
   </footer>
 
-</div><!-- /app -->
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<script src="calculator.js?v=2"></script>
 <script>
-  (function() {
-    function makeCollapse(toggleId, bodyId) {
-      var hdr = document.getElementById(toggleId);
-      var body = document.getElementById(bodyId);
-      if (!hdr || !body) return;
-      hdr.addEventListener('click', function() {
-        var expanded = hdr.getAttribute('aria-expanded') === 'true';
-        hdr.setAttribute('aria-expanded', String(!expanded));
-        if (expanded) {
-          body.style.overflow = 'hidden';
-          body.style.maxHeight = body.scrollHeight + 'px';
-          requestAnimationFrame(function() {
-            requestAnimationFrame(function() {
-              body.style.maxHeight = '0';
-            });
-          });
-        } else {
-          body.style.overflow = 'hidden';
-          body.style.maxHeight = body.scrollHeight + 'px';
-          setTimeout(function() {
-            if (hdr.getAttribute('aria-expanded') === 'true') {
-              body.style.overflow = 'visible';
-              body.style.maxHeight = 'none';
-            }
-          }, 350);
+(function () {
+  'use strict';
+
+  // ── Affordability data (2000–2024) ─────────────────────────────────────────
+  var years = [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,
+               2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,
+               2020,2021,2022,2023,2024];
+
+  // Median home sales price (FRED MSPUS), $thousands, annual averages
+  var homePriceRaw = [165.3,175.2,187.6,196.0,220.0,240.9,246.5,247.9,232.1,216.7,
+                      221.8,217.4,243.8,268.9,281.9,294.0,305.0,323.1,326.4,321.5,
+                      337.0,396.0,455.0,431.0,420.0];
+
+  // Median household income (Census Bureau), $thousands, annual
+  var incomeRaw = [42.0,42.2,42.4,43.3,44.3,46.3,48.2,50.2,50.3,49.8,
+                   49.3,50.1,51.0,51.9,53.7,56.5,59.0,61.4,63.2,68.7,
+                   67.5,70.8,74.6,80.6,83.0];
+
+  // CPI-U cumulative index (BLS), 2000 = 100
+  var cpiRaw = [100.0,102.8,104.5,106.9,109.7,113.4,117.1,120.4,125.0,124.6,
+                126.6,130.5,133.0,135.1,137.3,137.1,139.0,141.4,144.6,147.0,
+                148.4,155.5,168.2,176.9,182.5];
+
+  // Monthly supply of new homes (FRED MSACSR), months, annual averages
+  var supplyRaw = [4.2,5.0,4.8,4.3,4.0,4.4,5.8,8.3,10.8,8.5,
+                   8.5,6.6,4.7,4.4,5.5,5.1,5.4,5.6,6.2,6.0,
+                   4.8,4.3,8.8,7.7,8.0];
+
+  function toIndex(arr) {
+    var base = arr[0];
+    return arr.map(function (v) { return parseFloat((v / base * 100).toFixed(1)); });
+  }
+
+  var homePriceIdx = toIndex(homePriceRaw);
+  var incomeIdx    = toIndex(incomeRaw);
+  var supplyIdx    = toIndex(supplyRaw);
+  // cpiRaw is already indexed to 2000 = 100
+
+  var sharedScaleOpts = {
+    grid: { color: 'rgba(0,0,0,.04)' },
+    ticks: { font: { size: 11 }, color: '#6b7280' },
+    border: { dash: [3, 3] }
+  };
+
+  // ── Chart 1: Affordability ─────────────────────────────────────────────────
+  var chart1 = new Chart(document.getElementById('affordabilityChart'), {
+    type: 'line',
+    data: {
+      labels: years,
+      datasets: [
+        {
+          label: 'Median Home Price',
+          data: homePriceIdx,
+          borderColor: '#4f46e5',
+          borderWidth: 2.5,
+          pointRadius: 0, pointHoverRadius: 4,
+          tension: 0.3, fill: false, order: 1
+        },
+        {
+          label: 'Median Household Income',
+          data: incomeIdx,
+          borderColor: '#16a34a',
+          borderWidth: 2,
+          pointRadius: 0, pointHoverRadius: 4,
+          tension: 0.3, fill: false, hidden: false, order: 2
+        },
+        {
+          label: 'CPI Inflation',
+          data: cpiRaw,
+          borderColor: '#d97706',
+          borderWidth: 2,
+          borderDash: [5, 4],
+          pointRadius: 0, pointHoverRadius: 4,
+          tension: 0.3, fill: false, hidden: true, order: 3
+        },
+        {
+          label: 'New Home Supply',
+          data: supplyIdx,
+          borderColor: '#0891b2',
+          borderWidth: 2,
+          borderDash: [3, 3],
+          pointRadius: 0, pointHoverRadius: 4,
+          tension: 0.3, fill: false, hidden: true, order: 4
         }
-      });
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: { duration: 200 },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          mode: 'index',
+          intersect: false,
+          padding: 10,
+          titleFont: { size: 12, weight: '600' },
+          bodyFont: { size: 12 },
+          callbacks: {
+            title: function (items) { return String(items[0].label); },
+            label: function (ctx) {
+              var i = ctx.dataIndex;
+              switch (ctx.dataset.label) {
+                case 'Median Home Price':
+                  return '  Home Prices: ' + ctx.parsed.y.toFixed(0) + '  ($' + homePriceRaw[i].toFixed(0) + 'K median)';
+                case 'Median Household Income':
+                  return '  Median Income: ' + ctx.parsed.y.toFixed(0) + '  ($' + incomeRaw[i].toFixed(0) + 'K)';
+                case 'CPI Inflation':
+                  return '  CPI Inflation: ' + ctx.parsed.y.toFixed(0) + '  (+' + (ctx.parsed.y - 100).toFixed(1) + '% since 2000)';
+                case 'New Home Supply':
+                  return '  Housing Supply: ' + ctx.parsed.y.toFixed(0) + '  (' + supplyRaw[i].toFixed(1) + ' months)';
+                default:
+                  return ctx.dataset.label + ': ' + ctx.parsed.y.toFixed(1);
+              }
+            }
+          }
+        }
+      },
+      scales: {
+        x: sharedScaleOpts,
+        y: Object.assign({}, sharedScaleOpts, {
+          title: {
+            display: true,
+            text: 'Index (2000 = 100)',
+            font: { size: 11 },
+            color: '#6b7280'
+          }
+        })
+      }
     }
-    makeCollapse('sellCostsToggle', 'sellCostsBody');
-    makeCollapse('buyCostsToggle',  'buyCostsBody');
-  })();
+  });
+
+  document.querySelectorAll('.chart-toggle-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var idx = parseInt(btn.getAttribute('data-series'), 10);
+      var ds = chart1.data.datasets[idx];
+      ds.hidden = !ds.hidden;
+      btn.classList.toggle('active', !ds.hidden);
+      chart1.update('none');
+    });
+  });
+
+  // ── Chart 2: Mortgage rates ────────────────────────────────────────────────
+  var rateYears = [1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,
+                   2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,
+                   2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,
+                   2020,2021,2022,2023,2024];
+
+  // Freddie Mac PMMS, annual averages
+  var rate30 = [10.13,9.25,8.43,7.31,8.38,7.93,7.81,7.60,6.94,7.44,
+                8.05,6.97,6.54,5.83,5.84,5.87,6.41,6.34,6.03,5.04,
+                4.69,4.45,3.66,3.98,4.17,3.85,3.65,3.99,4.54,3.94,
+                3.11,2.96,5.34,6.81,6.72];
+
+  var rate15 = [null,8.69,7.96,6.83,7.86,7.48,7.32,7.13,6.59,7.06,
+                7.72,6.50,6.01,5.17,5.21,5.42,6.07,6.03,5.62,4.57,
+                4.10,3.68,2.93,3.11,3.28,3.05,2.93,3.27,4.00,3.38,
+                2.61,2.27,4.62,6.13,6.06];
+
+  new Chart(document.getElementById('rateChart'), {
+    type: 'line',
+    data: {
+      labels: rateYears,
+      datasets: [
+        {
+          label: '30-Year Fixed',
+          data: rate30,
+          borderColor: '#4f46e5',
+          borderWidth: 2.5,
+          pointRadius: 0, pointHoverRadius: 4,
+          tension: 0.3, fill: false
+        },
+        {
+          label: '15-Year Fixed',
+          data: rate15,
+          borderColor: '#818cf8',
+          borderWidth: 2,
+          borderDash: [5, 4],
+          pointRadius: 0, pointHoverRadius: 4,
+          tension: 0.3, fill: false, spanGaps: false
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: { duration: 200 },
+      plugins: {
+        legend: {
+          display: true,
+          position: 'top',
+          align: 'end',
+          labels: {
+            font: { size: 12 },
+            color: '#374151',
+            boxWidth: 20,
+            boxHeight: 2,
+            padding: 16
+          }
+        },
+        tooltip: {
+          mode: 'index',
+          intersect: false,
+          padding: 10,
+          titleFont: { size: 12, weight: '600' },
+          bodyFont: { size: 12 },
+          callbacks: {
+            title: function (items) { return String(items[0].label); },
+            label: function (ctx) {
+              if (ctx.parsed.y === null) return null;
+              return '  ' + ctx.dataset.label + ': ' + ctx.parsed.y.toFixed(2) + '%';
+            }
+          }
+        }
+      },
+      scales: {
+        x: sharedScaleOpts,
+        y: Object.assign({}, sharedScaleOpts, {
+          title: {
+            display: true,
+            text: 'Rate (%)',
+            font: { size: 11 },
+            color: '#6b7280'
+          },
+          ticks: Object.assign({}, sharedScaleOpts.ticks, {
+            callback: function (v) { return v + '%'; }
+          })
+        })
+      }
+    }
+  });
+
+}());
 </script>
 </body>
 </html>
