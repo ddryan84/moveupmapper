@@ -1,0 +1,46 @@
+[build]
+  publish = "."
+
+# 301-redirect .html URLs to clean versions (preserves SEO from any indexed pages)
+[[redirects]]
+  from = "/swap.html"
+  to   = "/swap"
+  status = 301
+
+[[redirects]]
+  from = "/rvb.html"
+  to   = "/rvb"
+  status = 301
+
+[[redirects]]
+  from = "/compound.html"
+  to   = "/compound"
+  status = 301
+
+[[redirects]]
+  from = "/faq.html"
+  to   = "/faq"
+  status = 301
+
+[[redirects]]
+  from = "/learn.html"
+  to   = "/learn"
+  status = 301
+
+[[redirects]]
+  from = "/about.html"
+  to   = "/about"
+  status = 301
+
+[[redirects]]
+  from = "/privacy.html"
+  to   = "/privacy"
+  status = 301
+
+# Security headers for all pages
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options         = "SAMEORIGIN"
+    X-Content-Type-Options  = "nosniff"
+    Referrer-Policy         = "strict-origin-when-cross-origin"

@@ -11,11 +11,11 @@
   <meta property="og:title" content="Compound Growth Calculator — Move Up Mapper">
   <meta property="og:description" content="Model long-term savings growth with inflation-adjusted returns, growing contribution schedules, and an optimistic/pessimistic return range.">
   <meta property="og:url" content="https://www.moveupmapper.com/compound.html">
-  <link rel="canonical" href="https://www.moveupmapper.com/compound.html">
+  <link rel="canonical" href="https://www.moveupmapper.com/compound">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=19">
+  <link rel="stylesheet" href="styles.css?v=21">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-YCEFCLSHX0"></script>
   <script>
@@ -37,6 +37,7 @@
       <a href="rvb.html"      class="page-nav-link">Rent vs. Buy Analysis</a>
       <a href="compound.html" class="page-nav-link active">Compound Growth</a>
       <a href="faq.html"      class="page-nav-link">FAQ</a>
+      <a href="learn.html"    class="page-nav-link">Learn</a>
       <a href="about.html"    class="page-nav-link">About</a>
     </div>
   </div>
@@ -60,16 +61,14 @@
     </div>
   </header>
 
-  <!-- Description -->
-  <div class="desc-box">
-    Enter an initial balance, a contribution amount at your preferred frequency, and a growth rate for both your contributions and your investments. The calculator models how a rising contribution schedule — like saving a fixed percentage of a salary that grows over time — produces a less linear, more compounding curve than flat contributions would suggest. The range band shows outcomes across your expected return variance, and all results include an inflation-adjusted purchasing power equivalent.
-  </div>
-
-  <!-- Disclaimer -->
-  <div class="disclaimer-bar">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-    <span><strong>Not financial advice.</strong> This tool is for informational purposes only and does not constitute financial, tax, or investment advice. Consult a qualified professional before making any financial decisions.</span>
-  </div>
+  <!-- About expand -->
+  <details class="about-expand no-print">
+    <summary>About this calculator</summary>
+    <div class="about-content">
+      <p>Enter an initial balance, a contribution amount at your preferred frequency, and a growth rate for both your contributions and your investments. The calculator models how a rising contribution schedule — like saving a fixed percentage of a salary that grows over time — produces a less linear, more compounding curve than flat contributions would suggest. The range band shows outcomes across your expected return variance, and all results include an inflation-adjusted purchasing power equivalent.</p>
+      <p class="about-disclaimer"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span><strong>Not financial advice.</strong> This tool is for informational purposes only and does not constitute financial, tax, or investment advice. Consult a qualified professional before making any financial decisions.</span></p>
+    </div>
+  </details>
 
   <!-- ── Investment Horizon ── -->
   <div class="card wide-card horizon-card no-print">
@@ -125,7 +124,7 @@
           <div class="helper">Expected average annual growth rate</div>
         </div>
         <div class="field">
-          <label>RETURN RATE VARIANCE (±)</label>
+          <div class="label-tip-row"><label>RETURN RATE VARIANCE (±)</label><button class="tip-btn" aria-label="Learn more" data-tip="Adds an optimistic and pessimistic scenario band around your base return. A variance of 2% shows a low (base − 2%) and high (base + 2%) line on the chart, making visible how sensitive long-term outcomes are to small return differences.">?</button></div>
           <div class="input-wrap suffix">
             <input type="number" id="returnVariance" min="0" max="20" step="0.1">
             <span class="affix">%</span>
@@ -161,7 +160,7 @@
 
       <div class="two-col">
         <div class="field">
-          <label>ANNUAL CONTRIBUTION GROWTH</label>
+          <div class="label-tip-row"><label>ANNUAL CONTRIBUTION GROWTH</label><button class="tip-btn" aria-label="Learn more" data-tip="The rate your contribution amount increases each year. If you save a fixed percentage of a growing salary, this should match your expected income growth rate. Even modest growth here compounds significantly over long horizons.">?</button></div>
           <div class="input-wrap suffix">
             <input type="number" id="contribGrowth" min="0" max="30" step="0.1">
             <span class="affix">%</span>
@@ -204,7 +203,7 @@
 
         <div class="three-col">
           <div class="field">
-            <label>EXPENSE RATIO</label>
+            <div class="label-tip-row"><label>EXPENSE RATIO</label><button class="tip-btn" aria-label="Learn more" data-tip="The annual fund management fee as a % of assets. On a $500K portfolio, a 0.5% expense ratio costs $2,500/year before any growth. Low-cost index funds typically charge 0.03–0.20%; actively managed funds often charge 0.5–1%+.">?</button></div>
             <div class="input-wrap suffix">
               <input type="number" id="expenseRatio" min="0" max="5" step="0.01" value="0">
               <span class="affix">%</span>
@@ -212,7 +211,7 @@
             <div class="helper">Annual fund fee — e.g. 0.03% for a total-market index fund, 0.5–1% for actively managed funds</div>
           </div>
           <div class="field">
-            <label>ADVISORY / MGMT FEE</label>
+            <div class="label-tip-row"><label>ADVISORY / MGMT FEE</label><button class="tip-btn" aria-label="Learn more" data-tip="Fee paid to a financial advisor or robo-advisor, typically 0.25–1% per year. Stacks on top of the expense ratio. Both are subtracted from your return rate before the simulation runs, so their compounding drag is fully captured.">?</button></div>
             <div class="input-wrap suffix">
               <input type="number" id="managementFee" min="0" max="5" step="0.05" value="0">
               <span class="affix">%</span>
@@ -220,7 +219,7 @@
             <div class="helper">Annual advisor or platform fee — typical range 0.25–1% of assets under management</div>
           </div>
           <div class="field" id="annualTaxDragField">
-            <label>ANNUAL TAX DRAG</label>
+            <div class="label-tip-row"><label>ANNUAL TAX DRAG</label><button class="tip-btn" aria-label="Learn more" data-tip="The annual tax cost of dividends and capital gains distributions in a taxable account. Even if you don&#39;t sell, fund distributions create a tax bill each year. Typical range for a diversified equity index fund: 0.3–0.8%.">?</button></div>
             <div class="input-wrap suffix">
               <input type="number" id="annualTaxDrag" min="0" max="5" step="0.1" value="0">
               <span class="affix">%</span>
@@ -694,6 +693,7 @@ The erosion compounds in reverse, just as investment returns compound forward: e
       <a href="rvb.html">Rent vs. Buy Analysis</a>
       <a href="compound.html">Compound Growth</a>
       <a href="faq.html">FAQ</a>
+      <a href="learn.html">Learn</a>
       <a href="about.html">About</a>
       <a href="privacy.html">Privacy</a>
     </div>
@@ -713,6 +713,39 @@ The erosion compounds in reverse, just as investment returns compound forward: e
       yr2El.textContent = slider.value;
     }
   });
+</script>
+<script>
+/* ── Field tip tooltips ── */
+(function () {
+  var popup = document.createElement('div');
+  popup.className = 'tip-popup';
+  document.body.appendChild(popup);
+  var active = null;
+  function show(btn) {
+    active = btn; btn.classList.add('tip-active');
+    popup.textContent = btn.getAttribute('data-tip');
+    popup.style.display = 'block';
+    var r = btn.getBoundingClientRect();
+    var pw = popup.offsetWidth, ph = popup.offsetHeight, m = 10;
+    var left = r.left + r.width / 2 - pw / 2;
+    var top = r.top - ph - 8;
+    if (left < m) left = m;
+    if (left + pw > window.innerWidth - m) left = window.innerWidth - pw - m;
+    if (top < m) top = r.bottom + 8;
+    popup.style.left = left + 'px'; popup.style.top = top + 'px';
+  }
+  function hide() {
+    if (active) active.classList.remove('tip-active');
+    active = null; popup.style.display = 'none';
+  }
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest && e.target.closest('.tip-btn');
+    if (btn) { e.stopPropagation(); if (active === btn) { hide(); return; } hide(); show(btn); }
+    else { hide(); }
+  });
+  window.addEventListener('scroll', hide, { passive: true });
+  window.addEventListener('resize', function () { if (active) show(active); });
+}());
 </script>
 </body>
 </html>
