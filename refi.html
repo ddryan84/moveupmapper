@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Refinance Break-Even Calculator — Move Up Mapper</title>
+  <meta name="description" content="Find out if refinancing your mortgage makes financial sense. Enter your current loan, new rate, and closing costs to see your monthly savings, break-even timeline, and net benefit.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Move Up Mapper">
+  <meta property="og:title" content="Refinance Break-Even Calculator — Move Up Mapper">
+  <meta property="og:description" content="Find out if refinancing your mortgage makes financial sense. See your monthly savings, break-even timeline, and net benefit after closing costs.">
+  <meta property="og:url" content="https://www.moveupmapper.com/refi">
+  <meta property="og:image" content="https://www.moveupmapper.com/social-card.svg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Move Up Mapper — Free Housing & Investment Calculators">
+  <link rel="canonical" href="https://www.moveupmapper.com/refi">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=26">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Refinance Break-Even Calculator",
+    "url": "https://www.moveupmapper.com/refi",
+    "description": "Calculate your monthly savings, break-even timeline, and net benefit from refinancing your mortgage.",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "isAccessibleForFree": true,
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "provider": { "@type": "Organization", "name": "Move Up Mapper", "url": "https://www.moveupmapper.com" }
+  }
+  </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YCEFCLSHX0"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YCEFCLSHX0');
+  </script>
+</head>
+<body>
+<nav class="site-nav no-print">
+  <div class="site-nav-inner">
+    <a href="/" class="site-brand">
+      <img src="favicon.svg" width="28" height="28" alt="" style="border-radius:7px;flex-shrink:0;display:block">
+      <span class="brand-name">Move Up Mapper</span>
+    </a>
+    <div class="page-nav-links">
+      <a href="/swap"     class="page-nav-link">Home Swap Calculator</a>
+      <a href="/rvb"      class="page-nav-link">Rent vs. Buy Analysis</a>
+      <a href="/compound" class="page-nav-link">Compound Growth</a>
+      <a href="/refi"    class="page-nav-link active">Refi Calculator</a>
+      <a href="/faq"      class="page-nav-link">FAQ</a>
+      <a href="/learn"    class="page-nav-link">Learn</a>
+      <a href="/about"    class="page-nav-link">About</a>
+    </div>
+  </div>
+</nav>
+<div class="app">
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-icon" style="background:#0d9488">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" style="display:none"/>
+        <polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/>
+        <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
+      </svg>
+    </div>
+    <div>
+      <h1>Refinance Break-Even Calculator</h1>
+      <p class="header-sub">Find out if refinancing your mortgage makes financial sense</p>
+    </div>
+    <div class="header-actions" style="margin-left:auto;display:flex;gap:8px;align-items:center;flex-shrink:0">
+      <button class="btn-text" id="resetBtn">Reset</button>
+    </div>
+  </header>
+
+  <!-- About -->
+  <details class="about-expand no-print">
+    <summary>About this calculator</summary>
+    <div class="about-content">
+      <p>This calculator answers the core refinance question: given your closing costs, new interest rate, and how long you plan to stay in your home, does refinancing put you ahead? Enter your current loan balance, rate, and remaining term alongside the new loan terms to see your monthly savings, the month you break even, and your net benefit over your stay horizon — after accounting for both the closing costs and what those dollars could have earned if invested instead.</p>
+      <p class="about-disclaimer"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span><strong>Not financial advice.</strong> This tool is for informational purposes only. It does not constitute financial, mortgage, tax, or legal advice. Consult a qualified professional before making any real estate or financial decisions.</span></p>
+    </div>
+  </details>
+
+  <!-- ── Stay Horizon ── -->
+  <div class="card wide-card horizon-card no-print">
+    <div class="horizon-inner">
+      <div class="horizon-label-group">
+        <span class="horizon-title">HOW LONG DO YOU PLAN TO STAY?</span>
+        <div class="horizon-value-display" id="stayValueDisplay"><span id="stayDisplay">7</span> <span class="horizon-unit">years</span></div>
+      </div>
+      <div class="horizon-slider-row" id="staySliderRow">
+        <span class="horizon-edge-label">1 yr</span>
+        <input type="range" id="staySlider" min="1" max="15" step="1" value="7">
+        <span class="horizon-edge-label">15 yrs</span>
+      </div>
+      <button type="button" class="horizon-unknown-btn" id="stayUnknownBtn">I don't know</button>
+      <div class="horizon-note" id="stayHorizonNote">The break-even and net benefit figures update based on your expected stay.</div>
+    </div>
+  </div>
+
+  <!-- ── Input Grid ── -->
+  <div class="calc-grid calc-grid--equal">
+
+    <!-- Current Loan -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-icon" style="background:#6b7280">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/>
+            <line x1="8" y1="15" x2="10" y2="15"/><line x1="14" y1="15" x2="16" y2="15"/>
+          </svg>
+        </div>
+        <div>
+          <div class="card-title">Current Loan</div>
+          <div class="card-sub">Your existing mortgage details</div>
+        </div>
+      </div>
+      <div class="card-body">
+
+        <div class="field">
+          <label>REMAINING LOAN BALANCE</label>
+          <div class="input-wrap prefix">
+            <span class="affix">$</span>
+            <input type="number" id="loanBalance" min="0" step="1000">
+          </div>
+          <div class="helper">Principal still owed — check your latest statement</div>
+        </div>
+
+        <div class="two-col">
+          <div class="field">
+            <label>CURRENT INTEREST RATE</label>
+            <div class="input-wrap suffix">
+              <input type="number" id="currentRate" min="0" max="30" step="0.05">
+              <span class="affix">%</span>
+            </div>
+          </div>
+          <div class="field">
+            <label>YEARS REMAINING</label>
+            <div class="input-wrap suffix">
+              <input type="number" id="remainingYears" min="1" max="40" step="1">
+              <span class="affix">yrs</span>
+            </div>
+            <div class="helper">Years left on your current loan</div>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="label-tip-row"><label>CURRENT MONTHLY PMI</label><button class="tip-btn" aria-label="Learn more" data-tip="PMI (Private Mortgage Insurance) is required when your loan-to-value ratio exceeds 80%. If refinancing would eliminate your PMI — because your equity has grown above 20% — enter your current monthly PMI here. It will be counted as additional monthly savings from refinancing. Leave at $0 if it doesn't apply.">?</button></div>
+          <div class="input-wrap prefix">
+            <span class="affix">$</span>
+            <input type="number" id="monthlyPMI" min="0" step="10" value="0">
+          </div>
+          <div class="helper">Add if refinancing would eliminate your PMI; leave $0 if not applicable</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- New Loan -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-icon" style="background:#0d9488">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/>
+            <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
+          </svg>
+        </div>
+        <div>
+          <div class="card-title">New Loan</div>
+          <div class="card-sub">Proposed refinance terms</div>
+        </div>
+      </div>
+      <div class="card-body">
+
+        <div class="two-col">
+          <div class="field">
+            <label>NEW INTEREST RATE</label>
+            <div class="input-wrap suffix">
+              <input type="number" id="newRate" min="0" max="30" step="0.125">
+              <span class="affix">%</span>
+            </div>
+            <div class="rate-slider-row">
+              <span class="horizon-edge-label">2%</span>
+              <input type="range" id="newRateSlider" min="2" max="10" step="0.125" value="5.75">
+              <span class="horizon-edge-label">10%</span>
+            </div>
+            <div class="helper">Use the interest rate, not APR</div>
+          </div>
+          <div class="field">
+            <label>NEW LOAN TERM</label>
+            <div class="input-wrap" style="padding:0">
+              <select id="newTermYears" class="input-select" style="height:36px;padding:0 10px;width:100%">
+                <option value="10">10 years</option>
+                <option value="15">15 years</option>
+                <option value="20">20 years</option>
+                <option value="25">25 years</option>
+                <option value="30" selected>30 years</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="label-tip-row"><label>DISCOUNT POINTS</label><button class="tip-btn" aria-label="Learn more" data-tip="Discount points are an upfront fee paid to the lender to buy down your interest rate. 1 point = 1% of your loan balance, and typically reduces your rate by 0.125–0.25% (varies by lender and market conditions). Enter the number of points your lender is quoting, and the calculator will add the cost to your upfront expenses and show you whether the rate reduction justifies the extra cost.">?</button></div>
+          <div class="input-wrap suffix">
+            <input type="number" id="points" min="0" max="4" step="0.25" value="0">
+            <span class="affix">pts</span>
+          </div>
+          <div class="helper" id="pointsCostDisplay">Each point = 1% of loan balance, typically reduces your rate by ~0.125–0.25%.</div>
+        </div>
+
+        <div class="two-col">
+          <div class="field">
+            <div class="label-tip-row">
+              <label>LENDER FEES</label>
+              <button class="tip-btn" aria-label="Learn more" data-tip="Lender closing costs are permanent expenses: origination fee (~$1,200), appraisal (~$500), title search &amp; insurance (~$800–$1,500), and recording fees (~$300). Total is typically 1–2% of your loan balance. These can sometimes be rolled into the new loan balance.">?</button>
+            </div>
+            <div class="input-wrap prefix">
+              <span class="affix">$</span>
+              <input type="number" id="closingCosts" min="0" step="500">
+            </div>
+            <div class="helper">Origination, title, appraisal, recording</div>
+          </div>
+          <div class="field">
+            <div class="label-tip-row">
+              <label>PREPAID COSTS</label>
+              <button class="tip-btn" aria-label="Learn more" data-tip="Prepaid costs fund your new escrow account at closing: typically 2–3 months of property taxes, 2 months of homeowner's insurance, and prepaid mortgage interest for the days until your first payment. Unlike lender fees, prepaids are largely a timing issue — you'll receive your old escrow balance back within 30–45 days. They cannot typically be rolled into the new loan.">?</button>
+            </div>
+            <div class="input-wrap prefix">
+              <span class="affix">$</span>
+              <input type="number" id="prepaidCosts" min="0" step="250">
+            </div>
+            <div class="helper">Taxes, insurance &amp; prepaid interest (escrow)</div>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:flex-end;margin-top:-6px;margin-bottom:4px">
+          <button type="button" class="fill-est-btn" id="fillClosingCosts" title="Fills typical estimates for both lender fees and prepaid costs based on your loan balance">Fill estimates</button>
+        </div>
+
+        <div class="field">
+          <label>ROLL CLOSING COSTS INTO LOAN?</label>
+          <div class="pill-group">
+            <button type="button" class="pill-btn pill-btn--active" data-mode="none">None — pay upfront</button>
+            <button type="button" class="pill-btn" data-mode="some">Partial</button>
+            <button type="button" class="pill-btn" data-mode="all">All</button>
+          </div>
+          <div id="rolledAmountField" style="display:none;margin-top:8px">
+            <div class="input-wrap prefix">
+              <span class="affix">$</span>
+              <input type="number" id="rolledCosts" min="0" step="500">
+            </div>
+            <div class="helper">Cannot exceed your lender closing costs (prepaids cannot be rolled)</div>
+          </div>
+          <div class="helper" style="margin-top:6px">Rolling lender fees into the new loan removes the upfront payment but increases your balance — and the interest on it. Prepaid escrow costs cannot be financed.</div>
+        </div>
+
+        <!-- Advanced: opportunity cost rate -->
+        <button type="button" class="section-collapse-hdr mt-sm" id="advToggle" aria-expanded="false">
+          <div class="section-label">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+            ADVANCED
+          </div>
+          <svg class="collapse-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+
+        <div class="section-collapse-body" id="advBody" style="max-height:0;overflow:hidden">
+          <div class="field">
+            <div class="label-tip-row"><label>INVESTMENT RETURN RATE</label><button class="tip-btn" aria-label="Learn more" data-tip="The annual return your closing costs could earn if invested instead of spent on the refinance. Used to calculate the true opportunity cost of the upfront expense. Default of 7% reflects approximate long-run U.S. equity returns.">?</button></div>
+            <div class="input-wrap suffix">
+              <input type="number" id="investmentReturn" min="0" max="20" step="0.1">
+              <span class="affix">%</span>
+            </div>
+            <div class="helper">Used to calculate opportunity cost of closing costs</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- /calc-grid -->
+
+  <!-- ── Results ── -->
+  <div class="card wide-card" style="margin-top:0">
+
+    <div class="card-head">
+      <div class="card-icon" style="background:#0d9488">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/>
+          <line x1="6" y1="20" x2="6" y2="14"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-title">Break-Even Analysis</div>
+        <div class="card-sub">Results update instantly as you adjust your inputs</div>
+      </div>
+    </div>
+
+    <!-- Stat tiles -->
+    <div class="refi-stats-grid">
+      <div class="bp-stat">
+        <div class="bp-stat-label" id="stat-monthly-label">MONTHLY SAVINGS</div>
+        <div class="refi-stat-value" id="stat-monthly">—</div>
+        <div class="bp-stat-delta" style="font-size:11px;color:var(--text-muted)" id="stat-monthly-sub">P&amp;I difference</div>
+      </div>
+      <div class="bp-stat">
+        <div class="bp-stat-label">BREAK-EVEN</div>
+        <div class="refi-stat-value" id="stat-breakevenmonths">—</div>
+        <div class="bp-stat-delta" style="font-size:11px;color:var(--text-muted)">to recoup closing costs</div>
+      </div>
+      <div class="bp-stat">
+        <div class="bp-stat-label">NET BENEFIT</div>
+        <div class="refi-stat-value" id="stat-net">—</div>
+        <div class="bp-stat-delta" style="font-size:11px;color:var(--text-muted)" id="stat-net-sub">after costs &amp; opp. cost</div>
+      </div>
+      <div class="bp-stat">
+        <div class="bp-stat-label">INTEREST SAVED</div>
+        <div class="refi-stat-value" id="stat-intsaved">—</div>
+        <div class="bp-stat-delta" style="font-size:11px;color:var(--text-muted)">over full loan life</div>
+      </div>
+    </div>
+
+    <!-- Verdict -->
+    <div class="refi-verdict refi-verdict--info" id="refiVerdict">
+      <div class="refi-verdict-icon">ℹ</div>
+      <div class="refi-verdict-text">
+        <strong>Calculating…</strong>
+        <p>Adjust your inputs above to see your refinance verdict.</p>
+      </div>
+    </div>
+
+    <!-- Term extension warning -->
+    <div class="refi-warning" id="refiTermWarning" style="display:none">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span></span>
+    </div>
+
+    <!-- Chart -->
+    <div class="refi-chart-area">
+      <canvas id="refiChart" height="200"></canvas>
+      <div class="chart-legend" style="margin-top:10px">
+        <span class="leg-item" style="color:#0d9488">● Cumulative savings</span>
+        <span class="leg-item" style="color:#9ca3af">- - Closing costs</span>
+        <span class="leg-item" style="color:#818cf8">- - Your stay horizon</span>
+      </div>
+    </div>
+
+    <!-- Payment breakdown -->
+    <div class="refi-detail-grid">
+      <div class="refi-detail-cell">
+        <div class="refi-detail-label">PAYMENT COMPARISON</div>
+        <div class="refi-detail-row">
+          <span>Current monthly P&amp;I</span>
+          <strong id="detail-current-pmt">—</strong>
+        </div>
+        <div class="refi-detail-row" id="detail-pmi-row" style="display:none">
+          <span>PMI eliminated</span>
+          <strong id="detail-pmi" style="color:var(--green)">—</strong>
+        </div>
+        <div class="refi-detail-row">
+          <span id="detail-new-pmt-label">New monthly P&amp;I</span>
+          <strong id="detail-new-pmt">—</strong>
+        </div>
+        <div class="refi-detail-total">
+          <span>Monthly difference</span>
+          <span id="detail-monthly-diff">—</span>
+        </div>
+      </div>
+      <div class="refi-detail-cell">
+        <div class="refi-detail-label">NET BENEFIT OVER YOUR STAY</div>
+        <div class="refi-detail-row">
+          <span>Gross payment savings</span>
+          <strong id="detail-gross-savings">—</strong>
+        </div>
+        <div class="refi-detail-row">
+          <span id="detail-lender-costs-label">Lender closing costs</span>
+          <strong id="detail-lender-costs" style="color:var(--red)">—</strong>
+        </div>
+        <div class="refi-detail-row" id="detail-points-row" style="display:none">
+          <span>Discount points</span>
+          <strong id="detail-points" style="color:var(--red)">—</strong>
+        </div>
+        <div class="refi-detail-row" id="detail-rolled-row" style="display:none">
+          <span>Rolled into new balance</span>
+          <strong id="detail-rolled" style="color:var(--text-muted)">—</strong>
+        </div>
+        <div class="refi-detail-row">
+          <span>Prepaid costs (escrow &amp; taxes)</span>
+          <strong id="detail-prepaid-costs" style="color:var(--red)">—</strong>
+        </div>
+        <div class="refi-detail-row">
+          <span>Opportunity cost of closing costs</span>
+          <strong id="detail-oppcost" style="color:var(--red)">—</strong>
+        </div>
+        <div class="refi-detail-total">
+          <span id="detail-net-label">Net benefit</span>
+          <span id="detail-net">—</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── Key Concepts (collapsible) ── -->
+  <details class="card wide-card glossary-card">
+    <summary class="card-head">
+      <div class="card-icon" style="background:#0d9488">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-title">Key Concepts &amp; How It Works</div>
+        <div class="card-sub">The math behind each field, what the chart shows, and the assumptions built into this model</div>
+      </div>
+      <svg class="adv-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left:auto;flex-shrink:0">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+    </summary>
+
+    <div class="glossary-body">
+
+      <div class="gloss-group">
+        <div class="gloss-group-title">How the Calculations Work</div>
+        <div class="gloss-grid">
+
+          <div class="gloss-item">
+            <div class="gloss-term">Monthly Payment Formula</div>
+            <div class="gloss-def">Both the current and new monthly payments are computed using the standard amortization formula: P × r × (1 + r)^n ÷ ((1 + r)^n − 1), where P is the loan balance, r is the monthly rate (annual rate ÷ 12), and n is the number of monthly payments (term in years × 12). This gives the fixed principal-and-interest payment that fully amortizes the loan over its term. Taxes, insurance, and HOA are not included — the calculation focuses on the P&amp;I change that refinancing produces.</div>
+          </div>
+
+          <div class="gloss-item">
+            <div class="gloss-term">Monthly Savings</div>
+            <div class="gloss-def">Monthly savings = (current P&amp;I payment + monthly PMI) − new P&amp;I payment. If you're eliminating PMI through the refinance (e.g., your home has appreciated to 20%+ equity), enter your current PMI amount and it's added to the saving. If PMI isn't a factor, leave it at $0. The new payment is computed on the new loan balance — which may be higher than your current balance if you rolled closing costs in.</div>
+          </div>
+
+          <div class="gloss-item">
+            <div class="gloss-term">Out-of-Pocket Costs &amp; Rolling</div>
+            <div class="gloss-def">Out-of-pocket = lender fees + discount points + prepaid costs − rolled amount. Lender fees (origination, title, appraisal) can be rolled into the new loan balance, removing the upfront cash requirement but increasing the balance and the monthly payment. Discount points and prepaid costs (taxes, insurance, prepaid interest) are always out-of-pocket — they cannot be financed. The rolled amount is capped at your lender fees; it cannot exceed them.</div>
+          </div>
+
+          <div class="gloss-item">
+            <div class="gloss-term">Break-Even</div>
+            <div class="gloss-def">Break-even in months = out-of-pocket costs ÷ monthly savings. This is the number of months you need to stay in the home (with the new loan) before cumulative savings exceed what you paid to refinance. If you sell or refinance again before this point, you'll have spent more than you saved. The break-even is simple by design — it doesn't account for opportunity cost or the time value of money, which is why the Net Benefit metric exists alongside it.</div>
+          </div>
+
+          <div class="gloss-item">
+            <div class="gloss-term">Net Benefit &amp; Opportunity Cost</div>
+            <div class="gloss-def">Net benefit = gross savings over your stay − out-of-pocket costs − opportunity cost. Gross savings is monthly savings × stay horizon in months. Opportunity cost is what your out-of-pocket costs could have grown to if invested at your expected return rate instead — calculated as: out-of-pocket × ((1 + r)^years − 1), where r is annual investment return. This captures the real economic trade-off: refinancing is worthwhile only when the gross savings exceed both the direct cost and the foregone investment growth on that cash.</div>
+          </div>
+
+          <div class="gloss-item">
+            <div class="gloss-term">Interest Saved</div>
+            <div class="gloss-def">Total interest on each loan is computed by summing all payments over the full term and subtracting the principal. For the current loan, the calculation runs from the remaining balance over the remaining term. For the new loan, it runs from the new loan balance (post-roll) over the full new term. Interest saved = total interest current − total interest new. Note that extending your term (e.g., resetting to 30 years) can reduce monthly payments while increasing total interest paid — the interest saved figure can sometimes be negative in those cases, which is reflected accurately.</div>
+          </div>
+
+          <div class="gloss-item">
+            <div class="gloss-term">Discount Points</div>
+            <div class="gloss-def">One discount point = 1% of the loan balance, paid at closing. Points buy a lower interest rate — typically 0.125–0.25% per point, though the exact reduction varies by lender and market conditions. The point cost is added to your out-of-pocket costs (not rollable) and is shown separately in the cost breakdown. Because points reduce your rate, they simultaneously reduce monthly payments and increase monthly savings — so the net effect on break-even depends on how much the rate drops versus how much you paid for it.</div>
+          </div>
+
+          <div class="gloss-item">
+            <div class="gloss-term">The Cumulative Savings Chart</div>
+            <div class="gloss-def">The chart plots two lines over time: cumulative monthly savings (rising linearly from zero) and out-of-pocket costs (a flat line representing cash already spent). The point where they cross is your break-even. After that, the gap between the lines is your running net savings — before opportunity cost. A third dashed line shows cumulative savings net of opportunity cost: what you'd have in your pocket after accounting for what the closing costs could have earned if invested instead. This line grows more slowly, and its long-run value is your true economic gain from refinancing.</div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="gloss-group">
+        <div class="gloss-group-title">Assumptions &amp; Limitations</div>
+        <div class="gloss-grid">
+
+          <div class="gloss-item">
+            <div class="gloss-term">Rate vs. APR</div>
+            <div class="gloss-def">This calculator uses the interest rate (note rate) — not the APR. The note rate is what determines your monthly payment via the amortization formula. APR is a disclosure metric that incorporates certain lender fees into an annualized cost of borrowing; it's useful for comparing loan offers but is not the right input for payment math. Always enter the rate from your Loan Estimate, not the APR box adjacent to it.</div>
+          </div>
+
+          <div class="gloss-item">
+            <div class="gloss-term">Taxes &amp; Insurance Not Modeled</div>
+            <div class="gloss-def">Property taxes, homeowner's insurance, and HOA dues are not included in the payment comparison. These costs are typically the same regardless of whether you refinance, so they don't affect the savings calculation. Prepaid costs at closing (tax reserves, insurance reserves, prepaid interest) are captured in the Prepaid Costs field — these are the escrow amounts you fund at closing, not your ongoing monthly escrow payment.</div>
+          </div>
+
+          <div class="gloss-item">
+            <div class="gloss-term">Stay Horizon</div>
+            <div class="gloss-def">Net benefit is calculated over the stay horizon you set with the slider. This is the single biggest variable: a refinance that looks marginal at 3 years can look compelling at 7. The break-even point is horizon-independent (it's just cost ÷ monthly savings), but net benefit, opportunity cost, and interest saved all depend on how long you stay. If you're unsure, enable "I don't know" to see a 10-year benchmark estimate, then use the slider to stress-test shorter horizons.</div>
+          </div>
+
+          <div class="gloss-item">
+            <div class="gloss-term">Term Extension Effect</div>
+            <div class="gloss-def">Resetting from, say, 22 years remaining on your current loan to a new 30-year term lowers your monthly payment but extends the payoff date by 8 years — adding years of interest payments that wouldn't otherwise exist. The calculator flags whether your term is shortened or extended and by how much. In some scenarios, a shorter new term (15 or 20 years) produces higher monthly savings and substantially less total interest, even at a lower rate, because the loan pays off faster.</div>
+          </div>
+
+        </div>
+      </div>
+
+    </div><!-- /glossary-body -->
+  </details>
+
+  <!-- Footer -->
+  <footer class="site-footer no-print">
+    <div class="footer-links">
+      <a href="/swap">Home Swap Calculator</a>
+      <a href="/rvb">Rent vs. Buy Analysis</a>
+      <a href="/compound">Compound Growth</a>
+      <a href="/refi">Refinance Calculator</a>
+      <a href="/faq">FAQ</a>
+      <a href="/learn">Learn</a>
+      <a href="/about">About</a>
+      <a href="/privacy">Privacy</a>
+    </div>
+    <div class="footer-note">For informational purposes only. Not financial advice. &copy; 2026</div>
+  </footer>
+
+</div><!-- /app -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="refi.js?v=6"></script>
+<script>
+/* ── Field tip tooltips ── */
+(function () {
+  var popup = document.createElement('div');
+  popup.className = 'tip-popup';
+  document.body.appendChild(popup);
+  var active = null;
+  function show(btn) {
+    active = btn; btn.classList.add('tip-active');
+    popup.textContent = btn.getAttribute('data-tip');
+    popup.style.display = 'block';
+    var r = btn.getBoundingClientRect();
+    var pw = popup.offsetWidth, ph = popup.offsetHeight, m = 10;
+    var left = r.left + r.width / 2 - pw / 2;
+    var top = r.top - ph - 8;
+    if (left < m) left = m;
+    if (left + pw > window.innerWidth - m) left = window.innerWidth - pw - m;
+    if (top < m) top = r.bottom + 8;
+    popup.style.left = left + 'px'; popup.style.top = top + 'px';
+  }
+  function hide() {
+    if (active) active.classList.remove('tip-active');
+    active = null; popup.style.display = 'none';
+  }
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest && e.target.closest('.tip-btn');
+    if (btn) { e.stopPropagation(); if (active === btn) { hide(); return; } hide(); show(btn); }
+    else { hide(); }
+  });
+  window.addEventListener('scroll', hide, { passive: true });
+  window.addEventListener('resize', function () { if (active) show(active); });
+}());
+</script>
+</body>
+</html>

@@ -1686,6 +1686,200 @@ details.adv-section[open] .adv-chevron { transform: rotate(180deg); }
   .chart-controls { gap: 10px; }
 }
 
+/* ── Calc grid equal 2-col ── */
+.calc-grid--equal { grid-template-columns: 1fr 1fr; }
+@media (max-width: 900px) { .calc-grid--equal { grid-template-columns: 1fr; } }
+
+/* ── Refinance Calculator ── */
+.refi-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border-bottom: 1px solid var(--border);
+}
+@media (max-width: 700px) { .refi-stats-grid { grid-template-columns: repeat(2, 1fr); } }
+.refi-stats-grid .bp-stat { background: white; }
+.refi-stat-value { font-size: 22px; font-weight: 700; }
+.refi-stat-value--green { color: var(--green); }
+.refi-stat-value--red   { color: var(--red); }
+.refi-stat-value--muted { color: var(--text-muted); }
+
+.refi-verdict {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+}
+.refi-verdict-icon {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 16px;
+}
+.refi-verdict-text { flex: 1; }
+.refi-verdict-text strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 3px;
+}
+.refi-verdict-text p { font-size: 13px; color: var(--gray-700); line-height: 1.6; margin: 0; }
+.refi-verdict--green .refi-verdict-icon { background: var(--green-light); color: var(--green); }
+.refi-verdict--green .refi-verdict-text strong { color: var(--green); }
+.refi-verdict--amber .refi-verdict-icon { background: var(--amber-light); color: var(--amber); }
+.refi-verdict--amber .refi-verdict-text strong { color: #92400e; }
+.refi-verdict--red   .refi-verdict-icon { background: var(--red-light); color: var(--red); }
+.refi-verdict--red   .refi-verdict-text strong { color: var(--red); }
+.refi-verdict--info  .refi-verdict-icon { background: var(--indigo-light); color: var(--indigo); }
+.refi-verdict--info  .refi-verdict-text strong { color: var(--indigo); }
+
+.refi-chart-area {
+  padding: 16px 20px 12px;
+  border-bottom: 1px solid var(--border);
+}
+.refi-warning {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 12px 20px;
+  padding: 10px 14px;
+  background: var(--amber-light);
+  border: 1px solid #fcd34d;
+  border-radius: var(--radius-sm);
+  font-size: 12.5px;
+  color: #92400e;
+  line-height: 1.6;
+}
+.refi-warning svg { flex-shrink: 0; margin-top: 1px; }
+.refi-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  border-top: 1px solid var(--border);
+}
+@media (max-width: 600px) { .refi-detail-grid { grid-template-columns: 1fr; } }
+.refi-detail-cell {
+  background: var(--gray-50);
+  padding: 14px 20px;
+}
+.refi-detail-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .07em;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+.refi-detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 13px;
+  padding: 3px 0;
+  border-bottom: 1px solid var(--border);
+  color: var(--gray-700);
+}
+.refi-detail-row:last-child { border-bottom: none; }
+.refi-detail-row strong { color: var(--text); font-weight: 600; }
+.refi-detail-total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  padding: 6px 0 0;
+  margin-top: 4px;
+  border-top: 2px solid var(--border);
+}
+
+/* ── Refi: unknown-stay toggle ── */
+.horizon-unknown-btn {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  padding: 4px 11px;
+  border-radius: 20px;
+  border: 1.5px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: background .15s, border-color .15s, color .15s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.horizon-unknown-btn:hover { border-color: #0d9488; color: #0d9488; }
+.horizon-unknown-btn.active { background: #0d9488; border-color: #0d9488; color: #fff; }
+
+/* ── Refi: rate slider ── */
+.rate-slider-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+}
+.rate-slider-row input[type=range] { flex: 1; accent-color: #0d9488; }
+
+/* ── Refi: pill group (roll-mode selector) ── */
+.pill-group { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+.pill-btn {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 1.5px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: background .15s, border-color .15s, color .15s;
+  white-space: nowrap;
+}
+.pill-btn:hover:not(.pill-btn--active) { border-color: #0d9488; color: #0d9488; }
+.pill-btn--active { background: #0d9488; border-color: #0d9488; color: #fff; }
+
+/* ── Refi: fill-estimate button ── */
+.fill-est-btn {
+  font-size: 11px; font-weight: 600; letter-spacing: .03em;
+  padding: 2px 8px; border-radius: 4px;
+  border: 1.5px solid #0d9488; background: transparent;
+  color: #0d9488; cursor: pointer;
+  transition: background .15s, color .15s;
+  white-space: nowrap; flex-shrink: 0;
+}
+.fill-est-btn:hover { background: #0d9488; color: #fff; }
+
+/* Tool cross-link (swap → refi) */
+.tool-crosslink {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--gray-50);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 13px 16px;
+  text-decoration: none;
+  transition: border-color .15s, background .15s;
+}
+.tool-crosslink:hover { border-color: #5eead4; background: #f0fdfa; }
+.tool-crosslink-icon {
+  width: 32px; height: 32px;
+  background: #0d9488;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  flex-shrink: 0;
+}
+.tool-crosslink-text { flex: 1; min-width: 0; }
+.tool-crosslink-text strong { display: block; font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 1px; }
+.tool-crosslink-text span  { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+.tool-crosslink-arrow { font-size: 14px; color: var(--text-muted); flex-shrink: 0; }
+
 /* ── Article Page ── */
 .article-hero {
   padding: 32px 28px 24px;

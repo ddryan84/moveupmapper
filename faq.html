@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=23">
+  <link rel="stylesheet" href="styles.css?v=26">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -54,6 +54,21 @@
         "@type": "Question",
         "name": "How accurate are the 10-year buying power projections?",
         "acceptedAnswer": { "@type": "Answer", "text": "The projections are planning estimates, not forecasts. They're most useful for stress-testing scenarios. The interest rate is held constant at today's rate. The real value is understanding how sensitive your buying power is to changes in income growth versus cost headwinds, not predicting a specific number." }
+      },
+      {
+        "@type": "Question",
+        "name": "What's the difference between interest rate and APR — and which do I enter in the Refinance Calculator?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Enter the interest rate (note rate), not the APR. The interest rate is what's used to compute your monthly payment. APR folds in certain lender fees and is a higher, broader disclosure number useful for comparing lenders — but it's not the right input for payment math. Your Loan Estimate lists both; use the 'Interest Rate' on page 1." }
+      },
+      {
+        "@type": "Question",
+        "name": "How is the refinance break-even calculated?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Break-even = out-of-pocket costs ÷ monthly savings. Monthly savings is your current payment (plus any PMI eliminated) minus your new payment. Out-of-pocket costs include lender fees, discount points, and prepaid costs, minus any fees rolled into the new loan. Rolling fees reduces upfront costs but raises the new loan balance and monthly payment, both of which are accounted for." }
+      },
+      {
+        "@type": "Question",
+        "name": "What are discount points, and when do they make sense?",
+        "acceptedAnswer": { "@type": "Answer", "text": "One discount point costs 1% of your loan balance and typically reduces your rate by 0.125–0.25%. Points are paid at closing and cannot be rolled into the loan. They make sense if you plan to stay well past break-even, have the cash available, and the rate reduction is large enough to justify the upfront cost." }
       },
       {
         "@type": "Question",
@@ -143,6 +158,7 @@
       <a href="/swap"    class="page-nav-link">Home Swap Calculator</a>
       <a href="/rvb"      class="page-nav-link">Rent vs. Buy Analysis</a>
       <a href="/compound" class="page-nav-link">Compound Growth</a>
+      <a href="/refi"    class="page-nav-link">Refi Calculator</a>
       <a href="/faq"      class="page-nav-link active">FAQ</a>
       <a href="/learn"    class="page-nav-link">Learn</a>
       <a href="/about"    class="page-nav-link">About</a>
@@ -287,6 +303,61 @@
     </div><!-- /faq-body -->
   </div>
 
+  <!-- Refinance Break-Even Calculator -->
+  <div class="card wide-card">
+    <div class="faq-section-head" style="background:#0d9488">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/>
+      </svg>
+      <span>Refinance Break-Even Calculator</span>
+    </div>
+    <div class="faq-body">
+
+      <details class="faq-item" open>
+        <summary class="faq-q">What's the difference between interest rate and APR — and which do I enter?</summary>
+        <div class="faq-a">
+          Your <strong>interest rate</strong> (also called the note rate) is the annual percentage used to compute your monthly payment. <strong>APR</strong> (Annual Percentage Rate) is a broader disclosure number that folds in certain lender fees — origination charges, mortgage broker fees, mortgage insurance premiums — and expresses the all-in cost of borrowing as a single rate. APR is always ≥ the interest rate; the gap is larger on smaller loans or loans with higher origination fees.<br><br>
+          Enter the <strong>interest rate</strong>, not the APR. The calculator uses your rate to compute monthly payments via the standard amortization formula. APR is a useful comparison tool when shopping across lenders, but it's not the right input for payment math. Your Loan Estimate (the standardized disclosure lenders are required to provide within 3 days of application) lists both clearly — look for "Interest Rate" on page 1, not the "Annual Percentage Rate" box nearby.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">How is the break-even calculation done?</summary>
+        <div class="faq-a">
+          The break-even is how many months it takes for your cumulative monthly savings to repay your out-of-pocket costs:<br><br>
+          <strong>Monthly savings</strong> = current payment (+ any PMI eliminated) − new payment<br>
+          <strong>Out-of-pocket costs</strong> = lender fees + discount points + prepaid costs − any fees rolled into the loan<br>
+          <strong>Break-even</strong> = out-of-pocket costs ÷ monthly savings<br><br>
+          If you roll closing costs into the new loan, those fees are removed from out-of-pocket but increase the new loan balance — which raises your new payment slightly and reduces monthly savings. Both effects are reflected in the calculation. Discount points and prepaid costs (taxes, insurance, prepaid interest) are always out-of-pocket and cannot be rolled.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">What are lender fees vs. prepaid costs, and why does it matter?</summary>
+        <div class="faq-a">
+          <strong>Lender fees</strong> (also called closing costs) are permanent transaction costs: origination fees, title insurance, appraisal, recording fees. You pay these once and they're gone — but they can typically be rolled into the new loan balance if you'd prefer not to pay cash upfront.<br><br>
+          <strong>Prepaid costs</strong> are escrow timing costs: property tax reserves, homeowner's insurance reserves, and prepaid interest (the interest owed from your closing date through end of month). These are not really "costs" in the long-run sense — you're prepaying expenses you'd owe anyway — but they require cash at closing and cannot be financed. They factor into your break-even because they affect how much cash you actually need on day one.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">What are discount points, and when do they make sense?</summary>
+        <div class="faq-a">
+          One discount point costs 1% of your loan balance and typically reduces your interest rate by 0.125–0.25% (the exact reduction varies by lender and market). Points are always paid at closing and cannot be rolled into the loan — you're essentially pre-paying interest to buy a lower rate for the life of the loan.<br><br>
+          Points generally make sense if: (1) you plan to stay well past break-even, (2) you have the cash available and wouldn't otherwise invest it at a higher expected return, and (3) the rate reduction is meaningful enough to shorten your overall break-even to a comfortable horizon. If you're uncertain how long you'll stay, paying points is a riskier bet — you need to stay long enough to recoup the upfront cost through monthly savings.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">What is the opportunity cost, and why does it reduce net benefit?</summary>
+        <div class="faq-a">
+          Opportunity cost represents what your closing costs could have earned if invested instead of spent on a refinance. If you pay $6,000 out-of-pocket to refinance and your expected investment return is 7%, that money could have grown to roughly $8,400 over 5 years — so the true cost of refinancing is $6,000 plus the $2,400 in foregone returns. The calculator subtracts this from your gross savings to show a <em>net benefit</em> that accounts for both the costs paid and the growth you gave up. You can adjust the assumed investment return in the Advanced section.
+        </div>
+      </details>
+
+    </div><!-- /faq-body -->
+  </div>
+
   <!-- Compound Growth Calculator -->
   <div class="card wide-card">
     <div class="faq-section-head" style="background:#0891b2">
@@ -348,6 +419,7 @@
       <a href="/swap">Home Swap Calculator</a>
       <a href="/rvb">Rent vs. Buy Analysis</a>
       <a href="/compound">Compound Growth</a>
+      <a href="/refi">Refinance Calculator</a>
       <a href="/faq">FAQ</a>
       <a href="/learn">Learn</a>
       <a href="/about">About</a>

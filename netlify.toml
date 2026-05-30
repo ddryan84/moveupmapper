@@ -37,6 +37,16 @@
   to   = "/privacy"
   status = 301
 
+[[redirects]]
+  from = "/refi.html"
+  to   = "/refi"
+  status = 301
+
+[[redirects]]
+  from = "/learn/amortization-schedule.html"
+  to   = "/learn/amortization-schedule"
+  status = 301
+
 # Security headers for all pages
 [[headers]]
   for = "/*"
