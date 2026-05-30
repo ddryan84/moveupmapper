@@ -217,6 +217,14 @@ function renderChart(r) {
 function render() {
   const r = calculate();
   const unknown = state.stayUnknown;
+  const isTermReduction = r.monthlySavings < 0 && r.termShortened;
+
+  // For term-reduction refinances, opportunity cost is measured over the new loan's full life
+  // (since the interest savings are also measured over that full horizon)
+  const lifetimeOppCost = isTermReduction ? (() => {
+    const rInvMo = state.investmentReturn / 100 / 12;
+    return rInvMo > 0 && r.outOfPocket > 0 ? r.outOfPocket * (Math.pow(1 + rInvMo, r.n2) - 1) : 0;
+  })() : 0;
 
   // ── Stat tiles ──
   const elMonthly      = document.getElementById('stat-monthly');
@@ -236,15 +244,21 @@ function render() {
   }
 
   if (elBreakEven) {
-    if (!isFinite(r.breakEvenMonths) && r.monthlySavings <= 0) {
+    if (isTermReduction) {
+      // Monthly payment goes up — closing costs are never recouped through savings; N/A is correct but not alarming
       elBreakEven.textContent = 'N/A';
+      elBreakEven.className = 'refi-stat-value';
+    } else if (!isFinite(r.breakEvenMonths) && r.monthlySavings <= 0) {
+      elBreakEven.textContent = 'N/A';
+      elBreakEven.className = 'refi-stat-value';
     } else if (!isFinite(r.breakEvenMonths)) {
       elBreakEven.textContent = 'Never';
+      elBreakEven.className = 'refi-stat-value refi-stat-value--red';
     } else {
       elBreakEven.textContent = fmtMonths(r.breakEvenMonths);
+      const beGood = isFinite(r.breakEvenMonths) && (unknown || r.breakEvenMonths <= state.stayYears * 12);
+      elBreakEven.className = 'refi-stat-value ' + (beGood ? 'refi-stat-value--green' : 'refi-stat-value--red');
     }
-    const beGood = isFinite(r.breakEvenMonths) && (unknown || r.breakEvenMonths <= state.stayYears * 12);
-    elBreakEven.className = 'refi-stat-value ' + (beGood ? 'refi-stat-value--green' : 'refi-stat-value--red');
   }
 
   if (elIntSaved) {
@@ -253,24 +267,32 @@ function render() {
   }
 
   if (elNet) {
-    let netToShow, netLabel;
-    if (unknown) {
-      // No stay horizon set — compute over a 10-year benchmark so the tile stays live
-      const H10 = 10 * 12;
-      const sg10 = r.monthlySavings * Math.min(H10, r.n1);
-      const rInv = state.investmentReturn / 100 / 12;
-      const opp10 = rInv > 0 && r.outOfPocket > 0 ? r.outOfPocket * (Math.pow(1 + rInv, H10) - 1) : 0;
-      netToShow = sg10 - r.outOfPocket - opp10;
-      netLabel = 'est. over 10 years';
+    const elNetLabel = document.getElementById('stat-net-label');
+    if (isTermReduction) {
+      const lifetimeNet = r.interestSaved - r.outOfPocket - lifetimeOppCost;
+      elNet.textContent = (lifetimeNet >= 0 ? '' : '-') + fmt(Math.abs(lifetimeNet));
+      elNet.className = 'refi-stat-value ' + (lifetimeNet > 0 ? 'refi-stat-value--green' : lifetimeNet < 0 ? 'refi-stat-value--red' : '');
+      if (elNetLabel) elNetLabel.textContent = 'LIFETIME SAVINGS';
+      if (elNetSub) elNetSub.textContent = 'interest saved, after closing costs';
     } else {
-      netToShow = r.netBenefit;
-      netLabel = 'after costs & opp. cost';
+      if (elNetLabel) elNetLabel.textContent = 'NET BENEFIT';
+      let netToShow;
+      if (unknown) {
+        // No stay horizon set — compute over a 10-year benchmark so the tile stays live
+        const H10 = 10 * 12;
+        const sg10 = r.monthlySavings * Math.min(H10, r.n1);
+        const rInv = state.investmentReturn / 100 / 12;
+        const opp10 = rInv > 0 && r.outOfPocket > 0 ? r.outOfPocket * (Math.pow(1 + rInv, H10) - 1) : 0;
+        netToShow = sg10 - r.outOfPocket - opp10;
+      } else {
+        netToShow = r.netBenefit;
+      }
+      elNet.textContent = (netToShow >= 0 ? '' : '-') + fmt(Math.abs(netToShow));
+      elNet.className = 'refi-stat-value ' + (netToShow > 0 ? 'refi-stat-value--green' : netToShow < 0 ? 'refi-stat-value--red' : '');
+      if (elNetSub) elNetSub.textContent = unknown
+        ? 'est. over 10 years'
+        : 'over ' + state.stayYears + '-yr stay, after costs';
     }
-    elNet.textContent = (netToShow >= 0 ? '' : '-') + fmt(Math.abs(netToShow));
-    elNet.className = 'refi-stat-value ' + (netToShow > 0 ? 'refi-stat-value--green' : netToShow < 0 ? 'refi-stat-value--red' : '');
-    if (elNetSub) elNetSub.textContent = unknown
-      ? 'est. over 10 years'
-      : 'over ' + state.stayYears + '-yr stay, after costs';
   }
 
   // ── Verdict ──
@@ -354,8 +376,18 @@ function render() {
     f2.style.color = r.monthlySavings >= 0 ? 'var(--green)' : 'var(--red)';
   }
 
+  const netSectionLabel = document.getElementById('detail-net-section-label');
+  if (netSectionLabel) netSectionLabel.textContent = isTermReduction ? 'LIFETIME INTEREST SAVINGS' : 'NET BENEFIT OVER YOUR STAY';
+
+  const grossLabel = document.getElementById('detail-gross-savings-label');
   const g = document.getElementById('detail-gross-savings');
-  if (g) g.textContent = unknown ? '—' : fmt(r.grossSavings);
+  if (isTermReduction) {
+    if (grossLabel) grossLabel.textContent = 'Total interest savings';
+    if (g) { g.textContent = fmt(r.interestSaved); g.style.color = 'var(--green)'; }
+  } else {
+    if (grossLabel) grossLabel.textContent = 'Gross payment savings';
+    if (g) { g.textContent = unknown ? '—' : fmt(r.grossSavings); g.style.color = ''; }
+  }
 
   // Points cost display helper
   const ptsDisplay = document.getElementById('pointsCostDisplay');
@@ -391,25 +423,46 @@ function render() {
   if (ppDetailEl) ppDetailEl.textContent = '-' + fmt(r.prepaidCosts);
 
   const ii = document.getElementById('detail-oppcost');
-  if (ii) ii.textContent = '-' + fmt(r.oppCost);
+  if (ii) ii.textContent = '-' + fmt(isTermReduction ? lifetimeOppCost : r.oppCost);
 
   const detailNetLabel = document.getElementById('detail-net-label');
-  if (detailNetLabel) detailNetLabel.textContent = unknown ? 'Net benefit (est. 10 yr)' : 'Net benefit';
+  if (detailNetLabel) detailNetLabel.textContent = isTermReduction ? 'Net lifetime savings' : unknown ? 'Net benefit (est. 10 yr)' : 'Net benefit';
 
   const jj = document.getElementById('detail-net');
   if (jj) {
-    const netVal = unknown ? (() => {
+    let netVal;
+    if (isTermReduction) {
+      netVal = r.interestSaved - r.outOfPocket - lifetimeOppCost;
+    } else if (unknown) {
       const H10 = 10 * 12;
       const sg10 = r.monthlySavings * Math.min(H10, r.n1);
       const rInv = state.investmentReturn / 100 / 12;
       const opp10 = rInv > 0 && r.outOfPocket > 0 ? r.outOfPocket * (Math.pow(1 + rInv, H10) - 1) : 0;
-      return sg10 - r.outOfPocket - opp10;
-    })() : r.netBenefit;
+      netVal = sg10 - r.outOfPocket - opp10;
+    } else {
+      netVal = r.netBenefit;
+    }
     jj.textContent = (netVal >= 0 ? '' : '-') + fmt(Math.abs(netVal));
     jj.style.color = netVal >= 0 ? 'var(--green)' : 'var(--red)';
   }
 
-  renderChart(r);
+  const chartWrap = document.getElementById('refiChartWrap');
+  const chartNote = document.getElementById('refiChartNote');
+  if (isTermReduction) {
+    if (refiChart) { refiChart.destroy(); refiChart = null; }
+    if (chartWrap) {
+      chartWrap.querySelector('canvas').style.display = 'none';
+      chartWrap.querySelector('.chart-legend').style.display = 'none';
+    }
+    if (chartNote) chartNote.style.display = '';
+  } else {
+    if (chartWrap) {
+      chartWrap.querySelector('canvas').style.display = '';
+      chartWrap.querySelector('.chart-legend').style.display = '';
+    }
+    if (chartNote) chartNote.style.display = 'none';
+    renderChart(r);
+  }
 }
 
 // ── Unknown-mode UI sync ─────────────────────────────────────────────
