@@ -596,12 +596,11 @@ function render(c, s) {
     const inflRate  = s.inflationRate ?? 3;
     const years     = c.years;
     if (wdEnabled && wdType === 'fixed' && wdAmt > 0 && inflRate > 0) {
-      const factor = Math.pow(1 + inflRate / 100, years);
+      const realAmt = wdAmt / Math.pow(1 + inflRate / 100, years);
       if (s.withdrawalInflationAdj) {
-        const futureAmt = wdAmt * factor;
-        wdInflHint.textContent = `Grows to ${fmt(futureAmt)}/yr by Year ${years} to keep pace with ${inflRate}% annual inflation`;
+        const annualInc = wdAmt * (inflRate / 100);
+        wdInflHint.innerHTML = `At ${inflRate}% inflation, this has the purchasing power of ${fmt(realAmt)}/yr in today's dollars by Year ${years}.<br><span style="opacity:0.85">${fmt(annualInc)} increase per year at ${inflRate}% inflation</span>`;
       } else {
-        const realAmt = wdAmt / factor;
         wdInflHint.textContent = `At ${inflRate}% inflation, this has the purchasing power of ${fmt(realAmt)}/yr in today's dollars by Year ${years}`;
       }
       wdInflHint.style.display = '';

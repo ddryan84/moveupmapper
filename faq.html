@@ -10,12 +10,16 @@
   <meta property="og:site_name" content="Move Up Mapper">
   <meta property="og:title" content="FAQ — Move Up Mapper">
   <meta property="og:description" content="Answers to common questions about the Move Up Mapper calculators — home swapping, rent vs. buy analysis, and compound growth — how the math works and what each field means.">
-  <meta property="og:url" content="https://www.moveupmapper.com/faq.html">
+  <meta property="og:url" content="https://www.moveupmapper.com/faq">
+  <meta property="og:image" content="https://www.moveupmapper.com/social-card.svg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Move Up Mapper — Free Housing & Investment Calculators">
   <link rel="canonical" href="https://www.moveupmapper.com/faq">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20">
+  <link rel="stylesheet" href="styles.css?v=23">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -55,6 +59,11 @@
         "@type": "Question",
         "name": "Is it always better to buy than rent?",
         "acceptedAnswer": { "@type": "Answer", "text": "Not necessarily — it depends on your time horizon, local market conditions, and what you'd do with the capital not tied up in a down payment. In high-cost markets, renting and investing the difference can build comparable or greater wealth over a 5–10 year period." }
+      },
+      {
+        "@type": "Question",
+        "name": "What are the tax advantages of buying a home in the US?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Homeownership comes with several potential federal tax benefits: the mortgage interest deduction (interest on up to $750,000 of debt), the property tax deduction (up to the $10,000 SALT cap), and the capital gains exclusion on sale (up to $250,000 single / $500,000 married if you've lived there 2 of the last 5 years). These only benefit you if your total itemized deductions exceed the standard deduction." }
       },
       {
         "@type": "Question",
@@ -109,7 +118,7 @@
       {
         "@type": "Question",
         "name": "What does Inflation Adjusted do in the Withdrawal Phase?",
-        "acceptedAnswer": { "@type": "Answer", "text": "With Inflation Adjusted on, your withdrawal amount grows each year at your inflation rate to maintain the same purchasing power throughout the drawdown period. If you withdraw $50,000 in Year 1 at 3% inflation, you'd withdraw $51,500 in Year 2, $53,045 in Year 3, and so on. This is more realistic for retirement planning but depletes the portfolio faster than a fixed nominal withdrawal." }
+        "acceptedAnswer": { "@type": "Answer", "text": "With Inflation Adjusted on, your withdrawal amount grows each year at your inflation rate to maintain the same purchasing power throughout the drawdown period. If you withdraw $50,000 in Year 1 at 3% inflation, you'd withdraw $51,500 in Year 2, $53,045 in Year 3, and so on. The hint below the withdrawal input shows the purchasing power of your stated amount in today's dollars (discounted over your accumulation period) and the annual dollar increase your portfolio must deliver. When Inflation Adjusted is off, only the purchasing power line appears — a reminder that a fixed withdrawal loses real value each year. Withdrawing a growing amount is more realistic for retirement planning but depletes the portfolio faster than a fixed nominal withdrawal." }
       }
     ]
   }
@@ -126,17 +135,17 @@
 <body>
 <nav class="site-nav no-print">
   <div class="site-nav-inner">
-    <a href="index.html" class="site-brand">
+    <a href="/" class="site-brand">
       <img src="favicon.svg" width="28" height="28" alt="" style="border-radius:7px;flex-shrink:0;display:block">
       <span class="brand-name">Move Up Mapper</span>
     </a>
     <div class="page-nav-links">
-      <a href="swap.html"    class="page-nav-link">Home Swap Calculator</a>
-      <a href="rvb.html"      class="page-nav-link">Rent vs. Buy Analysis</a>
-      <a href="compound.html" class="page-nav-link">Compound Growth</a>
-      <a href="faq.html"      class="page-nav-link active">FAQ</a>
-      <a href="learn.html"    class="page-nav-link">Learn</a>
-      <a href="about.html"    class="page-nav-link">About</a>
+      <a href="/swap"    class="page-nav-link">Home Swap Calculator</a>
+      <a href="/rvb"      class="page-nav-link">Rent vs. Buy Analysis</a>
+      <a href="/compound" class="page-nav-link">Compound Growth</a>
+      <a href="/faq"      class="page-nav-link active">FAQ</a>
+      <a href="/learn"    class="page-nav-link">Learn</a>
+      <a href="/about"    class="page-nav-link">About</a>
     </div>
   </div>
 </nav>
@@ -155,7 +164,14 @@
     </div>
   </header>
 
+  <!-- Home Swap Calculator -->
   <div class="card wide-card" style="margin-top:8px">
+    <div class="faq-section-head" style="background:#818cf8">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M7 16V4m0 0L3 8m4-4l4 4"/><path d="M17 8v12m0 0l4-4m-4 4l-4-4"/>
+      </svg>
+      <span>Home Swap Calculator</span>
+    </div>
     <div class="faq-body">
 
       <details class="faq-item" open>
@@ -187,23 +203,9 @@
       </details>
 
       <details class="faq-item">
-        <summary class="faq-q">What is PMI, and when can I stop paying it?</summary>
-        <div class="faq-a">
-          PMI (Private Mortgage Insurance) is a monthly premium required by most lenders when your down payment is less than 20% of the purchase price. It protects the lender — not you — against default. Typical costs range from $50 to $300/month depending on loan size and credit score. Once you've built 20% equity through appreciation, loan paydown, or a combination of both, you can typically request cancellation in writing. Under the Homeowners Protection Act, lenders must automatically cancel PMI once you reach 22% equity based on the original amortization schedule. The Rent vs. Buy Analysis calculates the exact year PMI drops off and shows it as a callout on the monthly cost chart.
-        </div>
-      </details>
-
-      <details class="faq-item">
         <summary class="faq-q">How accurate are the 10-year buying power projections?</summary>
         <div class="faq-a">
           The projections are planning estimates, not forecasts. They're most useful for stress-testing scenarios: try setting wage growth to 1% and home price growth to 5% to model a pessimistic case, then flip it to see an optimistic one. The interest rate is held constant at today's rate, which is a simplification — in reality, if you're buying in a future year, you'd face whatever rates prevail then. The real value of the chart is understanding how sensitive your buying power is to changes in income growth versus cost headwinds, not predicting a specific number.
-        </div>
-      </details>
-
-      <details class="faq-item">
-        <summary class="faq-q">Is it always better to buy than rent?</summary>
-        <div class="faq-a">
-          Not necessarily — it depends heavily on your time horizon, local market conditions, and what you'd do with the capital you don't tie up in a down payment. In high-cost markets where home prices are elevated relative to rents, renting and investing the difference can build comparable or greater wealth over a 5–10 year period. The Rent vs. Buy Analysis is specifically designed to model both paths honestly, including the opportunity cost of the down payment and the compounding effect of reinvesting monthly cost savings.
         </div>
       </details>
 
@@ -235,14 +237,65 @@
         </div>
       </details>
 
+    </div><!-- /faq-body -->
+  </div>
+
+  <!-- Rent vs. Buy Analysis -->
+  <div class="card wide-card">
+    <div class="faq-section-head" style="background:#4f46e5">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 3v18h18"/><polyline points="7 16 11 12 15 16 21 8"/>
+      </svg>
+      <span>Rent vs. Buy Analysis</span>
+    </div>
+    <div class="faq-body">
+
       <details class="faq-item">
-        <summary class="faq-q">Is my data saved or shared anywhere?</summary>
+        <summary class="faq-q">Is it always better to buy than rent?</summary>
         <div class="faq-a">
-          No. All calculator inputs are saved only in your browser's local storage so your settings persist between visits. Nothing you enter is transmitted to any server, stored in a database, or shared with anyone. See the <a href="privacy.html" style="color:var(--indigo);text-underline-offset:2px">Privacy Policy</a> for full details on what third-party services like Google Analytics collect.
+          Not necessarily — it depends heavily on your time horizon, local market conditions, and what you'd do with the capital you don't tie up in a down payment. In high-cost markets where home prices are elevated relative to rents, renting and investing the difference can build comparable or greater wealth over a 5–10 year period. The Rent vs. Buy Analysis is specifically designed to model both paths honestly, including the opportunity cost of the down payment and the compounding effect of reinvesting monthly cost savings.
         </div>
       </details>
 
-      <div class="faq-section-label">Compound Growth Calculator</div>
+      <details class="faq-item">
+        <summary class="faq-q">What is PMI, and when can I stop paying it?</summary>
+        <div class="faq-a">
+          PMI (Private Mortgage Insurance) is a monthly premium required by most lenders when your down payment is less than 20% of the purchase price. It protects the lender — not you — against default. Typical costs range from $50 to $300/month depending on loan size and credit score. Once you've built 20% equity through appreciation, loan paydown, or a combination of both, you can typically request cancellation in writing. Under the Homeowners Protection Act, lenders must automatically cancel PMI once you reach 22% equity based on the original amortization schedule. The Rent vs. Buy Analysis calculates the exact year PMI drops off and shows it as a callout on the monthly cost chart.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">What are the tax advantages of buying a home in the US?</summary>
+        <div class="faq-a">
+          Homeownership comes with several potential federal tax benefits, though how much you actually capture depends on whether you itemize deductions:
+          <ul style="margin:8px 0 4px;padding-left:18px;display:flex;flex-direction:column;gap:5px">
+            <li><strong>Mortgage interest deduction</strong> — You can deduct interest paid on up to $750,000 of mortgage debt (for loans originated after Dec. 15, 2017). On a $500,000 mortgage at 7%, that's roughly $34,000 of deductible interest in Year 1 alone.</li>
+            <li><strong>Property tax deduction</strong> — State and local property taxes are deductible up to the $10,000 SALT cap, which also covers state income or sales taxes. In high-tax states, this limit is often hit quickly.</li>
+            <li><strong>Capital gains exclusion on sale</strong> — When you sell a primary residence you've lived in for at least 2 of the last 5 years, you can exclude up to $250,000 of gain from taxable income ($500,000 if married filing jointly). This is one of the most significant wealth-building advantages of homeownership.</li>
+          </ul>
+          The catch: these deductions only benefit you if your total itemized deductions exceed the standard deduction ($14,600 single / $29,200 married for 2024). For many homeowners — especially early in a mortgage when interest is highest — itemizing makes sense, but it becomes less compelling as the loan balance pays down. The Rent vs. Buy Analysis includes a "Do you itemize?" toggle that adjusts the buy-side cost calculations to reflect your actual tax situation.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">Is my data saved or shared anywhere?</summary>
+        <div class="faq-a">
+          No. All calculator inputs are saved only in your browser's local storage so your settings persist between visits. Nothing you enter is transmitted to any server, stored in a database, or shared with anyone. See the <a href="/privacy" style="color:var(--indigo);text-underline-offset:2px">Privacy Policy</a> for full details on what third-party services like Google Analytics collect.
+        </div>
+      </details>
+
+    </div><!-- /faq-body -->
+  </div>
+
+  <!-- Compound Growth Calculator -->
+  <div class="card wide-card">
+    <div class="faq-section-head" style="background:#0891b2">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>
+      </svg>
+      <span>Compound Growth Calculator</span>
+    </div>
+    <div class="faq-body">
 
       <details class="faq-item">
         <summary class="faq-q">How should I choose my Annual Return and Return Variance?</summary>
@@ -282,7 +335,7 @@
       <details class="faq-item">
         <summary class="faq-q">What does "Inflation Adjusted" do in the Withdrawal Phase?</summary>
         <div class="faq-a">
-          With Inflation Adjusted on, your withdrawal amount grows each year at your inflation rate to maintain the same purchasing power throughout the drawdown period. If you withdraw $50,000 in Year 1 at 3% inflation, you'd withdraw $51,500 in Year 2, $53,045 in Year 3, and so on — because what costs $50,000 today will cost more in future years. The hint that appears below the withdrawal input field shows exactly what your stated amount grows to by the end of your accumulation horizon, so you can see the full compounding obligation upfront. The "grows to" figure in the withdrawal stats card shows the endpoint within the actual withdrawal period. Withdrawing a growing amount is more realistic for retirement planning but depletes the portfolio faster than a fixed nominal withdrawal.
+          With Inflation Adjusted on, your withdrawal amount grows each year at your inflation rate to maintain the same purchasing power throughout the drawdown period. If you withdraw $50,000 in Year 1 at 3% inflation, you'd withdraw $51,500 in Year 2, $53,045 in Year 3, and so on — because what costs $50,000 today will cost more in future years. The hint below the withdrawal input field shows two things: what your stated amount is worth in today's dollars at the start of the withdrawal phase (purchasing power, discounted over your accumulation period), and the annual dollar increase your portfolio must deliver at your inflation rate. When Inflation Adjusted is off, the hint shows only the purchasing power line — a reminder that a fixed nominal withdrawal loses real value each year. Withdrawing a growing amount is more realistic for retirement planning but depletes the portfolio faster than a fixed nominal withdrawal.
         </div>
       </details>
 
@@ -292,13 +345,13 @@
   <!-- Footer -->
   <footer class="site-footer no-print">
     <div class="footer-links">
-      <a href="swap.html">Home Swap Calculator</a>
-      <a href="rvb.html">Rent vs. Buy Analysis</a>
-      <a href="compound.html">Compound Growth</a>
-      <a href="faq.html">FAQ</a>
-      <a href="learn.html">Learn</a>
-      <a href="about.html">About</a>
-      <a href="privacy.html">Privacy</a>
+      <a href="/swap">Home Swap Calculator</a>
+      <a href="/rvb">Rent vs. Buy Analysis</a>
+      <a href="/compound">Compound Growth</a>
+      <a href="/faq">FAQ</a>
+      <a href="/learn">Learn</a>
+      <a href="/about">About</a>
+      <a href="/privacy">Privacy</a>
     </div>
     <div class="footer-note">For informational purposes only. Not financial advice. &copy; 2026</div>
   </footer>
