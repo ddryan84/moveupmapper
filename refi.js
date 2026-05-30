@@ -574,6 +574,8 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // Reset
+  document.getElementById('printBtn')?.addEventListener('click', () => window.print());
+
   const resetBtn = document.getElementById('resetBtn');
   if (resetBtn) {
     resetBtn.addEventListener('click', function () {
