@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=26">
+  <link rel="stylesheet" href="styles.css?v=28">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -51,10 +51,16 @@
       <span class="brand-name">Move Up Mapper</span>
     </a>
     <div class="page-nav-links">
-      <a href="/swap"     class="page-nav-link">Home Swap Calculator</a>
-      <a href="/rvb"      class="page-nav-link">Rent vs. Buy Analysis</a>
-      <a href="/compound" class="page-nav-link">Compound Growth</a>
-      <a href="/refi"    class="page-nav-link active">Refi Calculator</a>
+      <div class="nav-dropdown">
+        <button type="button" class="page-nav-link nav-dropdown-btn active" aria-haspopup="true">Calculators <svg class="nav-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="/swap" class="nav-dropdown-item">Home Swap Calculator</a>
+          <a href="/rvb" class="nav-dropdown-item">Rent vs. Buy Analysis</a>
+          <a href="/compound" class="nav-dropdown-item">Compound Growth</a>
+          <a href="/refi" class="nav-dropdown-item active">Refi Calculator</a>
+          <a href="/payoff" class="nav-dropdown-item">Payoff Calculator</a>
+        </div>
+      </div>
       <a href="/faq"      class="page-nav-link">FAQ</a>
       <a href="/learn"    class="page-nav-link">Learn</a>
       <a href="/about"    class="page-nav-link">About</a>
@@ -248,7 +254,7 @@
         </div>
 
         <div class="field">
-          <label>ROLL CLOSING COSTS INTO LOAN?</label>
+          <div class="label-tip-row"><label>ROLL CLOSING COSTS INTO LOAN?</label><button class="tip-btn" aria-label="Learn more" data-tip="Rolling fees into the loan eliminates your upfront cash requirement, which makes break-even appear immediate — but it increases your loan balance, so your new monthly payment is slightly higher and your monthly savings are slightly lower. Paying upfront sets a larger cash hurdle before you break even, but maximizes monthly savings and lowers the total cost over time. The Net Benefit figure accounts for both the out-of-pocket amount and its opportunity cost, so rolling costs in never improves your true long-term outcome — it only trades an upfront expense for a higher ongoing balance.">?</button></div>
           <div class="pill-group">
             <button type="button" class="pill-btn pill-btn--active" data-mode="none">None — pay upfront</button>
             <button type="button" class="pill-btn" data-mode="some">Partial</button>
@@ -323,10 +329,16 @@
         <div class="bp-stat-delta" style="font-size:11px;color:var(--text-muted)" id="stat-net-sub">after costs &amp; opp. cost</div>
       </div>
       <div class="bp-stat">
-        <div class="bp-stat-label">INTEREST SAVED</div>
+        <div class="bp-stat-label" id="stat-intsaved-label">INTEREST SAVED</div>
         <div class="refi-stat-value" id="stat-intsaved">—</div>
-        <div class="bp-stat-delta" style="font-size:11px;color:var(--text-muted)">over full loan life</div>
+        <div class="bp-stat-delta" style="font-size:11px;color:var(--text-muted)" id="stat-intsaved-sub">over full loan life</div>
       </div>
+    </div>
+
+    <!-- Term extension warning -->
+    <div class="refi-warning" id="refiTermWarning" style="display:none">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span></span>
     </div>
 
     <!-- Verdict -->
@@ -336,12 +348,6 @@
         <strong>Calculating…</strong>
         <p>Adjust your inputs above to see your refinance verdict.</p>
       </div>
-    </div>
-
-    <!-- Term extension warning -->
-    <div class="refi-warning" id="refiTermWarning" style="display:none">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-      <span></span>
     </div>
 
     <!-- Chart -->
@@ -364,7 +370,7 @@
           <strong id="detail-current-pmt">—</strong>
         </div>
         <div class="refi-detail-row" id="detail-pmi-row" style="display:none">
-          <span>PMI eliminated</span>
+          <span>PMI savings (per your input)</span>
           <strong id="detail-pmi" style="color:var(--green)">—</strong>
         </div>
         <div class="refi-detail-row">
@@ -456,7 +462,7 @@
 
           <div class="gloss-item">
             <div class="gloss-term">Net Benefit &amp; Opportunity Cost</div>
-            <div class="gloss-def">Net benefit = gross savings over your stay − out-of-pocket costs − opportunity cost. Gross savings is monthly savings × stay horizon in months. Opportunity cost is what your out-of-pocket costs could have grown to if invested at your expected return rate instead — calculated as: out-of-pocket × ((1 + r)^years − 1), where r is annual investment return. This captures the real economic trade-off: refinancing is worthwhile only when the gross savings exceed both the direct cost and the foregone investment growth on that cash.</div>
+            <div class="gloss-def">Net benefit = total payment savings over your stay − out-of-pocket costs − opportunity cost. Payment savings is your monthly P&amp;I reduction × the number of months in your stay horizon. Opportunity cost is what your closing costs could have grown to if invested instead — calculated as: out-of-pocket × ((1 + r)^years − 1), where r is your expected annual investment return. Refinancing makes financial sense when total payment savings exceed both the direct costs and the foregone investment growth on that cash.</div>
           </div>
 
           <div class="gloss-item">
@@ -514,6 +520,7 @@
       <a href="/rvb">Rent vs. Buy Analysis</a>
       <a href="/compound">Compound Growth</a>
       <a href="/refi">Refinance Calculator</a>
+      <a href="/payoff">Payoff Calculator</a>
       <a href="/faq">FAQ</a>
       <a href="/learn">Learn</a>
       <a href="/about">About</a>
@@ -525,7 +532,7 @@
 </div><!-- /app -->
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<script src="refi.js?v=6"></script>
+<script src="refi.js?v=7"></script>
 <script>
 /* ── Field tip tooltips ── */
 (function () {

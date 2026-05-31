@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=26">
+  <link rel="stylesheet" href="styles.css?v=28">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -47,10 +47,16 @@
       <span class="brand-name">Move Up Mapper</span>
     </a>
     <div class="page-nav-links">
-      <a href="/swap"    class="page-nav-link">Home Swap Calculator</a>
-      <a href="/rvb"      class="page-nav-link">Rent vs. Buy Analysis</a>
-      <a href="/compound" class="page-nav-link">Compound Growth</a>
-      <a href="/refi"    class="page-nav-link">Refi Calculator</a>
+      <div class="nav-dropdown">
+        <button type="button" class="page-nav-link nav-dropdown-btn" aria-haspopup="true">Calculators <svg class="nav-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="/swap" class="nav-dropdown-item">Home Swap Calculator</a>
+          <a href="/rvb" class="nav-dropdown-item">Rent vs. Buy Analysis</a>
+          <a href="/compound" class="nav-dropdown-item">Compound Growth</a>
+          <a href="/refi" class="nav-dropdown-item">Refi Calculator</a>
+          <a href="/payoff" class="nav-dropdown-item">Payoff Calculator</a>
+        </div>
+      </div>
       <a href="/faq"      class="page-nav-link">FAQ</a>
       <a href="/learn"    class="page-nav-link">Learn</a>
       <a href="/about"    class="page-nav-link active">About</a>
@@ -235,6 +241,38 @@
           </p>
           <a href="/refi" class="about-tool-link">Open Refinance Calculator →</a>
         </div>
+
+        <div class="about-tool-block">
+          <div class="about-tool-header">
+            <div class="about-tool-icon" style="background:#16a34a">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+              </svg>
+            </div>
+            <span class="about-tool-name">Mortgage Payoff Calculator</span>
+          </div>
+          <p>
+            Built for homeowners weighing whether to make extra principal payments — and whether that
+            money would work harder paying down the mortgage or invested in the market instead. Enter
+            your remaining balance, interest rate, and term alongside an extra monthly payment or
+            one-time lump sum to see the full impact on your payoff timeline and interest cost.
+          </p>
+          <p>
+            The calculator runs a month-by-month amortization for both the standard and accelerated
+            scenarios, surfacing four key outputs: <strong>time saved</strong>, <strong>total interest
+            saved</strong>, the <strong>estimated investment gain</strong> if the same dollars were
+            invested instead, and a <strong>net benefit</strong> that shows which path comes out ahead
+            on paper. A side-by-side amortization table lets you see the first 12 months of both
+            schedules at a glance.
+          </p>
+          <p>
+            Because extra payments deliver a guaranteed return equal to your mortgage rate while
+            investment returns are market-dependent, the verdict section frames the trade-off
+            explicitly — including a close-call branch for scenarios where the two paths are
+            financially equivalent and the decision comes down to personal preference.
+          </p>
+          <a href="/payoff" class="about-tool-link">Open Payoff Calculator →</a>
+        </div>
       </section>
 
       <section class="prose-section">
@@ -309,6 +347,7 @@
       <a href="/rvb">Rent vs. Buy Analysis</a>
       <a href="/compound">Compound Growth</a>
       <a href="/refi">Refinance Calculator</a>
+      <a href="/payoff">Payoff Calculator</a>
       <a href="/faq">FAQ</a>
       <a href="/learn">Learn</a>
       <a href="/about">About</a>

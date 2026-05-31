@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=26">
+  <link rel="stylesheet" href="styles.css?v=28">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -47,10 +47,16 @@
       <span class="brand-name">Move Up Mapper</span>
     </a>
     <div class="page-nav-links">
-      <a href="/swap"     class="page-nav-link">Home Swap Calculator</a>
-      <a href="/rvb"      class="page-nav-link">Rent vs. Buy Analysis</a>
-      <a href="/compound" class="page-nav-link">Compound Growth</a>
-      <a href="/refi"    class="page-nav-link">Refi Calculator</a>
+      <div class="nav-dropdown">
+        <button type="button" class="page-nav-link nav-dropdown-btn" aria-haspopup="true">Calculators <svg class="nav-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="/swap" class="nav-dropdown-item">Home Swap Calculator</a>
+          <a href="/rvb" class="nav-dropdown-item">Rent vs. Buy Analysis</a>
+          <a href="/compound" class="nav-dropdown-item">Compound Growth</a>
+          <a href="/refi" class="nav-dropdown-item">Refi Calculator</a>
+          <a href="/payoff" class="nav-dropdown-item">Payoff Calculator</a>
+        </div>
+      </div>
       <a href="/faq"      class="page-nav-link">FAQ</a>
       <a href="/learn"    class="page-nav-link">Learn</a>
       <a href="/about"    class="page-nav-link">About</a>
@@ -63,43 +69,80 @@
   <section class="landing-hero">
     <div class="landing-hero-text">
       <h1>Housing decisions start with better math.</h1>
-      <p>Three free calculators that model the full financial picture — not just a monthly payment. No account or personal data required.</p>
+      <p>Five free calculators that model the full financial picture — not just a monthly payment. No account or personal data required.</p>
     </div>
-    <div class="tool-grid">
+    <div class="tool-carousel">
+      <button class="carousel-btn carousel-btn--prev" id="carouselPrev" aria-label="Previous calculators" disabled>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <div class="tool-carousel-viewport">
+        <div class="tool-grid" id="toolTrack">
 
-      <a href="/rvb" class="tool-card">
-        <div class="tool-card-icon" style="background:#4f46e5">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 3v18h18"/><polyline points="7 16 11 12 15 16 21 8"/>
-          </svg>
+          <a href="/rvb" class="tool-card">
+            <div class="tool-card-icon" style="background:#4f46e5">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 3v18h18"/><polyline points="7 16 11 12 15 16 21 8"/>
+              </svg>
+            </div>
+            <div class="tool-card-name">Rent vs. Buy Analysis</div>
+            <div class="tool-card-desc">Model the full cost of renting versus buying over 5 to 30 years — with amortization-accurate charts, PMI tracking, and equity vs. invested capital comparisons.</div>
+            <div class="tool-card-cta">Open calculator <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><polyline points="12 5 19 12 12 19"/></svg></div>
+          </a>
+
+          <a href="/swap" class="tool-card">
+            <div class="tool-card-icon" style="background:#818cf8">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 16V4m0 0L3 8m4-4l4 4"/><path d="M17 8v12m0 0l4-4m-4 4l-4-4"/>
+              </svg>
+            </div>
+            <div class="tool-card-name">Home Swap Calculator</div>
+            <div class="tool-card-desc">Compare your current home against a prospective one — monthly affordability, post-purchase cash position, and how your buying power shifts over the next decade.</div>
+            <div class="tool-card-cta">Open calculator <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><polyline points="12 5 19 12 12 19"/></svg></div>
+          </a>
+
+          <a href="/compound" class="tool-card">
+            <div class="tool-card-icon" style="background:#0891b2">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>
+              </svg>
+            </div>
+            <div class="tool-card-name">Compound Growth Calculator</div>
+            <div class="tool-card-desc">Project long-term savings growth with growing contributions, variable return scenarios, fee drag, inflation adjustment, and a retirement drawdown phase.</div>
+            <div class="tool-card-cta">Open calculator <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><polyline points="12 5 19 12 12 19"/></svg></div>
+          </a>
+
+          <a href="/refi" class="tool-card">
+            <div class="tool-card-icon" style="background:#0d9488">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+              </svg>
+            </div>
+            <div class="tool-card-name">Refinance Calculator</div>
+            <div class="tool-card-desc">Model whether refinancing makes sense — compare monthly savings vs. closing cost payback period, total interest paid, and break-even timeline under your assumptions.</div>
+            <div class="tool-card-cta">Open calculator <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><polyline points="12 5 19 12 12 19"/></svg></div>
+          </a>
+
+          <a href="/payoff" class="tool-card">
+            <div class="tool-card-icon" style="background:#16a34a">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+              </svg>
+            </div>
+            <div class="tool-card-name">Payoff Calculator</div>
+            <div class="tool-card-desc">See exactly how much interest you save — and how many years you cut — by making extra monthly or lump-sum principal payments, with a side-by-side amortization view.</div>
+            <div class="tool-card-cta">Open calculator <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><polyline points="12 5 19 12 12 19"/></svg></div>
+          </a>
+
         </div>
-        <div class="tool-card-name">Rent vs. Buy Analysis</div>
-        <div class="tool-card-desc">Model the full cost of renting versus buying over 5 to 30 years — with amortization-accurate charts, PMI tracking, and equity vs. invested capital comparisons.</div>
-        <div class="tool-card-cta">Open calculator <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><polyline points="12 5 19 12 12 19"/></svg></div>
-      </a>
-
-      <a href="/swap" class="tool-card">
-        <div class="tool-card-icon" style="background:#818cf8">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M7 16V4m0 0L3 8m4-4l4 4"/><path d="M17 8v12m0 0l4-4m-4 4l-4-4"/>
-          </svg>
-        </div>
-        <div class="tool-card-name">Home Swap Calculator</div>
-        <div class="tool-card-desc">Compare your current home against a prospective one — monthly affordability, post-purchase cash position, and how your buying power shifts over the next decade.</div>
-        <div class="tool-card-cta">Open calculator <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><polyline points="12 5 19 12 12 19"/></svg></div>
-      </a>
-
-      <a href="/compound" class="tool-card">
-        <div class="tool-card-icon" style="background:#0891b2">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>
-          </svg>
-        </div>
-        <div class="tool-card-name">Compound Growth Calculator</div>
-        <div class="tool-card-desc">Project long-term savings growth with growing contributions, variable return scenarios, fee drag, inflation adjustment, and a retirement drawdown phase.</div>
-        <div class="tool-card-cta">Open calculator <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><polyline points="12 5 19 12 12 19"/></svg></div>
-      </a>
-
+      </div>
+      <button class="carousel-btn carousel-btn--next" id="carouselNext" aria-label="Next calculators">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+    <div class="carousel-dots" id="carouselDots">
+      <button class="carousel-dot active" data-idx="0" aria-label="Show calculators 1–3"></button>
+      <button class="carousel-dot" data-idx="1" aria-label="Show calculators 2–4"></button>
+      <button class="carousel-dot" data-idx="2" aria-label="Show calculators 3–5"></button>
     </div>
   </section>
 
@@ -169,6 +212,7 @@
       <a href="/rvb">Rent vs. Buy Analysis</a>
       <a href="/compound">Compound Growth</a>
       <a href="/refi">Refinance Calculator</a>
+      <a href="/payoff">Payoff Calculator</a>
       <a href="/faq">FAQ</a>
       <a href="/learn">Learn</a>
       <a href="/about">About</a>
@@ -179,6 +223,56 @@
 
 </div>
 
+<script>
+(function () {
+  var SHOW = 3, TOTAL = 5, MAX = TOTAL - SHOW; // MAX = 2
+  var offset = 0;
+  var track    = document.getElementById('toolTrack');
+  var viewport = document.querySelector('.tool-carousel-viewport');
+  var prevBtn  = document.getElementById('carouselPrev');
+  var nextBtn  = document.getElementById('carouselNext');
+  var dots     = document.querySelectorAll('.carousel-dot');
+
+  function cardWidth() {
+    var vw = viewport.offsetWidth;
+    return (vw - 16 * (SHOW - 1)) / SHOW;
+  }
+
+  function applyWidths() {
+    var w = cardWidth();
+    Array.prototype.forEach.call(track.children, function (c) { c.style.width = w + 'px'; });
+    return w;
+  }
+
+  function goTo(idx) {
+    if (idx < 0) idx = 0;
+    if (idx > MAX) idx = MAX;
+    offset = idx;
+    if (window.innerWidth > 700) {
+      var w = applyWidths();
+      track.style.transform = 'translateX(-' + (offset * (w + 16)) + 'px)';
+    }
+    prevBtn.disabled = offset === 0;
+    nextBtn.disabled = offset === MAX;
+    dots.forEach(function (d, i) { d.classList.toggle('active', i === offset); });
+  }
+
+  prevBtn.addEventListener('click', function () { goTo(offset - 1); });
+  nextBtn.addEventListener('click', function () { goTo(offset + 1); });
+  dots.forEach(function (dot, i) { dot.addEventListener('click', function () { goTo(i); }); });
+
+  window.addEventListener('resize', function () {
+    if (window.innerWidth <= 700) {
+      track.style.transform = '';
+      Array.prototype.forEach.call(track.children, function (c) { c.style.width = ''; });
+    } else {
+      goTo(offset);
+    }
+  });
+
+  goTo(0);
+}());
+</script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script>
 (function () {

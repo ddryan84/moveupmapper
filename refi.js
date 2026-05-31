@@ -178,7 +178,7 @@ function renderChart(r) {
     },
     options: {
       responsive: true,
-      aspectRatio: 3.5,
+      aspectRatio: window.innerWidth <= 480 ? 2.0 : 3.5,
       interaction: { mode: 'index', intersect: false },
       plugins: {
         legend: { display: false },
@@ -325,10 +325,14 @@ function render() {
         heading = `You need to stay at least ${fmtMonths(r.breakEvenMonths)}`;
         body = `The break-even point is ${fmtMonths(r.breakEvenMonths)}. If you're uncertain whether you'll stay that long, consider negotiating lower closing costs or waiting for a larger rate reduction.`;
       }
-    } else if (r.breakEvenMonths <= state.stayYears * 12) {
+    } else if (r.breakEvenMonths <= state.stayYears * 12 && r.netBenefit >= 0) {
       cls = 'refi-verdict--green'; icon = '✓';
       heading = 'Worth refinancing at your timeline';
-      body = `You'll recoup the closing costs in ${fmtMonths(r.breakEvenMonths)} and net ${fmt(r.netBenefit)} over your ${state.stayYears}-year stay after accounting for the opportunity cost of the closing costs.`;
+      body = `You'll recoup the closing costs in ${fmtMonths(r.breakEvenMonths)} and net ${fmt(r.netBenefit)} over your ${state.stayYears}-year stay after accounting for the opportunity cost of your closing costs.`;
+    } else if (r.breakEvenMonths <= state.stayYears * 12) {
+      cls = 'refi-verdict--amber'; icon = '⚠';
+      heading = 'Marginal — opportunity cost offsets savings';
+      body = `You'll recoup the nominal closing costs in ${fmtMonths(r.breakEvenMonths)}, but after factoring in what those dollars could have earned if invested, the net benefit over your ${state.stayYears}-year stay is ${fmt(Math.abs(r.netBenefit))} in the red. A larger rate reduction or lower closing costs would tip it positive.`;
     } else {
       cls = 'refi-verdict--amber'; icon = '⚠';
       heading = 'Doesn\'t recoup within your stay';
@@ -340,14 +344,41 @@ function render() {
     verdict.innerHTML = `<div class="refi-verdict-icon">${icon}</div><div class="refi-verdict-text"><strong>${heading}</strong><p>${body}</p></div>`;
   }
 
+  // ── Interest Saved tile label ──
+  const elIntSavedLabel = document.getElementById('stat-intsaved-label');
+  const elIntSavedSub   = document.getElementById('stat-intsaved-sub');
+  if (elIntSavedLabel) elIntSavedLabel.textContent = r.interestSaved < 0 ? 'INTEREST ADDED' : 'INTEREST SAVED';
+  if (elIntSavedSub)   elIntSavedSub.textContent   = r.interestSaved < 0 ? 'more than staying put' : 'over full loan life';
+
   // ── Term extension warning ──
   const warnEl = document.getElementById('refiTermWarning');
   if (warnEl) {
-    if (r.termExtended && r.monthlySavings > 0) {
+    if (r.termExtended && r.monthlySavings > 0 && r.interestSaved < 0) {
       warnEl.style.display = 'flex';
       const extraYears = Math.round((r.n2 - r.n1) / 12);
-      warnEl.querySelector('span').textContent =
-        `You're extending your loan term by ${extraYears} year${extraYears !== 1 ? 's' : ''}. While your monthly payment drops, your total interest paid increases by ${fmt(Math.abs(r.interestSaved))} over the full loan life. The net benefit figure accounts only for your ${unknown ? 'break-even' : state.stayYears + '-year stay'} horizon.`;
+      const extraYrStr = `${extraYears} year${extraYears !== 1 ? 's' : ''}`;
+      const stayLabel  = unknown ? '10-year estimate' : `${state.stayYears}-year stay`;
+
+      // Compute net benefit the same way the tile does
+      let warnNetToShow;
+      if (unknown) {
+        const H10 = 10 * 12;
+        const sg10 = r.monthlySavings * Math.min(H10, r.n1);
+        const rInv = state.investmentReturn / 100 / 12;
+        const opp10 = rInv > 0 && r.outOfPocket > 0 ? r.outOfPocket * (Math.pow(1 + rInv, H10) - 1) : 0;
+        warnNetToShow = sg10 - r.outOfPocket - opp10;
+      } else {
+        warnNetToShow = r.netBenefit;
+      }
+
+      let msg;
+      if (warnNetToShow > 0) {
+        msg = `Extending your term by ${extraYrStr} lowers your monthly payment but increases total interest paid by ${fmt(Math.abs(r.interestSaved))} over the life of the loan. Net Benefit is positive because it only measures your ${stayLabel} — the monthly savings during that window outweigh your closing costs. If you hold the loan longer or sell later than planned, the total interest cost will continue to grow.`;
+      } else {
+        msg = `Extending your term by ${extraYrStr} lowers your monthly payment but increases total interest paid by ${fmt(Math.abs(r.interestSaved))} over the life of the loan. Net Benefit is also negative — the monthly savings over your ${stayLabel} don't cover your closing costs. This refinance doesn't make financial sense at your current rate, costs, and stay horizon.`;
+      }
+
+      warnEl.querySelector('span').textContent = msg;
     } else {
       warnEl.style.display = 'none';
     }
@@ -385,7 +416,7 @@ function render() {
     if (grossLabel) grossLabel.textContent = 'Total interest savings';
     if (g) { g.textContent = fmt(r.interestSaved); g.style.color = 'var(--green)'; }
   } else {
-    if (grossLabel) grossLabel.textContent = 'Gross payment savings';
+    if (grossLabel) grossLabel.textContent = unknown ? 'Payment savings over your stay' : `Payment savings over ${state.stayYears}-yr stay`;
     if (g) { g.textContent = unknown ? '—' : fmt(r.grossSavings); g.style.color = ''; }
   }
 
@@ -423,7 +454,13 @@ function render() {
   if (ppDetailEl) ppDetailEl.textContent = '-' + fmt(r.prepaidCosts);
 
   const ii = document.getElementById('detail-oppcost');
-  if (ii) ii.textContent = '-' + fmt(isTermReduction ? lifetimeOppCost : r.oppCost);
+  if (ii) {
+    if (!isTermReduction && unknown) {
+      ii.textContent = '—';
+    } else {
+      ii.textContent = '-' + fmt(isTermReduction ? lifetimeOppCost : r.oppCost);
+    }
+  }
 
   const detailNetLabel = document.getElementById('detail-net-label');
   if (detailNetLabel) detailNetLabel.textContent = isTermReduction ? 'Net lifetime savings' : unknown ? 'Net benefit (est. 10 yr)' : 'Net benefit';

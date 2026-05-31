@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mortgage Payoff Calculator — Move Up Mapper</title>
+  <meta name="description" content="See how extra mortgage payments shorten your payoff timeline, reduce total interest, and compare against investing the same dollars instead.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Move Up Mapper">
+  <meta property="og:title" content="Mortgage Payoff Calculator — Move Up Mapper">
+  <meta property="og:description" content="See how extra mortgage payments shorten your payoff timeline, reduce total interest, and compare against investing the same dollars instead.">
+  <meta property="og:url" content="https://www.moveupmapper.com/payoff">
+  <meta property="og:image" content="https://www.moveupmapper.com/social-card.svg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Move Up Mapper — Free Housing & Investment Calculators">
+  <link rel="canonical" href="https://www.moveupmapper.com/payoff">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=28">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Mortgage Payoff Calculator",
+    "url": "https://www.moveupmapper.com/payoff",
+    "description": "Calculate how extra mortgage payments shorten your payoff timeline, reduce total interest paid, and compare against investing the same dollars.",
+    "applicationCategory": "FinanceApplication",
+    "isPartOf": { "@type": "WebSite", "name": "Move Up Mapper", "url": "https://www.moveupmapper.com" }
+  }
+  </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YCEFCLSHX0"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YCEFCLSHX0');
+  </script>
+</head>
+<body>
+<nav class="site-nav no-print">
+  <div class="site-nav-inner">
+    <a href="/" class="site-brand">
+      <img src="favicon.svg" width="28" height="28" alt="" style="border-radius:7px;flex-shrink:0;display:block">
+      <span class="brand-name">Move Up Mapper</span>
+    </a>
+    <div class="page-nav-links">
+      <div class="nav-dropdown">
+        <button type="button" class="page-nav-link nav-dropdown-btn active" aria-haspopup="true">Calculators <svg class="nav-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="/swap" class="nav-dropdown-item">Home Swap Calculator</a>
+          <a href="/rvb" class="nav-dropdown-item">Rent vs. Buy Analysis</a>
+          <a href="/compound" class="nav-dropdown-item">Compound Growth</a>
+          <a href="/refi" class="nav-dropdown-item">Refi Calculator</a>
+          <a href="/payoff" class="nav-dropdown-item active">Payoff Calculator</a>
+        </div>
+      </div>
+      <a href="/faq"     class="page-nav-link">FAQ</a>
+      <a href="/learn"   class="page-nav-link">Learn</a>
+      <a href="/about"   class="page-nav-link">About</a>
+    </div>
+  </div>
+</nav>
+<div class="app">
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-icon" style="background:#16a34a">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+      </svg>
+    </div>
+    <div>
+      <h1>Mortgage Payoff Calculator</h1>
+      <p class="header-sub">See how extra payments accelerate your payoff and compare the return against investing</p>
+    </div>
+    <div class="header-actions no-print" style="margin-left:auto;display:flex;gap:8px;align-items:center;flex-shrink:0">
+      <button class="btn-text" id="resetBtn">Reset</button>
+      <button class="btn-print" id="printBtn">⎙ Print / Export PDF</button>
+    </div>
+  </header>
+
+  <!-- Input cards -->
+  <div class="calc-grid calc-grid--equal" style="margin-top:8px">
+
+    <!-- Current Loan card -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-icon" style="background:#6b7280">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/>
+            <line x1="8" y1="15" x2="10" y2="15"/><line x1="14" y1="15" x2="16" y2="15"/>
+          </svg>
+        </div>
+        <div>
+          <div class="card-title">Your Current Loan</div>
+          <div class="card-sub">Your existing mortgage details</div>
+        </div>
+      </div>
+      <div class="card-body">
+
+        <div class="field">
+          <label>REMAINING BALANCE</label>
+          <div class="input-wrap prefix">
+            <span class="affix">$</span>
+            <input type="number" id="loanBalance" min="0" step="1000">
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="label-tip-row">
+            <label>INTEREST RATE</label>
+            <button class="tip-btn" aria-label="Learn more" data-tip="Use the interest rate (note rate) from your mortgage statement — not the APR. APR includes fees and is used for comparison purposes, not payment calculations.">?</button>
+          </div>
+          <div class="input-wrap suffix">
+            <input type="number" id="interestRate" min="0" max="20" step="0.125">
+            <span class="affix">%</span>
+          </div>
+          <div class="helper">Use the interest rate, not APR</div>
+        </div>
+
+        <div class="field" style="margin-bottom:0">
+          <div class="label-tip-row">
+            <label>REMAINING TERM</label>
+            <button class="tip-btn" aria-label="Learn more" data-tip="Enter the number of years remaining on your current loan — not the original term. For example, if you took a 30-year mortgage 6 years ago, enter 24. Check your most recent mortgage statement for the exact remaining term or number of payments.">?</button>
+          </div>
+          <div class="input-wrap suffix">
+            <input type="number" id="remainingYears" min="1" max="30" step="1">
+            <span class="affix">yrs</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Extra Payment card -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-icon" style="background:#16a34a">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+        </div>
+        <div>
+          <div class="card-title">Extra Payment</div>
+          <div class="card-sub">How much more you'd like to put toward principal</div>
+        </div>
+      </div>
+      <div class="card-body">
+
+        <div class="field">
+          <div class="label-tip-row">
+            <label>PAYMENT TYPE</label>
+            <button class="tip-btn" aria-label="Learn more" data-tip="Monthly: a fixed amount added to every payment — the most common approach. One-time: a single lump sum applied to your principal balance now, such as a bonus, tax refund, or windfall. Both go directly toward principal and immediately reduce the balance interest is calculated on.">?</button>
+          </div>
+          <div class="pill-group">
+            <button type="button" class="pill-btn pill-btn--active" data-paytype="monthly">Monthly</button>
+            <button type="button" class="pill-btn" data-paytype="lumpsum">One-time lump sum</button>
+          </div>
+        </div>
+
+        <div class="field" id="extraMonthlyField">
+          <label>EXTRA MONTHLY PAYMENT</label>
+          <div class="input-wrap prefix">
+            <span class="affix">$</span>
+            <input type="number" id="extraMonthly" min="0" step="50">
+          </div>
+          <div class="helper">Added to your regular P&amp;I every month, applied entirely to principal</div>
+        </div>
+
+        <div class="field" id="lumpSumField" style="display:none">
+          <label>LUMP SUM AMOUNT</label>
+          <div class="input-wrap prefix">
+            <span class="affix">$</span>
+            <input type="number" id="lumpSum" min="0" step="1000">
+          </div>
+          <div class="helper">Applied to principal balance immediately</div>
+        </div>
+
+        <div class="field" style="margin-bottom:0">
+          <div class="label-tip-row">
+            <label>EXPECTED INVESTMENT RETURN</label>
+            <button class="tip-btn" aria-label="Learn more" data-tip="Used to compare extra mortgage payments against investing the same amount instead. The S&P 500 has averaged roughly 10% annually before inflation, or ~7% after inflation, over long periods. Your mortgage interest rate is a guaranteed return — this is the uncertain alternative. Adjust to reflect your own expected return or risk tolerance.">?</button>
+          </div>
+          <div class="input-wrap suffix">
+            <input type="number" id="investReturn" min="0" max="20" step="0.5">
+            <span class="affix">%</span>
+          </div>
+          <div class="helper">For comparing extra payments vs. investing instead</div>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- /calc-grid -->
+
+  <!-- Results card -->
+  <div class="card wide-card" style="margin-top:8px">
+
+    <!-- Stat tiles -->
+    <div class="refi-stats-grid">
+      <div class="bp-stat">
+        <div class="bp-stat-label">TIME SAVED</div>
+        <div class="refi-stat-value" id="stat-time-saved">—</div>
+        <div class="bp-stat-delta" style="font-size:11px;color:var(--text-muted)">vs. standard payoff</div>
+      </div>
+      <div class="bp-stat">
+        <div class="bp-stat-label">INTEREST SAVED</div>
+        <div class="refi-stat-value" id="stat-interest-saved">—</div>
+        <div class="bp-stat-delta" style="font-size:11px;color:var(--text-muted)">over life of loan</div>
+      </div>
+      <div class="bp-stat">
+        <div class="bp-stat-label">IF INVESTED</div>
+        <div class="refi-stat-value" id="stat-opp-cost">—</div>
+        <div class="bp-stat-delta" style="font-size:11px;color:var(--text-muted)" id="stat-opp-cost-sub">est. investment gain</div>
+      </div>
+      <div class="bp-stat">
+        <div class="bp-stat-label">NET BENEFIT</div>
+        <div class="refi-stat-value" id="stat-net">—</div>
+        <div class="bp-stat-delta" style="font-size:11px;color:var(--text-muted)">vs. investing instead</div>
+      </div>
+    </div>
+
+    <!-- Verdict -->
+    <div class="refi-verdict refi-verdict--info" id="payoffVerdict">
+      <div class="refi-verdict-icon">ℹ</div>
+      <div class="refi-verdict-text">
+        <strong>Enter an extra payment amount</strong>
+        <p>Add a monthly extra payment or one-time lump sum above to see the full analysis.</p>
+      </div>
+    </div>
+
+    <!-- Chart -->
+    <div class="refi-chart-area">
+      <canvas id="payoffChart" height="200"></canvas>
+      <div class="chart-legend" style="margin-top:10px">
+        <span class="leg-item" style="color:#9ca3af">- - Standard payoff</span>
+        <span class="leg-item" style="color:#16a34a">● With extra payments</span>
+      </div>
+    </div>
+
+    <!-- Detail breakdown -->
+    <div class="refi-detail-grid">
+
+      <div class="refi-detail-cell">
+        <div class="refi-detail-label">LOAN TIMELINE</div>
+        <div class="refi-detail-row">
+          <span>Standard monthly P&amp;I</span>
+          <strong id="detail-std-payment">—</strong>
+        </div>
+        <div class="refi-detail-row">
+          <span id="detail-extra-label">Extra monthly payment</span>
+          <strong id="detail-extra-value">—</strong>
+        </div>
+        <div class="refi-detail-row" id="detail-total-row">
+          <span>Total monthly outlay</span>
+          <strong id="detail-total-payment">—</strong>
+        </div>
+        <div class="refi-detail-row" style="margin-top:8px">
+          <span>Original payoff</span>
+          <strong id="detail-orig-payoff">—</strong>
+        </div>
+        <div class="refi-detail-row">
+          <span>New payoff</span>
+          <strong id="detail-new-payoff">—</strong>
+        </div>
+        <div class="refi-detail-total">
+          <span>Time saved</span>
+          <span id="detail-months-saved">—</span>
+        </div>
+      </div>
+
+      <div class="refi-detail-cell">
+        <div class="refi-detail-label">FINANCIAL IMPACT</div>
+        <div class="refi-detail-row">
+          <span>Total interest (no extra)</span>
+          <strong id="detail-int-orig">—</strong>
+        </div>
+        <div class="refi-detail-row">
+          <span>Total interest (with extra)</span>
+          <strong id="detail-int-new">—</strong>
+        </div>
+        <div class="refi-detail-row">
+          <span>Interest saved</span>
+          <strong id="detail-int-saved">—</strong>
+        </div>
+        <div class="refi-detail-row">
+          <span>Est. investment gain (if invested instead)</span>
+          <strong id="detail-opp-cost">—</strong>
+        </div>
+        <div class="refi-detail-total">
+          <span>Net benefit</span>
+          <span id="detail-net">—</span>
+        </div>
+      </div>
+
+    </div><!-- /refi-detail-grid -->
+
+    <!-- Market volatility note -->
+    <div class="payoff-market-note">
+      <svg style="flex-shrink:0;margin-top:1px" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span style="font-size:12px;color:#312e81;line-height:1.5"><strong>Guaranteed vs. estimated:</strong> Extra principal payments deliver a return exactly equal to your mortgage interest rate — no market risk. The "If Invested" figure assumes a fixed annual return, but actual investment results fluctuate with the market and can vary significantly year to year.</span>
+    </div>
+
+    <!-- Glossary -->
+    <div class="payoff-glossary">
+      <div class="gloss-group-title" style="margin-bottom:8px">How these numbers are calculated</div>
+      <div class="gloss-grid">
+
+        <div class="gloss-item">
+          <div class="gloss-term">Time Saved &amp; Interest Saved</div>
+          <div class="gloss-def">The calculator runs a month-by-month amortization for both the standard and accelerated scenarios. Each month, interest accrues on the remaining balance; your regular payment plus any extra goes entirely toward reducing that balance. Because interest is charged on a declining balance, extra principal payments have a compounding effect — each dollar paid down eliminates future interest on that dollar for every remaining month of the loan.</div>
+        </div>
+
+        <div class="gloss-item">
+          <div class="gloss-term">If Invested (Opportunity Cost)</div>
+          <div class="gloss-def">Rather than paying extra toward the mortgage, what if you invested the same dollars? For a monthly extra payment, the calculator simulates investing that amount each month until the accelerated payoff date, then lets the accumulated balance grow for the remaining months to the original payoff date. For a lump sum, it grows the full amount over the original loan term. The figure shown is the investment gain only — not the principal returned — so it represents the true economic trade-off.</div>
+        </div>
+
+        <div class="gloss-item">
+          <div class="gloss-term">Net Benefit</div>
+          <div class="gloss-def">Net benefit = interest saved − estimated investment gain. If positive, extra payments outperform investing on paper. If negative, investing would have generated more wealth. However, the comparison is not symmetrical in risk: interest savings are guaranteed (your mortgage rate is fixed), while investment returns are uncertain. A small negative net benefit at 7% assumed return may still favor paydown if you prefer a guaranteed outcome or value the peace of mind of owning your home outright.</div>
+        </div>
+
+        <div class="gloss-item">
+          <div class="gloss-term">Effective Return on Extra Payments</div>
+          <div class="gloss-def">Every extra dollar applied to mortgage principal eliminates future interest charges at your mortgage rate. The effective annual return on extra payments is therefore exactly your mortgage rate — guaranteed, with no market risk. This is the benchmark to compare your expected investment return against. If your mortgage rate is 6.75%, extra payments deliver a certain 6.75% return. Whether a market investment is likely to beat that over your remaining loan term is a judgment call about expected returns and risk tolerance.</div>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- /results card -->
+
+  <!-- Amortization Comparison -->
+  <details class="card wide-card glossary-card">
+    <summary class="card-head">
+      <div class="card-icon" style="background:#16a34a">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-title">Amortization Schedule Comparison</div>
+        <div class="card-sub">Side-by-side first 12 months — standard payoff vs. with extra payments</div>
+      </div>
+      <svg class="adv-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left:auto;flex-shrink:0">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+    </summary>
+    <div id="payoffAmortBody" class="payoff-amort-body">
+      <p style="font-size:13px;color:var(--text-muted)">Enter an extra payment amount above to see the side-by-side comparison.</p>
+    </div>
+  </details>
+
+  <!-- Key Concepts -->
+  <details class="card wide-card glossary-card">
+    <summary class="card-head">
+      <div class="card-icon" style="background:#16a34a">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-title">Key Concepts &amp; How It Works</div>
+        <div class="card-sub">The math behind amortization, why early payments matter most, and how to think about the payoff vs. invest trade-off</div>
+      </div>
+      <svg class="adv-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left:auto;flex-shrink:0">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+    </summary>
+
+    <div class="glossary-body">
+
+      <div class="gloss-group">
+        <div class="gloss-group-title">How Extra Payments Work</div>
+        <div class="gloss-grid">
+
+          <div class="gloss-item">
+            <div class="gloss-term">Why Extra Payments Go So Far Early</div>
+            <div class="gloss-def">In the early years of a mortgage, the vast majority of your regular payment covers interest — on a $400,000 loan at 6.75%, roughly 87% of your Year 1 payments is interest. An extra payment made in Year 1 eliminates 29+ years of future interest on that dollar. The same dollar paid in Year 20 eliminates only ~10 years of interest. This is why extra payments made earlier in the loan life have an outsized impact on total interest saved and payoff time.</div>
+          </div>
+
+          <div class="gloss-item">
+            <div class="gloss-term">Where the Extra Money Goes</div>
+            <div class="gloss-def">When you make a payment larger than your regular P&amp;I, the lender first satisfies the scheduled payment (covering all accrued interest plus the scheduled principal), then applies the remainder entirely to principal. This immediately reduces the balance on which next month's interest is calculated. Most lenders require you to designate extra amounts as "principal only" — check your servicer's payment portal or statement to confirm extra payments are being applied correctly and not held as a future payment credit.</div>
+          </div>
+
+          <div class="gloss-item">
+            <div class="gloss-term">Monthly vs. Lump Sum</div>
+            <div class="gloss-def">A recurring monthly extra payment delivers consistent principal reduction across the entire remaining loan life, compounding over time. A one-time lump sum achieves a large principal reduction immediately, with the interest savings accruing from that point forward. Both approaches are modeled here at face value — the lump sum is applied at the start, the monthly amount is added to every subsequent payment. In practice, a lump sum early and a recurring extra payment thereafter is often more powerful than either alone.</div>
+          </div>
+
+          <div class="gloss-item">
+            <div class="gloss-term">Your Monthly Payment Doesn't Change</div>
+            <div class="gloss-def">Making extra principal payments does not reduce your required monthly payment — your scheduled P&amp;I stays the same. What changes is the date when the balance reaches zero. (Some lenders offer a "recast" option, which recalculates your payment at the lower balance, but this calculator models the standard case: same payment, shorter term.) If your goal is a lower required monthly payment, a refinance to a lower rate or longer term is the tool for that.</div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="gloss-group">
+        <div class="gloss-group-title">The Payoff vs. Invest Trade-off</div>
+        <div class="gloss-grid">
+
+          <div class="gloss-item">
+            <div class="gloss-term">Guaranteed vs. Expected Return</div>
+            <div class="gloss-def">Paying down your mortgage is a guaranteed, risk-free return equal to your interest rate. If your rate is 6.75%, every extra dollar paid down earns exactly 6.75% — certain, tax-equivalent, and uncorrelated with markets. Investing in equities has historically returned more over long periods, but with significant volatility. A 7% expected return is an average — actual results in any given period can range from substantially higher to deeply negative. This asymmetry in certainty is why the payoff-vs-invest decision isn't purely mathematical.</div>
+          </div>
+
+          <div class="gloss-item">
+            <div class="gloss-term">When Paydown Tends to Win</div>
+            <div class="gloss-def">Extra payments make the most mathematical sense when your mortgage rate is high relative to your expected investment return, when you are close to retirement and prefer reduced fixed obligations, or when carrying debt causes financial stress that affects your decisions. For most borrowers in a rate environment above 6%, the guaranteed return of paydown is competitive with long-run equity returns — and certainty has real value that pure expected-value math doesn't capture.</div>
+          </div>
+
+          <div class="gloss-item">
+            <div class="gloss-term">When Investing Tends to Win</div>
+            <div class="gloss-def">Investing tends to outperform mathematically when mortgage rates are low (3–4%) and expected investment returns are meaningfully higher (7–10%), especially over long time horizons where compounding amplifies the difference. Tax-advantaged accounts (401k, IRA, HSA) with employer matches can further tilt the math toward investing, since the pre-tax contribution and match effectively increase the return. If your rate is below 5% and you have significant remaining term, investing the extra dollars likely builds more wealth over time.</div>
+          </div>
+
+          <div class="gloss-item">
+            <div class="gloss-term">The Freed-Up Payment Benefit</div>
+            <div class="gloss-def">This calculator compares interest saved against estimated investment gains through the original payoff date. It does not model what happens after your accelerated payoff — but paying off your mortgage early frees up your full monthly payment (principal, interest, taxes, and insurance) for investment or other uses. For a $2,700/mo payment paid off 4 years early, that's $130,000+ that can be redirected. This additional benefit generally strengthens the case for paydown even when the direct comparison shows investing winning slightly.</div>
+          </div>
+
+        </div>
+      </div>
+
+    </div><!-- /glossary-body -->
+  </details>
+
+  <!-- Footer -->
+  <footer class="site-footer no-print">
+    <div class="footer-links">
+      <a href="/swap">Home Swap Calculator</a>
+      <a href="/rvb">Rent vs. Buy Analysis</a>
+      <a href="/compound">Compound Growth</a>
+      <a href="/refi">Refinance Calculator</a>
+      <a href="/payoff">Payoff Calculator</a>
+      <a href="/faq">FAQ</a>
+      <a href="/learn">Learn</a>
+      <a href="/about">About</a>
+      <a href="/privacy">Privacy</a>
+    </div>
+    <div class="footer-note">For informational purposes only. Not financial advice. &copy; 2026</div>
+  </footer>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="payoff.js?v=3"></script>
+<script>
+/* ── Field tip tooltips ── */
+(function () {
+  var popup = document.createElement('div');
+  popup.className = 'tip-popup';
+  document.body.appendChild(popup);
+  var active = null;
+  function show(btn) {
+    active = btn; btn.classList.add('tip-active');
+    popup.textContent = btn.getAttribute('data-tip');
+    popup.style.display = 'block';
+    var r = btn.getBoundingClientRect();
+    var pw = popup.offsetWidth, ph = popup.offsetHeight, m = 10;
+    var left = r.left + r.width / 2 - pw / 2;
+    var top = r.top - ph - 8;
+    if (left < m) left = m;
+    if (left + pw > window.innerWidth - m) left = window.innerWidth - pw - m;
+    if (top < m) top = r.bottom + 8;
+    popup.style.left = left + 'px'; popup.style.top = top + 'px';
+  }
+  function hide() {
+    if (active) active.classList.remove('tip-active');
+    active = null; popup.style.display = 'none';
+  }
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest && e.target.closest('.tip-btn');
+    if (btn) { e.stopPropagation(); if (active === btn) { hide(); return; } hide(); show(btn); }
+    else { hide(); }
+  });
+  window.addEventListener('scroll', hide, { passive: true });
+  window.addEventListener('resize', function () { if (active) show(active); });
+}());
+</script>
+</body>
+</html>

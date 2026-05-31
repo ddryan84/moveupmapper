@@ -43,6 +43,11 @@
   status = 301
 
 [[redirects]]
+  from = "/payoff.html"
+  to   = "/payoff"
+  status = 301
+
+[[redirects]]
   from = "/learn/amortization-schedule.html"
   to   = "/learn/amortization-schedule"
   status = 301
