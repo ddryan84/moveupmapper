@@ -41,6 +41,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.moveupmapper.com/learn/mortgage-rates-buying-power</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.moveupmapper.com/faq</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
