@@ -261,7 +261,10 @@ function renderChart(r) {
       },
       scales: {
         x: {
-          grid: { display: false },
+          grid: {
+            color: ctx => ctx.index % 12 === 0 ? 'rgba(0,0,0,.07)' : 'transparent',
+            lineWidth: 1,
+          },
           ticks: {
             maxRotation: 0,
             font: { size: 11 },
