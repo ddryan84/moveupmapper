@@ -161,12 +161,18 @@
         </div>
 
         <div class="field">
-          <div class="label-tip-row"><label>CURRENT MONTHLY PMI</label><button class="tip-btn" aria-label="Learn more" data-tip="PMI (Private Mortgage Insurance) is required when your loan-to-value ratio exceeds 80%. If refinancing would eliminate your PMI — because your equity has grown above 20% — enter your current monthly PMI here. It will be counted as additional monthly savings from refinancing. Leave at $0 if it doesn't apply.">?</button></div>
-          <div class="input-wrap prefix">
-            <span class="affix">$</span>
-            <input type="number" id="monthlyPMI" min="0" step="10" value="0">
+          <div class="label-tip-row"><label>PMI ELIMINATION</label><button class="tip-btn" aria-label="Learn more" data-tip="PMI (Private Mortgage Insurance) drops off once your loan-to-value ratio reaches 80%, regardless of whether you refinance. Only check this box if refinancing itself is the reason PMI goes away — for example, because you're paying down enough at closing to cross the 20% equity threshold. If PMI would drop off on its own soon, don't count it as a refinance benefit.">?</button></div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <input type="checkbox" id="pmiEliminated" style="width:16px;height:16px;cursor:pointer;accent-color:var(--indigo);flex-shrink:0">
+            <label for="pmiEliminated" style="font-size:13px;color:var(--text);cursor:pointer;font-weight:400;letter-spacing:0;text-transform:none;line-height:1.4">Refinancing will eliminate my PMI</label>
           </div>
-          <div class="helper">Add if refinancing would eliminate your PMI; leave $0 if not applicable</div>
+          <div id="pmiAmountField" style="display:none">
+            <div class="input-wrap prefix">
+              <span class="affix">$</span>
+              <input type="number" id="monthlyPMI" min="0" step="10" value="0">
+            </div>
+            <div class="helper">Your current monthly PMI — counted as additional monthly savings</div>
+          </div>
         </div>
 
       </div>
@@ -532,7 +538,7 @@
 </div><!-- /app -->
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<script src="refi.js?v=7"></script>
+<script src="refi.js?v=8"></script>
 <script>
 /* ── Field tip tooltips ── */
 (function () {

@@ -12,6 +12,7 @@ const DEFAULTS = {
   prepaidCosts:     2000,
   points:           0,
   monthlyPMI:       0,
+  pmiEliminated:    false,
   stayYears:        7,
   stayUnknown:      false,
   investmentReturn: 7,
@@ -69,7 +70,7 @@ function calculate() {
   const outOfPocket = totalCosts - rolledAmt;
   const newLoanBal  = s.loanBalance + rolledAmt;
 
-  const pmi = s.monthlyPMI || 0;
+  const pmi = (s.pmiEliminated && s.monthlyPMI > 0) ? s.monthlyPMI : 0;
 
   const P1 = monthlyPmt(s.loanBalance, s.currentRate, n1);
   const P2 = monthlyPmt(newLoanBal,    s.newRate,     n2);
@@ -240,7 +241,7 @@ function render() {
     elMonthly.textContent = fmt(Math.abs(r.monthlySavings));
     elMonthly.className = 'refi-stat-value ' + (r.monthlySavings > 0 ? 'refi-stat-value--green' : r.monthlySavings < 0 ? 'refi-stat-value--red' : '');
     if (elMonthlyLabel) elMonthlyLabel.textContent = r.monthlySavings >= 0 ? 'MONTHLY SAVINGS' : 'MONTHLY INCREASE';
-    if (elMonthlySub) elMonthlySub.textContent = state.monthlyPMI > 0 ? 'P&I + PMI difference' : 'P&I difference';
+    if (elMonthlySub) elMonthlySub.textContent = (state.pmiEliminated && state.monthlyPMI > 0) ? 'P&I + PMI difference' : 'P&I difference';
   }
 
   if (elBreakEven) {
@@ -390,8 +391,9 @@ function render() {
 
   const pmiRow = document.getElementById('detail-pmi-row');
   const pmiEl  = document.getElementById('detail-pmi');
-  if (pmiRow) pmiRow.style.display = state.monthlyPMI > 0 ? '' : 'none';
-  if (pmiEl && state.monthlyPMI > 0) pmiEl.textContent = '+' + fmt(state.monthlyPMI) + '/mo eliminated';
+  const showPmi = state.pmiEliminated && state.monthlyPMI > 0;
+  if (pmiRow) pmiRow.style.display = showPmi ? '' : 'none';
+  if (pmiEl && showPmi) pmiEl.textContent = '+' + fmt(state.monthlyPMI) + '/mo eliminated';
 
   const ePmt = document.getElementById('detail-new-pmt');
   if (ePmt) ePmt.textContent = fmt(r.P2) + '/mo';
@@ -517,6 +519,14 @@ function syncUnknownMode() {
     : 'The break-even and net benefit figures update based on your expected stay.';
 }
 
+// ── PMI mode UI sync ────────────────────────────────────────────────
+function syncPmiMode() {
+  const field = document.getElementById('pmiAmountField');
+  const chk   = document.getElementById('pmiEliminated');
+  if (field) field.style.display = state.pmiEliminated ? '' : 'none';
+  if (chk)   chk.checked = state.pmiEliminated;
+}
+
 // ── Roll-mode UI sync ────────────────────────────────────────────────
 function syncRollMode() {
   const mode = state.rolledMode;
@@ -548,7 +558,7 @@ function loadState() {
 function syncInputs() {
   for (const [key, val] of Object.entries(state)) {
     const el = document.getElementById(key);
-    if (el && el.tagName === 'INPUT') el.value = val;
+    if (el && el.tagName === 'INPUT' && el.type !== 'checkbox') el.value = val;
     if (el && el.tagName === 'SELECT') el.value = val;
   }
   const sd = document.getElementById('stayDisplay');
@@ -563,7 +573,19 @@ document.addEventListener('DOMContentLoaded', function () {
   syncInputs();
   syncUnknownMode();
   syncRollMode();
+  syncPmiMode();
   render();
+
+  // PMI elimination toggle
+  const pmiChk = document.getElementById('pmiEliminated');
+  if (pmiChk) {
+    pmiChk.addEventListener('change', function () {
+      state.pmiEliminated = pmiChk.checked;
+      saveState();
+      syncPmiMode();
+      render();
+    });
+  }
 
   // Number inputs
   ['loanBalance', 'currentRate', 'remainingYears', 'newRate', 'points', 'closingCosts', 'prepaidCosts', 'monthlyPMI', 'investmentReturn', 'rolledCosts'].forEach(function (id) {
@@ -674,6 +696,7 @@ document.addEventListener('DOMContentLoaded', function () {
       syncInputs();
       syncUnknownMode();
       syncRollMode();
+      syncPmiMode();
       if (slider) slider.value = state.stayYears;
       render();
     });

@@ -220,7 +220,7 @@
       <div class="bp-stat">
         <div class="bp-stat-label">NET BENEFIT</div>
         <div class="refi-stat-value" id="stat-net">—</div>
-        <div class="bp-stat-delta" style="font-size:11px;color:var(--text-muted)">vs. investing instead</div>
+        <div class="bp-stat-delta" style="font-size:11px;color:var(--text-muted)">interest saved + freed payment vs. investing</div>
       </div>
     </div>
 
@@ -286,6 +286,10 @@
         <div class="refi-detail-row">
           <span>Interest saved</span>
           <strong id="detail-int-saved">—</strong>
+        </div>
+        <div class="refi-detail-row" id="detail-postpayoff-row" style="display:none">
+          <span id="detail-postpayoff-label">Freed-up payment invested after payoff</span>
+          <strong id="detail-postpayoff" style="color:var(--green)">—</strong>
         </div>
         <div class="refi-detail-row">
           <span>Est. investment gain (if invested instead)</span>
@@ -451,7 +455,7 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<script src="payoff.js?v=3"></script>
+<script src="payoff.js?v=4"></script>
 <script>
 /* ── Field tip tooltips ── */
 (function () {

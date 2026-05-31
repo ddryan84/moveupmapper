@@ -98,7 +98,16 @@ function calculate() {
     oppCost = Math.max(0, fvGrown - totalInvested);
   }
 
-  const netBenefit = interestSaved - oppCost;
+  // After early payoff, the freed-up standard payment can be invested for the remaining months
+  const postPayoffMonths = Math.max(0, n - nNew);
+  let postPayoffBenefit = 0;
+  if (postPayoffMonths > 0 && orig.P > 0) {
+    postPayoffBenefit = r_inv > 0
+      ? orig.P * (Math.pow(1 + r_inv, postPayoffMonths) - 1) / r_inv
+      : orig.P * postPayoffMonths;
+  }
+
+  const netBenefit = interestSaved + postPayoffBenefit - oppCost;
 
   const now        = new Date();
   const origPayoff = new Date(now.getFullYear(), now.getMonth() + orig.months);
@@ -114,6 +123,8 @@ function calculate() {
     newTotalInterest:  accel.totalInterest,
     interestSaved,
     oppCost,
+    postPayoffBenefit,
+    postPayoffMonths,
     netBenefit,
     origPayoff,
     newPayoff,
@@ -309,6 +320,7 @@ function render() {
     const rate = state.interestRate;
     const inv  = state.investReturn;
 
+    const postPayoffStr = r.postPayoffMonths > 0 ? ` Paying off ${fmtMonths(r.monthsSaved)} early also frees up ${fmt(r.stdPayment)}/mo for ${fmtMonths(r.postPayoffMonths)} — estimated at ${fmt(r.postPayoffBenefit)} if invested (included in net benefit above).` : '';
     if (noExtra) {
       cls = 'refi-verdict--info'; icon = 'ℹ';
       heading = 'Enter an extra payment amount';
@@ -316,19 +328,19 @@ function render() {
     } else if (r.netBenefit > 0 && rate >= inv) {
       cls = 'refi-verdict--green'; icon = '✓';
       heading = 'Extra payments outperform investing';
-      body = `Your mortgage rate (${rate}%) equals or exceeds your expected investment return (${inv}%), so every extra dollar toward principal delivers a guaranteed return that beats the market on your own assumptions. You'd save ${fmt(r.interestSaved)} in interest — ${fmt(r.netBenefit)} more than the same dollars would earn if invested.`;
+      body = `Your mortgage rate (${rate}%) equals or exceeds your expected investment return (${inv}%), so every extra dollar toward principal delivers a guaranteed return that beats the market on your own assumptions. You'd save ${fmt(r.interestSaved)} in interest.${postPayoffStr}`;
     } else if (r.netBenefit > 0) {
       cls = 'refi-verdict--green'; icon = '✓';
       heading = 'Extra payments come out ahead';
-      body = `Even with an expected investment return of ${inv}%, the interest you'd save (${fmt(r.interestSaved)}) outpaces the estimated investment gain (${fmt(r.oppCost)}), for a net advantage of ${fmt(r.netBenefit)}. Paying off ${fmtMonths(r.monthsSaved)} early also frees up ${fmt(r.stdPayment)}/mo that can then be invested.`;
+      body = `Even with an expected investment return of ${inv}%, extra payments come out ${fmt(r.netBenefit)} ahead — combining ${fmt(r.interestSaved)} in interest savings and ${fmt(r.postPayoffBenefit)} in freed-up payments invested after payoff, against an estimated ${fmt(r.oppCost)} gain if the extra payments had been invested instead.`;
     } else if (Math.abs(r.netBenefit) < r.interestSaved * 0.15) {
       cls = 'refi-verdict--amber'; icon = '⚠';
       heading = 'Close call — largely a personal finance decision';
-      body = `At ${inv}% expected investment return, the two paths are nearly equivalent. Extra payments offer a guaranteed ${rate}% return; investing offers a potentially higher but uncertain return. Either is reasonable. Paying off early also frees up ${fmt(r.stdPayment)}/mo sooner — money that could then go to investments.`;
+      body = `At ${inv}% expected investment return, the two paths are nearly equivalent. Extra payments offer a guaranteed ${rate}% return; investing offers a potentially higher but uncertain return. Either is reasonable.${postPayoffStr}`;
     } else {
       cls = 'refi-verdict--info'; icon = 'ℹ';
       heading = `Investing may outperform at ${inv}%`;
-      body = `At your expected investment return of ${inv}%, investing the same dollars would earn an estimated ${fmt(r.oppCost)} — ${fmt(Math.abs(r.netBenefit))} more than the ${fmt(r.interestSaved)} in interest savings. That said, extra mortgage payments deliver a guaranteed ${rate}% return (your interest rate), while ${inv}% is an estimate based on historical market performance and is not guaranteed.`;
+      body = `At your expected investment return of ${inv}%, investing the same dollars would earn an estimated ${fmt(r.oppCost)} in gains — more than the ${fmt(r.interestSaved)} in interest savings plus ${fmt(r.postPayoffBenefit)} in freed-up payment returns (net: ${fmt(Math.abs(r.netBenefit))} behind investing). That said, extra mortgage payments deliver a guaranteed ${rate}% return, while ${inv}% is an estimate and not guaranteed.`;
     }
 
     verdict.className = 'refi-verdict ' + cls;
@@ -364,6 +376,15 @@ function render() {
   set('detail-int-orig',  fmt(r.origTotalInterest));
   set('detail-int-new',   noExtra ? '—' : fmt(r.newTotalInterest));
   set('detail-int-saved', noExtra ? '—' : fmt(r.interestSaved),  !noExtra ? 'var(--green)' : '');
+
+  const ppRow = document.getElementById('detail-postpayoff-row');
+  if (ppRow) ppRow.style.display = (!noExtra && r.postPayoffMonths > 0) ? '' : 'none';
+  set('detail-postpayoff', noExtra ? '—' : fmt(r.postPayoffBenefit), !noExtra ? 'var(--green)' : '');
+  const ppLabel = document.getElementById('detail-postpayoff-label');
+  if (ppLabel && !noExtra && r.postPayoffMonths > 0) {
+    ppLabel.textContent = 'Freed-up payment invested (' + fmtMonths(r.postPayoffMonths) + ')';
+  }
+
   set('detail-opp-cost',  noExtra ? '—' : '-' + fmt(r.oppCost),  !noExtra ? 'var(--red)' : '');
   set('detail-net',       noExtra ? '—' : (r.netBenefit >= 0 ? '' : '-') + fmt(Math.abs(r.netBenefit)),
                           !noExtra ? (r.netBenefit >= 0 ? 'var(--green)' : 'var(--red)') : '');

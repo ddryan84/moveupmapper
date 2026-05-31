@@ -15,6 +15,7 @@ const DEFAULTS = {
   // Prospective home
   purchasePrice:  0,
   interestRate:   6.875,   // updated at runtime by fetchMortgageRate()
+  prospectiveTerm: 30,
   monthlyPMI:     0,
   taxMode:        'percent',  // 'percent' | 'dollar'
   propertyTaxDollar:  0,
@@ -86,10 +87,11 @@ function load() {
 }
 
 /* ── Math helpers ── */
-function mortgageFactor(annualRate) {
+function mortgageFactor(annualRate, termMonths) {
+  termMonths = termMonths || 360;
   const r = annualRate / 100 / 12;
-  if (r === 0) return 1 / 360;
-  const p = Math.pow(1 + r, 360);
+  if (r === 0) return 1 / termMonths;
+  const p = Math.pow(1 + r, termMonths);
   return r * p / (p - 1);
 }
 
@@ -115,7 +117,7 @@ function calcAnnualPropertyTax(s, price) {
 }
 
 function calcAffordablePrice(s, targetMonthly, dpPool, hoiMonthly) {
-  const K = mortgageFactor(s.interestRate);
+  const K = mortgageFactor(s.interestRate, (s.prospectiveTerm || 30) * 12);
   const dp = Math.max(0, dpPool);
   const hoi = hoiMonthly !== undefined ? hoiMonthly : (s.hoiMode === 'percent' ? s.purchasePrice * s.hoiPct / 100 / 12 : s.homeownersInsurance);
   // HOI is a fixed monthly cost independent of price — deduct it before solving
@@ -149,7 +151,7 @@ function calcAffordablePrice(s, targetMonthly, dpPool, hoiMonthly) {
 }
 
 function calculate(s) {
-  const K = mortgageFactor(s.interestRate);
+  const K = mortgageFactor(s.interestRate, (s.prospectiveTerm || 30) * 12);
   const equity = s.buyerMode === 'firstTime' ? 0 : calcEquity(s);
   const isFirst = s.buyerMode === 'firstTime';
   const realtorFees    = isFirst ? 0 : s.homeValuation * s.realtorFee / 100;
@@ -158,8 +160,9 @@ function calculate(s) {
   // First-time buyers have no current home — zero out rates that only apply to existing owners
   const effHomeValGrowth     = isFirst ? 0 : s.homeValGrowth;
   const effEquityGrowth      = isFirst ? 0 : s.equityGrowth;
-  const effPropTaxGrowth     = isFirst ? 0 : s.propTaxGrowth;
-  const effMaintenanceGrowth = isFirst ? 0 : s.maintenanceGrowth;
+  // Property tax and maintenance growth apply to any prospective home purchase, including first-time buyers
+  const effPropTaxGrowth     = s.propTaxGrowth;
+  const effMaintenanceGrowth = s.maintenanceGrowth;
   const saleProceeds = Math.max(0, equity - sellingCosts);
   const totalCash = saleProceeds + s.expendableCash;
   // Compute tax and HOI early — needed for auto-escrow calculation
@@ -482,7 +485,7 @@ function render(c, s) {
   setText('a-pctLabel', fmtPct(s.targetSliderPct) + ' of income');
   setText('a-sliderValue', fmt(c.targetMonthly) + '/mo');
   setText('a-dp', fmt(c.dpPool));
-  setText('a-rate', fmtPct(s.interestRate));
+  setText('a-rate', fmtPct(s.interestRate) + ' · ' + (s.prospectiveTerm || 30) + '-yr fixed');
   setText('a-targetPrice', fmt(c.targetPrice));
   setText('a-targetSub', 'Suggested max home price at ' + fmt(c.targetMonthly) + '/mo');
   setText('a-ceilingPrice', fmt(c.ceilingPrice));
@@ -608,8 +611,8 @@ function syncBuyerMode(mode) {
   if (cashLabel)  cashLabel.textContent  = isFirst ? 'AVAILABLE SAVINGS'                        : 'EXPENDABLE CASH';
   if (cashHelper) cashHelper.textContent = isFirst ? 'Total savings available for a down payment' : 'Savings you can put toward the purchase';
 
-  // Grey out / restore the four growth-rate inputs that only apply to current homeowners
-  const ownerOnlyInputs = ['homeValGrowth', 'equityGrowth', 'propTaxGrowth', 'maintenanceGrowth'];
+  // Grey out / restore the growth-rate inputs that only apply to current homeowners
+  const ownerOnlyInputs = ['homeValGrowth', 'equityGrowth'];
   const s = getState();
   for (const id of ownerOnlyInputs) {
     const el = $(id);
@@ -666,6 +669,12 @@ function bindInputs() {
   // Prospective home
   num('purchasePrice');
   num('interestRate');
+
+  const ptermSel = $('prospectiveTerm');
+  if (ptermSel) {
+    ptermSel.value = s.prospectiveTerm || 30;
+    ptermSel.addEventListener('change', () => setState({ prospectiveTerm: parseInt(ptermSel.value) }));
+  }
   num('monthlyPMI');
   const hoiEl = $('homeownersInsurance');
   if (hoiEl) {

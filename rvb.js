@@ -137,11 +137,15 @@ function calculate(s) {
   const principalLastYr = Math.max(0, balYrPrev - balYrLast);
   const interestLastYr  = balYrPrev > 0 ? Math.max(0, pi * 12 - principalLastYr) : 0;
 
-  // Tax benefit: federal (SALT cap $10K) + state (no SALT cap) deductions
+  // Tax benefit: only the amount ABOVE the standard deduction is incrementally deductible.
+  // Federal SALT cap: $10K single/MFJ, $5K MFS. State: no standard-deduction adjustment (varies by state).
   const propTaxAnnualYr1     = s.purchasePrice * s.propTaxRate / 100;
   const stateRate            = (s.stateTaxRate || 0) / 100;
+  const saltCapYr1           = s.filingStatus === 'mfs' ? 5000 : 10000;
+  const stdDedAmt            = STANDARD_DEDUCTIONS[s.filingStatus] || 15000;
+  const federalItemizedYr1   = interestYr1 + Math.min(propTaxAnnualYr1, saltCapYr1);
   const federalSavingsYr1    = s.itemizeDeductions
-    ? (interestYr1 + Math.min(propTaxAnnualYr1, 10000)) * (s.taxBracket / 100)
+    ? Math.max(0, federalItemizedYr1 - stdDedAmt) * (s.taxBracket / 100)
     : 0;
   const stateSavingsYr1      = s.itemizeDeductions
     ? (interestYr1 + propTaxAnnualYr1) * stateRate
@@ -219,7 +223,10 @@ function calculate(s) {
       const principalThisYear = Math.max(0, balT - balT1);
       const interestThisYear  = balT > 0 ? Math.max(0, pi * 12 - principalThisYear) : 0;
       const propTaxThisYear   = propTaxMonthly * 12;
-      yearTaxSavings = (interestThisYear + Math.min(propTaxThisYear, 10000)) * (s.taxBracket / 100)
+      const saltCap     = s.filingStatus === 'mfs' ? 5000 : 10000;
+      const stdDed      = STANDARD_DEDUCTIONS[s.filingStatus] || 15000;
+      const fedItemized = interestThisYear + Math.min(propTaxThisYear, saltCap);
+      yearTaxSavings = Math.max(0, fedItemized - stdDed) * (s.taxBracket / 100)
                      + (interestThisYear + propTaxThisYear) * stateRate;
     }
     buyMonthlyCosts[t] -= yearTaxSavings / 12;

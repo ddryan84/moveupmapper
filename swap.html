@@ -304,8 +304,23 @@
               <input type="number" id="interestRate" min="0" max="30" step="0.05">
               <span class="affix">%</span>
             </div>
-            <div class="helper">30-yr fixed rate</div>
           </div>
+          <div class="field">
+            <label>LOAN TERM</label>
+            <div class="input-wrap" style="padding:0">
+              <select id="prospectiveTerm" class="input-select" style="height:36px;padding:0 10px;width:100%;border:1px solid var(--border);border-radius:6px;background:var(--surface);color:var(--text);font-size:14px">
+                <option value="10">10 years</option>
+                <option value="15">15 years</option>
+                <option value="20">20 years</option>
+                <option value="25">25 years</option>
+                <option value="30" selected>30 years</option>
+              </select>
+            </div>
+            <div class="helper">New mortgage term</div>
+          </div>
+        </div>
+
+        <div class="two-col">
           <div class="field">
             <div class="label-tip-row"><label>MONTHLY PMI</label><button class="tip-btn" aria-label="Learn more" data-tip="Private mortgage insurance required when your down payment is under 20% of the purchase price. Typically 0.5–1.5% of the loan amount per year, or roughly $100–$250/month on a $300K loan. Drops off once your loan-to-value ratio reaches 80%.">?</button></div>
             <div class="input-wrap prefix">
@@ -575,7 +590,7 @@
         </div>
         <div class="affordable-meta">
           <p>Available down payment (after fees &amp; costs): <strong id="a-dp"></strong></p>
-          <p>Rate used: <strong id="a-rate"></strong> · 30-yr fixed</p>
+          <p>Rate used: <strong id="a-rate"></strong></p>
         </div>
       </div>
       <div class="affordable-right">
@@ -968,7 +983,7 @@
 </div><!-- /app -->
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<script src="calculator.js?v=2"></script>
+<script src="calculator.js?v=3"></script>
 <script>
   (function() {
     function makeCollapse(toggleId, bodyId) {
