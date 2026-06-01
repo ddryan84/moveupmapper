@@ -323,14 +323,31 @@
           </div>
         </div>
 
+        <div class="field">
+          <div class="label-tip-row"><label>MONTHLY PMI</label><button class="tip-btn" aria-label="Learn more" data-tip="Private mortgage insurance required when your down payment is under 20% of the purchase price. Typically 0.5–1.5% of the loan amount per year, or roughly $100–$250/month on a $300K loan. Drops off once your loan-to-value ratio reaches 80%.">?</button></div>
+          <div class="input-wrap prefix">
+            <span class="affix">$</span>
+            <input type="number" id="monthlyPMI" min="0" step="10">
+          </div>
+          <div class="helper">If down payment &lt; 20%</div>
+        </div>
+
         <div class="two-col">
           <div class="field">
-            <div class="label-tip-row"><label>MONTHLY PMI</label><button class="tip-btn" aria-label="Learn more" data-tip="Private mortgage insurance required when your down payment is under 20% of the purchase price. Typically 0.5–1.5% of the loan amount per year, or roughly $100–$250/month on a $300K loan. Drops off once your loan-to-value ratio reaches 80%.">?</button></div>
+            <label>CURRENT HOA</label>
             <div class="input-wrap prefix">
               <span class="affix">$</span>
-              <input type="number" id="monthlyPMI" min="0" step="10">
+              <input type="number" id="currentHOA" min="0" step="50">
             </div>
-            <div class="helper">If down payment &lt; 20%</div>
+            <div class="helper">Monthly HOA on your current home</div>
+          </div>
+          <div class="field">
+            <label>NEW HOME HOA</label>
+            <div class="input-wrap prefix">
+              <span class="affix">$</span>
+              <input type="number" id="newHOA" min="0" step="50">
+            </div>
+            <div class="helper">Monthly HOA on prospective home</div>
           </div>
         </div>
 
@@ -504,6 +521,10 @@
         <div class="r-row">
           <span>Homeowners insurance</span>
           <span id="r-hoi"></span>
+        </div>
+        <div class="r-row" id="r-hoaRow">
+          <span id="r-hoaLabel">HOA</span>
+          <span id="r-hoa"></span>
         </div>
         <div class="r-row r-total">
           <span>Total monthly housing</span>
@@ -991,7 +1012,7 @@
 </div><!-- /app -->
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<script src="calculator.js?v=4"></script>
+<script src="calculator.js?v=5"></script>
 <script>
   (function() {
     function makeCollapse(toggleId, bodyId) {

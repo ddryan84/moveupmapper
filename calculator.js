@@ -17,6 +17,8 @@ const DEFAULTS = {
   interestRate:   6.875,   // updated at runtime by fetchMortgageRate()
   prospectiveTerm: 30,
   monthlyPMI:     0,
+  currentHOA:     0,
+  newHOA:         0,
   taxMode:        'percent',  // 'percent' | 'dollar'
   propertyTaxDollar:  0,
   propertyTaxPercent: 1.0,
@@ -116,12 +118,13 @@ function calcAnnualPropertyTax(s, price) {
   return s.propertyTaxDollar;
 }
 
-function calcAffordablePrice(s, targetMonthly, dpPool, hoiMonthly) {
+function calcAffordablePrice(s, targetMonthly, dpPool, hoiMonthly, hoaMonthly) {
   const K = mortgageFactor(s.interestRate, (s.prospectiveTerm || 30) * 12);
   const dp = Math.max(0, dpPool);
   const hoi = hoiMonthly !== undefined ? hoiMonthly : (s.hoiMode === 'percent' ? s.purchasePrice * s.hoiPct / 100 / 12 : s.homeownersInsurance);
-  // HOI is a fixed monthly cost independent of price — deduct it before solving
-  const budget = Math.max(0, targetMonthly - hoi);
+  const hoa = hoaMonthly !== undefined ? hoaMonthly : s.newHOA;
+  // HOI and HOA are fixed monthly costs independent of price — deduct before solving
+  const budget = Math.max(0, targetMonthly - hoi - hoa);
   let price;
   if (s.taxMode === 'percent') {
     const taxMonthly = s.propertyTaxPercent / 100 / 12;
@@ -179,15 +182,15 @@ function calculate(s) {
   const loan = Math.max(0, s.purchasePrice - downPayment);
   const mortgagePI = loan * K;
   const pmi = dpPct < 0.20 ? s.monthlyPMI : 0;
-  const totalMonthly = mortgagePI + taxMonthly + pmi + hoiMonthly;
+  const totalMonthly = mortgagePI + taxMonthly + pmi + hoiMonthly + s.newHOA;
   const ratio = s.monthlyIncome > 0 ? totalMonthly / s.monthlyIncome : 0;
   const monthlyRemaining = s.monthlyIncome - totalMonthly;
 
   // Affordable range
   const targetMonthly = s.monthlyIncome * (s.targetSliderPct / 100);
   const ceilingMonthly = s.monthlyIncome * 0.36;
-  const targetPrice   = calcAffordablePrice(s, targetMonthly,  dpPool, hoiMonthly);
-  const ceilingPrice  = calcAffordablePrice(s, ceilingMonthly, dpPool, hoiMonthly);
+  const targetPrice   = calcAffordablePrice(s, targetMonthly,  dpPool, hoiMonthly, s.newHOA);
+  const ceilingPrice  = calcAffordablePrice(s, ceilingMonthly, dpPool, hoiMonthly, s.newHOA);
 
   // Property tax helper text
   const taxPctOfPrice = s.purchasePrice > 0 ? annualTax / s.purchasePrice * 100 : 0;
@@ -232,9 +235,10 @@ function calculate(s) {
     const buyingCosts_t       = buyingCosts * inflFactor_t;
     const baseHoi             = s.hoiMode === 'percent' ? s.purchasePrice * s.hoiPct / 100 / 12 : s.homeownersInsurance;
     const hoi_t               = baseHoi * inflFactor_t;
+    const hoa_t               = s.newHOA * inflFactor_t;
     const dpPool_t = Math.max(0, saleProceeds_t + cashPool - buyingCosts_t);
-    const comfort_t = calcAffordablePrice(s, income_t * 0.28, dpPool_t, hoi_t);
-    const ceiling_t = calcAffordablePrice(s, income_t * 0.36, dpPool_t, hoi_t);
+    const comfort_t = calcAffordablePrice(s, income_t * 0.28, dpPool_t, hoi_t, hoa_t);
+    const ceiling_t = calcAffordablePrice(s, income_t * 0.36, dpPool_t, hoi_t, hoa_t);
     const annualTax_t   = annualTax * Math.pow(1 + effPropTaxGrowth / 100, t);
     const annualMaint_t = s.purchasePrice * (s.maintenanceRate / 100) * Math.pow(1 + effMaintenanceGrowth / 100, t);
     const costBurden_t  = annualTax_t + annualMaint_t + hoi_t * 12;
@@ -411,6 +415,28 @@ function render(c, s) {
     }
   }
   setText('r-hoi', fmt(c.hoiMonthly));
+
+  // HOA row
+  const hoaRow = $('r-hoaRow');
+  if (hoaRow) {
+    if (s.newHOA > 0) {
+      hoaRow.style.display = '';
+      const delta = s.newHOA - s.currentHOA;
+      const hoaLabelEl = $('r-hoaLabel');
+      if (hoaLabelEl) {
+        if (s.currentHOA > 0) {
+          const arrow = delta >= 0 ? '↑' : '↓';
+          hoaLabelEl.textContent = 'HOA (' + arrow + fmt(Math.abs(delta)) + '/mo vs current)';
+        } else {
+          hoaLabelEl.textContent = 'HOA';
+        }
+      }
+      setText('r-hoa', fmt(s.newHOA));
+    } else {
+      hoaRow.style.display = 'none';
+    }
+  }
+
   const hoiHelperEl = $('hoiHelper');
   if (hoiHelperEl) {
     hoiHelperEl.textContent = s.hoiMode === 'percent'
@@ -676,6 +702,8 @@ function bindInputs() {
     ptermSel.addEventListener('change', () => setState({ prospectiveTerm: parseInt(ptermSel.value) }));
   }
   num('monthlyPMI');
+  num('currentHOA');
+  num('newHOA');
   const hoiEl = $('homeownersInsurance');
   if (hoiEl) {
     hoiEl.value = s.hoiMode === 'percent' ? s.hoiPct : s.homeownersInsurance;
