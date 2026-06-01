@@ -4,16 +4,16 @@
 const DEFAULTS = {
   // Current home
   buyerMode:           'owner',   // 'owner' | 'firstTime'
-  homeValuation:  0,
+  homeValuation:       500000,
   equityMode:          'equity',  // 'equity' | 'loanBalance'
-  equityValue:         0,
+  equityValue:         120000,
   mortgageTerm:        30,
-  termRemainder:       0,    // 0 = not provided; amortization inactive until filled
-  currentMortgageRate: 0,    // 0 = not provided
-  expendableCash: 0,
-  monthlyIncome:  0,
+  termRemainder:       25,
+  currentMortgageRate: 3.5,
+  expendableCash:      50000,
+  monthlyIncome:       8500,
   // Prospective home
-  purchasePrice:  0,
+  purchasePrice:       700000,
   interestRate:   6.875,   // updated at runtime by fetchMortgageRate()
   prospectiveTerm: 30,
   monthlyPMI:     0,
@@ -24,14 +24,14 @@ const DEFAULTS = {
   realtorFee:      5,
   transferTaxPct:  0,
   preSaleRepairs:  0,
-  sellerTitleFees: 0,
+  sellerTitleFees: 1500,
   // Buying costs
-  lenderFees:           0,
-  buyerTitleFees:       0,
+  lenderFees:           2500,
+  buyerTitleFees:       1500,
   repairCosts:          0,
   prePaidEscrow:        0,
   prePaidEscrowManual:  false,
-  movingExpenses:       0,
+  movingExpenses:       3000,
   // Affordable range
   targetSliderPct: 28,       // 0–50% of income
   // Growth rates
