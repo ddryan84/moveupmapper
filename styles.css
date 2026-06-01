@@ -1147,7 +1147,7 @@ details[open] > .faq-q::after {
 }
 @media (max-width: 640px) {
   .site-nav-inner { gap: 8px; }
-  .page-nav-links { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .page-nav-links { overflow: visible; }
   .page-nav-link { padding: 0 10px; font-size: 12px; }
   .brand-name { display: none; }
 }
