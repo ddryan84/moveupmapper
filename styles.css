@@ -1182,7 +1182,9 @@ details[open] > .faq-q::after {
   padding: 4px 0;
 }
 .nav-dropdown:hover .nav-dropdown-menu,
-.nav-dropdown:focus-within .nav-dropdown-menu { display: block; }
+.nav-dropdown:focus-within .nav-dropdown-menu,
+.nav-dropdown.open .nav-dropdown-menu { display: block; }
+.nav-dropdown.open .nav-chevron { transform: rotate(180deg); }
 .nav-dropdown-item {
   display: block;
   padding: 8px 16px;
