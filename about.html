@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=30">
+  <link rel="stylesheet" href="styles.css?v=31">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -76,8 +76,8 @@
       </svg>
     </div>
     <div>
-      <h1>About This Site</h1>
-      <p class="header-sub">Purpose, tools, and how the math works</p>
+      <h1>About Move Up Mapper</h1>
+      <p class="header-sub">Free tools. Honest math. No account required.</p>
     </div>
   </header>
 
@@ -88,23 +88,41 @@
       <section class="prose-section">
         <h2>Why This Site Exists</h2>
         <p>
-          Most people make their biggest financial decisions — buying a home, deciding whether to keep
-          renting, considering a move — with incomplete information. Mortgage calculators show you a monthly
-          payment. Rent vs. buy comparisons flatten complex, multi-year dynamics into a single oversimplified
-          number. And almost none of them show their math.
+          Buying a home is likely the largest financial decision you'll ever make — yet most of the tools
+          built to help you do it are either too simple to be useful or too opaque to be trusted. Mortgage
+          calculators show you a monthly payment. Rent vs. buy comparisons flatten a 30-year decision into
+          a single number. And almost none of them show their math.
         </p>
         <p>
-          This site was built to do better. The goal is to give anyone — whether you're a first-time buyer,
-          a long-term renter, or someone weighing a move — a clear, honest picture of what each path actually
-          costs over time, built on real financial math rather than rounded estimates.
+          Move Up Mapper was built to fill that gap. The goal is straightforward: give anyone — a first-time
+          buyer, a long-term renter, someone weighing a move up — a clear, honest picture of what each path
+          actually costs over time, modeled with the same math a lender or financial planner would use.
+          No paywalls. No lead forms. No agenda.
         </p>
-        <p>
-          Everything here is free. Nothing requires an account. Your inputs never leave your browser.
-        </p>
+
+        <div class="about-trust-strip">
+          <div class="about-trust-item">
+            <div class="about-trust-label">Always free</div>
+            <div class="about-trust-desc">No subscriptions, no paywalls, no "premium" tier hiding the useful features.</div>
+          </div>
+          <div class="about-trust-item">
+            <div class="about-trust-label">Your data stays local</div>
+            <div class="about-trust-desc">All calculations run in your browser. Nothing is sent to a server or stored in a database.</div>
+          </div>
+          <div class="about-trust-item">
+            <div class="about-trust-label">Math that shows its work</div>
+            <div class="about-trust-desc">Every formula and assumption is documented. No black boxes, no hidden rounding.</div>
+          </div>
+        </div>
       </section>
 
       <section class="prose-section">
         <h2>The Tools</h2>
+        <p>
+          Five calculators, each built around a specific decision. They share a common design principle:
+          show the full picture, not just the headline number, and make every assumption adjustable so
+          you can stress-test your own scenario.
+        </p>
 
         <div class="about-tool-block">
           <div class="about-tool-header">
@@ -279,36 +297,46 @@
       </section>
 
       <section class="prose-section">
+        <h2>What's Coming</h2>
+        <p>
+          The calculators are the foundation, but the <a href="/learn">Learn</a> section is where the
+          reasoning behind them gets unpacked. Published guides so far cover the rent vs. buy framework,
+          amortization math, and how mortgage rates compress buying power. Upcoming topics include
+          when refinancing actually pencils out, how to think about extra mortgage payments versus
+          investing, and why the 20% down payment rule is more flexible than most buyers assume.
+        </p>
+        <p>
+          The calculators themselves continue to evolve. If something is missing, confusing, or wrong,
+          the <a href="/faq">FAQ</a> is the right place to start — or reach out directly.
+        </p>
+      </section>
+
+      <section class="prose-section">
         <h2>How the Math Works</h2>
         <p>
-          Financial calculators often treat their models as black boxes. This site does not.
+          Financial calculators often treat their models as black boxes. This site doesn't. Here's how
+          the key calculations work:
         </p>
+        <ul>
+          <li><strong>Mortgage amortization</strong> uses the standard closed-form formula for remaining
+          loan balance at any point in time — the same math lenders use. Interest is correctly
+          front-loaded in early years, not averaged.</li>
+          <li><strong>PMI drop-off</strong> is tracked month by month. The tools identify the exact month
+          your loan-to-value ratio crosses 80% and remove PMI from that point forward — not as an
+          estimate, but from the amortization schedule itself.</li>
+          <li><strong>Opportunity cost</strong> compounds properly. Each year's cost differential between
+          renting and buying is added to or subtracted from an invested portfolio that itself earns a
+          return — so the renter's alternative isn't overstated.</li>
+          <li><strong>Maintenance costs</strong> scale with your home's appreciated value each year, not
+          the original purchase price, which better reflects how upkeep costs grow over time.</li>
+          <li><strong>HOA, insurance, and tax headwinds</strong> each inflate at their own rates across
+          the 10-year projection, rather than being held flat — which would understate the true cost
+          of ownership over time.</li>
+        </ul>
         <p>
-          <strong>Mortgage amortization</strong> uses the standard closed-form formula for remaining loan
-          balance at any point in time — the same calculation used by lenders. This means the
-          interest-to-principal ratio is correctly front-loaded in early years, not averaged across the loan.
-        </p>
-        <p>
-          <strong>PMI drop-off</strong> is calculated month by month. The tool tracks your declining loan
-          balance alongside your home's appreciated value and identifies the exact month your
-          loan-to-value ratio crosses 80% — at which point PMI is removed from the monthly cost projection.
-          This drop is visible as a labeled callout on the Monthly Cost Comparison chart.
-        </p>
-        <p>
-          <strong>Opportunity cost</strong> is applied as a genuine compound return, not a flat addition.
-          The invested capital scenario grows your initial lump sum annually, and each year's cost
-          differential — whether buying costs more or renting costs more — is added to or subtracted from
-          the portfolio and compounds forward. This avoids overstating the renter's investment position.
-        </p>
-        <p>
-          <strong>Maintenance costs</strong> are calculated as a percentage of your home's appreciated
-          value each year, not just the original purchase price. This reflects the reality that upkeep
-          costs tend to rise alongside the value and age of the property.
-        </p>
-        <p>
-          Default values across both tools are calibrated to 2026 national averages — current mortgage
-          rates, median home prices, typical PMI premiums, national property tax averages, and long-run
-          historical returns. Every input can be adjusted to match your specific situation.
+          Default values are calibrated to 2026 national averages: current mortgage rates, median home
+          prices, typical PMI premiums, national property tax averages, and long-run historical returns.
+          Every input can be adjusted to match your specific situation.
         </p>
       </section>
 
@@ -329,11 +357,15 @@
       <section class="prose-section prose-section--last">
         <h2>A Note on Limitations</h2>
         <p>
-          These tools are designed to inform, not to decide. Real estate decisions involve factors that no
-          calculator can fully capture: neighborhood trajectory, job stability, local market conditions,
-          the emotional value of ownership, and much more. The numbers this site produces are a starting
-          point for a conversation — ideally one that includes a qualified mortgage professional, financial
-          advisor, or real estate agent who knows your specific situation.
+          These tools are built to inform, not to decide. Real estate decisions involve factors no
+          calculator can fully capture: neighborhood trajectory, job stability, school districts, the
+          emotional weight of ownership, local market dynamics, and much more. The numbers here are a
+          starting point — ideally for a conversation that also involves a mortgage professional,
+          financial advisor, or real estate agent who knows your specific situation.
+        </p>
+        <p>
+          Use this site to sharpen your thinking and stress-test your assumptions. Use professionals
+          to act on them.
         </p>
         <p>
           <strong>Nothing on this site constitutes financial, mortgage, tax, or legal advice.</strong>
