@@ -1356,6 +1356,32 @@ details[open] > .faq-q::after {
 }
 .about-tool-link:hover { text-decoration: underline; }
 
+/* ── Related Tools Strip ── */
+.related-tools {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  margin-top: 32px;
+  padding: 14px 18px;
+  background: var(--gray-50);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+}
+.related-tools-label {
+  color: var(--text-muted);
+  font-weight: 500;
+  white-space: nowrap;
+}
+.related-tool-link {
+  color: var(--indigo);
+  text-decoration: none;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.related-tool-link:hover { text-decoration: underline; }
+
 /* ── Site Footer ── */
 .site-footer {
   margin-top: 40px;
