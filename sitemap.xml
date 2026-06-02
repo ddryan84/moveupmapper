@@ -36,12 +36,27 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.moveupmapper.com/learn/rent-vs-buy-2026</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.moveupmapper.com/learn/amortization-schedule</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.moveupmapper.com/learn/mortgage-rates-buying-power</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.moveupmapper.com/learn/when-to-refinance</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.moveupmapper.com/learn/extra-mortgage-payments</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
