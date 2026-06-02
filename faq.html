@@ -81,7 +81,7 @@
       {
         "@type": "Question",
         "name": "What are the tax advantages of buying a home in the US?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Homeownership comes with several potential federal tax benefits: the mortgage interest deduction (interest on up to $750,000 of debt), the property tax deduction (up to the $10,000 SALT cap), and the capital gains exclusion on sale (up to $250,000 single / $500,000 married if you've lived there 2 of the last 5 years). These only benefit you if your total itemized deductions exceed the standard deduction." }
+        "acceptedAnswer": { "@type": "Answer", "text": "Homeownership comes with several potential federal tax benefits: the mortgage interest deduction (interest on up to $750,000 of debt), the property tax deduction (up to the $10,000 SALT cap), and the capital gains exclusion on sale (up to $250,000 single / $500,000 married if you've lived there 2 of the last 5 years). These only benefit you if your total itemized deductions exceed the standard deduction ($15,000 single / $30,000 married filing jointly for 2025)." }
       },
       {
         "@type": "Question",
@@ -137,6 +137,26 @@
         "@type": "Question",
         "name": "What does Inflation Adjusted do in the Withdrawal Phase?",
         "acceptedAnswer": { "@type": "Answer", "text": "With Inflation Adjusted on, your withdrawal amount grows each year at your inflation rate to maintain the same purchasing power throughout the drawdown period. If you withdraw $50,000 in Year 1 at 3% inflation, you'd withdraw $51,500 in Year 2, $53,045 in Year 3, and so on. The hint below the withdrawal input shows the purchasing power of your stated amount in today's dollars (discounted over your accumulation period) and the annual dollar increase your portfolio must deliver. When Inflation Adjusted is off, only the purchasing power line appears — a reminder that a fixed withdrawal loses real value each year. Withdrawing a growing amount is more realistic for retirement planning but depletes the portfolio faster than a fixed nominal withdrawal." }
+      },
+      {
+        "@type": "Question",
+        "name": "How does paying extra toward my mortgage actually save interest?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Every mortgage payment is split between interest and principal based on your remaining balance. When you make an extra payment, the entire amount reduces your principal immediately. A lower principal means less interest accrues the next month, which means a slightly larger portion of every future payment goes to principal instead of interest. That compounding effect is why even modest extra payments — $100–$200/month — can save tens of thousands of dollars over the life of the loan and cut years off the payoff date." }
+      },
+      {
+        "@type": "Question",
+        "name": "What's the difference between biweekly mortgage payments and one extra annual payment?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Mathematically, they're nearly equivalent. Paying half your monthly payment every two weeks results in 26 half-payments per year — which equals 13 full monthly payments instead of 12. That one extra payment goes entirely to principal. The interest savings are almost identical whether you make biweekly payments or simply add one lump-sum extra payment each year. The practical difference is timing: biweekly payments reduce principal slightly faster throughout the year because extra principal hits earlier, but the long-run savings gap is small." }
+      },
+      {
+        "@type": "Question",
+        "name": "Should I pay off my mortgage early or invest the extra money?",
+        "acceptedAnswer": { "@type": "Answer", "text": "It depends on your mortgage rate and expected investment return. At a 7% mortgage rate, paying down the loan is a guaranteed 7% after-tax return. A diversified stock portfolio might average 7–8% over 20 years — but that return is uncertain and taxable. The calculus shifts in favor of extra payments when your rate is high, you're approaching retirement, or the psychological value of owning outright matters to you. Many people do both: capture any 401(k) employer match first, then split remaining cash flow between investing and extra mortgage payments." }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I make sure my extra mortgage payment reduces principal?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Most lenders apply extra payments to principal by default if you're current on your regular payment, but not all do. The safest approach is to make your regular payment first, then submit the extra payment separately with a note designating it 'apply to principal.' Online payment portals typically have a 'principal only' or 'additional principal' field. After making a few extra payments, verify that your loan balance is declining faster than the standard amortization schedule — if the servicer is advancing your due date instead of reducing your balance, contact them to request principal-only application." }
       }
     ]
   }
@@ -298,7 +318,7 @@
             <li><strong>Property tax deduction</strong> — State and local property taxes are deductible up to the $10,000 SALT cap, which also covers state income or sales taxes. In high-tax states, this limit is often hit quickly.</li>
             <li><strong>Capital gains exclusion on sale</strong> — When you sell a primary residence you've lived in for at least 2 of the last 5 years, you can exclude up to $250,000 of gain from taxable income ($500,000 if married filing jointly). This is one of the most significant wealth-building advantages of homeownership.</li>
           </ul>
-          The catch: these deductions only benefit you if your total itemized deductions exceed the standard deduction ($14,600 single / $29,200 married for 2024). For many homeowners — especially early in a mortgage when interest is highest — itemizing makes sense, but it becomes less compelling as the loan balance pays down. The Rent vs. Buy Analysis includes a "Do you itemize?" toggle that adjusts the buy-side cost calculations to reflect your actual tax situation.
+          The catch: these deductions only benefit you if your total itemized deductions exceed the standard deduction ($15,000 single / $30,000 married filing jointly for 2025). For many homeowners — especially early in a mortgage when interest is highest — itemizing makes sense, but it becomes less compelling as the loan balance pays down. The Rent vs. Buy Analysis includes a "Do you itemize?" toggle that adjusts the buy-side cost calculations to reflect your actual tax situation.
         </div>
       </details>
 
@@ -416,6 +436,47 @@
         <summary class="faq-q">What does "Inflation Adjusted" do in the Withdrawal Phase?</summary>
         <div class="faq-a">
           With Inflation Adjusted on, your withdrawal amount grows each year at your inflation rate to maintain the same purchasing power throughout the drawdown period. If you withdraw $50,000 in Year 1 at 3% inflation, you'd withdraw $51,500 in Year 2, $53,045 in Year 3, and so on — because what costs $50,000 today will cost more in future years. The hint below the withdrawal input field shows two things: what your stated amount is worth in today's dollars at the start of the withdrawal phase (purchasing power, discounted over your accumulation period), and the annual dollar increase your portfolio must deliver at your inflation rate. When Inflation Adjusted is off, the hint shows only the purchasing power line — a reminder that a fixed nominal withdrawal loses real value each year. Withdrawing a growing amount is more realistic for retirement planning but depletes the portfolio faster than a fixed nominal withdrawal.
+        </div>
+      </details>
+
+    </div><!-- /faq-body -->
+  </div>
+
+  <!-- Payoff Calculator -->
+  <div class="card wide-card">
+    <div class="faq-section-head" style="background:#7c3aed">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/>
+      </svg>
+      <span>Payoff Calculator</span>
+    </div>
+    <div class="faq-body">
+
+      <details class="faq-item" open>
+        <summary class="faq-q">How does paying extra toward my mortgage actually save interest?</summary>
+        <div class="faq-a">
+          Every mortgage payment is split between interest and principal based on your remaining balance. In the early years of a 30-year mortgage, the vast majority of each payment is interest — on a $400,000 loan at 6.75%, you're paying roughly $2,200/month in interest in Year 1 and only $300 toward the balance. When you make an extra payment, the entire amount reduces your principal immediately. A lower principal means less interest accrues the next month, which means a slightly larger portion of every future payment goes to principal instead of interest. That compounding effect is why even modest extra payments — $100–$200/month — can save tens of thousands of dollars over the life of the loan and cut years off the payoff date.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">What's the difference between biweekly payments and one extra annual payment?</summary>
+        <div class="faq-a">
+          Mathematically, they're nearly equivalent. Paying half your monthly payment every two weeks results in 26 half-payments per year — which equals 13 full monthly payments instead of 12. That one extra payment per year goes entirely to principal. The interest savings are almost identical whether you make biweekly payments or simply add one lump-sum extra payment each December. The practical difference is timing: biweekly payments reduce principal slightly faster throughout the year because extra principal hits earlier, but the long-run savings gap is small. Use whichever fits your cash flow better — the Payoff Calculator lets you model both.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">Should I pay off my mortgage early or invest the extra money?</summary>
+        <div class="faq-a">
+          It depends on your mortgage rate and your expected investment return, but the math usually favors investing when your rate is below 5–6% and your investment horizon is long. At a 7% mortgage rate, paying down the loan is a guaranteed 7% after-tax return. A diversified stock portfolio might average 7–8% over 20 years — but that return is uncertain and taxable. The calculus shifts in favor of extra payments when: (1) your rate is high enough that the guaranteed return is compelling, (2) you're approaching retirement and reducing risk matters more than maximizing return, or (3) the psychological value of owning your home outright is meaningful to you. Many people do both — contribute enough to their 401(k) to capture any employer match first, then split remaining cash flow between investing and extra mortgage payments.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">How do I make sure my extra payment actually reduces principal?</summary>
+        <div class="faq-a">
+          Most lenders apply extra payments to principal by default if you're current on your regular payment — but not all do. The safest approach is to make your regular payment first, then submit the extra payment separately with a note or memo designating it "apply to principal." Online payment portals typically have a "principal only" or "additional principal" field. Call your servicer if you're unsure — and after making a few extra payments, verify that your loan balance is declining faster than it would on the standard amortization schedule. If the servicer is applying extra funds to future scheduled payments (advancing your due date) rather than reducing your balance, contact them to request principal-only application.
         </div>
       </details>
 

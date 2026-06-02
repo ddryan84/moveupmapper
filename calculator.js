@@ -69,6 +69,12 @@ function setState(patch) {
 }
 
 /* ── Persistence ── */
+// Bump the version suffix (v1 → v2, etc.) only for BREAKING schema changes:
+// renaming a field, removing a field the calculation depends on, or restructuring
+// the saved object. Additive changes (new fields with defaults) don't need a bump
+// because load() merges saved state into DEFAULTS — new fields get their default
+// value automatically. When bumping: update LS_KEY and optionally add a migration
+// step below to carry forward fields that didn't change.
 const LS_KEY = 'homeSwapCalc_v1';
 
 function save() {

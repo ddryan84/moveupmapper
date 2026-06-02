@@ -261,6 +261,7 @@ function calculate(s) {
     principalYr1, interestYr1,
     principalLastYr, interestLastYr,
     taxSavingsYr1, taxSavingsMonthlyYr1, totalTaxSavings,
+    federalItemizedYr1, stdDedAmt,
   };
 }
 
@@ -374,6 +375,19 @@ function render(c, s) {
   if (s.itemizeDeductions) {
     setText('tax-savings-yr1',   fmt(c.taxSavingsYr1));
     setText('tax-savings-total', fmt(c.totalTaxSavings));
+  }
+
+  // Show a contextual notice when itemized deductions fall below the standard deduction
+  const stdDedNoticeEl = document.getElementById('stdDedNotice');
+  if (stdDedNoticeEl) {
+    const showNotice = s.itemizeDeductions && c.federalItemizedYr1 < c.stdDedAmt;
+    stdDedNoticeEl.style.display = showNotice ? 'block' : 'none';
+    if (showNotice) {
+      const itemizedEl = document.getElementById('stdDedNoticeItemized');
+      const stdEl      = document.getElementById('stdDedNoticeStd');
+      if (itemizedEl) itemizedEl.textContent = '$' + Math.round(c.federalItemizedYr1).toLocaleString('en-US');
+      if (stdEl)      stdEl.textContent      = '$' + Math.round(c.stdDedAmt).toLocaleString('en-US');
+    }
   }
 
   // Side panel tax savings deduction row

@@ -348,7 +348,7 @@
           <div class="two-col">
             <div class="field">
               <div class="field-row-head">
-                <div class="label-tip-row"><label>DO YOU ITEMIZE?</label><button class="tip-btn" aria-label="Learn more" data-tip="You can deduct mortgage interest and property taxes if your total itemized deductions exceed the standard deduction ($14,600 single / $29,200 married in 2024). Most homeowners don&#39;t clear this threshold — leave set to No if unsure.">?</button></div>
+                <div class="label-tip-row"><label>DO YOU ITEMIZE?</label><button class="tip-btn" aria-label="Learn more" data-tip="You can deduct mortgage interest and property taxes if your total itemized deductions exceed the standard deduction ($15,000 single / $30,000 married filing jointly in 2025). Many homeowners don&#39;t clear this threshold — leave set to No if unsure.">?</button></div>
                 <div class="mode-toggle">
                   <button class="mode-btn active" id="itemizeNo">No</button>
                   <button class="mode-btn" id="itemizeYes">Yes</button>
@@ -400,6 +400,9 @@
               <span>Est. total savings (<span class="dynamic-yr-label">10</span> yrs)</span>
               <span id="tax-savings-total" style="color:#16a34a;font-weight:600">—</span>
             </div>
+          </div>
+          <div id="stdDedNotice" style="display:none;margin-top:10px;font-size:11px;line-height:1.55;background:#fefce8;border:1px solid #fde68a;border-radius:6px;padding:9px 11px;color:#78350f">
+            <strong>Why $0?</strong> Your estimated itemized deductions (mortgage interest + property taxes) total <strong id="stdDedNoticeItemized">—</strong> in year one — below the <strong id="stdDedNoticeStd">—</strong> standard deduction for your filing status. No incremental federal tax benefit applies. Adding a state income tax rate may still produce state-level savings.
           </div>
 
         </div>
