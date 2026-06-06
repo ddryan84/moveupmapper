@@ -630,6 +630,8 @@ label {
 }
 .r-bold { font-weight: 700; font-size: 14px; }
 .r-divider { height: 1px; background: var(--border); margin: 6px 0; }
+.results-card.simplified [data-detail] { display: none; }
+.results-card:not(.simplified) [data-simple] { display: none; }
 
 .green { color: var(--green) !important; }
 .red   { color: var(--red)   !important; }

@@ -30,7 +30,10 @@ const DEFAULTS = {
   // Buying costs
   lenderFees:           2500,
   buyerTitleFees:       1500,
+  buyerTransferTaxPct:  0,
   repairCosts:          0,
+  prepaidsAtClosing:    0,
+  prepaidsManual:       false,
   prePaidEscrow:        0,
   prePaidEscrowManual:  false,
   movingExpenses:       3000,
@@ -180,7 +183,12 @@ function calculate(s) {
   const hoiMonthly = s.hoiMode === 'percent' ? s.purchasePrice * s.hoiPct / 100 / 12 : s.homeownersInsurance;
   const autoEscrow = s.purchasePrice > 0 ? Math.round((taxMonthly + hoiMonthly) * 3) : 0;
   const effectiveEscrow = s.prePaidEscrowManual ? s.prePaidEscrow : autoEscrow;
-  const buyingCosts = s.lenderFees + s.buyerTitleFees + s.repairCosts + effectiveEscrow + s.movingExpenses;
+  const buyerTransferTax = s.purchasePrice * (s.buyerTransferTaxPct / 100);
+  const autoPrepaids = s.purchasePrice > 0
+    ? Math.round(hoiMonthly * 12 + s.purchasePrice * (s.interestRate / 100) / 365 * 15)
+    : 0;
+  const effectivePrepaids = s.prepaidsManual ? s.prepaidsAtClosing : autoPrepaids;
+  const buyingCosts = s.lenderFees + s.buyerTitleFees + s.repairCosts + effectiveEscrow + s.movingExpenses + buyerTransferTax + effectivePrepaids;
   const dpPool = Math.max(0, totalCash - buyingCosts);
   const downPayment = Math.min(dpPool, s.purchasePrice);
   const cashRemaining = Math.max(0, totalCash - downPayment - buyingCosts);
@@ -272,6 +280,7 @@ function calculate(s) {
     targetMonthly, ceilingMonthly, targetPrice, ceilingPrice,
     bpData, avgGrowth, avgHeadwind, netRate,
     autoEscrow, effectiveEscrow,
+    buyerTransferTax, autoPrepaids, effectivePrepaids,
   };
 }
 
@@ -370,10 +379,13 @@ function render(c, s) {
   setText('r-expendableCash', fmt(s.expendableCash));
   const tcEl = $('r-totalCash');
   tcEl.textContent = fmt(c.totalCash);
+  setText('r-dpPool', fmt(c.downPayment) + ' (' + fmtPct(c.dpPct * 100, 1) + ')');
   setText('r-dpLabel', 'Down payment');
   setText('r-downPayment', fmt(c.downPayment) + ' (' + fmtPct(c.dpPct * 100, 1) + ')');
   setText('r-lenderFees', fmt(s.lenderFees));
   setText('r-buyerTitleFees', fmt(s.buyerTitleFees));
+  setText('r-buyerTransferTax', fmt(c.buyerTransferTax));
+  setText('r-prepaidsAtClosing', fmt(c.effectivePrepaids));
   setText('r-repairCosts', fmt(s.repairCosts));
   setText('r-prePaidEscrow', fmt(c.effectiveEscrow));
   setText('r-movingExpenses', fmt(s.movingExpenses));
@@ -398,6 +410,27 @@ function render(c, s) {
       }, { once: true });
     } else {
       escrowHelperEl.textContent = c.autoEscrow > 0 ? 'Auto: 3 mo. taxes & insurance' : '3 mo. of taxes & insurance upfront';
+    }
+  }
+  const prepaidsInputEl = $('prepaidsAtClosing');
+  if (prepaidsInputEl && !s.prepaidsManual) {
+    prepaidsInputEl.value = c.autoPrepaids;
+    if (s.prepaidsAtClosing !== c.autoPrepaids) {
+      scenarios[activeScenario].prepaidsAtClosing = c.autoPrepaids;
+      save();
+    }
+  }
+  const prepaidsHelperEl = $('prepaidsHelper');
+  if (prepaidsHelperEl) {
+    if (s.prepaidsManual) {
+      prepaidsHelperEl.innerHTML = 'Manual · <a href="#" class="helper-link" id="prepaidsAutoLink">reset to auto (' + fmt(c.autoPrepaids) + ')</a>';
+      const autoLink = $('prepaidsAutoLink');
+      if (autoLink) autoLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        setState({ prepaidsManual: false });
+      }, { once: true });
+    } else {
+      prepaidsHelperEl.textContent = c.autoPrepaids > 0 ? 'Auto: 1st-yr insurance + prepaid interest' : '1st-yr insurance premium + prepaid interest';
     }
   }
   const crEl = $('r-cashRemaining');
@@ -577,12 +610,14 @@ function render(c, s) {
 function fillSellingEstimates() {
   const s = getState();
   const patch = {};
-  if (s.sellerTitleFees === 0 && s.homeValuation > 0) {
+  patch.realtorFee = 5;
+  const realtorEl = $('realtorFee');
+  if (realtorEl) realtorEl.value = 5;
+  if (s.homeValuation > 0) {
     patch.sellerTitleFees = Math.round(s.homeValuation * 0.005);
     const el = $('sellerTitleFees');
     if (el) el.value = patch.sellerTitleFees;
   }
-  if (Object.keys(patch).length === 0) return;
   setState(patch);
   const btn = $('fillSellEstimates');
   if (btn) { btn.textContent = 'Estimates filled!'; setTimeout(() => { btn.textContent = 'Fill in estimates'; }, 2000); }
@@ -592,22 +627,24 @@ function fillBuyingEstimates() {
   const s = getState();
   const c = calculate(s);
   const patch = {};
-  if (s.lenderFees === 0 && c.loan > 0) {
-    patch.lenderFees = Math.round(c.loan * 0.015);
+  if (c.loan > 0) {
+    patch.lenderFees = Math.round(c.loan * 0.01);
     const el = $('lenderFees');
     if (el) el.value = patch.lenderFees;
   }
-  if (s.buyerTitleFees === 0 && s.purchasePrice > 0) {
-    patch.buyerTitleFees = Math.round(s.purchasePrice * 0.0075);
+  if (s.purchasePrice > 0) {
+    patch.buyerTitleFees = Math.round(s.purchasePrice * 0.006);
     const el = $('buyerTitleFees');
     if (el) el.value = patch.buyerTitleFees;
   }
-  if (s.movingExpenses === 0) {
-    patch.movingExpenses = 3000;
-    const el = $('movingExpenses');
-    if (el) el.value = 3000;
+  patch.movingExpenses = 3000;
+  const movingEl = $('movingExpenses');
+  if (movingEl) movingEl.value = 3000;
+  if (c.loan > 0 && c.dpPct < 0.20) {
+    patch.monthlyPMI = Math.round(c.loan * 0.007 / 12);
+    const el = $('monthlyPMI');
+    if (el) el.value = patch.monthlyPMI;
   }
-  if (Object.keys(patch).length === 0) return;
   setState(patch);
   const btn = $('fillBuyEstimates');
   if (btn) { btn.textContent = 'Estimates filled!'; setTimeout(() => { btn.textContent = 'Fill in estimates'; }, 2000); }
@@ -728,7 +765,15 @@ function bindInputs() {
   num('sellerTitleFees');
   num('lenderFees');
   num('buyerTitleFees');
+  num('buyerTransferTaxPct');
   num('repairCosts');
+  const prepaidsEl = $('prepaidsAtClosing');
+  if (prepaidsEl) {
+    if (s.prepaidsManual) prepaidsEl.value = s.prepaidsAtClosing;
+    prepaidsEl.addEventListener('input', () => {
+      setState({ prepaidsAtClosing: parseFloat(prepaidsEl.value) || 0, prepaidsManual: true });
+    });
+  }
   const escrowEl = $('prePaidEscrow');
   if (escrowEl) {
     if (s.prePaidEscrowManual) escrowEl.value = s.prePaidEscrow;

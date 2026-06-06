@@ -393,7 +393,7 @@
 
           <div class="two-col">
             <div class="field">
-              <div class="label-tip-row"><label>LENDER FEES</label><button class="tip-btn" aria-label="Learn more" data-tip="Upfront costs charged by your lender at closing: origination fee, discount points, appraisal, and processing fees. Typically 0.5–1% of the loan amount. Your Loan Estimate document will itemize these.">?</button></div>
+              <div class="label-tip-row"><label>LENDER FEES</label><button class="tip-btn" aria-label="Learn more" data-tip="Upfront costs charged by your lender at closing: origination fee, appraisal, underwriting, and processing fees. Typically 1–1.5% of the loan amount. Your Loan Estimate document will itemize these exactly.">?</button></div>
               <div class="input-wrap prefix">
                 <span class="affix">$</span>
                 <input type="number" id="lenderFees" min="0" step="500">
@@ -401,12 +401,32 @@
               <div class="helper">Origination &amp; closing costs</div>
             </div>
             <div class="field">
-              <label>BUYER TITLE FEES</label>
+              <div class="label-tip-row"><label>BUYER TITLE FEES</label><button class="tip-btn" aria-label="Learn more" data-tip="Covers the lender's title insurance (required), owner's title policy (strongly recommended — protects your ownership rights), title search, settlement agent fee, and recording services. Typically 0.5–0.7% of the purchase price.">?</button></div>
               <div class="input-wrap prefix">
                 <span class="affix">$</span>
                 <input type="number" id="buyerTitleFees" min="0" step="500">
               </div>
-              <div class="helper">Title insurance + escrow fees</div>
+              <div class="helper">Title insurance + settlement fees</div>
+            </div>
+          </div>
+
+          <div class="two-col">
+            <div class="field">
+              <div class="label-tip-row"><label>BUYER TRANSFER TAX</label><button class="tip-btn" aria-label="Learn more" data-tip="Some states and counties charge a deed or mortgage transfer tax payable by the buyer at closing. Rates range from 0% (most of the South and Midwest) to 0.5–2%+ in states like Virginia, Maryland, New York, and Florida. Enter 0 if your state doesn't charge this.">?</button></div>
+              <div class="input-wrap suffix">
+                <input type="number" id="buyerTransferTaxPct" min="0" max="5" step="0.05">
+                <span class="affix">%</span>
+              </div>
+              <div class="helper">Deed/mortgage stamp tax; varies by state</div>
+              <a href="https://www.google.com/search?q=buyer+deed+transfer+tax+rate+by+state" target="_blank" rel="noopener" class="field-lookup-link">Look up your state →</a>
+            </div>
+            <div class="field">
+              <div class="label-tip-row"><label>PREPAIDS AT CLOSING</label><button class="tip-btn" aria-label="Learn more" data-tip="Two costs paid at closing that aren't part of your escrow account: (1) your first full year of homeowners insurance premium, paid upfront to activate coverage on closing day, and (2) prepaid mortgage interest covering the days from your closing date through the end of the month. Together these typically run $2,000–$4,000 and are frequently overlooked in early planning.">?</button></div>
+              <div class="input-wrap prefix">
+                <span class="affix">$</span>
+                <input type="number" id="prepaidsAtClosing" min="0" step="500">
+              </div>
+              <div class="helper" id="prepaidsHelper">1st-yr insurance premium + prepaid interest</div>
             </div>
           </div>
 
@@ -420,7 +440,7 @@
               <div class="helper">Pre-move-in repairs</div>
             </div>
             <div class="field">
-              <div class="label-tip-row"><label>PRE-PAID ESCROW</label><button class="tip-btn" aria-label="Learn more" data-tip="Upfront escrow funds collected at closing — usually 2–3 months of property taxes and homeowners insurance. This is a one-time cash cost at closing, separate from your ongoing monthly escrow payment.">?</button></div>
+              <div class="label-tip-row"><label>PRE-PAID ESCROW</label><button class="tip-btn" aria-label="Learn more" data-tip="Initial reserves deposited into your escrow account at closing — typically 2–6 months of property taxes and 2–3 months of homeowners insurance. This seeds the account your lender uses to pay those bills on your behalf. Separate from Prepaids at Closing.">?</button></div>
               <div class="input-wrap prefix">
                 <span class="affix">$</span>
                 <input type="number" id="prePaidEscrow" min="0" step="500">
@@ -453,6 +473,7 @@
       <div class="results-head">
         <span class="results-dot"></span>
         <h2>Results</h2>
+        <button class="btn-toggle" id="simplifyBtn" style="margin-left:auto">Simplify</button>
       </div>
 
       <div id="affordabilityAlert" class="alert hidden"></div>
@@ -460,11 +481,11 @@
       <!-- Cash Position -->
       <div class="results-section">
         <div class="results-sec-title">CASH POSITION</div>
-        <div class="r-row">
+        <div class="r-row" data-detail>
           <span>Sale proceeds (equity – selling costs)</span>
           <span id="r-saleProceeds"></span>
         </div>
-        <div class="r-row">
+        <div class="r-row" data-detail>
           <span>Expendable cash</span>
           <span id="r-expendableCash"></span>
         </div>
@@ -472,28 +493,40 @@
           <span>Total cash available</span>
           <span id="r-totalCash" class="green"></span>
         </div>
-        <div class="r-divider"></div>
-        <div class="r-row">
+        <div class="r-divider" data-detail></div>
+        <div class="r-row" data-simple>
+          <span>Cash for down payment</span>
+          <span id="r-dpPool"></span>
+        </div>
+        <div class="r-row" data-detail>
           <span id="r-dpLabel">Down payment</span>
           <span id="r-downPayment"></span>
         </div>
-        <div class="r-row">
+        <div class="r-row" data-detail>
           <span>Lender fees</span>
           <span id="r-lenderFees"></span>
         </div>
-        <div class="r-row">
+        <div class="r-row" data-detail>
           <span>Buyer title fees</span>
           <span id="r-buyerTitleFees"></span>
         </div>
-        <div class="r-row">
+        <div class="r-row" data-detail>
+          <span>Buyer transfer tax</span>
+          <span id="r-buyerTransferTax"></span>
+        </div>
+        <div class="r-row" data-detail>
+          <span>Prepaids at closing</span>
+          <span id="r-prepaidsAtClosing"></span>
+        </div>
+        <div class="r-row" data-detail>
           <span>Repairs &amp; reno</span>
           <span id="r-repairCosts"></span>
         </div>
-        <div class="r-row">
+        <div class="r-row" data-detail>
           <span>Pre-paid escrow</span>
           <span id="r-prePaidEscrow"></span>
         </div>
-        <div class="r-row">
+        <div class="r-row" data-detail>
           <span>Moving expenses</span>
           <span id="r-movingExpenses"></span>
         </div>
@@ -506,23 +539,23 @@
       <!-- Monthly Costs -->
       <div class="results-section">
         <div class="results-sec-title">MONTHLY COSTS</div>
-        <div class="r-row">
+        <div class="r-row" data-detail>
           <span id="r-mortgageLabel">Mortgage (P&amp;I)</span>
           <span id="r-mortgage"></span>
         </div>
-        <div class="r-row">
+        <div class="r-row" data-detail>
           <span>Property tax</span>
           <span id="r-propTax"></span>
         </div>
-        <div class="r-row" id="r-pmiRow">
+        <div class="r-row" id="r-pmiRow" data-detail>
           <span>PMI</span>
           <span id="r-pmi"></span>
         </div>
-        <div class="r-row">
+        <div class="r-row" data-detail>
           <span>Homeowners insurance</span>
           <span id="r-hoi"></span>
         </div>
-        <div class="r-row" id="r-hoaRow">
+        <div class="r-row" id="r-hoaRow" data-detail>
           <span id="r-hoaLabel">HOA</span>
           <span id="r-hoa"></span>
         </div>
@@ -530,7 +563,7 @@
           <span>Total monthly housing</span>
           <span id="r-totalMonthly"></span>
         </div>
-        <div class="r-row">
+        <div class="r-row" data-detail>
           <span>Monthly take-home pay</span>
           <span id="r-income"></span>
         </div>
@@ -1006,7 +1039,7 @@
 </div><!-- /app -->
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<script src="calculator.js?v=5"></script>
+<script src="calculator.js?v=6"></script>
 <script>
   (function() {
     function makeCollapse(toggleId, bodyId) {
@@ -1071,6 +1104,23 @@
   });
   window.addEventListener('scroll', hide, { passive: true });
   window.addEventListener('resize', function () { if (active) show(active); });
+}());
+
+/* ── Results simplify toggle ── */
+(function () {
+  var btn = document.getElementById('simplifyBtn');
+  var card = btn.closest('.results-card');
+  var simplified = localStorage.getItem('resultsSimplified') === '1';
+  function apply() {
+    card.classList.toggle('simplified', simplified);
+    btn.textContent = simplified ? 'Show all' : 'Simplify';
+  }
+  apply();
+  btn.addEventListener('click', function () {
+    simplified = !simplified;
+    localStorage.setItem('resultsSimplified', simplified ? '1' : '0');
+    apply();
+  });
 }());
 </script>
 <script src="/nav.js"></script>
