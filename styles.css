@@ -1440,7 +1440,8 @@ details[open] > .faq-q::after {
   align-items: center;
   flex-wrap: wrap;
   gap: 8px 12px;
-  margin-top: 32px;
+  margin-top: 48px;
+  margin-bottom: 16px;
   padding: 14px 18px;
   background: var(--gray-50);
   border: 1px solid var(--border);
@@ -2098,6 +2099,8 @@ details.adv-section[open] .adv-chevron { transform: rotate(180deg); }
   padding: 13px 16px;
   text-decoration: none;
   transition: border-color .15s, background .15s;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 .tool-crosslink:hover { border-color: #5eead4; background: #f0fdfa; }
 .tool-crosslink-icon {
@@ -2111,7 +2114,7 @@ details.adv-section[open] .adv-chevron { transform: rotate(180deg); }
   flex-shrink: 0;
 }
 .tool-crosslink-text { flex: 1; min-width: 0; }
-.tool-crosslink-text strong { display: block; font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 1px; }
+.tool-crosslink-text strong { display: block; font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 1px; font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; }
 .tool-crosslink-text span  { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
 .tool-crosslink-arrow { font-size: 14px; color: var(--text-muted); flex-shrink: 0; }
 
@@ -2315,6 +2318,26 @@ details.adv-section[open] .adv-chevron { transform: rotate(180deg); }
   .article-body { padding: 20px 16px; }
   .article-body h2 { font-size: 16px; }
   .article-cta { flex-direction: column; gap: 12px; }
+}
+
+/* ── Article charts ── */
+.article-chart {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 20px 24px 14px;
+  margin: 20px 0;
+}
+.article-chart-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #475569;
+  margin-bottom: 12px;
+}
+.article-chart-source {
+  font-size: 11px;
+  color: #94a3b8;
+  margin-top: 6px;
 }
 
 /* ── Print ── */
