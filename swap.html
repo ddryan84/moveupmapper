@@ -81,6 +81,9 @@
     <div class="scenario-actions">
       <button class="btn-text" id="copyScenario">Copy A → B</button>
       <button class="btn-text" id="resetScenario">Reset</button>
+      <button class="btn-text" id="shareBtn">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:3px"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>Share
+      </button>
       <button class="btn-print" id="printBtn">⎙ Print / Export PDF</button>
     </div>
   </div>
@@ -211,6 +214,15 @@
           <div class="helper">After-tax monthly income</div>
         </div>
 
+        <div class="field">
+          <label>CURRENT HOA</label>
+          <div class="input-wrap prefix">
+            <span class="affix">$</span>
+            <input type="number" id="currentHOA" min="0" step="50">
+          </div>
+          <div class="helper">Monthly HOA on your current home</div>
+        </div>
+
         <div id="sellCostsSection">
           <button type="button" class="section-collapse-hdr mt-sm" id="sellCostsToggle" aria-expanded="false">
             <div class="section-label">
@@ -323,23 +335,14 @@
           </div>
         </div>
 
-        <div class="field">
-          <div class="label-tip-row"><label>MONTHLY PMI</label><button class="tip-btn" aria-label="Learn more" data-tip="Private mortgage insurance required when your down payment is under 20% of the purchase price. Typically 0.5–1.5% of the loan amount per year, or roughly $100–$250/month on a $300K loan. Drops off once your loan-to-value ratio reaches 80%.">?</button></div>
-          <div class="input-wrap prefix">
-            <span class="affix">$</span>
-            <input type="number" id="monthlyPMI" min="0" step="10">
-          </div>
-          <div class="helper">If down payment &lt; 20%</div>
-        </div>
-
         <div class="two-col">
           <div class="field">
-            <label>CURRENT HOA</label>
+            <div class="label-tip-row"><label>MONTHLY PMI</label><button class="tip-btn" aria-label="Learn more" data-tip="Private mortgage insurance required when your down payment is under 20% of the purchase price. Typically 0.5–1.5% of the loan amount per year, or roughly $100–$250/month on a $300K loan. Drops off once your loan-to-value ratio reaches 80%.">?</button></div>
             <div class="input-wrap prefix">
               <span class="affix">$</span>
-              <input type="number" id="currentHOA" min="0" step="50">
+              <input type="number" id="monthlyPMI" min="0" step="10">
             </div>
-            <div class="helper">Monthly HOA on your current home</div>
+            <div class="helper">If down payment &lt; 20%</div>
           </div>
           <div class="field">
             <label>NEW HOME HOA</label>
@@ -351,34 +354,35 @@
           </div>
         </div>
 
-        <div class="field">
-          <div class="field-row-head">
-            <label>HOMEOWNERS INSURANCE</label>
-            <div class="mode-toggle">
-              <button class="mode-btn active" id="hoiModeDollar">$</button>
-              <button class="mode-btn" id="hoiModePct">%</button>
+        <div class="two-col">
+          <div class="field">
+            <div class="field-row-head">
+              <label>HOME INS.</label>
+              <div class="mode-toggle">
+                <button class="mode-btn active" id="hoiModeDollar">$</button>
+                <button class="mode-btn" id="hoiModePct">%</button>
+              </div>
             </div>
-          </div>
-          <div class="input-wrap prefix" id="hoiInputWrap">
-            <span class="affix" id="hoiAffix">$</span>
-            <input type="number" id="homeownersInsurance" min="0" step="10">
-          </div>
-          <div class="helper" id="hoiHelper">Monthly homeowners insurance premium</div>
-        </div>
-
-        <div class="field">
-          <div class="field-row-head">
-            <label>Annual Property Tax</label>
-            <div class="mode-toggle">
-              <button class="mode-btn active" id="taxModePercent" data-mode="percent">%</button>
-              <button class="mode-btn" id="taxModeDollar" data-mode="dollar">$</button>
+            <div class="input-wrap prefix" id="hoiInputWrap">
+              <span class="affix" id="hoiAffix">$</span>
+              <input type="number" id="homeownersInsurance" min="0" step="10">
             </div>
+            <div class="helper" id="hoiHelper">Monthly premium</div>
           </div>
-          <div class="input-wrap prefix" id="taxInputWrap">
-            <span class="affix" id="taxAffix">$</span>
-            <input type="number" id="propertyTax" min="0" step="100">
+          <div class="field">
+            <div class="field-row-head">
+              <label>PROPERTY TAX</label>
+              <div class="mode-toggle">
+                <button class="mode-btn active" id="taxModePercent" data-mode="percent">%</button>
+                <button class="mode-btn" id="taxModeDollar" data-mode="dollar">$</button>
+              </div>
+            </div>
+            <div class="input-wrap prefix" id="taxInputWrap">
+              <span class="affix" id="taxAffix">$</span>
+              <input type="number" id="propertyTax" min="0" step="100">
+            </div>
+            <div class="helper" id="taxHelper">Annual; ≈1% of price</div>
           </div>
-          <div class="helper" id="taxHelper">≈1.00% of purchase price</div>
         </div>
 
         <button type="button" class="section-collapse-hdr mt-sm" id="buyCostsToggle" aria-expanded="false">
@@ -1055,7 +1059,7 @@
 </div><!-- /app -->
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<script src="calculator.js?v=6"></script>
+<script src="calculator.js?v=8"></script>
 <script>
   (function() {
     function makeCollapse(toggleId, bodyId) {

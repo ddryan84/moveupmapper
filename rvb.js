@@ -584,6 +584,33 @@ function load() {
   } catch (_) {}
 }
 
+function encodeShareState() {
+  try {
+    const c = calculate(state);
+    const delta = {};
+    for (const key of Object.keys(DEFAULTS)) {
+      if (state[key] !== DEFAULTS[key]) delta[key] = state[key];
+    }
+    delta._s = {
+      purchasePrice:    state.purchasePrice,
+      rent:             state.rent,
+      buyMonthlyYr1:    Math.round(c.buyMonthlyYr1),
+      rentMonthlyYr1:   Math.round(c.rentMonthlyCosts[0]),
+      costCrossoverYear: c.costCrossoverYear ?? null,
+      horizonYears:     state.horizonYears,
+    };
+    return btoa(JSON.stringify(delta));
+  } catch (_) { return null; }
+}
+
+function decodeShareParam(search) {
+  try {
+    const param = new URLSearchParams(search).get('share');
+    if (!param) return null;
+    return JSON.parse(atob(param));
+  } catch (_) { return null; }
+}
+
 function populateFields() {
   const fields = [
     'opportunityCost',
@@ -751,11 +778,32 @@ function bindInputs() {
     recalc();
   });
 
+  document.getElementById('shareBtn')?.addEventListener('click', function () {
+    const encoded = encodeShareState();
+    if (!encoded) return;
+    const url = location.origin + location.pathname + '?share=' + encodeURIComponent(encoded);
+    const btn = document.getElementById('shareBtn');
+    if (navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(url).then(() => {
+        btn.textContent = 'Copied!';
+        setTimeout(() => { btn.textContent = 'Share'; }, 2000);
+      });
+    } else {
+      prompt('Copy this link to share your scenario:', url);
+    }
+  });
+
   document.getElementById('printBtn')?.addEventListener('click', () => window.print());
 }
 
 function init() {
   load();
+  const shared = decodeShareParam(location.search);
+  if (shared) {
+    const { _s, ...fields } = shared;
+    state = { ...DEFAULTS, ...fields };
+    history.replaceState(null, '', location.pathname);
+  }
   initCharts();
   populateFields();
   bindInputs();

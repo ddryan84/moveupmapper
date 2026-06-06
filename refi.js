@@ -555,6 +555,33 @@ function loadState() {
   } catch (_) { state = { ...DEFAULTS }; }
 }
 
+function encodeShareState() {
+  try {
+    const c = calculate();
+    const delta = {};
+    for (const key of Object.keys(DEFAULTS)) {
+      if (state[key] !== DEFAULTS[key]) delta[key] = state[key];
+    }
+    delta._s = {
+      loanBalance:    state.loanBalance,
+      currentRate:    state.currentRate,
+      newRate:        state.newRate,
+      monthlySavings: Math.round(c.monthlySavings),
+      breakEvenMonths: isFinite(c.breakEvenMonths) ? Math.round(c.breakEvenMonths) : null,
+      interestSaved:  Math.round(c.interestSaved),
+    };
+    return btoa(JSON.stringify(delta));
+  } catch (_) { return null; }
+}
+
+function decodeShareParam(search) {
+  try {
+    const param = new URLSearchParams(search).get('share');
+    if (!param) return null;
+    return JSON.parse(atob(param));
+  } catch (_) { return null; }
+}
+
 function syncInputs() {
   for (const [key, val] of Object.entries(state)) {
     const el = document.getElementById(key);
@@ -570,6 +597,12 @@ function syncInputs() {
 // ── Event wiring ────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', function () {
   loadState();
+  const shared = decodeShareParam(location.search);
+  if (shared) {
+    const { _s, ...fields } = shared;
+    state = { ...DEFAULTS, ...fields };
+    history.replaceState(null, '', location.pathname);
+  }
   syncInputs();
   syncUnknownMode();
   syncRollMode();
@@ -683,6 +716,22 @@ document.addEventListener('DOMContentLoaded', function () {
       syncRollMode();
       render();
     });
+  });
+
+  // Share
+  document.getElementById('shareBtn')?.addEventListener('click', function () {
+    const encoded = encodeShareState();
+    if (!encoded) return;
+    const url = location.origin + location.pathname + '?share=' + encodeURIComponent(encoded);
+    const btn = document.getElementById('shareBtn');
+    if (navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(url).then(() => {
+        btn.textContent = 'Copied!';
+        setTimeout(() => { btn.textContent = 'Share'; }, 2000);
+      });
+    } else {
+      prompt('Copy this link to share your scenario:', url);
+    }
   });
 
   // Reset

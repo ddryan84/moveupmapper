@@ -97,6 +97,35 @@ function load() {
   } catch (_) { return false; }
 }
 
+/* ── Share / URL state ── */
+function encodeShareState() {
+  try {
+    const s = getState();
+    const c = calculate(s);
+    const delta = {};
+    for (const key of Object.keys(DEFAULTS)) {
+      if (s[key] !== DEFAULTS[key]) delta[key] = s[key];
+    }
+    delta._s = {
+      homeValuation: s.homeValuation,
+      purchasePrice: s.purchasePrice,
+      totalMonthly:  Math.round(c.totalMonthly),
+      downPayment:   Math.round(c.downPayment),
+      dpPct:         c.dpPct,
+      cashRemaining: Math.round(c.cashRemaining),
+    };
+    return btoa(JSON.stringify(delta));
+  } catch (_) { return null; }
+}
+
+function decodeShareParam(search) {
+  try {
+    const param = new URLSearchParams(search).get('share');
+    if (!param) return null;
+    return JSON.parse(atob(param));
+  } catch (_) { return null; }
+}
+
 /* ── Math helpers ── */
 function mortgageFactor(annualRate, termMonths) {
   termMonths = termMonths || 360;
@@ -916,6 +945,15 @@ function init() {
   if (!scenarios.a) scenarios.a = { ...DEFAULTS, _rateIsDefault: true };
   if (!scenarios.b) scenarios.b = { ...DEFAULTS, _rateIsDefault: true };
 
+  // If a shared link was opened, load its state into scenario A
+  const sharedState = decodeShareParam(location.search);
+  if (sharedState) {
+    const { _s, ...stateFields } = sharedState;
+    scenarios.a = { ...DEFAULTS, ...stateFields };
+    activeScenario = 'a';
+    history.replaceState(null, '', location.pathname);
+  }
+
   initCharts();
   switchScenario(activeScenario);
 
@@ -1021,6 +1059,22 @@ function init() {
   // Fill estimates
   $('fillSellEstimates')?.addEventListener('click', fillSellingEstimates);
   $('fillBuyEstimates')?.addEventListener('click', fillBuyingEstimates);
+
+  // Share
+  $('shareBtn')?.addEventListener('click', () => {
+    const encoded = encodeShareState();
+    if (!encoded) return;
+    const url = location.origin + location.pathname + '?share=' + encodeURIComponent(encoded);
+    const btn = $('shareBtn');
+    if (navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(url).then(() => {
+        btn.textContent = 'Copied!';
+        setTimeout(() => { btn.textContent = 'Share'; }, 2000);
+      });
+    } else {
+      prompt('Copy this link to share your scenario:', url);
+    }
+  });
 
   // Print
   $('printBtn').addEventListener('click', () => window.print());
