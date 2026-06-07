@@ -1650,6 +1650,49 @@ details.adv-section[open] .adv-chevron { transform: rotate(180deg); }
 .landing-section-head h2 { font-size: 20px; color: var(--text); margin-bottom: 4px; }
 .landing-section-head p { font-size: 13.5px; color: var(--text-muted); line-height: 1.6; max-width: 640px; margin: 0; }
 
+.trust-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 28px;
+  padding: 20px 24px;
+  background: var(--gray-50);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+}
+.trust-item { display: flex; align-items: flex-start; gap: 12px; }
+.trust-item-icon {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  background: #eef2ff;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.trust-item-head { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+.trust-item-body { font-size: 12.5px; color: var(--text-muted); line-height: 1.55; }
+
+.maker-card {
+  margin-top: 40px;
+  padding: 28px 32px;
+  background: var(--gray-50);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+}
+.maker-card-label {
+  font-size: 10px; font-weight: 700; letter-spacing: .07em;
+  text-transform: uppercase; color: var(--indigo);
+  margin-bottom: 10px;
+}
+.maker-card h2 { font-size: 18px; color: var(--text); margin-bottom: 14px; line-height: 1.3; }
+.maker-card p { font-size: 14px; color: var(--text-muted); line-height: 1.7; max-width: 680px; margin: 0 0 12px; }
+.maker-card p:last-of-type { margin-bottom: 0; }
+.maker-signature { margin-top: 18px; font-size: 13.5px; font-weight: 600; color: var(--text); }
+
+@media (max-width: 700px) {
+  .trust-strip { grid-template-columns: 1fr; padding: 16px 16px; gap: 14px; }
+  .maker-card { padding: 20px 16px; }
+}
+
 .chart-controls { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; }
 .cleg-anchor { display: flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; color: var(--text); white-space: nowrap; }
 .cleg-line { display: inline-block; width: 18px; height: 2.5px; border-radius: 2px; flex-shrink: 0; }

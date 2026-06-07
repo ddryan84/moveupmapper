@@ -149,6 +149,54 @@
     </div>
   </section>
 
+  <!-- Privacy / Trust Strip -->
+  <section class="landing-section">
+    <div class="landing-section-head">
+      <h2>Your Privacy</h2>
+      <p>Most comparable tools require you to sign up and then subject you to marketing. This site works differently.</p>
+    </div>
+  <div class="trust-strip">
+
+    <div class="trust-item">
+      <div class="trust-item-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+      </div>
+      <div>
+        <div class="trust-item-head">No account required</div>
+        <div class="trust-item-body">Open any calculator without creating an account or signing in.</div>
+      </div>
+    </div>
+
+    <div class="trust-item">
+      <div class="trust-item-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="trust-item-head">Nothing stored or tracked</div>
+        <div class="trust-item-body">Your inputs stay in your browser. We don't collect, store, or share anything you enter.</div>
+      </div>
+    </div>
+
+    <div class="trust-item">
+      <div class="trust-item-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+          <line x1="1" y1="1" x2="23" y2="23"/>
+        </svg>
+      </div>
+      <div>
+        <div class="trust-item-head">No email, no spam, ever</div>
+        <div class="trust-item-body">We never ask for your email address. No newsletters, no marketing, no follow-ups.</div>
+      </div>
+    </div>
+
+  </div>
+  </section>
+
   <!-- Market Context -->
   <section class="landing-section">
     <div class="landing-section-head">
@@ -214,7 +262,18 @@
       <h2>Guides &amp; Explainers</h2>
       <p>In-depth articles on the math and tradeoffs behind major housing decisions.</p>
     </div>
-    <div class="article-grid" style="margin-top:16px;grid-template-columns:repeat(3,1fr)">
+    <div class="article-grid" style="margin-top:16px">
+
+      <!-- Featured article -->
+      <a href="/learn/fed-funds-vs-mortgage-rates" class="article-card" style="grid-column:1/-1;text-decoration:none;padding:24px 28px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div class="article-category article-category--market">Market</div>
+          <span style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#4f46e5;background:#eef2ff;padding:2px 8px;border-radius:8px;">Latest</span>
+        </div>
+        <h3 style="font-size:20px;line-height:1.3;max-width:680px;">The Fed Funds Rate vs. Mortgage Rates: Why They Don't Move Together</h3>
+        <p class="article-teaser" style="font-size:13.5px;max-width:680px;">When the Federal Reserve cuts rates, mortgage rates often don't follow — because they're priced off the 10-year Treasury, not the Fed. This guide explains the mechanics behind the disconnect, why the spread has been historically wide since 2022, and what buyers should actually be watching to anticipate where rates are heading.</p>
+        <span class="article-card-link" style="margin-top:2px;">Read the guide →</span>
+      </a>
 
       <div class="article-card">
         <div class="article-category article-category--buying">Buying</div>
@@ -237,26 +296,19 @@
         <a href="/learn/mortgage-rates-buying-power" class="article-card-link">Read the guide →</a>
       </div>
 
-      <div class="article-card">
-        <div class="article-category article-category--mortgages">Mortgages</div>
-        <h3>When Does Refinancing Actually Make Sense?</h3>
-        <p class="article-teaser">The "1% rule" is a shortcut, not a framework. This guide walks through break-even analysis, the term reset problem, no-cost refinances, and the scenarios where refinancing clearly pencils out — and where it doesn't.</p>
-        <a href="/learn/when-to-refinance" class="article-card-link">Read the guide →</a>
-      </div>
-
-      <div class="article-card">
-        <div class="article-category article-category--mortgages">Mortgages</div>
-        <h3>How Extra Mortgage Payments Save Thousands</h3>
-        <p class="article-teaser">Adding $200/month to a $400,000 mortgage saves roughly $120,000 in interest and cuts nearly six years off the loan. Here's the math behind why it works, and when investing that money instead makes more sense.</p>
-        <a href="/learn/extra-mortgage-payments" class="article-card-link">Read the guide →</a>
-      </div>
-
       <a href="/learn" class="article-card" style="justify-content:center;align-items:center;text-decoration:none;border-style:dashed;background:transparent;color:var(--indigo);font-weight:600;font-size:15px;gap:6px">
         View all guides →
       </a>
 
     </div>
   </section>
+
+  <!-- From the maker -->
+  <div class="maker-card">
+    <div class="maker-card-label">From the maker</div>
+    <h2>Why I built this</h2>
+    <p>I originally built an overengineered (and truly ugly — seriously, my wife hated it) Excel spreadsheet to answer one simple question: when could my family realistically move into a larger home? Most existing tools had two major drawbacks: they required personal info like a phone number or email address, subjecting you to relentless marketing, and they largely catered to the rent vs. buy question rather than when to buy again. So I built the Home Swap Calculator, the most distinctive part of this site. Other questions kept coming up along the way, and that's how the rest of the calculators got added. The articles came later — questions I'd had to piece together myself while going through the process, on the assumption that others were probably asking the same things.</p>
+  </div>
 
   <!-- Footer -->
   <footer class="site-footer no-print">
