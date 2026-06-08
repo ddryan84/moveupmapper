@@ -1,5 +1,15 @@
 'use strict';
 
+/* ── Analytics ── */
+function trackCalc(name, action) {
+  if (action === 'used') {
+    if (!window._calcTracked) window._calcTracked = {};
+    if (window._calcTracked[name]) return;
+    window._calcTracked[name] = true;
+  }
+  if (typeof gtag === 'function') gtag('event', 'calculator_' + action, { calculator: name });
+}
+
 const RVB_LS_KEY = 'rvbCalc_v3';
 
 const DEFAULTS = {
@@ -641,6 +651,8 @@ function populateFields() {
 }
 
 function bindInputs() {
+  document.addEventListener('input', function () { trackCalc('rvb', 'used'); }, { once: true, capture: true });
+
   function num(key, afterUpdate) {
     const el = document.getElementById(key);
     if (!el) return;
@@ -779,6 +791,7 @@ function bindInputs() {
   });
 
   document.getElementById('shareBtn')?.addEventListener('click', function () {
+    trackCalc('rvb', 'share');
     const encoded = encodeShareState();
     if (!encoded) return;
     const url = location.origin + location.pathname + '?share=' + encodeURIComponent(encoded);

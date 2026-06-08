@@ -1,5 +1,15 @@
 'use strict';
 
+/* ── Analytics ── */
+function trackCalc(name, action) {
+  if (action === 'used') {
+    if (!window._calcTracked) window._calcTracked = {};
+    if (window._calcTracked[name]) return;
+    window._calcTracked[name] = true;
+  }
+  if (typeof gtag === 'function') gtag('event', 'calculator_' + action, { calculator: name });
+}
+
 const COMPOUND_LS_KEY = 'compoundCalc_v1';
 
 const DEFAULTS = {
@@ -729,6 +739,8 @@ function populateFields() {
 }
 
 function bindInputs() {
+  document.addEventListener('input', function () { trackCalc('compound', 'used'); }, { once: true, capture: true });
+
   function num(key) {
     const el = document.getElementById(key);
     if (!el) return;
@@ -859,6 +871,7 @@ function bindInputs() {
     }
   });
   document.getElementById('shareBtn')?.addEventListener('click', function () {
+    if (activeTab !== 'goal') trackCalc('compound', 'share');
     const btn = document.getElementById('shareBtn');
     if (activeTab === 'goal') {
       const origHTML = btn.innerHTML;
@@ -1172,6 +1185,7 @@ function bindGoalInputs() {
 
 function switchTab(tab) {
   activeTab = tab;
+  if (typeof gtag === 'function') gtag('event', 'tab_switch', { calculator: 'compound', tab: tab });
   document.querySelectorAll('.calc-tab').forEach(btn =>
     btn.classList.toggle('active', btn.dataset.tab === tab));
   const tg = document.getElementById('tab-growth');

@@ -1,5 +1,15 @@
 'use strict';
 
+/* ── Analytics ── */
+function trackCalc(name, action) {
+  if (action === 'used') {
+    if (!window._calcTracked) window._calcTracked = {};
+    if (window._calcTracked[name]) return;
+    window._calcTracked[name] = true;
+  }
+  if (typeof gtag === 'function') gtag('event', 'calculator_' + action, { calculator: name });
+}
+
 const REFI_LS_KEY = 'refiCalc_v5';
 
 const DEFAULTS = {
@@ -596,6 +606,8 @@ function syncInputs() {
 
 // ── Event wiring ────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', function () {
+  document.addEventListener('input', function () { trackCalc('refi', 'used'); }, { once: true, capture: true });
+
   loadState();
   const shared = decodeShareParam(location.search);
   if (shared) {
@@ -720,6 +732,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Share
   document.getElementById('shareBtn')?.addEventListener('click', function () {
+    trackCalc('refi', 'share');
     const encoded = encodeShareState();
     if (!encoded) return;
     const url = location.origin + location.pathname + '?share=' + encodeURIComponent(encoded);

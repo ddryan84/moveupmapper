@@ -1,5 +1,15 @@
 'use strict';
 
+/* ── Analytics ── */
+function trackCalc(name, action) {
+  if (action === 'used') {
+    if (!window._calcTracked) window._calcTracked = {};
+    if (window._calcTracked[name]) return;
+    window._calcTracked[name] = true;
+  }
+  if (typeof gtag === 'function') gtag('event', 'calculator_' + action, { calculator: name });
+}
+
 const PAYOFF_LS_KEY = 'payoffCalc_v1';
 
 const DEFAULTS = {
@@ -460,6 +470,8 @@ function syncInputs() {
 
 // ── Events ────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', function () {
+  document.addEventListener('input', function () { trackCalc('payoff', 'used'); }, { once: true, capture: true });
+
   loadState();
   const shared = decodeShareParam(location.search);
   if (shared) {
@@ -504,6 +516,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   document.getElementById('shareBtn')?.addEventListener('click', function () {
+    trackCalc('payoff', 'share');
     const encoded = encodeShareState();
     if (!encoded) return;
     const url = location.origin + location.pathname + '?share=' + encodeURIComponent(encoded);

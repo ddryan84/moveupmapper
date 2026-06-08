@@ -1,5 +1,15 @@
 'use strict';
 
+/* ── Analytics ── */
+function trackCalc(name, action) {
+  if (action === 'used') {
+    if (!window._calcTracked) window._calcTracked = {};
+    if (window._calcTracked[name]) return;
+    window._calcTracked[name] = true;
+  }
+  if (typeof gtag === 'function') gtag('event', 'calculator_' + action, { calculator: name });
+}
+
 /* ── Defaults ── */
 const DEFAULTS = {
   // Current home
@@ -740,6 +750,8 @@ function syncTargetPriceMode(mode) {
 
 /* ── Bind Inputs ── */
 function bindInputs() {
+  document.addEventListener('input', function () { trackCalc('swap', 'used'); }, { once: true, capture: true });
+
   const s = getState();
 
   function num(id) {
@@ -1062,6 +1074,7 @@ function init() {
 
   // Share
   $('shareBtn')?.addEventListener('click', () => {
+    trackCalc('swap', 'share');
     const encoded = encodeShareState();
     if (!encoded) return;
     const url = location.origin + location.pathname + '?share=' + encodeURIComponent(encoded);
