@@ -21,8 +21,9 @@
   <link rel="canonical" href="https://www.moveupmapper.com/compound">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=31">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"></noscript>
+  <link rel="stylesheet" href="styles.css?v=32">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-YCEFCLSHX0"></script>
   <script>
@@ -87,6 +88,13 @@
     </div>
   </details>
 
+  <!-- ── Calculator Tabs ── -->
+  <div class="calc-tabs no-print">
+    <button class="calc-tab active" data-tab="growth">Growth Projector</button>
+    <button class="calc-tab" data-tab="goal">Retirement Goal Planner</button>
+  </div>
+
+  <div id="tab-growth" class="tab-panel">
   <!-- ── Investment Horizon ── -->
   <div class="card wide-card horizon-card no-print">
     <div class="horizon-inner">
@@ -704,6 +712,306 @@ The erosion compounds in reverse, just as investment returns compound forward: e
     </div>
   </details>
 
+  </div><!-- #tab-growth -->
+
+  <!-- ── Retirement Goal Planner Tab ── -->
+  <div id="tab-goal" class="tab-panel" style="display:none">
+
+    <!-- Input Card -->
+    <div class="card wide-card">
+      <div class="card-head">
+        <div class="card-icon" style="background:#7c3aed">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+          </svg>
+        </div>
+        <div>
+          <div class="card-title">Retirement Goal Planner</div>
+          <div class="card-sub">Enter your retirement income goal — we'll calculate what you need to save to get there</div>
+        </div>
+      </div>
+
+      <div class="card-section">
+        <div class="section-label">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          PORTFOLIO &amp; RETURNS
+        </div>
+        <div class="three-col">
+          <div class="field">
+            <label>CURRENT SAVINGS</label>
+            <div class="input-wrap prefix">
+              <span class="affix">$</span>
+              <input type="number" id="g-currentSavings" min="0" step="1000">
+            </div>
+            <div class="helper">What you've already saved — enter $0 to model from scratch</div>
+          </div>
+          <div class="field">
+            <label>EXPECTED ANNUAL RETURN</label>
+            <div class="input-wrap suffix">
+              <input type="number" id="g-annualReturn" min="-20" max="50" step="0.1">
+              <span class="affix">%</span>
+            </div>
+            <div class="helper">Expected average annual growth rate on investments</div>
+          </div>
+          <div class="field">
+            <label>INFLATION RATE</label>
+            <div class="input-wrap suffix">
+              <input type="number" id="g-inflation" min="0" max="20" step="0.1">
+              <span class="affix">%</span>
+            </div>
+            <div class="helper">Used to convert today's dollars to nominal retirement values</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-section" style="border-top:1px solid var(--border)">
+        <div class="section-label">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          YOUR RETIREMENT GOAL
+        </div>
+        <div class="three-col">
+          <div class="field">
+            <label>YEARS UNTIL RETIREMENT</label>
+            <div class="input-wrap suffix">
+              <input type="number" id="g-yearsToRetirement" min="1" max="60" step="1">
+              <span class="affix">yrs</span>
+            </div>
+            <div class="helper">How many years you have to build your nest egg</div>
+          </div>
+          <div class="field">
+            <div class="label-tip-row"><label>ANNUAL INCOME IN RETIREMENT</label><button class="tip-btn" aria-label="Learn more" data-tip="Enter your desired annual spending in today's dollars. The calculator adjusts for inflation to find the equivalent nominal amount at retirement. A common target is 70–80% of current income.">?</button></div>
+            <div class="input-wrap prefix">
+              <span class="affix">$</span>
+              <input type="number" id="g-annualWithdrawal" min="0" step="1000">
+            </div>
+            <div class="helper">In today's dollars — inflation-adjusted to retirement-era amounts</div>
+          </div>
+          <div class="field">
+            <div class="label-tip-row"><label>YEARS OF RETIREMENT TO FUND</label><button class="tip-btn" aria-label="Learn more" data-tip="How many years your nest egg needs to last. A 65-year-old has roughly a 50% chance of living past 85. Planning for 25–30 years significantly reduces the risk of outliving your savings.">?</button></div>
+            <div class="input-wrap suffix">
+              <input type="number" id="g-withdrawalYears" min="1" max="60" step="1">
+              <span class="affix">yrs</span>
+            </div>
+            <div class="helper">Plan for 25–30 years for a comfortable safety margin</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-section" style="border-top:1px solid var(--border)">
+        <div class="section-label">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          GROWING CONTRIBUTIONS SCENARIO
+        </div>
+        <div style="max-width:340px">
+          <div class="field">
+            <div class="label-tip-row"><label>ANNUAL SAVINGS GROWTH RATE</label><button class="tip-btn" aria-label="Learn more" data-tip="The rate at which you plan to increase your annual savings each year. If you save a fixed percentage of a salary that grows 3% per year, your contributions also grow 3% annually. Starting lower but growing faster often requires less sacrifice in early years while reaching the same end goal.">?</button></div>
+            <div class="input-wrap suffix">
+              <input type="number" id="g-contribGrowth" min="0" max="20" step="0.1">
+              <span class="affix">%/yr</span>
+            </div>
+            <div class="helper">Rate your annual savings increases — matches income growth if saving a fixed % of salary</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Summary Stats -->
+    <div class="card wide-card">
+      <div class="rvb-stats-grid rvb-stats-grid--4">
+        <div class="bp-stat">
+          <div class="bp-stat-label">REQUIRED NEST EGG</div>
+          <div class="bp-stat-value" id="g-stat-nest-egg" style="color:var(--indigo)">—</div>
+          <div class="bp-stat-delta">portfolio needed at retirement start</div>
+        </div>
+        <div class="bp-stat">
+          <div class="bp-stat-label">COVERED BY SAVINGS</div>
+          <div class="bp-stat-value" id="g-stat-savings-cover">—</div>
+          <div class="bp-stat-delta" id="g-stat-savings-cover-sub">current savings, grown to retirement</div>
+        </div>
+        <div class="bp-stat">
+          <div class="bp-stat-label">CONTRIBUTION GAP</div>
+          <div class="bp-stat-value" id="g-stat-gap">—</div>
+          <div class="bp-stat-delta">what contributions need to build</div>
+        </div>
+        <div class="bp-stat">
+          <div class="bp-stat-label">ANNUAL SAVINGS NEEDED</div>
+          <div class="bp-stat-value" id="g-stat-flat-annual">—</div>
+          <div class="bp-stat-delta">flat contributions scenario</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scenarios -->
+    <div class="card wide-card">
+      <div class="card-head">
+        <div class="card-icon" style="background:#7c3aed">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 100 7h5a3.5 3.5 0 110 7H6"/>
+          </svg>
+        </div>
+        <div>
+          <div class="card-title">Savings Scenarios</div>
+          <div class="card-sub">Two paths to the same goal — flat contributions versus a rising schedule</div>
+        </div>
+      </div>
+      <div class="card-section" id="g-scenarios-body">
+        <div class="goal-scenarios">
+          <div class="goal-scenario">
+            <div class="goal-scenario-label">Option A — Flat Contributions</div>
+            <div class="goal-scenario-primary" id="g-flat-annual">—</div>
+            <div class="goal-scenario-sub" id="g-flat-sub">per year</div>
+            <div class="goal-scenario-rows">
+              <div class="goal-scenario-row">
+                <span>Monthly equivalent</span>
+                <span id="g-flat-monthly">—</span>
+              </div>
+              <div class="goal-scenario-row">
+                <span>Total contributions</span>
+                <span id="g-flat-total-contrib">—</span>
+              </div>
+              <div class="goal-scenario-row">
+                <span>Compound returns</span>
+                <span id="g-flat-returns" style="color:#16a34a">—</span>
+              </div>
+            </div>
+          </div>
+          <div class="goal-scenario featured">
+            <div class="goal-scenario-label">Option B — Growing Contributions (<span class="g-cgr-label">3</span>%/yr)</div>
+            <div class="goal-scenario-primary" id="g-growing-annual">—</div>
+            <div class="goal-scenario-sub" id="g-growing-sub">in year 1</div>
+            <div class="goal-scenario-rows">
+              <div class="goal-scenario-row">
+                <span>Year <span class="g-n-label">30</span> contribution</span>
+                <span id="g-growing-yrN">—</span>
+              </div>
+              <div class="goal-scenario-row">
+                <span>Total contributions</span>
+                <span id="g-growing-total-contrib">—</span>
+              </div>
+              <div class="goal-scenario-row">
+                <span>Compound returns</span>
+                <span id="g-growing-returns" style="color:#16a34a">—</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="rvb-info-box" style="margin-top:16px">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span>Your target of <strong id="g-ctx-today-wd">—</strong> in today's dollars equals <strong id="g-ctx-nominal-wd">—</strong> in nominal terms at retirement — adjusted at <span id="g-ctx-infl">3</span> inflation over <span id="g-ctx-years">30</span> years. The nest egg funds that income for <span id="g-ctx-wd-years">25</span> years, with withdrawals growing at inflation to preserve purchasing power.</span>
+        </div>
+      </div>
+      <div class="card-section" id="g-no-contrib-msg" style="display:none">
+        <div class="rvb-info-box" style="border-color:#16a34a;background:#f0fdf4">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><polyline points="20 6 9 17 4 12"/></svg>
+          <span style="color:#16a34a;font-weight:600">Your current savings alone will meet this goal — no additional contributions required.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chart -->
+    <div class="card wide-card">
+      <div class="card-head">
+        <div class="card-icon" style="background:#7c3aed">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 3v18h18"/><path d="M7 16l4-4 4 4 4-8"/>
+          </svg>
+        </div>
+        <div>
+          <div class="card-title">Portfolio Trajectory to Goal</div>
+          <div class="card-sub">Year-by-year balance for each savings path versus your required nest egg</div>
+        </div>
+      </div>
+      <div class="bp-chart-area" style="border-right:none">
+        <div style="height:320px;position:relative">
+          <canvas id="goalChart"></canvas>
+        </div>
+        <div class="chart-footnote">
+          <strong>Flat contributions</strong> keeps your annual savings constant throughout.
+          <strong>Growing contributions</strong> starts lower and increases by your savings growth rate each year.
+          The <strong>target line</strong> marks the required nest egg — both paths converge there at year <span class="g-n-label">30</span>.
+          Returns from current savings are included in both trajectories.
+        </div>
+      </div>
+    </div>
+
+    <!-- Key Concepts -->
+    <details class="card wide-card glossary-card">
+      <summary class="card-head">
+        <div class="card-icon" style="background:#0f766e">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="card-title">Key Concepts &amp; How It Works</div>
+          <div class="card-sub">The math behind each input, what the outputs represent, and the assumptions built into this model</div>
+        </div>
+        <svg class="adv-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left:auto;flex-shrink:0">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </summary>
+
+      <div class="glossary-body">
+
+        <div class="gloss-group">
+          <div class="gloss-group-title">How the Calculations Work</div>
+          <div class="gloss-grid">
+
+            <div class="gloss-item">
+              <div class="gloss-term">Required Nest Egg</div>
+              <div class="gloss-def">The nest egg is the portfolio balance you need at the moment you retire. It is calculated as the present value of a growing annuity-due: a stream of withdrawals that starts immediately at retirement and increases each year at the inflation rate to preserve purchasing power. The formula is: NestEgg = W₁ × [1 − ((1+i)/(1+r))ᵈ] / (r − i) × (1+r), where W₁ is the first nominal withdrawal (paid at retirement start), r is your expected return, i is inflation, and d is the number of retirement years. When r equals i, this simplifies to NestEgg = W₁ × d. The annuity-due convention assumes the first withdrawal occurs on day one of retirement — a conservative and realistic assumption. The nest egg grows larger when the withdrawal period is longer, when inflation is higher, or when the portfolio return is lower.</div>
+            </div>
+
+            <div class="gloss-item">
+              <div class="gloss-term">Annual Income in Today's Dollars</div>
+              <div class="gloss-def">You enter your retirement income target in today's purchasing power — the amount in today's terms, not the nominal figure you'll actually withdraw. The calculator converts it to a nominal retirement-era amount using your inflation rate: NominalWithdrawal = TodaysDollars × (1 + inflation)^yearsToRetirement. Entering in today's dollars is more intuitive because you can compare directly to your current spending. A target of $80,000/yr in today's dollars at 3% inflation over 30 years becomes roughly $194,000/yr in nominal terms — but both represent the same real standard of living.</div>
+            </div>
+
+            <div class="gloss-item">
+              <div class="gloss-term">Contribution Gap</div>
+              <div class="gloss-def">The gap is the portion of your required nest egg not already covered by your current savings. Your existing savings are projected forward to retirement: CoveredBySavings = CurrentSavings × (1 + r)^n. If this projected figure equals or exceeds the nest egg target, the gap is zero and no additional contributions are needed. Otherwise, Gap = TargetNestEgg − CoveredBySavings. All annual savings calculations are then sized to fill exactly this gap through compounding contributions over your accumulation period.</div>
+            </div>
+
+            <div class="gloss-item">
+              <div class="gloss-term">Flat vs. Growing Contributions</div>
+              <div class="gloss-def">Option A (flat) solves for a single constant annual savings amount using the future value of an ordinary annuity: FV = PMT × [(1+r)ⁿ − 1] / r. Rearranged: PMT = Gap × r / [(1+r)ⁿ − 1]. Option B (growing) solves for a first-year amount that then increases at your savings growth rate each year, using the future value of a growing annuity: FV = PMT₁ × [(1+r)ⁿ − (1+g)ⁿ] / (r − g). The growing scenario typically requires a lower year-1 commitment because later, larger contributions benefit from higher compounding — but the total amount contributed is often similar. The choice between them depends on whether you prefer a predictable fixed amount or a schedule that rises alongside income.</div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="gloss-group">
+          <div class="gloss-group-title">Assumptions &amp; Limitations</div>
+          <div class="gloss-grid">
+
+            <div class="gloss-item">
+              <div class="gloss-term">Constant Return Rate</div>
+              <div class="gloss-def">The model applies the same annual return every year through both the accumulation and retirement phases. Real portfolio returns fluctuate — a bad sequence of returns early in retirement (when the portfolio is largest and withdrawals are starting) can deplete savings far faster than a constant-rate model suggests. This is called sequence-of-returns risk, and it is not captured here. The nest egg this calculator targets is a reasonable starting point, but many financial planners recommend building in a buffer — sizing for a 3–4% withdrawal rate rather than the portfolio's full expected return.</div>
+            </div>
+
+            <div class="gloss-item">
+              <div class="gloss-term">Constant Inflation Rate</div>
+              <div class="gloss-def">A single inflation rate is applied uniformly to convert today's dollars to retirement-era nominal amounts and to grow withdrawals throughout retirement. Actual inflation varies year to year and may be higher for retirees — healthcare costs, for example, have historically inflated faster than the broad CPI. The results here are estimates based on your assumption, not a guarantee of purchasing power. Using a slightly higher inflation rate (e.g., 3.5% instead of 2.5%) produces a more conservative nest egg target.</div>
+            </div>
+
+            <div class="gloss-item">
+              <div class="gloss-term">No Other Income Sources</div>
+              <div class="gloss-def">The model assumes your entire retirement income comes from your investment portfolio. It does not account for Social Security benefits, a pension, rental income, part-time work, or an inheritance. If you expect meaningful income from other sources, reduce your annual income target by that amount before entering it — for example, if Social Security will cover $30,000/yr, and you want $80,000/yr total, enter $50,000 as your portfolio income target. This produces a smaller, more accurate nest egg and lower required savings.</div>
+            </div>
+
+            <div class="gloss-item">
+              <div class="gloss-term">End-of-Year Contribution Timing</div>
+              <div class="gloss-def">Contributions are modeled as a single annual deposit at the end of each year. Beginning-of-year deposits would produce marginally higher results because they compound for the full year rather than nothing in year one. For the flat scenario, the actual optimal contribution schedule is monthly (as in the Growth Projector tab), but the annual model used here is a standard simplification that slightly understates the benefit of more frequent contributions — a conservative and commonly accepted assumption for this type of planning calculation.</div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </details>
+
+  </div><!-- #tab-goal -->
+
   <a href="/rvb" class="tool-crosslink no-print">
     <div class="tool-crosslink-icon" style="background:#7c3aed">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
@@ -735,7 +1043,7 @@ The erosion compounds in reverse, just as investment returns compound forward: e
 </div><!-- end .app -->
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<script src="compound.js?v=13"></script>
+<script src="compound.js?v=15"></script>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const slider = document.getElementById('durationSlider');

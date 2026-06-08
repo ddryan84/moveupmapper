@@ -44,6 +44,7 @@ let growthChart     = null;
 let withdrawalChart = null;
 let lastCalcResult  = null;
 let viewState = { showOptimistic: true, showPessimistic: true };
+let activeTab = 'growth';
 
 /* ── Simulation ── */
 
@@ -846,20 +847,33 @@ function bindInputs() {
   });
 
   document.getElementById('resetBtn')?.addEventListener('click', () => {
-    state = { ...DEFAULTS };
-    viewState = { showOptimistic: true, showPessimistic: true };
-    populateFields();
-    recalc();
+    if (activeTab === 'goal') {
+      goalState = { ...GOAL_DEFAULTS };
+      populateGoalFields();
+      recalcGoal();
+    } else {
+      state = { ...DEFAULTS };
+      viewState = { showOptimistic: true, showPessimistic: true };
+      populateFields();
+      recalc();
+    }
   });
   document.getElementById('shareBtn')?.addEventListener('click', function () {
+    const btn = document.getElementById('shareBtn');
+    if (activeTab === 'goal') {
+      const origHTML = btn.innerHTML;
+      btn.textContent = 'Growth tab only';
+      setTimeout(() => { btn.innerHTML = origHTML; }, 2000);
+      return;
+    }
     const encoded = encodeShareState();
     if (!encoded) return;
     const url = location.origin + location.pathname + '?share=' + encodeURIComponent(encoded);
-    const btn = document.getElementById('shareBtn');
+    const origHTML = btn.innerHTML;
     if (navigator.clipboard?.writeText) {
       navigator.clipboard.writeText(url).then(() => {
         btn.textContent = 'Copied!';
-        setTimeout(() => { btn.textContent = 'Share'; }, 2000);
+        setTimeout(() => { btn.innerHTML = origHTML; }, 2000);
       });
     } else {
       prompt('Copy this link to share your scenario:', url);
@@ -881,6 +895,290 @@ function init() {
   populateFields();
   bindInputs();
   recalc();
+
+  loadGoal();
+  populateGoalFields();
+  bindGoalInputs();
+  document.querySelectorAll('.calc-tab').forEach(btn => {
+    btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+  });
+}
+
+/* ── Goal Planner ── */
+
+const GOAL_LS_KEY = 'compoundGoal_v1';
+const GOAL_DEFAULTS = {
+  currentSavings:    50000,
+  annualReturn:      7,
+  goalInflation:     3,
+  yearsToRetirement: 30,
+  annualWithdrawal:  80000,
+  withdrawalYears:   25,
+  goalContribGrowth: 3,
+};
+let goalState = { ...GOAL_DEFAULTS };
+let goalChart  = null;
+
+function simulateGoalPath(initial, annualContrib, cgrPct, returnPct, years) {
+  const r  = returnPct / 100;
+  const cg = cgrPct / 100;
+  const vals = [initial];
+  let balance = initial;
+  for (let y = 1; y <= years; y++) {
+    balance = balance * (1 + r) + annualContrib * Math.pow(1 + cg, y - 1);
+    vals.push(balance);
+  }
+  return vals;
+}
+
+function calculateGoal(g) {
+  const r  = (g.annualReturn      ?? 7)  / 100;
+  const i  = (g.goalInflation     ?? 3)  / 100;
+  const n  = Math.max(1, Math.round(g.yearsToRetirement ?? 30));
+  const d  = Math.max(1, Math.round(g.withdrawalYears   ?? 25));
+  const W  = g.annualWithdrawal  ?? 80000;
+  const S  = g.currentSavings    ?? 0;
+  const cg = (g.goalContribGrowth ?? 3) / 100;
+
+  // First withdrawal in nominal terms at retirement
+  const W_nom = W * Math.pow(1 + i, n);
+
+  // Required nest egg: PV of inflation-growing annuity-due (first withdrawal at retirement start)
+  // Annuity-due = annuity-immediate × (1+r); r=i limit simplifies to W_nom * d
+  let targetNestEgg;
+  if (Math.abs(r - i) < 0.0001) {
+    targetNestEgg = W_nom * d;
+  } else {
+    targetNestEgg = W_nom * (1 - Math.pow((1 + i) / (1 + r), d)) / (r - i) * (1 + r);
+  }
+  targetNestEgg = Math.max(0, targetNestEgg);
+
+  const savingsGrown = S * Math.pow(1 + r, n);
+  const gap = Math.max(0, targetNestEgg - savingsGrown);
+
+  // Flat annual savings (ordinary annuity FV = gap)
+  let flatAnnual;
+  if (gap === 0) {
+    flatAnnual = 0;
+  } else if (Math.abs(r) < 0.0001) {
+    flatAnnual = gap / n;
+  } else {
+    flatAnnual = gap * r / (Math.pow(1 + r, n) - 1);
+  }
+
+  // Growing annual savings year-1 amount (growing annuity FV = gap)
+  let growingAnnualYr1;
+  if (gap === 0) {
+    growingAnnualYr1 = 0;
+  } else if (Math.abs(r - cg) < 0.0001) {
+    growingAnnualYr1 = n > 1 ? gap / (n * Math.pow(1 + r, n - 1)) : gap;
+  } else {
+    // fvFactor is always non-zero when r ≠ cg; negative/negative still yields positive PMT when cg > r
+    const fvFactor = (Math.pow(1 + r, n) - Math.pow(1 + cg, n)) / (r - cg);
+    growingAnnualYr1 = gap / fvFactor;
+  }
+
+  const flatTotalContrib = flatAnnual * n;
+  let growingTotalContrib = 0;
+  for (let y = 0; y < n; y++) growingTotalContrib += growingAnnualYr1 * Math.pow(1 + cg, y);
+
+  const growingYrN     = growingAnnualYr1 * Math.pow(1 + cg, n - 1);
+  // Returns attributable to contributions only (savings returns are excluded)
+  const flatReturns    = gap - flatTotalContrib;
+  const growingReturns = gap - growingTotalContrib;
+
+  const flatPath        = simulateGoalPath(S, flatAnnual,       0,                     g.annualReturn ?? 7, n);
+  const growingPath     = simulateGoalPath(S, growingAnnualYr1, g.goalContribGrowth ?? 3, g.annualReturn ?? 7, n);
+  const savingsOnlyPath = S > 0 ? simulateGoalPath(S, 0, 0, g.annualReturn ?? 7, n) : null;
+
+  return {
+    targetNestEgg, savingsGrown, gap, W_nom,
+    flatAnnual, flatTotalContrib, flatReturns,
+    growingAnnualYr1, growingTotalContrib, growingYrN, growingReturns,
+    flatPath, growingPath, savingsOnlyPath,
+    n, d, r, i, W, S, cg,
+  };
+}
+
+function initGoalChart() {
+  const ctx = document.getElementById('goalChart')?.getContext('2d');
+  if (!ctx) return;
+  goalChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: [],
+      datasets: [
+        {
+          label: 'Flat contributions',
+          data: [], borderColor: '#0891b2', borderWidth: 2.5,
+          fill: false, tension: 0.3, pointRadius: 3, pointHoverRadius: 5,
+        },
+        {
+          label: 'Growing contributions',
+          data: [], borderColor: '#4f46e5', borderWidth: 2.5,
+          fill: false, tension: 0.3, pointRadius: 3, pointHoverRadius: 5,
+        },
+        {
+          label: 'Target nest egg',
+          data: [], borderColor: '#f59e0b', borderDash: [6, 4], borderWidth: 2,
+          fill: false, tension: 0, pointRadius: 0, pointHoverRadius: 0,
+        },
+        {
+          label: 'Savings only (no contributions)',
+          data: [], borderColor: '#9ca3af', borderDash: [4, 4], borderWidth: 1.5,
+          fill: false, tension: 0.2, pointRadius: 0, pointHoverRadius: 4,
+        },
+      ],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'top', labels: { font: { size: 12 }, boxWidth: 14, padding: 14 } },
+        tooltip: {
+          mode: 'index', intersect: false,
+          filter: item => !item.dataset.hidden && item.parsed.y != null,
+          callbacks: { label: ctx => ` ${ctx.dataset.label}: $${Math.round(ctx.parsed.y).toLocaleString()}` },
+        },
+      },
+      scales: {
+        y: {
+          ticks: {
+            callback: v => {
+              if (v >= 1e6) return '$' + (v / 1e6).toFixed(1) + 'M';
+              if (v >= 1e3) return '$' + (v / 1e3).toFixed(0) + 'K';
+              return '$' + v;
+            },
+          },
+          grid: { color: 'rgba(0,0,0,0.05)' },
+        },
+        x: { grid: { color: 'rgba(0,0,0,0.05)' } },
+      },
+      interaction: { mode: 'index', intersect: false },
+    },
+  });
+}
+
+function updateGoalChart(g) {
+  if (!goalChart) initGoalChart();
+  if (!goalChart) return;
+  goalChart.data.labels = Array.from({ length: g.n + 1 }, (_, i) => `Yr ${i}`);
+  goalChart.data.datasets[0].data = g.flatPath;
+  goalChart.data.datasets[1].data = g.growingPath;
+  goalChart.data.datasets[2].data = Array(g.n + 1).fill(g.targetNestEgg);
+  goalChart.data.datasets[3].data = g.savingsOnlyPath ?? [];
+  goalChart.data.datasets[3].hidden = !g.savingsOnlyPath;
+  goalChart.update('none');
+}
+
+function renderGoal(g) {
+  setText('g-stat-nest-egg',      fmt(g.targetNestEgg));
+  setText('g-stat-savings-cover', fmt(g.savingsGrown));
+  setText('g-stat-gap',           fmt(g.gap));
+  const flatAnnualBox = document.getElementById('g-stat-flat-annual');
+  const flatAnnualSub = flatAnnualBox?.nextElementSibling;
+  if (flatAnnualBox) flatAnnualBox.textContent = g.gap === 0 ? 'None needed' : fmt(g.flatAnnual) + '/yr';
+  if (flatAnnualSub) flatAnnualSub.textContent = g.gap === 0 ? 'savings alone cover the goal' : 'flat contributions scenario';
+
+  const coverSubEl = document.getElementById('g-stat-savings-cover-sub');
+  if (coverSubEl) {
+    if (g.gap === 0) {
+      coverSubEl.textContent = 'fully covers goal — no contributions needed';
+      coverSubEl.style.color = '#16a34a';
+    } else {
+      const pct = g.targetNestEgg > 0 ? Math.round(g.savingsGrown / g.targetNestEgg * 100) : 0;
+      coverSubEl.textContent = `covers ${pct}% of goal`;
+      coverSubEl.style.color = '';
+    }
+  }
+
+  const cgr = goalState.goalContribGrowth ?? 3;
+  document.querySelectorAll('.g-cgr-label').forEach(el => el.textContent = cgr);
+  document.querySelectorAll('.g-n-label').forEach(el => el.textContent = g.n);
+
+  setText('g-flat-annual', fmt(g.flatAnnual) + '/yr');
+  setText('g-flat-monthly', fmt(g.flatAnnual / 12) + '/mo');
+  const flatSub = document.getElementById('g-flat-sub');
+  if (flatSub) flatSub.textContent = `fixed · ${fmt(g.flatAnnual / 12)}/month`;
+  setText('g-flat-total-contrib', fmt(g.flatTotalContrib));
+  setText('g-flat-returns', fmt(Math.max(0, g.flatReturns)));
+
+  setText('g-growing-annual', fmt(g.growingAnnualYr1) + '/yr');
+  const growSub = document.getElementById('g-growing-sub');
+  if (growSub) growSub.textContent = `in year 1 · ${fmt(g.growingAnnualYr1 / 12)}/month`;
+  setText('g-growing-yrN',           fmt(g.growingYrN) + '/yr');
+  setText('g-growing-total-contrib', fmt(g.growingTotalContrib));
+  setText('g-growing-returns', fmt(Math.max(0, g.growingReturns)));
+
+  setText('g-ctx-today-wd',  fmt(g.W) + '/yr');
+  setText('g-ctx-nominal-wd', fmt(g.W_nom) + '/yr');
+  setText('g-ctx-infl',     (goalState.goalInflation ?? 3) + '%');
+  setText('g-ctx-years',    g.n.toString());
+  setText('g-ctx-wd-years', g.d.toString());
+
+  const scenBody   = document.getElementById('g-scenarios-body');
+  const noContrib  = document.getElementById('g-no-contrib-msg');
+  if (scenBody)  scenBody.style.display  = g.gap === 0 ? 'none' : '';
+  if (noContrib) noContrib.style.display = g.gap === 0 ? ''     : 'none';
+
+  updateGoalChart(g);
+}
+
+function recalcGoal() {
+  renderGoal(calculateGoal(goalState));
+  saveGoal();
+}
+
+function saveGoal() {
+  try { localStorage.setItem(GOAL_LS_KEY, JSON.stringify(goalState)); } catch (_) {}
+}
+
+function loadGoal() {
+  try {
+    const raw = localStorage.getItem(GOAL_LS_KEY);
+    if (raw) goalState = { ...GOAL_DEFAULTS, ...JSON.parse(raw) };
+  } catch (_) {}
+}
+
+function populateGoalFields() {
+  [['g-currentSavings',    'currentSavings'],
+   ['g-annualReturn',      'annualReturn'],
+   ['g-inflation',         'goalInflation'],
+   ['g-yearsToRetirement', 'yearsToRetirement'],
+   ['g-annualWithdrawal',  'annualWithdrawal'],
+   ['g-withdrawalYears',   'withdrawalYears'],
+   ['g-contribGrowth',     'goalContribGrowth']].forEach(([id, key]) => {
+    const el = document.getElementById(id);
+    if (el) el.value = goalState[key] ?? GOAL_DEFAULTS[key];
+  });
+}
+
+function bindGoalInputs() {
+  [['g-currentSavings',    'currentSavings'],
+   ['g-annualReturn',      'annualReturn'],
+   ['g-inflation',         'goalInflation'],
+   ['g-yearsToRetirement', 'yearsToRetirement'],
+   ['g-annualWithdrawal',  'annualWithdrawal'],
+   ['g-withdrawalYears',   'withdrawalYears'],
+   ['g-contribGrowth',     'goalContribGrowth']].forEach(([id, key]) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('input', () => {
+      const v = parseFloat(el.value);
+      goalState[key] = isNaN(v) ? GOAL_DEFAULTS[key] : v;
+      recalcGoal();
+    });
+  });
+}
+
+function switchTab(tab) {
+  activeTab = tab;
+  document.querySelectorAll('.calc-tab').forEach(btn =>
+    btn.classList.toggle('active', btn.dataset.tab === tab));
+  const tg = document.getElementById('tab-growth');
+  const tl = document.getElementById('tab-goal');
+  if (tg) tg.style.display = tab === 'growth' ? '' : 'none';
+  if (tl) tl.style.display = tab === 'goal'   ? '' : 'none';
+  if (tab === 'goal') recalcGoal();
 }
 
 document.addEventListener('DOMContentLoaded', init);

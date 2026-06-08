@@ -21,8 +21,9 @@
   <link rel="canonical" href="https://www.moveupmapper.com/about">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=31">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"></noscript>
+  <link rel="stylesheet" href="styles.css?v=32">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -229,6 +230,16 @@
             The <strong>Withdrawal Phase</strong> extends the simulation into the drawdown period, showing how
             long your portfolio lasts under a fixed or percentage-based withdrawal — and what the sustainable
             withdrawal rate is given your projected balance and return.
+          </p>
+          <p>
+            A second tab — the <strong>Retirement Goal Planner</strong> — reverses the calculation entirely.
+            Instead of projecting forward from what you have, it starts from what you want: a target annual
+            income in retirement (in today's dollars), a withdrawal horizon, and your expected return. From
+            those inputs, it calculates the required nest egg using the present value of an inflation-adjusted
+            annuity, projects your existing savings forward, and solves for the annual savings needed to fill
+            the gap. Two scenarios are presented side by side: a flat contribution amount you'd save every
+            year, and a growing schedule that starts lower and increases annually — useful for anyone whose
+            income is expected to rise over time.
           </p>
           <a href="/compound" class="about-tool-link">Open Compound Growth Calculator →</a>
         </div>
