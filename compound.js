@@ -27,12 +27,13 @@ const DEFAULTS = {
   accountType:    'taxable',
   annualTaxDrag:  0,
   // Withdrawal
-  withdrawalEnabled:      false,
-  withdrawalAmount:       40000,
-  withdrawalType:         'fixed',
-  withdrawalPercent:      4,
-  continueContribs:       false,
-  withdrawalInflationAdj: false,
+  withdrawalEnabled:        false,
+  withdrawalAmount:         40000,
+  withdrawalType:           'fixed',
+  withdrawalPercent:        4,
+  continueContribs:         false,
+  withdrawalContribAmount:  10000,
+  withdrawalInflationAdj:   false,
 };
 
 const FREQ_UNIT = { 52: 'wk', 26: '2 wks', 12: 'mo', 4: 'qtr', 1: 'yr' };
@@ -169,11 +170,12 @@ function calculate(s) {
     const wdConts   = !!(s.continueContribs);
     const wdInflAdj = !!(s.withdrawalInflationAdj);
 
+    const wdContribAnnual = wdConts ? (s.withdrawalContribAmount ?? 10000) : 0;
     const buildWd = (finalVal, retPct) => {
       const wr = simulateWithdrawal(
         finalVal, retPct, periods,
         wdAmount, wdType, wdPct,
-        wdConts, ac, cgr, years, WD_MAX,
+        wdConts, wdContribAnnual, 0, years, WD_MAX,
         wdInflAdj, infl
       );
       return {
@@ -639,6 +641,7 @@ function render(c, s) {
   updateScenarioToggles(c);
   updateChart(c);
   updateWithdrawalChart(c);
+  updateWithdrawalHints(c, s);
   updateMobileBar();
 }
 
@@ -659,6 +662,41 @@ function updateMobileBar() {
     if (lbl2) lbl2.textContent = "In Today's $";
     v1.textContent = document.getElementById('stat-final-value')?.textContent || '—';
     v2.textContent = document.getElementById('stat-real-value')?.textContent || '—';
+  }
+}
+
+/* ── Withdrawal hints ── */
+function updateWithdrawalHints(c, s) {
+  const hintEl    = document.getElementById('wd-four-pct-hint');
+  const hintText  = document.getElementById('wd-four-pct-text');
+  const inflAdj   = document.getElementById('wd-infladj-helper');
+
+  if (hintEl && hintText) {
+    const enabled   = !!(s.withdrawalEnabled);
+    const fixedMode = (s.withdrawalType ?? 'fixed') === 'fixed';
+    const projected = c?.base?.finalValue;
+    if (enabled && fixedMode && projected > 0) {
+      const fourPct    = Math.round(projected * 0.04 / 1000) * 1000;
+      const fmtProjAmt = projected >= 1e6
+        ? '$' + (projected / 1e6).toFixed(1) + 'M'
+        : '$' + Math.round(projected).toLocaleString('en-US');
+      hintText.textContent = `4% rule for your ${fmtProjAmt} projected balance — ${fmt(fourPct)}/yr`;
+      hintEl.style.display = '';
+    } else {
+      hintEl.style.display = 'none';
+    }
+  }
+
+  if (inflAdj) {
+    const wdAmt   = s.withdrawalAmount ?? 0;
+    const infl    = s.inflationRate    ?? 3;
+    const years   = c?.years           ?? 20;
+    if (wdAmt > 0 && infl > 0) {
+      const futureAmt = Math.round(wdAmt * Math.pow(1 + infl / 100, years));
+      inflAdj.textContent = `Grows your withdrawal each year at ${infl}% inflation — ${fmt(wdAmt)}/yr becomes ${fmt(futureAmt)}/yr by Year ${years}, which shortens runway compared to a fixed amount`;
+    } else {
+      inflAdj.textContent = 'Grows your withdrawal each year by the inflation rate to maintain the same purchasing power — shortens runway compared to a fixed amount';
+    }
   }
 }
 
@@ -728,10 +766,15 @@ function populateFields() {
   const taxDragFieldEl = document.getElementById('annualTaxDragField');
   if (taxDragFieldEl) taxDragFieldEl.style.display = acctType === 'taxable' ? '' : 'none';
 
-  ['withdrawalAmount', 'withdrawalPercent'].forEach(key => {
+  ['withdrawalAmount', 'withdrawalPercent', 'withdrawalContribAmount'].forEach(key => {
     const el = document.getElementById(key);
     if (el) el.value = state[key] ?? DEFAULTS[key];
   });
+
+  const wdContribsAmountField = document.getElementById('wd-contribs-amount-field');
+  if (wdContribsAmountField) {
+    wdContribsAmountField.style.display = !!(state.continueContribs) ? '' : 'none';
+  }
 
   const wdEnabled  = !!(state.withdrawalEnabled);
   const wdType     = state.withdrawalType    ?? 'fixed';
@@ -816,7 +859,7 @@ function bindInputs() {
     });
   }
 
-  ['withdrawalAmount', 'withdrawalPercent'].forEach(key => {
+  ['withdrawalAmount', 'withdrawalPercent', 'withdrawalContribAmount'].forEach(key => {
     const el = document.getElementById(key);
     if (!el) return;
     el.addEventListener('input', () => {
@@ -837,8 +880,20 @@ function bindInputs() {
       if (wdFieldsEl) wdFieldsEl.style.display = enabled ? '' : 'none';
       const wdBadge = document.getElementById('withdrawal-enabled-badge');
       if (wdBadge) wdBadge.style.display = enabled ? '' : 'none';
+      if (enabled) {
+        const section = document.getElementById('withdrawalSection');
+        if (section) section.open = true;
+      }
       recalc();
     });
+  });
+
+  document.getElementById('wd-use-four-pct')?.addEventListener('click', () => {
+    const projected = lastCalcResult?.base?.finalValue;
+    if (!projected) return;
+    const fourPct = Math.round(projected * 0.04 / 1000) * 1000;
+    const el = document.getElementById('withdrawalAmount');
+    if (el) { el.value = fourPct; state.withdrawalAmount = fourPct; recalc(); }
   });
 
   document.querySelectorAll('[data-wd-type]').forEach(btn => {
@@ -853,6 +908,7 @@ function bindInputs() {
       if (wdAmtWrap) wdAmtWrap.style.display = t === 'fixed'   ? '' : 'none';
       if (wdPctWrap) wdPctWrap.style.display = t === 'percent' ? '' : 'none';
       recalc();
+      if (lastCalcResult) updateWithdrawalHints(lastCalcResult, state);
     });
   });
 
@@ -863,6 +919,8 @@ function bindInputs() {
       state.continueContribs = v;
       document.querySelectorAll('[data-wd-contribs]').forEach(b =>
         b.classList.toggle('active', (b.dataset.wdContribs === 'true') === v));
+      const amtField = document.getElementById('wd-contribs-amount-field');
+      if (amtField) amtField.style.display = v ? '' : 'none';
       recalc();
     });
   });

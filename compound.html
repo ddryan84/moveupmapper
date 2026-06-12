@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"></noscript>
-  <link rel="stylesheet" href="styles.css?v=33">
+  <link rel="stylesheet" href="styles.css?v=34">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-YCEFCLSHX0"></script>
   <script>
@@ -315,17 +315,10 @@
             </div>
             <div class="helper" id="withdrawal-amount-helper">Annual dollar amount withdrawn from the portfolio each year</div>
             <div id="wd-infl-hint" class="wd-infl-hint" style="display:none"></div>
+          <div id="wd-four-pct-hint" class="wd-four-pct-hint" style="display:none">
+            <span id="wd-four-pct-text"></span>
+            <button type="button" id="wd-use-four-pct" class="wd-use-four-pct-btn">Use 4%</button>
           </div>
-
-          <div class="field">
-            <div class="field-row-head">
-              <label>CONTINUE CONTRIBUTIONS</label>
-              <div class="mode-toggle" style="gap:0">
-                <button class="mode-btn active" data-wd-contribs="false">No</button>
-                <button class="mode-btn" data-wd-contribs="true">Yes</button>
-              </div>
-            </div>
-            <div class="helper">Whether to keep adding contributions during the withdrawal period — useful for modeling phased retirement or part-time income</div>
           </div>
 
           <div class="field" style="margin-top:12px">
@@ -336,8 +329,34 @@
                 <button class="mode-btn" data-wd-infladj="true">Yes</button>
               </div>
             </div>
-            <div class="helper">Grows the withdrawal amount each year at your inflation rate — maintains the same purchasing power throughout the withdrawal horizon</div>
+            <div class="helper" id="wd-infladj-helper">Grows your withdrawal each year by the inflation rate to maintain the same purchasing power — this shortens runway compared to a fixed amount, so factor it into your target</div>
           </div>
+
+          <details class="adv-section" style="border-top:none;margin-top:10px">
+            <summary class="adv-toggle" style="font-size:12px;padding:6px 0">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+              Advanced
+              <svg class="adv-chevron" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="field" style="padding-top:10px">
+              <div class="field-row-head">
+                <label>CONTINUE CONTRIBUTIONS</label>
+                <div class="mode-toggle" style="gap:0">
+                  <button class="mode-btn active" data-wd-contribs="false">No</button>
+                  <button class="mode-btn" data-wd-contribs="true">Yes</button>
+                </div>
+              </div>
+              <div class="helper">Keep adding contributions during the withdrawal period — models phased retirement or part-time income alongside drawdown</div>
+            </div>
+            <div class="field" id="wd-contribs-amount-field" style="display:none; margin-top:12px">
+              <label>ANNUAL CONTRIBUTION (RETIREMENT)</label>
+              <div class="input-wrap prefix">
+                <span class="affix">$</span>
+                <input type="number" id="withdrawalContribAmount" min="0" step="500">
+              </div>
+              <div class="helper">Annual amount added during the withdrawal phase — typically lower than your accumulation rate, e.g. part-time income or rental income</div>
+            </div>
+          </details>
         </div>
       </div>
     </details>
@@ -346,7 +365,7 @@
   <!-- ── Summary Stats ── -->
   <div class="card wide-card">
     <div id="scenario-active-label" style="display:none; padding:10px 20px 0; font-size:11px; font-weight:700; letter-spacing:.05em; text-transform:uppercase;"></div>
-    <div class="rvb-stats-grid rvb-stats-grid--5">
+    <div class="rvb-stats-grid rvb-stats-grid--4">
 
       <div class="bp-stat">
         <div class="bp-stat-label">FINAL PORTFOLIO VALUE</div>
@@ -370,12 +389,6 @@
         <div class="bp-stat-label">TOTAL GAIN (RETURNS)</div>
         <div class="bp-stat-value green" id="stat-total-gain">—</div>
         <div class="bp-stat-delta">growth from compound returns only</div>
-      </div>
-
-      <div class="bp-stat">
-        <div class="bp-stat-label">COMPOUNDING LEADS</div>
-        <div class="bp-stat-value" style="font-size:18px;padding-top:3px" id="stat-compounds-leads">—</div>
-        <div class="bp-stat-delta">annual returns exceed contributions</div>
       </div>
 
     </div>
@@ -1037,7 +1050,7 @@ The erosion compounds in reverse, just as investment returns compound forward: e
 </div><!-- end .app -->
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<script src="compound.js?v=17"></script>
+<script src="compound.js?v=19"></script>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const slider = document.getElementById('durationSlider');
