@@ -154,6 +154,7 @@ function renderAmortTable(r) {
     return;
   }
 
+  const PREVIEW = 6;
   const SHOW = 12;
   const rMo = state.interestRate / 100 / 12;
   const stdPmt = r.stdPayment;
@@ -178,21 +179,20 @@ function renderAmortTable(r) {
 
   function fc(n) { return '$' + Math.round(n).toLocaleString(); }
 
+  let _tableIdx = 0;
   function buildTable(rows, title, accentColor) {
     const hdrs = '<tr><th>Mo</th><th>Pmt</th><th>Principal</th><th>Interest</th><th>Balance</th></tr>';
-    const trs = rows.map((row, i) => {
+    function buildRow(row, i) {
       if (!row) return `<tr style="color:var(--text-muted)"><td>${i + 1}</td><td colspan="4" style="text-align:center;font-style:italic">Paid off</td></tr>`;
-      return `<tr>
-        <td>${row.m}</td>
-        <td>${fc(row.pmt)}</td>
-        <td style="color:var(--green)">${fc(row.principal)}</td>
-        <td style="color:var(--red)">${fc(row.interest)}</td>
-        <td><strong>${fc(row.balance)}</strong></td>
-      </tr>`;
-    }).join('');
+      return `<tr><td>${row.m}</td><td>${fc(row.pmt)}</td><td style="color:var(--green)">${fc(row.principal)}</td><td style="color:var(--red)">${fc(row.interest)}</td><td><strong>${fc(row.balance)}</strong></td></tr>`;
+    }
+    const previewTrs = rows.slice(0, PREVIEW).map((row, i) => buildRow(row, i)).join('');
+    const restTrs    = rows.slice(PREVIEW).map((row, i) => buildRow(row, PREVIEW + i)).join('');
+    const moreId = 'amortMore' + (_tableIdx++);
     return `<div>
       <div style="font-size:11px;font-weight:700;letter-spacing:.06em;color:${accentColor};text-transform:uppercase;margin-bottom:8px;padding-bottom:6px;border-bottom:2px solid ${accentColor}30">${title}</div>
-      <table class="payoff-amort-table"><thead>${hdrs}</thead><tbody>${trs}</tbody></table>
+      <table class="payoff-amort-table"><thead>${hdrs}</thead><tbody>${previewTrs}</tbody><tbody id="${moreId}" style="display:none">${restTrs}</tbody></table>
+      <button class="payoff-amort-expand" data-target="${moreId}">Show all 12 months ↓</button>
     </div>`;
   }
 
@@ -205,6 +205,14 @@ function renderAmortTable(r) {
     buildTable(stdRows, 'Standard Schedule', '#9ca3af') +
     buildTable(accelRows, accelLabel, '#16a34a') +
     '</div>';
+
+  container.querySelectorAll('.payoff-amort-expand').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      const tbody = document.getElementById(this.dataset.target);
+      if (tbody) tbody.style.display = '';
+      this.style.display = 'none';
+    });
+  });
 }
 
 // ── Chart ─────────────────────────────────────────────────────────────

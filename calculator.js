@@ -476,6 +476,10 @@ function render(c, s) {
   crEl.textContent = fmt(c.cashRemaining);
   crEl.className = c.cashRemaining > 0 ? 'green' : '';
 
+  // Section cost hints
+  setText('sellCostsSummary', s.buyerMode === 'firstTime' ? '' : '≈ ' + fmt(c.sellingCosts));
+  setText('buyCostsSummary', '≈ ' + fmt(c.buyingCosts));
+
   // Monthly Costs
   setText('r-mortgageLabel', 'Mortgage (P&I on ' + fmt(c.loan) + ')');
   setText('r-mortgage', fmt(c.mortgagePI));

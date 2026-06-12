@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"></noscript>
-  <link rel="stylesheet" href="styles.css?v=31">
+  <link rel="stylesheet" href="styles.css?v=33">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -229,6 +229,7 @@
             <div class="section-label">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
               SELLING COSTS
+              <span id="sellCostsSummary" class="section-cost-hint"></span>
             </div>
             <svg class="collapse-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
           </button>
@@ -390,6 +391,7 @@
           <div class="section-label">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
             BUYING COSTS
+            <span id="buyCostsSummary" class="section-cost-hint"></span>
           </div>
           <svg class="collapse-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
@@ -1060,7 +1062,7 @@
 </div><!-- /app -->
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<script src="calculator.js?v=9"></script>
+<script src="calculator.js?v=10"></script>
 <script>
   (function() {
     function makeCollapse(toggleId, bodyId) {
@@ -1141,6 +1143,33 @@
     simplified = !simplified;
     localStorage.setItem('resultsSimplified', simplified ? '1' : '0');
     apply();
+  });
+}());
+</script>
+<div class="mobile-sticky-bar no-print">
+  <div class="msb-item">
+    <div class="msb-label">Cash Available</div>
+    <div class="msb-value green" id="mbar-v1">—</div>
+  </div>
+  <div class="msb-divider"></div>
+  <div class="msb-item">
+    <div class="msb-label">Monthly Cost</div>
+    <div class="msb-value" id="mbar-v2">—</div>
+  </div>
+</div>
+<script>
+(function () {
+  function syncBar(pairs) {
+    pairs.forEach(function (p) {
+      var src = document.getElementById(p[0]), dst = document.getElementById(p[1]);
+      if (!src || !dst) return;
+      dst.textContent = src.textContent || '—';
+      new MutationObserver(function () { dst.textContent = src.textContent || '—'; })
+        .observe(src, { childList: true, subtree: true, characterData: true });
+    });
+  }
+  document.addEventListener('DOMContentLoaded', function () {
+    syncBar([['r-cashRemaining', 'mbar-v1'], ['r-totalMonthly', 'mbar-v2']]);
   });
 }());
 </script>

@@ -480,7 +480,6 @@ function render(c, s) {
   setText('stat-real-value',      fmt(m.finalReal));
   setText('stat-total-invested',  fmt(c.totalInvested));
   setText('stat-total-gain',      fmt(m.totalGain));
-  setText('stat-growth-multiple', m.multiple.toFixed(2) + '×');
 
   const gainEl = document.getElementById('stat-total-gain');
   if (gainEl) gainEl.className = 'bp-stat-value ' + (m.totalGain >= 0 ? 'green' : 'red');
@@ -640,6 +639,27 @@ function render(c, s) {
   updateScenarioToggles(c);
   updateChart(c);
   updateWithdrawalChart(c);
+  updateMobileBar();
+}
+
+/* ── Mobile bar ── */
+function updateMobileBar() {
+  const lbl1 = document.getElementById('mbar-lbl1');
+  const lbl2 = document.getElementById('mbar-lbl2');
+  const v1   = document.getElementById('mbar-v1');
+  const v2   = document.getElementById('mbar-v2');
+  if (!v1 || !v2) return;
+  if (activeTab === 'goal') {
+    if (lbl1) lbl1.textContent = 'Nest Egg Needed';
+    if (lbl2) lbl2.textContent = 'Flat Savings/yr';
+    v1.textContent = document.getElementById('g-stat-nest-egg')?.textContent || '—';
+    v2.textContent = document.getElementById('g-stat-flat-annual')?.textContent || '—';
+  } else {
+    if (lbl1) lbl1.textContent = 'Final Value';
+    if (lbl2) lbl2.textContent = "In Today's $";
+    v1.textContent = document.getElementById('stat-final-value')?.textContent || '—';
+    v2.textContent = document.getElementById('stat-real-value')?.textContent || '—';
+  }
 }
 
 /* ── State & persistence ── */
@@ -1134,6 +1154,7 @@ function renderGoal(g) {
   if (noContrib) noContrib.style.display = g.gap === 0 ? ''     : 'none';
 
   updateGoalChart(g);
+  updateMobileBar();
 }
 
 function recalcGoal() {
@@ -1186,6 +1207,7 @@ function bindGoalInputs() {
 function switchTab(tab) {
   activeTab = tab;
   if (typeof gtag === 'function') gtag('event', 'tab_switch', { calculator: 'compound', tab: tab });
+  updateMobileBar();
   document.querySelectorAll('.calc-tab').forEach(btn =>
     btn.classList.toggle('active', btn.dataset.tab === tab));
   const tg = document.getElementById('tab-growth');

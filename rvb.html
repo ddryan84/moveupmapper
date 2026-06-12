@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"></noscript>
-  <link rel="stylesheet" href="styles.css?v=31">
+  <link rel="stylesheet" href="styles.css?v=33">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -939,6 +939,33 @@
   });
   window.addEventListener('scroll', hide, { passive: true });
   window.addEventListener('resize', function () { if (active) show(active); });
+}());
+</script>
+<div class="mobile-sticky-bar no-print">
+  <div class="msb-item">
+    <div class="msb-label">Monthly Rent</div>
+    <div class="msb-value" id="mbar-v1">—</div>
+  </div>
+  <div class="msb-divider"></div>
+  <div class="msb-item">
+    <div class="msb-label">Monthly Buy</div>
+    <div class="msb-value" id="mbar-v2">—</div>
+  </div>
+</div>
+<script>
+(function () {
+  function syncBar(pairs) {
+    pairs.forEach(function (p) {
+      var src = document.getElementById(p[0]), dst = document.getElementById(p[1]);
+      if (!src || !dst) return;
+      dst.textContent = src.textContent || '—';
+      new MutationObserver(function () { dst.textContent = src.textContent || '—'; })
+        .observe(src, { childList: true, subtree: true, characterData: true });
+    });
+  }
+  document.addEventListener('DOMContentLoaded', function () {
+    syncBar([['stat-monthly-rent', 'mbar-v1'], ['stat-monthly-buy', 'mbar-v2']]);
+  });
 }());
 </script>
 <script src="/nav.js"></script>

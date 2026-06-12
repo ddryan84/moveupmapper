@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"></noscript>
-  <link rel="stylesheet" href="styles.css?v=32">
+  <link rel="stylesheet" href="styles.css?v=33">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-YCEFCLSHX0"></script>
   <script>
@@ -346,7 +346,7 @@
   <!-- ── Summary Stats ── -->
   <div class="card wide-card">
     <div id="scenario-active-label" style="display:none; padding:10px 20px 0; font-size:11px; font-weight:700; letter-spacing:.05em; text-transform:uppercase;"></div>
-    <div class="rvb-stats-grid">
+    <div class="rvb-stats-grid rvb-stats-grid--5">
 
       <div class="bp-stat">
         <div class="bp-stat-label">FINAL PORTFOLIO VALUE</div>
@@ -370,12 +370,6 @@
         <div class="bp-stat-label">TOTAL GAIN (RETURNS)</div>
         <div class="bp-stat-value green" id="stat-total-gain">—</div>
         <div class="bp-stat-delta">growth from compound returns only</div>
-      </div>
-
-      <div class="bp-stat">
-        <div class="bp-stat-label">GROWTH MULTIPLE</div>
-        <div class="bp-stat-value" id="stat-growth-multiple">—</div>
-        <div class="bp-stat-delta">final value ÷ total invested</div>
       </div>
 
       <div class="bp-stat">
@@ -1043,7 +1037,7 @@ The erosion compounds in reverse, just as investment returns compound forward: e
 </div><!-- end .app -->
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<script src="compound.js?v=16"></script>
+<script src="compound.js?v=17"></script>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const slider = document.getElementById('durationSlider');
@@ -1087,6 +1081,17 @@ The erosion compounds in reverse, just as investment returns compound forward: e
   window.addEventListener('resize', function () { if (active) show(active); });
 }());
 </script>
+<div class="mobile-sticky-bar no-print">
+  <div class="msb-item">
+    <div class="msb-label" id="mbar-lbl1">Final Value</div>
+    <div class="msb-value" id="mbar-v1">—</div>
+  </div>
+  <div class="msb-divider"></div>
+  <div class="msb-item">
+    <div class="msb-label" id="mbar-lbl2">In Today's $</div>
+    <div class="msb-value" id="mbar-v2">—</div>
+  </div>
+</div>
 <script src="/nav.js"></script>
 </body>
 </html>
