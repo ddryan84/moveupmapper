@@ -26,7 +26,7 @@ const DEFAULTS = {
   purchasePrice:       700000,
   interestRate:   6.875,   // updated at runtime by fetchMortgageRate()
   prospectiveTerm: 30,
-  monthlyPMI:     0,
+  monthlyPMI:     336,
   currentHOA:     0,
   newHOA:         0,
   taxMode:        'dollar',   // 'percent' | 'dollar'
@@ -36,10 +36,10 @@ const DEFAULTS = {
   realtorFee:      5,
   transferTaxPct:  0,
   preSaleRepairs:  0,
-  sellerTitleFees: 1500,
+  sellerTitleFees: 2500,
   // Buying costs
-  lenderFees:           2500,
-  buyerTitleFees:       1500,
+  lenderFees:           5764,
+  buyerTitleFees:       4200,
   buyerTransferTaxPct:  0,
   repairCosts:          0,
   prepaidsAtClosing:    0,
@@ -88,7 +88,7 @@ function setState(patch) {
 // because load() merges saved state into DEFAULTS — new fields get their default
 // value automatically. When bumping: update LS_KEY and optionally add a migration
 // step below to carry forward fields that didn't change.
-const LS_KEY = 'homeSwapCalc_v1';
+const LS_KEY = 'homeSwapCalc_v2';
 
 function save() {
   try { localStorage.setItem(LS_KEY, JSON.stringify({ a: scenarios.a, b: scenarios.b, active: activeScenario })); }
@@ -717,6 +717,8 @@ function syncBuyerMode(mode) {
   if (ftNote)      ftNote.style.display      = isFirst ? ''     : 'none';
   const sellSection = $('sellCostsSection');
   if (sellSection) sellSection.style.display = isFirst ? 'none' : '';
+  const currentHOAField = $('currentHOAField');
+  if (currentHOAField) currentHOAField.style.display = isFirst ? 'none' : '';
 
   setText('currentHomeTitle', isFirst ? 'Your Financial Profile'            : 'Your Current Home');
   setText('currentHomeSub',   isFirst ? 'No current home — first-time buyer' : 'What you\'re working with today');
