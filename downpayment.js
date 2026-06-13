@@ -627,6 +627,24 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Share
+  document.getElementById('shareBtn')?.addEventListener('click', function () {
+    trackCalc('downpayment', 'share');
+    const url = location.href;
+    const btn = this;
+    if (navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(url).then(() => {
+        btn.textContent = 'Copied!';
+        setTimeout(() => { btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:3px"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>Share'; }, 2000);
+      });
+    } else {
+      prompt('Copy this link to share:', url);
+    }
+  });
+
+  // Print
+  document.getElementById('printBtn')?.addEventListener('click', () => window.print());
+
   // Reset
   document.getElementById('resetBtn')?.addEventListener('click', () => {
     state = { ...DEFAULTS };
