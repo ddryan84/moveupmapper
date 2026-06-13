@@ -241,7 +241,7 @@
                 <button type="button" class="pmi-mode-btn" data-mode="dollar">$/mo</button>
               </div>
             </div>
-            <div class="helper" id="pmiHelper">Annual PMI as % of original loan — typically 0.5–1.5% depending on credit score and lender</div>
+            <div class="helper" id="pmiHelper">Annual PMI as % of original loan — typically 0.5–1.5% depending on credit score and lender. PMI rates are also tiered by LTV: a 5% down loan will usually carry a higher rate than a 15% down loan. If your scenarios span a wide range of down payments, consider running the calculator separately with different PMI rates to reflect this.</div>
           </div>
         </div>
         <div class="field">
@@ -340,7 +340,7 @@
 
           <div class="gloss-item">
             <div class="gloss-term">PMI Calculation</div>
-            <div class="gloss-def">PMI applies when the down payment is less than 20% of the purchase price. It's calculated as (original loan balance × PMI rate) ÷ 12 per month. PMI automatically cancels when the outstanding loan balance reaches 78% of the original purchase price (per federal law). The cancellation month is computed analytically from the amortization schedule and is reflected accurately in the month-by-month simulation.</div>
+            <div class="gloss-def">PMI applies when the down payment is less than 20% of the purchase price. It's calculated as (original loan balance × PMI rate) ÷ 12 per month. PMI automatically cancels when the outstanding loan balance reaches 78% of the original purchase price (per federal law). The cancellation month is computed analytically from the amortization schedule and is reflected accurately in the month-by-month simulation. One simplification: this model applies a single PMI rate across all scenarios. In practice, PMI is priced by lenders on a tiered basis — a 5% down loan will typically carry a higher PMI rate than a 15% down loan, sometimes by 0.3–0.5 percentage points, because lower down payments represent higher risk. If you're comparing scenarios with meaningfully different down payments, use the Custom Scenario field to isolate one case and adjust the PMI rate to reflect the rate you'd actually be quoted at that LTV.</div>
           </div>
 
           <div class="gloss-item">
