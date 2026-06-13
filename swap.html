@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"></noscript>
-  <link rel="stylesheet" href="styles.css?v=44">
+  <link rel="stylesheet" href="styles.css?v=45">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -300,7 +300,7 @@
           <div class="card-sub">The home you want to buy</div>
         </div>
       </div>
-      <div class="card-body">
+      <div class="card-body" style="padding-top:26px">
 
         <div class="field">
           <label>PURCHASE PRICE</label>
@@ -371,8 +371,8 @@
             <div class="field-row-head">
               <label>PROPERTY TAX</label>
               <div class="mode-toggle">
-                <button class="mode-btn active" id="taxModePercent" data-mode="percent">%</button>
-                <button class="mode-btn" id="taxModeDollar" data-mode="dollar">$</button>
+                <button class="mode-btn active" id="taxModeDollar" data-mode="dollar">$</button>
+                <button class="mode-btn" id="taxModePercent" data-mode="percent">%</button>
               </div>
             </div>
             <div class="input-wrap prefix" id="taxInputWrap">
@@ -474,7 +474,7 @@
   </div><!-- /calc-grid -->
 
   <!-- ── Results (wide card below inputs) ── -->
-  <div class="card wide-card swap-results-card">
+  <div class="card wide-card results-card swap-results-card">
       <div class="results-head">
         <span class="results-dot"></span>
         <h2>Results</h2>
@@ -1063,7 +1063,7 @@
 </div><!-- /app -->
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<script src="calculator.js?v=10"></script>
+<script src="calculator.js?v=11"></script>
 <script>
   (function() {
     function makeCollapse(toggleId, bodyId) {

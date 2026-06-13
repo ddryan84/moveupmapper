@@ -29,8 +29,8 @@ const DEFAULTS = {
   monthlyPMI:     0,
   currentHOA:     0,
   newHOA:         0,
-  taxMode:        'percent',  // 'percent' | 'dollar'
-  propertyTaxDollar:  0,
+  taxMode:        'dollar',   // 'percent' | 'dollar'
+  propertyTaxDollar:  7000,
   propertyTaxPercent: 1.0,
   // Selling costs
   realtorFee:      5,
