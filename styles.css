@@ -614,6 +614,34 @@ label {
   border-right: 1px solid var(--border);
 }
 
+/* ── Swap Results: wide card below inputs, two columns ── */
+.swap-results-card {
+  margin-top: 16px;
+}
+
+.swap-results-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.swap-results-cols .results-section {
+  border-bottom: none;
+  border-right: 1px solid var(--border);
+}
+
+.swap-results-cols .results-section:last-child {
+  border-right: none;
+}
+
+@media (max-width: 700px) {
+  .swap-results-cols { grid-template-columns: 1fr; }
+  .swap-results-cols .results-section {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+  .swap-results-cols .results-section:last-child { border-bottom: none; }
+}
+
 /* ── Results Card ── */
 .results-card {
   display: flex;
