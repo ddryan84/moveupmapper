@@ -13,14 +13,18 @@ function trackCalc(name, action) {
 const DP_LS_KEY = 'dpCalc_v1';
 
 const DEFAULTS = {
-  homePrice:    500000,
-  savings:      150000,
-  mortgageRate: 6.75,
-  loanTerm:     30,
-  horizon:      10,
-  investReturn: 7.0,
-  pmiRate:      0.85,
-  appreciation: 3.0,
+  homePrice:      500000,
+  savings:        150000,
+  mortgageRate:   6.75,
+  loanTerm:       30,
+  horizon:        10,
+  investReturn:   7.0,
+  pmiRate:        0.85,
+  pmiMode:        'pct',
+  pmiDollar:      0,
+  appreciation:   3.0,
+  customDpMode:   'pct',
+  customDp:       0,
 };
 
 let state = { ...DEFAULTS };
@@ -62,13 +66,13 @@ function pmiDropoffMonth(loan, homePrice, annualRatePct, pmt) {
   const pmt_r = pmt / r;
   const num = target - pmt_r;
   const den = loan - pmt_r;
-  if (den >= 0 || num / den >= 1) return Infinity;
+  if (den >= 0 || num / den <= 0) return Infinity;
   return Math.ceil(Math.log(num / den) / Math.log(1 + r));
 }
 
 // ── Scenarios ───────────────────────────────────────────────────────────────
 
-const SC_COLORS = ['#64748b', '#4f46e5', '#0d9488'];
+const SC_COLORS = { min: '#64748b', twenty: '#4f46e5', max: '#0d9488', custom: '#d97706' };
 
 function buildScenarios(s) {
   const p   = s.homePrice;
@@ -96,12 +100,20 @@ function buildScenarios(s) {
     dps.push({ dp: dpMax, key: 'max' });
   }
 
-  return dps.map(({ dp, key }, i) => {
-    const pct = Math.round(dp / p * 100);
+  // Custom scenario (user-defined, appended as 4th card)
+  if (s.customDp > 0) {
+    const raw = s.customDpMode === 'pct' ? p * s.customDp / 100 : s.customDp;
+    const clamped = Math.min(Math.max(raw, 0), Math.min(sav, p * 0.99));
+    if (clamped > 0) dps.push({ dp: clamped, key: 'custom' });
+  }
+
+  return dps.map(({ dp, key }) => {
+    const pct   = Math.round(dp / p * 100);
     const label = key === 'min'    ? `Min Down (${pct}%)`
                 : key === 'twenty' ? 'No PMI (20%)'
+                : key === 'custom' ? `Custom (${pct}%)`
                 :                    `Max Down (${pct}%)`;
-    return { dp, key, label, color: SC_COLORS[i] || '#0891b2' };
+    return { dp, key, label, color: SC_COLORS[key] || '#0891b2' };
   });
 }
 
@@ -123,7 +135,9 @@ function simulate(scenarios, s) {
     const loan    = Math.max(0, s.homePrice - dp);
     const pmt     = monthlyPmt(loan, s.mortgageRate, termMo);
     const hasPMI  = (dp / s.homePrice) < 0.20 && loan > 0;
-    const pmiMo   = hasPMI ? loan * (s.pmiRate / 100) / 12 : 0;
+    const pmiMo   = hasPMI
+      ? (s.pmiMode === 'dollar' ? (s.pmiDollar || 0) : loan * (s.pmiRate / 100) / 12)
+      : 0;
     const pmiStop = hasPMI ? pmiDropoffMonth(loan, s.homePrice, s.mortgageRate, pmt) : 0;
     return { loan, pmt, hasPMI, pmiMo, pmiStop, initialInvest: Math.max(0, s.savings - dp) };
   });
@@ -214,10 +228,13 @@ function renderScenarioCards(results) {
     const pmiNote  = r.hasPMI ? `(drops off in ${fmtMonths(r.pmiStop)})` : '';
 
     const card = document.createElement('div');
-    card.className = 'dp-sc-card' + (isWinner ? ' dp-sc-card--best' : '');
+    card.className = 'dp-sc-card' + (isWinner ? ' dp-sc-card--best' : '') + (r.key === 'custom' ? ' dp-sc-card--custom' : '');
     card.innerHTML = `
       <div class="dp-sc-hd" style="border-top:3px solid ${r.color}">
-        ${isWinner ? `<span class="dp-sc-best-tag" style="background:${r.color}18;color:${r.color}">Best at ${state.horizon} yr</span>` : ''}
+        <div class="dp-sc-badge-row">
+          ${r.key === 'custom' ? `<span class="dp-sc-custom-tag">Custom</span>` : ''}
+          ${isWinner ? `<span class="dp-sc-best-tag" style="background:${r.color}18;color:${r.color}">Best at ${state.horizon} yr</span>` : ''}
+        </div>
         <div class="dp-sc-label" style="color:${r.color}">${r.label}</div>
         <div class="dp-sc-dp-amt">${fmt(r.dp)}</div>
       </div>
@@ -236,14 +253,17 @@ function renderScenarioCards(results) {
         <div class="dp-sc-section-lbl">After ${state.horizon} ${state.horizon === 1 ? 'year' : 'years'}</div>
         <div class="dp-sc-row"><span>Home equity</span><b>${fmt(r.equity)}</b></div>
         <div class="dp-sc-row"><span>Investment portfolio</span><b>${fmt(r.portfolio)}</b></div>
+        <div class="dp-sc-row">
+          <span>Total PMI paid</span>
+          <b style="color:${r.pmiPaid > 0 ? 'var(--red)' : 'var(--green)'}">${fmt(Math.round(r.pmiPaid))}</b>
+        </div>
         <div class="dp-sc-total">
           <span>Total wealth</span>
           <b style="color:${r.color}">${fmt(r.totalWealth)}</b>
         </div>
-        ${vsMin !== null ? `
-        <div class="dp-sc-vs" style="color:${vsMin >= 0 ? 'var(--green)' : 'var(--red)'}">
-          ${vsMin >= 0 ? '+' : ''}${fmt(vsMin)} vs. minimum
-        </div>` : ''}
+        <div class="dp-sc-vs" style="color:${vsMin === null ? 'var(--text-muted)' : vsMin >= 0 ? 'var(--green)' : 'var(--red)'}">
+          ${vsMin === null ? 'Baseline' : (vsMin >= 0 ? '+' : '') + fmt(vsMin) + ' vs. minimum'}
+        </div>
       </div>`;
     grid.appendChild(card);
   });
@@ -271,6 +291,11 @@ function renderInsight(results, bestIdx) {
     const gap = winner.totalWealth - minSc.totalWealth;
     cls = 'refi-verdict--amber'; icon = '↓';
     msg = `<strong>Maximum down builds the most wealth after ${s.horizon} years.</strong> The interest savings and faster equity accumulation outweigh the foregone investment returns — by ${fmt(gap)} vs. the minimum. This tends to hold when your mortgage rate is close to or above your expected return, or over longer time horizons.`;
+  } else if (winner.key === 'custom') {
+    const gap = winner.totalWealth - minSc.totalWealth;
+    const pct = Math.round(winner.dp / s.homePrice * 100);
+    cls = 'refi-verdict--amber'; icon = '✓';
+    msg = `<strong>Your custom scenario (${pct}% down) leads the field after ${s.horizon} years</strong>, building ${fmt(gap)} more than the minimum down scenario. The balance of lower monthly payments${winner.hasPMI ? '' : ', no PMI,'} and compounding investment returns works in your favor at this horizon.`;
   } else {
     const gap = winner.totalWealth - minSc.totalWealth;
     cls = 'refi-verdict--info'; icon = '✓';
@@ -342,6 +367,53 @@ function renderLegend(results) {
   ).join('');
 }
 
+// ── PMI mode helpers ─────────────────────────────────────────────────────────
+
+function pmiRefLoan() {
+  const s = state;
+  const pctRaw = s.savings / s.homePrice;
+  const minPct = Math.max(0.03, Math.min(0.05, pctRaw * 0.99));
+  return Math.max(0, s.homePrice - s.homePrice * minPct);
+}
+
+function updatePmiHint() {
+  const helper = document.getElementById('pmiHelper');
+  if (!helper) return;
+  const s = state;
+  if (!s.homePrice || !s.savings) return;
+  const loan = pmiRefLoan();
+  if (loan <= 0) return;
+  if (s.pmiMode === 'pct') {
+    const monthly = loan * (s.pmiRate / 100) / 12;
+    helper.textContent = `≈ ${fmt(Math.round(monthly))}/mo based on minimum-down loan`;
+  } else {
+    const pct = s.pmiDollar > 0 ? (s.pmiDollar * 12 / loan * 100).toFixed(2) : '—';
+    helper.textContent = `≈ ${pct}% of minimum-down loan`;
+  }
+}
+
+function applyCustomDpMode(mode) {
+  state.customDpMode = mode;
+  const pctWrap = document.getElementById('customDpPctWrap');
+  const dolWrap = document.getElementById('customDpDollarWrap');
+  document.querySelectorAll('.cdp-mode-btn').forEach(b =>
+    b.classList.toggle('active', b.dataset.mode === mode)
+  );
+  if (pctWrap) pctWrap.style.display = mode === 'pct' ? '' : 'none';
+  if (dolWrap) dolWrap.style.display = mode === 'dollar' ? '' : 'none';
+}
+
+function applyPmiMode(mode) {
+  state.pmiMode = mode;
+  const pctWrap = document.getElementById('pmiPctWrap');
+  const dolWrap = document.getElementById('pmiDollarWrap');
+  document.querySelectorAll('.pmi-mode-btn').forEach(b =>
+    b.classList.toggle('active', b.dataset.mode === mode)
+  );
+  if (pctWrap) pctWrap.style.display = mode === 'pct' ? '' : 'none';
+  if (dolWrap) dolWrap.style.display = mode === 'dollar' ? '' : 'none';
+}
+
 function recalc() {
   const c = calculate();
   const wrap  = document.getElementById('dpScenariosWrap');
@@ -362,6 +434,7 @@ function recalc() {
     empty.style.display = '';
     updateMobileBar(null, -1);
   }
+  updatePmiHint();
   saveState();
 }
 
@@ -395,16 +468,22 @@ function loadState() {
 
 function populateFields() {
   const s = state;
+  const cdpMode = s.customDpMode || 'pct';
   const map = {
     homePrice: s.homePrice, savings: s.savings,
     mortgageRate: s.mortgageRate, mortgageRateSlider: s.mortgageRate,
     loanTermSelect: s.loanTerm,
-    investReturn: s.investReturn, pmiRate: s.pmiRate, appreciation: s.appreciation,
+    investReturn: s.investReturn, pmiRate: s.pmiRate, pmiDollar: s.pmiDollar || '',
+    appreciation: s.appreciation,
+    customDpPct:    cdpMode === 'pct'    ? (s.customDp || '') : '',
+    customDpDollar: cdpMode === 'dollar' ? (s.customDp || '') : '',
   };
   Object.entries(map).forEach(([id, val]) => {
     const el = document.getElementById(id);
     if (el) el.value = val;
   });
+  applyPmiMode(s.pmiMode || 'pct');
+  applyCustomDpMode(cdpMode);
   const hDisp = document.getElementById('horizonDisplay');
   const hSlid = document.getElementById('horizonSlider');
   if (hDisp) hDisp.textContent = s.horizon;
@@ -424,6 +503,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ['mortgageRate', 'mortgageRate', 'mortgageRateSlider'],
     ['investReturn', 'investReturn'],
     ['pmiRate',      'pmiRate'],
+    ['pmiDollar',    'pmiDollar'],
     ['appreciation', 'appreciation'],
   ].forEach(([id, key, sliderId]) => {
     const el = document.getElementById(id);
@@ -476,14 +556,76 @@ document.addEventListener('DOMContentLoaded', () => {
     advToggle.addEventListener('click', () => {
       const isOpen = advBody.style.maxHeight && advBody.style.maxHeight !== '0px';
       if (isOpen) {
+        advBody.style.overflow = 'hidden';
         advBody.style.maxHeight = '0';
         advToggle.setAttribute('aria-expanded', 'false');
       } else {
         advBody.style.maxHeight = advBody.scrollHeight + 'px';
         advToggle.setAttribute('aria-expanded', 'true');
+        advBody.addEventListener('transitionend', function onEnd() {
+          advBody.removeEventListener('transitionend', onEnd);
+          advBody.style.overflow = 'visible';
+        });
       }
     });
   }
+
+  // Custom scenario inputs
+  ['customDpPct', 'customDpDollar'].forEach(id => {
+    document.getElementById(id)?.addEventListener('input', e => {
+      const v = parseFloat(e.target.value);
+      state.customDp = isNaN(v) || e.target.value === '' ? 0 : v;
+      recalc();
+    });
+  });
+
+  // Custom DP mode toggle
+  document.querySelectorAll('.cdp-mode-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const mode = btn.dataset.mode;
+      if (mode === state.customDpMode) return;
+      const p = state.homePrice;
+      if (state.customDp > 0 && p > 0) {
+        if (mode === 'dollar') {
+          const dollar = Math.round(p * state.customDp / 100);
+          state.customDp = dollar;
+          const el = document.getElementById('customDpDollar');
+          if (el) el.value = dollar;
+        } else {
+          const pct = parseFloat((state.customDp / p * 100).toFixed(1));
+          state.customDp = pct;
+          const el = document.getElementById('customDpPct');
+          if (el) el.value = pct;
+        }
+      }
+      applyCustomDpMode(mode);
+      recalc();
+    });
+  });
+
+  // PMI mode toggle
+  document.querySelectorAll('.pmi-mode-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const mode = btn.dataset.mode;
+      if (mode === state.pmiMode) return;
+      const loan = pmiRefLoan();
+      if (mode === 'dollar' && loan > 0) {
+        // Pre-fill dollar field from current % rate
+        const computed = Math.round(loan * (state.pmiRate / 100) / 12);
+        state.pmiDollar = computed;
+        const dolInput = document.getElementById('pmiDollar');
+        if (dolInput) dolInput.value = computed;
+      } else if (mode === 'pct' && loan > 0 && state.pmiDollar > 0) {
+        // Pre-fill % field from current dollar amount
+        const computed = parseFloat((state.pmiDollar * 12 / loan * 100).toFixed(2));
+        state.pmiRate = computed;
+        const pctInput = document.getElementById('pmiRate');
+        if (pctInput) pctInput.value = computed;
+      }
+      applyPmiMode(mode);
+      recalc();
+    });
+  });
 
   // Reset
   document.getElementById('resetBtn')?.addEventListener('click', () => {
