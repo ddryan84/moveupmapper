@@ -283,6 +283,12 @@ canvas { display: block; width: 100% !important; }
 @media (max-width: 900px) {
   .calc-grid { grid-template-columns: 1fr; }
   .calc-grid--2col { grid-template-columns: 1fr; }
+  .swap-calc-grid { grid-template-columns: 1fr; }
+  .swap-inputs-head { grid-template-columns: 1fr; }
+  .sih-col:first-child { border-right: none; border-bottom: 1px solid var(--border); }
+  .swap-inputs-body { grid-template-columns: 1fr; }
+  .swap-col:first-child { border-right: none; border-bottom: 1px solid var(--border); }
+  .buyer-mode-inline { gap: 6px; }
 }
 
 /* ── Form Fields ── */
@@ -563,6 +569,49 @@ label {
   letter-spacing: .06em;
   color: var(--text-muted);
   text-transform: uppercase;
+}
+
+/* ── Swap Calculator: Dual-Column Input Layout ── */
+.swap-calc-grid {
+  grid-template-columns: 2fr 1fr;
+}
+
+.swap-inputs-head {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid var(--border);
+}
+
+.sih-col {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px 14px;
+}
+
+.sih-col:first-child {
+  border-right: 1px solid var(--border);
+}
+
+.buyer-mode-inline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.swap-inputs-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.swap-col {
+  padding: 16px 20px;
+}
+
+.swap-col:first-child {
+  border-right: 1px solid var(--border);
 }
 
 /* ── Results Card ── */
@@ -1910,6 +1959,9 @@ details.adv-section[open] .adv-chevron { transform: rotate(180deg); }
   .card-section      { padding: 14px 14px; }
   .results-section   { padding: 10px 12px; }
   .buyer-mode-bar    { padding: 10px 14px; }
+  .sih-col           { padding: 12px 14px 10px; }
+  .swap-col          { padding: 14px 14px; }
+  .buyer-mode-inline { flex-wrap: wrap; justify-content: flex-end; }
   .horizon-inner     { padding: 12px 14px; gap: 12px; }
   .bp-controls       { padding: 12px; }
   .glossary-body     { padding: 4px 14px 16px; }

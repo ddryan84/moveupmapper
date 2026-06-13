@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"></noscript>
-  <link rel="stylesheet" href="styles.css?v=35">
+  <link rel="stylesheet" href="styles.css?v=43">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -113,368 +113,366 @@
   </details>
 
   <!-- ── Section 1: Main Calculator Grid ── -->
-  <div class="calc-grid">
+  <div class="calc-grid swap-calc-grid">
 
-    <!-- Left: Current Home / Financial Profile -->
-    <div class="card">
-      <div class="card-head">
-        <div class="card-icon icon-home">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
-          </svg>
+    <!-- Dual-column inputs card -->
+    <div class="card swap-inputs-card">
+
+      <!-- Split header -->
+      <div class="swap-inputs-head">
+        <div class="sih-col">
+          <div class="card-icon icon-home">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+          </div>
+          <div style="flex:1;min-width:0">
+            <div class="card-title" id="currentHomeTitle">Your Current Home</div>
+            <div class="card-sub" id="currentHomeSub">What you're working with today</div>
+          </div>
+          <div class="buyer-mode-inline">
+            <span class="buyer-mode-label">Buyer type</span>
+            <div class="mode-toggle">
+              <button class="mode-btn active" id="buyerModeOwner">Owner</button>
+              <button class="mode-btn" id="buyerModeFirst">First-Time</button>
+            </div>
+          </div>
         </div>
-        <div style="flex:1;min-width:0">
-          <div class="card-title" id="currentHomeTitle">Your Current Home</div>
-          <div class="card-sub" id="currentHomeSub">What you're working with today</div>
+        <div class="sih-col">
+          <div class="card-icon icon-building">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="18" rx="2"/><path d="M8 3v18M16 3v18M2 9h20M2 15h20"/>
+            </svg>
+          </div>
+          <div>
+            <div class="card-title">Prospective Home</div>
+            <div class="card-sub">The home you want to buy</div>
+          </div>
         </div>
       </div>
-      <div class="buyer-mode-bar">
-        <span class="buyer-mode-label">Buyer type</span>
-        <div class="mode-toggle">
-          <button class="mode-btn active" id="buyerModeOwner">Owner</button>
-          <button class="mode-btn" id="buyerModeFirst">First-Time Buyer</button>
-        </div>
-      </div>
-      <div class="card-body">
 
-        <!-- Owner-only fields — hidden for first-time buyers -->
-        <div id="homeOwnerFields">
-          <div class="field">
-            <label>HOME VALUATION</label>
-            <div class="input-wrap prefix">
-              <span class="affix">$</span>
-              <input type="number" id="homeValuation" min="0" step="1000">
-            </div>
-            <div class="helper">Estimated market value of your current home</div>
-          </div>
+      <!-- Two-column body -->
+      <div class="swap-inputs-body">
 
-          <div class="field">
-            <div class="field-row-head">
-              <label id="equityLabel">EQUITY</label>
-              <button class="btn-toggle" id="equityToggle">Switch to Loan Balance</button>
-            </div>
-            <div class="input-wrap prefix">
-              <span class="affix">$</span>
-              <input type="number" id="equityValue" min="0" step="1000">
-            </div>
-            <div class="helper" id="equityHelper">How much of your home you own outright</div>
-          </div>
+        <!-- Left: Your Current Home fields -->
+        <div class="swap-col">
 
-          <!-- Loan detail fields — visible only in Loan Balance mode -->
-          <div id="loanDetailsFields" style="display:none">
-            <div class="two-col">
-              <div class="field">
-                <label>MORTGAGE TERM</label>
-                <div class="input-wrap suffix">
-                  <input type="number" id="mortgageTerm" min="1" max="40" step="1">
-                  <span class="affix">yrs</span>
+          <!-- Owner-only fields — hidden for first-time buyers -->
+          <div id="homeOwnerFields">
+            <div class="field">
+              <label>HOME VALUATION</label>
+              <div class="input-wrap prefix">
+                <span class="affix">$</span>
+                <input type="number" id="homeValuation" min="0" step="1000">
+              </div>
+              <div class="helper">Estimated market value of your current home</div>
+            </div>
+
+            <div class="field">
+              <div class="field-row-head">
+                <label id="equityLabel">EQUITY</label>
+                <button class="btn-toggle" id="equityToggle">Switch to Loan Balance</button>
+              </div>
+              <div class="input-wrap prefix">
+                <span class="affix">$</span>
+                <input type="number" id="equityValue" min="0" step="1000">
+              </div>
+              <div class="helper" id="equityHelper">How much of your home you own outright</div>
+            </div>
+
+            <!-- Loan detail fields — visible only in Loan Balance mode -->
+            <div id="loanDetailsFields" style="display:none">
+              <div class="two-col">
+                <div class="field">
+                  <label>MORTGAGE TERM</label>
+                  <div class="input-wrap suffix">
+                    <input type="number" id="mortgageTerm" min="1" max="40" step="1">
+                    <span class="affix">yrs</span>
+                  </div>
+                  <div class="helper">Original loan length</div>
                 </div>
-                <div class="helper">Original loan length</div>
+                <div class="field">
+                  <label>YEARS REMAINING</label>
+                  <div class="input-wrap suffix">
+                    <input type="number" id="termRemainder" min="0" max="40" step="1">
+                    <span class="affix">yrs</span>
+                  </div>
+                  <div class="helper">Years left on loan</div>
+                </div>
               </div>
               <div class="field">
-                <label>YEARS REMAINING</label>
+                <label>CURRENT LOAN RATE</label>
                 <div class="input-wrap suffix">
-                  <input type="number" id="termRemainder" min="0" max="40" step="1">
-                  <span class="affix">yrs</span>
+                  <input type="number" id="currentMortgageRate" min="0" max="30" step="0.05">
+                  <span class="affix">%</span>
                 </div>
-                <div class="helper">Years left on loan</div>
+                <div class="helper">Annual interest rate on existing mortgage</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- First-time buyer context note -->
+          <div id="firstTimeBuyerNote" class="first-time-note" style="display:none">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span>No home to sell — your available savings and income growth are the foundation of your buying power. Use the Buying Power section below to model how your down payment builds over time.</span>
+          </div>
+
+          <div class="field">
+            <label id="expendableCashLabel">EXPENDABLE CASH</label>
+            <div class="input-wrap prefix">
+              <span class="affix">$</span>
+              <input type="number" id="expendableCash" min="0" step="1000">
+            </div>
+            <div class="helper" id="expendableCashHelper">Savings you can put toward the purchase</div>
+          </div>
+
+          <div class="field">
+            <label>MONTHLY TAKE-HOME PAY</label>
+            <div class="input-wrap prefix">
+              <span class="affix">$</span>
+              <input type="number" id="monthlyIncome" min="0" step="100">
+            </div>
+            <div class="helper">After-tax monthly income</div>
+          </div>
+
+          <div class="field">
+            <label>CURRENT HOA</label>
+            <div class="input-wrap prefix">
+              <span class="affix">$</span>
+              <input type="number" id="currentHOA" min="0" step="50">
+            </div>
+            <div class="helper">Monthly HOA on your current home</div>
+          </div>
+
+          <div id="sellCostsSection">
+            <button type="button" class="section-collapse-hdr mt-sm" id="sellCostsToggle" aria-expanded="false">
+              <div class="section-label">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                SELLING COSTS
+                <span id="sellCostsSummary" class="section-cost-hint"></span>
+              </div>
+              <svg class="collapse-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="section-collapse-body" id="sellCostsBody" style="max-height:0;overflow:hidden">
+              <div class="two-col">
+                <div class="field">
+                  <div class="label-tip-row"><label>AGENT COMMISSION</label><button class="tip-btn" aria-label="Learn more" data-tip="The listing agent fee, typically 2.5–3% of the sale price. Since the 2024 NAR settlement, the buyer&#39;s agent commission is negotiated separately and is no longer automatically paid by the seller.">?</button></div>
+                  <div class="input-wrap suffix">
+                    <input type="number" id="realtorFee" min="0" max="20" step="0.1">
+                    <span class="affix">%</span>
+                  </div>
+                  <div class="helper">% of your home's sale price</div>
+                </div>
+                <div class="field">
+                  <div class="label-tip-row"><label>TRANSFER TAX</label><button class="tip-btn" aria-label="Learn more" data-tip="A one-time tax on real estate transfers collected by state or local governments at closing. Rates vary widely — from under 0.1% in some states to over 2% in others. A few states charge no transfer tax at all.">?</button></div>
+                  <div class="input-wrap suffix">
+                    <input type="number" id="transferTaxPct" min="0" max="5" step="0.05">
+                    <span class="affix">%</span>
+                  </div>
+                  <div class="helper">Excise tax on sale; typically 0.1%–2.0%</div>
+                  <a href="https://www.google.com/search?q=real+estate+transfer+tax+rate+by+state" target="_blank" rel="noopener" class="field-lookup-link">Look up your state →</a>
+                </div>
+              </div>
+              <div class="two-col">
+                <div class="field">
+                  <label>PREP &amp; STAGING</label>
+                  <div class="input-wrap prefix">
+                    <span class="affix">$</span>
+                    <input type="number" id="preSaleRepairs" min="0" step="500">
+                  </div>
+                  <div class="helper">Pre-sale prep &amp; repairs</div>
+                </div>
+                <div class="field">
+                  <label>SELLER TITLE FEES</label>
+                  <div class="input-wrap prefix">
+                    <span class="affix">$</span>
+                    <input type="number" id="sellerTitleFees" min="0" step="500">
+                  </div>
+                  <div class="helper">Title insurance + escrow fees</div>
+                </div>
+              </div>
+              <div class="fill-estimates-row">
+                <button type="button" class="fill-estimates-btn" id="fillSellEstimates">Fill in estimates</button>
+                <div class="fill-estimates-note">Based on national averages — adjust to match your quotes</div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /swap-col left -->
+
+        <!-- Right: Prospective Home fields -->
+        <div class="swap-col">
+
+          <div class="field">
+            <label>PURCHASE PRICE</label>
+            <div class="input-wrap prefix">
+              <span class="affix">$</span>
+              <input type="number" id="purchasePrice" min="0" step="1000">
+            </div>
+          </div>
+
+          <div class="two-col">
+            <div class="field">
+              <label>INTEREST RATE</label>
+              <div class="input-wrap suffix">
+                <input type="number" id="interestRate" min="0" max="30" step="0.05">
+                <span class="affix">%</span>
               </div>
             </div>
             <div class="field">
-              <label>CURRENT LOAN RATE</label>
-              <div class="input-wrap suffix">
-                <input type="number" id="currentMortgageRate" min="0" max="30" step="0.05">
-                <span class="affix">%</span>
+              <label>LOAN TERM</label>
+              <div class="input-wrap" style="padding:0">
+                <select id="prospectiveTerm" class="input-select" style="height:36px;padding:0 10px;width:100%;border:1px solid var(--border);border-radius:6px;background:var(--surface);color:var(--text);font-size:14px">
+                  <option value="10">10 years</option>
+                  <option value="15">15 years</option>
+                  <option value="20">20 years</option>
+                  <option value="25">25 years</option>
+                  <option value="30" selected>30 years</option>
+                </select>
               </div>
-              <div class="helper">Annual interest rate on existing mortgage</div>
+              <div class="helper">New mortgage term</div>
             </div>
           </div>
 
-        </div>
-
-        <!-- First-time buyer context note -->
-        <div id="firstTimeBuyerNote" class="first-time-note" style="display:none">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-          <span>No home to sell — your available savings and income growth are the foundation of your buying power. Use the Buying Power section below to model how your down payment builds over time.</span>
-        </div>
-
-        <div class="field">
-          <label id="expendableCashLabel">EXPENDABLE CASH</label>
-          <div class="input-wrap prefix">
-            <span class="affix">$</span>
-            <input type="number" id="expendableCash" min="0" step="1000">
+          <div class="two-col">
+            <div class="field">
+              <div class="label-tip-row"><label>MONTHLY PMI</label><button class="tip-btn" aria-label="Learn more" data-tip="Private mortgage insurance required when your down payment is under 20% of the purchase price. Typically 0.5–1.5% of the loan amount per year, or roughly $100–$250/month on a $300K loan. Drops off once your loan-to-value ratio reaches 80%.">?</button></div>
+              <div class="input-wrap prefix">
+                <span class="affix">$</span>
+                <input type="number" id="monthlyPMI" min="0" step="10">
+              </div>
+              <div class="helper">If down payment &lt; 20%</div>
+            </div>
+            <div class="field">
+              <label>NEW HOME HOA</label>
+              <div class="input-wrap prefix">
+                <span class="affix">$</span>
+                <input type="number" id="newHOA" min="0" step="50">
+              </div>
+              <div class="helper">Monthly HOA on prospective home</div>
+            </div>
           </div>
-          <div class="helper" id="expendableCashHelper">Savings you can put toward the purchase</div>
-        </div>
 
-        <div class="field">
-          <label>MONTHLY TAKE-HOME PAY</label>
-          <div class="input-wrap prefix">
-            <span class="affix">$</span>
-            <input type="number" id="monthlyIncome" min="0" step="100">
+          <div class="two-col">
+            <div class="field">
+              <div class="field-row-head">
+                <label>HOME INS.</label>
+                <div class="mode-toggle">
+                  <button class="mode-btn active" id="hoiModeDollar">$</button>
+                  <button class="mode-btn" id="hoiModePct">%</button>
+                </div>
+              </div>
+              <div class="input-wrap prefix" id="hoiInputWrap">
+                <span class="affix" id="hoiAffix">$</span>
+                <input type="number" id="homeownersInsurance" min="0" step="10">
+              </div>
+              <div class="helper" id="hoiHelper">Monthly premium</div>
+            </div>
+            <div class="field">
+              <div class="field-row-head">
+                <label>PROPERTY TAX</label>
+                <div class="mode-toggle">
+                  <button class="mode-btn active" id="taxModePercent" data-mode="percent">%</button>
+                  <button class="mode-btn" id="taxModeDollar" data-mode="dollar">$</button>
+                </div>
+              </div>
+              <div class="input-wrap prefix" id="taxInputWrap">
+                <span class="affix" id="taxAffix">$</span>
+                <input type="number" id="propertyTax" min="0" step="100">
+              </div>
+              <div class="helper" id="taxHelper">Annual; ≈1% of price</div>
+            </div>
           </div>
-          <div class="helper">After-tax monthly income</div>
-        </div>
 
-        <div class="field">
-          <label>CURRENT HOA</label>
-          <div class="input-wrap prefix">
-            <span class="affix">$</span>
-            <input type="number" id="currentHOA" min="0" step="50">
-          </div>
-          <div class="helper">Monthly HOA on your current home</div>
-        </div>
-
-        <div id="sellCostsSection">
-          <button type="button" class="section-collapse-hdr mt-sm" id="sellCostsToggle" aria-expanded="false">
+          <button type="button" class="section-collapse-hdr mt-sm" id="buyCostsToggle" aria-expanded="false">
             <div class="section-label">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-              SELLING COSTS
-              <span id="sellCostsSummary" class="section-cost-hint"></span>
+              BUYING COSTS
+              <span id="buyCostsSummary" class="section-cost-hint"></span>
             </div>
             <svg class="collapse-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
           </button>
 
-          <div class="section-collapse-body" id="sellCostsBody" style="max-height:0;overflow:hidden">
+          <div class="section-collapse-body" id="buyCostsBody" style="max-height:0;overflow:hidden">
 
             <div class="two-col">
               <div class="field">
-                <div class="label-tip-row"><label>AGENT COMMISSION</label><button class="tip-btn" aria-label="Learn more" data-tip="The listing agent fee, typically 2.5–3% of the sale price. Since the 2024 NAR settlement, the buyer&#39;s agent commission is negotiated separately and is no longer automatically paid by the seller.">?</button></div>
-                <div class="input-wrap suffix">
-                  <input type="number" id="realtorFee" min="0" max="20" step="0.1">
-                  <span class="affix">%</span>
+                <div class="label-tip-row"><label>LENDER FEES</label><button class="tip-btn" aria-label="Learn more" data-tip="Upfront costs charged by your lender at closing: origination fee, appraisal, underwriting, and processing fees. Typically 1–1.5% of the loan amount. Your Loan Estimate document will itemize these exactly.">?</button></div>
+                <div class="input-wrap prefix">
+                  <span class="affix">$</span>
+                  <input type="number" id="lenderFees" min="0" step="500">
                 </div>
-                <div class="helper">% of your home's sale price</div>
+                <div class="helper">Origination &amp; closing costs</div>
               </div>
               <div class="field">
-                <div class="label-tip-row"><label>TRANSFER TAX</label><button class="tip-btn" aria-label="Learn more" data-tip="A one-time tax on real estate transfers collected by state or local governments at closing. Rates vary widely — from under 0.1% in some states to over 2% in others. A few states charge no transfer tax at all.">?</button></div>
-                <div class="input-wrap suffix">
-                  <input type="number" id="transferTaxPct" min="0" max="5" step="0.05">
-                  <span class="affix">%</span>
+                <div class="label-tip-row"><label>BUYER TITLE FEES</label><button class="tip-btn" aria-label="Learn more" data-tip="Covers the lender's title insurance (required), owner's title policy (strongly recommended — protects your ownership rights), title search, settlement agent fee, and recording services. Typically 0.5–0.7% of the purchase price.">?</button></div>
+                <div class="input-wrap prefix">
+                  <span class="affix">$</span>
+                  <input type="number" id="buyerTitleFees" min="0" step="500">
                 </div>
-                <div class="helper">Excise tax on sale; typically 0.1%–2.0%</div>
-                <a href="https://www.google.com/search?q=real+estate+transfer+tax+rate+by+state" target="_blank" rel="noopener" class="field-lookup-link">Look up your state →</a>
+                <div class="helper">Title insurance + settlement fees</div>
               </div>
             </div>
 
             <div class="two-col">
               <div class="field">
-                <label>PREP &amp; STAGING</label>
-                <div class="input-wrap prefix">
-                  <span class="affix">$</span>
-                  <input type="number" id="preSaleRepairs" min="0" step="500">
+                <div class="label-tip-row"><label>BUYER TRANSFER TAX</label><button class="tip-btn" aria-label="Learn more" data-tip="Some states and counties charge a deed or mortgage transfer tax payable by the buyer at closing. Rates range from 0% (most of the South and Midwest) to 0.5–2%+ in states like Virginia, Maryland, New York, and Florida. Enter 0 if your state doesn't charge this.">?</button></div>
+                <div class="input-wrap suffix">
+                  <input type="number" id="buyerTransferTaxPct" min="0" max="5" step="0.05">
+                  <span class="affix">%</span>
                 </div>
-                <div class="helper">Pre-sale prep &amp; repairs</div>
+                <div class="helper">Deed/mortgage stamp tax; varies by state</div>
+                <a href="https://www.google.com/search?q=buyer+deed+transfer+tax+rate+by+state" target="_blank" rel="noopener" class="field-lookup-link">Look up your state →</a>
               </div>
               <div class="field">
-                <label>SELLER TITLE FEES</label>
+                <div class="label-tip-row"><label>PREPAIDS AT CLOSING</label><button class="tip-btn" aria-label="Learn more" data-tip="Two costs paid at closing that aren't part of your escrow account: (1) your first full year of homeowners insurance premium, paid upfront to activate coverage on closing day, and (2) prepaid mortgage interest covering the days from your closing date through the end of the month. Together these typically run $2,000–$4,000 and are frequently overlooked in early planning.">?</button></div>
                 <div class="input-wrap prefix">
                   <span class="affix">$</span>
-                  <input type="number" id="sellerTitleFees" min="0" step="500">
+                  <input type="number" id="prepaidsAtClosing" min="0" step="500">
                 </div>
-                <div class="helper">Title insurance + escrow fees</div>
+                <div class="helper" id="prepaidsHelper">1st-yr insurance premium + prepaid interest</div>
               </div>
+            </div>
+
+            <div class="two-col">
+              <div class="field">
+                <label>REPAIRS &amp; RENO</label>
+                <div class="input-wrap prefix">
+                  <span class="affix">$</span>
+                  <input type="number" id="repairCosts" min="0" step="500">
+                </div>
+                <div class="helper">Pre-move-in repairs</div>
+              </div>
+              <div class="field">
+                <div class="label-tip-row"><label>PRE-PAID ESCROW</label><button class="tip-btn" aria-label="Learn more" data-tip="Initial reserves deposited into your escrow account at closing — typically 2–6 months of property taxes and 2–3 months of homeowners insurance. This seeds the account your lender uses to pay those bills on your behalf. Separate from Prepaids at Closing.">?</button></div>
+                <div class="input-wrap prefix">
+                  <span class="affix">$</span>
+                  <input type="number" id="prePaidEscrow" min="0" step="500">
+                </div>
+                <div class="helper" id="prePaidEscrowHelper">3 mo. of taxes &amp; insurance upfront</div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label>MOVING EXPENSES</label>
+              <div class="input-wrap prefix">
+                <span class="affix">$</span>
+                <input type="number" id="movingExpenses" min="0" step="500">
+              </div>
+              <div class="helper">Truck, packing, misc.</div>
             </div>
 
             <div class="fill-estimates-row">
-              <button type="button" class="fill-estimates-btn" id="fillSellEstimates">Fill in estimates</button>
+              <button type="button" class="fill-estimates-btn" id="fillBuyEstimates">Fill in estimates</button>
               <div class="fill-estimates-note">Based on national averages — adjust to match your quotes</div>
             </div>
 
           </div>
-        </div>
 
-      </div>
-    </div>
+        </div><!-- /swap-col right -->
 
-    <!-- Middle: Prospective Home -->
-    <div class="card">
-      <div class="card-head">
-        <div class="card-icon icon-building">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="3" width="20" height="18" rx="2"/><path d="M8 3v18M16 3v18M2 9h20M2 15h20"/>
-          </svg>
-        </div>
-        <div>
-          <div class="card-title">Prospective Home</div>
-          <div class="card-sub">The home you want to buy</div>
-        </div>
-      </div>
-      <div class="card-body">
-
-        <div class="section-label">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-          PURCHASE &amp; FINANCING
-        </div>
-
-        <div class="field">
-          <label>PURCHASE PRICE</label>
-          <div class="input-wrap prefix">
-            <span class="affix">$</span>
-            <input type="number" id="purchasePrice" min="0" step="1000">
-          </div>
-        </div>
-
-        <div class="two-col">
-          <div class="field">
-            <label>INTEREST RATE</label>
-            <div class="input-wrap suffix">
-              <input type="number" id="interestRate" min="0" max="30" step="0.05">
-              <span class="affix">%</span>
-            </div>
-          </div>
-          <div class="field">
-            <label>LOAN TERM</label>
-            <div class="input-wrap" style="padding:0">
-              <select id="prospectiveTerm" class="input-select" style="height:36px;padding:0 10px;width:100%;border:1px solid var(--border);border-radius:6px;background:var(--surface);color:var(--text);font-size:14px">
-                <option value="10">10 years</option>
-                <option value="15">15 years</option>
-                <option value="20">20 years</option>
-                <option value="25">25 years</option>
-                <option value="30" selected>30 years</option>
-              </select>
-            </div>
-            <div class="helper">New mortgage term</div>
-          </div>
-        </div>
-
-        <div class="two-col">
-          <div class="field">
-            <div class="label-tip-row"><label>MONTHLY PMI</label><button class="tip-btn" aria-label="Learn more" data-tip="Private mortgage insurance required when your down payment is under 20% of the purchase price. Typically 0.5–1.5% of the loan amount per year, or roughly $100–$250/month on a $300K loan. Drops off once your loan-to-value ratio reaches 80%.">?</button></div>
-            <div class="input-wrap prefix">
-              <span class="affix">$</span>
-              <input type="number" id="monthlyPMI" min="0" step="10">
-            </div>
-            <div class="helper">If down payment &lt; 20%</div>
-          </div>
-          <div class="field">
-            <label>NEW HOME HOA</label>
-            <div class="input-wrap prefix">
-              <span class="affix">$</span>
-              <input type="number" id="newHOA" min="0" step="50">
-            </div>
-            <div class="helper">Monthly HOA on prospective home</div>
-          </div>
-        </div>
-
-        <div class="two-col">
-          <div class="field">
-            <div class="field-row-head">
-              <label>HOME INS.</label>
-              <div class="mode-toggle">
-                <button class="mode-btn active" id="hoiModeDollar">$</button>
-                <button class="mode-btn" id="hoiModePct">%</button>
-              </div>
-            </div>
-            <div class="input-wrap prefix" id="hoiInputWrap">
-              <span class="affix" id="hoiAffix">$</span>
-              <input type="number" id="homeownersInsurance" min="0" step="10">
-            </div>
-            <div class="helper" id="hoiHelper">Monthly premium</div>
-          </div>
-          <div class="field">
-            <div class="field-row-head">
-              <label>PROPERTY TAX</label>
-              <div class="mode-toggle">
-                <button class="mode-btn active" id="taxModePercent" data-mode="percent">%</button>
-                <button class="mode-btn" id="taxModeDollar" data-mode="dollar">$</button>
-              </div>
-            </div>
-            <div class="input-wrap prefix" id="taxInputWrap">
-              <span class="affix" id="taxAffix">$</span>
-              <input type="number" id="propertyTax" min="0" step="100">
-            </div>
-            <div class="helper" id="taxHelper">Annual; ≈1% of price</div>
-          </div>
-        </div>
-
-        <button type="button" class="section-collapse-hdr mt-sm" id="buyCostsToggle" aria-expanded="false">
-          <div class="section-label">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-            BUYING COSTS
-            <span id="buyCostsSummary" class="section-cost-hint"></span>
-          </div>
-          <svg class="collapse-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-
-        <div class="section-collapse-body" id="buyCostsBody" style="max-height:0;overflow:hidden">
-
-          <div class="two-col">
-            <div class="field">
-              <div class="label-tip-row"><label>LENDER FEES</label><button class="tip-btn" aria-label="Learn more" data-tip="Upfront costs charged by your lender at closing: origination fee, appraisal, underwriting, and processing fees. Typically 1–1.5% of the loan amount. Your Loan Estimate document will itemize these exactly.">?</button></div>
-              <div class="input-wrap prefix">
-                <span class="affix">$</span>
-                <input type="number" id="lenderFees" min="0" step="500">
-              </div>
-              <div class="helper">Origination &amp; closing costs</div>
-            </div>
-            <div class="field">
-              <div class="label-tip-row"><label>BUYER TITLE FEES</label><button class="tip-btn" aria-label="Learn more" data-tip="Covers the lender's title insurance (required), owner's title policy (strongly recommended — protects your ownership rights), title search, settlement agent fee, and recording services. Typically 0.5–0.7% of the purchase price.">?</button></div>
-              <div class="input-wrap prefix">
-                <span class="affix">$</span>
-                <input type="number" id="buyerTitleFees" min="0" step="500">
-              </div>
-              <div class="helper">Title insurance + settlement fees</div>
-            </div>
-          </div>
-
-          <div class="two-col">
-            <div class="field">
-              <div class="label-tip-row"><label>BUYER TRANSFER TAX</label><button class="tip-btn" aria-label="Learn more" data-tip="Some states and counties charge a deed or mortgage transfer tax payable by the buyer at closing. Rates range from 0% (most of the South and Midwest) to 0.5–2%+ in states like Virginia, Maryland, New York, and Florida. Enter 0 if your state doesn't charge this.">?</button></div>
-              <div class="input-wrap suffix">
-                <input type="number" id="buyerTransferTaxPct" min="0" max="5" step="0.05">
-                <span class="affix">%</span>
-              </div>
-              <div class="helper">Deed/mortgage stamp tax; varies by state</div>
-              <a href="https://www.google.com/search?q=buyer+deed+transfer+tax+rate+by+state" target="_blank" rel="noopener" class="field-lookup-link">Look up your state →</a>
-            </div>
-            <div class="field">
-              <div class="label-tip-row"><label>PREPAIDS AT CLOSING</label><button class="tip-btn" aria-label="Learn more" data-tip="Two costs paid at closing that aren't part of your escrow account: (1) your first full year of homeowners insurance premium, paid upfront to activate coverage on closing day, and (2) prepaid mortgage interest covering the days from your closing date through the end of the month. Together these typically run $2,000–$4,000 and are frequently overlooked in early planning.">?</button></div>
-              <div class="input-wrap prefix">
-                <span class="affix">$</span>
-                <input type="number" id="prepaidsAtClosing" min="0" step="500">
-              </div>
-              <div class="helper" id="prepaidsHelper">1st-yr insurance premium + prepaid interest</div>
-            </div>
-          </div>
-
-          <div class="two-col">
-            <div class="field">
-              <label>REPAIRS &amp; RENO</label>
-              <div class="input-wrap prefix">
-                <span class="affix">$</span>
-                <input type="number" id="repairCosts" min="0" step="500">
-              </div>
-              <div class="helper">Pre-move-in repairs</div>
-            </div>
-            <div class="field">
-              <div class="label-tip-row"><label>PRE-PAID ESCROW</label><button class="tip-btn" aria-label="Learn more" data-tip="Initial reserves deposited into your escrow account at closing — typically 2–6 months of property taxes and 2–3 months of homeowners insurance. This seeds the account your lender uses to pay those bills on your behalf. Separate from Prepaids at Closing.">?</button></div>
-              <div class="input-wrap prefix">
-                <span class="affix">$</span>
-                <input type="number" id="prePaidEscrow" min="0" step="500">
-              </div>
-              <div class="helper" id="prePaidEscrowHelper">3 mo. of taxes &amp; insurance upfront</div>
-            </div>
-          </div>
-
-          <div class="field">
-            <label>MOVING EXPENSES</label>
-            <div class="input-wrap prefix">
-              <span class="affix">$</span>
-              <input type="number" id="movingExpenses" min="0" step="500">
-            </div>
-            <div class="helper">Truck, packing, misc.</div>
-          </div>
-
-          <div class="fill-estimates-row">
-            <button type="button" class="fill-estimates-btn" id="fillBuyEstimates">Fill in estimates</button>
-            <div class="fill-estimates-note">Based on national averages — adjust to match your quotes</div>
-          </div>
-
-        </div>
-
-      </div>
-    </div>
+      </div><!-- /swap-inputs-body -->
+    </div><!-- /swap-inputs-card -->
 
     <!-- Right: Results -->
     <div class="card results-card">
@@ -609,7 +607,7 @@
       </div>
     </div>
 
-  </div><!-- /calc-grid -->
+  </div><!-- /swap-calc-grid -->
 
 
   <!-- ── Section 2: Affordable Price Range ── -->
