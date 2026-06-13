@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Down Payment Optimizer — Move Up Mapper</title>
+  <meta name="description" content="How much should you put down? Compare minimum, 20%, and maximum down payment scenarios side by side — monthly cost, PMI impact, investment opportunity cost, and total wealth at your horizon.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Move Up Mapper">
+  <meta property="og:title" content="Down Payment Optimizer — Move Up Mapper">
+  <meta property="og:description" content="Compare down payment scenarios side by side. See how putting 5% vs 20% vs the maximum affects your monthly payment, PMI, and total wealth over time.">
+  <meta property="og:url" content="https://www.moveupmapper.com/downpayment">
+  <meta property="og:image" content="https://www.moveupmapper.com/social-card.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Move Up Mapper — Free Housing &amp; Investment Calculators">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Down Payment Optimizer — Move Up Mapper">
+  <meta name="twitter:description" content="Compare down payment scenarios side by side. See how putting 5% vs 20% vs the maximum affects your monthly payment, PMI, and total wealth over time.">
+  <link rel="canonical" href="https://www.moveupmapper.com/downpayment">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"></noscript>
+  <link rel="stylesheet" href="styles.css?v=35">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Down Payment Optimizer",
+    "url": "https://www.moveupmapper.com/downpayment",
+    "description": "Compare down payment scenarios side by side — monthly cost, PMI duration, opportunity cost, and total wealth at your time horizon.",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "isAccessibleForFree": true,
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "provider": { "@type": "Organization", "name": "Move Up Mapper", "url": "https://www.moveupmapper.com" }
+  }
+  </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YCEFCLSHX0"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YCEFCLSHX0');
+  </script>
+</head>
+<body>
+<nav class="site-nav no-print">
+  <div class="site-nav-inner">
+    <a href="/" class="site-brand">
+      <img src="favicon.svg" width="28" height="28" alt="" style="border-radius:7px;flex-shrink:0;display:block">
+      <span class="brand-name">Move Up Mapper</span>
+    </a>
+    <div class="page-nav-links">
+      <div class="nav-dropdown">
+        <button type="button" class="page-nav-link nav-dropdown-btn active" aria-haspopup="true">Calculators <svg class="nav-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="/swap" class="nav-dropdown-item">Home Swap Calculator</a>
+          <a href="/rvb" class="nav-dropdown-item">Rent vs. Buy Analysis</a>
+          <a href="/compound" class="nav-dropdown-item">Compound Growth</a>
+          <a href="/downpayment" class="nav-dropdown-item active">Down Payment Optimizer</a>
+          <a href="/refi" class="nav-dropdown-item">Refi Calculator</a>
+          <a href="/payoff" class="nav-dropdown-item">Payoff Calculator</a>
+        </div>
+      </div>
+      <a href="/faq"   class="page-nav-link">FAQ</a>
+      <a href="/learn" class="page-nav-link">Learn</a>
+      <a href="/about" class="page-nav-link">About</a>
+    </div>
+  </div>
+</nav>
+<div class="app">
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-icon" style="background:#0284c7">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+      </svg>
+    </div>
+    <div>
+      <h1>Down Payment Optimizer</h1>
+      <p class="header-sub">Find the right balance between paying down your mortgage and keeping capital invested</p>
+    </div>
+    <div class="header-actions" style="margin-left:auto;display:flex;gap:8px;align-items:center;flex-shrink:0">
+      <button class="btn-text" id="resetBtn">Reset</button>
+    </div>
+  </header>
+
+  <!-- About -->
+  <details class="about-expand no-print">
+    <summary>About this calculator</summary>
+    <div class="about-content">
+      <p>The down payment decision is often framed as: "put 20% down to avoid PMI." That's a useful heuristic, but it ignores opportunity cost — every extra dollar in your down payment is a dollar not earning investment returns. This calculator models three scenarios side by side (minimum down, 20%, and your maximum available) and tracks total wealth — home equity plus investment portfolio — at your chosen time horizon. The minimum-down scenario keeps more cash invested; the others invest the monthly payment savings instead. The winning scenario depends on your mortgage rate, your expected investment return, and how long you hold.</p>
+      <p class="about-disclaimer"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span><strong>Not financial advice.</strong> This tool is for informational purposes only. Consult a qualified financial or mortgage professional before making real estate decisions.</span></p>
+    </div>
+  </details>
+
+  <!-- ── Horizon Card ── -->
+  <div class="card wide-card horizon-card no-print">
+    <div class="horizon-inner">
+      <div class="horizon-label-group">
+        <span class="horizon-title">HOW MANY YEARS WILL YOU COMPARE?</span>
+        <div class="horizon-value-display" id="horizonValueDisplay"><span id="horizonDisplay">10</span> <span class="horizon-unit">years</span></div>
+      </div>
+      <div class="horizon-slider-row">
+        <span class="horizon-edge-label">1 yr</span>
+        <input type="range" id="horizonSlider" min="1" max="30" step="1" value="10">
+        <span class="horizon-edge-label">30 yrs</span>
+      </div>
+      <div class="horizon-note">Total wealth (equity + portfolio) is compared at this horizon. Shorter horizons tend to favor minimum down; longer horizons tend to favor more down.</div>
+    </div>
+  </div>
+
+  <!-- ── Inputs ── -->
+  <div class="card wide-card" style="margin-bottom:0">
+    <div class="card-head">
+      <div class="card-icon" style="background:#0284c7">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-title">Your Numbers</div>
+        <div class="card-sub">Enter your home price, available cash, and loan terms</div>
+      </div>
+    </div>
+    <div class="card-body">
+
+      <div class="two-col">
+        <div class="field">
+          <label>HOME PRICE</label>
+          <div class="input-wrap prefix">
+            <span class="affix">$</span>
+            <input type="number" id="homePrice" min="50000" max="5000000" step="5000">
+          </div>
+        </div>
+        <div class="field">
+          <label>AVAILABLE SAVINGS</label>
+          <div class="input-wrap prefix">
+            <span class="affix">$</span>
+            <input type="number" id="savings" min="0" step="5000">
+          </div>
+          <div class="helper">Cash on hand for the down payment — the calculator will show how much of this to use</div>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="field">
+          <label>MORTGAGE RATE</label>
+          <div class="input-wrap suffix">
+            <input type="number" id="mortgageRate" min="1" max="15" step="0.125">
+            <span class="affix">%</span>
+          </div>
+          <div class="rate-slider-row">
+            <span class="horizon-edge-label">3%</span>
+            <input type="range" id="mortgageRateSlider" min="3" max="12" step="0.125" value="6.75">
+            <span class="horizon-edge-label">12%</span>
+          </div>
+          <div class="helper">Use the interest rate, not APR</div>
+        </div>
+        <div class="field">
+          <label>LOAN TERM</label>
+          <div class="input-wrap" style="padding:0">
+            <select id="loanTermSelect" class="input-select" style="height:36px;padding:0 10px;width:100%">
+              <option value="30" selected>30 years</option>
+              <option value="20">20 years</option>
+              <option value="15">15 years</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Advanced -->
+      <button type="button" class="section-collapse-hdr mt-sm" id="advToggle" aria-expanded="false">
+        <div class="section-label">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          ADVANCED ASSUMPTIONS
+        </div>
+        <svg class="collapse-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="section-collapse-body" id="advBody" style="max-height:0;overflow:hidden">
+        <div class="two-col" style="margin-top:14px">
+          <div class="field">
+            <div class="label-tip-row">
+              <label>INVESTMENT RETURN</label>
+              <button class="tip-btn" aria-label="Learn more" data-tip="The annual return you'd earn by investing your down payment savings in a diversified portfolio instead. Historical U.S. equity returns have averaged roughly 7% annually in real terms. Lower this if you're more conservative or would invest in bonds or cash.">?</button>
+            </div>
+            <div class="input-wrap suffix">
+              <input type="number" id="investReturn" min="0" max="20" step="0.5">
+              <span class="affix">%</span>
+            </div>
+            <div class="helper">Annual return if excess cash is invested instead of applied to the down payment</div>
+          </div>
+          <div class="field">
+            <div class="label-tip-row">
+              <label>PMI RATE</label>
+              <button class="tip-btn" aria-label="Learn more" data-tip="Private Mortgage Insurance (PMI) is required when your down payment is less than 20% of the home price. It's charged as an annual percentage of the original loan amount, typically 0.5–1.5%. PMI automatically cancels when your loan-to-value ratio reaches 78% of the original purchase price.">?</button>
+            </div>
+            <div class="input-wrap suffix">
+              <input type="number" id="pmiRate" min="0.1" max="2.5" step="0.05">
+              <span class="affix">%</span>
+            </div>
+            <div class="helper">Annual PMI as % of original loan — typically 0.5–1.5% depending on credit score and lender</div>
+          </div>
+        </div>
+        <div class="field">
+          <div class="label-tip-row">
+            <label>HOME APPRECIATION RATE</label>
+            <button class="tip-btn" aria-label="Learn more" data-tip="The annual rate at which you expect your home to appreciate in value. Used to estimate home equity at your horizon. The long-run U.S. average is roughly 3–4% nominally. This affects equity equally across all scenarios, so the comparative result is relatively insensitive to this assumption.">?</button>
+          </div>
+          <div class="input-wrap suffix">
+            <input type="number" id="appreciation" min="0" max="15" step="0.5">
+            <span class="affix">%</span>
+          </div>
+          <div class="helper">Annual home value growth — affects equity equally across all scenarios</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Results ── -->
+  <div class="card wide-card" style="margin-top:0">
+
+    <div class="card-head">
+      <div class="card-icon" style="background:#0284c7">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/>
+          <line x1="6" y1="20" x2="6" y2="14"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-title">Scenario Comparison</div>
+        <div class="card-sub">Results update instantly as you adjust your inputs</div>
+      </div>
+    </div>
+
+    <!-- Scenarios -->
+    <div id="dpScenariosWrap">
+      <div class="dp-scenario-grid" id="dpScenarioCards"></div>
+
+      <!-- Insight / verdict -->
+      <div class="refi-verdict refi-verdict--info" id="dpInsight" style="margin:0 20px 20px">
+        <div class="refi-verdict-icon">→</div>
+        <div class="refi-verdict-text"><p>Adjust your inputs to see the comparison.</p></div>
+      </div>
+
+      <!-- Wealth over time chart -->
+      <div style="padding:0 20px 6px">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px">TOTAL WEALTH OVER TIME</div>
+        <div class="dp-chart-wrap">
+          <canvas id="dpChart" height="220"></canvas>
+        </div>
+        <div class="dp-chart-legend" id="dpChartLegend"></div>
+      </div>
+    </div>
+
+    <!-- Empty state -->
+    <div id="dpEmptyState" class="dp-empty-state" style="display:none">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--border);margin-bottom:10px"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      <p>Enter a home price and savings amount to see your scenarios.</p>
+    </div>
+
+  </div>
+
+  <!-- ── Key Concepts ── -->
+  <details class="card wide-card glossary-card">
+    <summary class="card-head">
+      <div class="card-icon" style="background:#0284c7">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-title">How It Works &amp; Key Assumptions</div>
+        <div class="card-sub">The math behind the comparison and the assumptions built into this model</div>
+      </div>
+      <svg class="adv-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left:auto;flex-shrink:0"><polyline points="6 9 12 15 18 9"/></svg>
+    </summary>
+    <div class="glossary-body">
+      <div class="gloss-group">
+        <div class="gloss-group-title">The Model</div>
+        <div class="gloss-grid">
+
+          <div class="gloss-item">
+            <div class="gloss-term">How Scenarios Are Built</div>
+            <div class="gloss-def">The calculator automatically generates up to three scenarios based on your home price and available savings. Minimum down is 5% (floored at 3% if savings are tight). The 20% threshold scenario only appears if your savings can reach it. The maximum scenario uses all available savings up to 90% of the home price. If two scenarios would be close to the same amount, one is dropped to keep the comparison meaningful.</div>
+          </div>
+
+          <div class="gloss-item">
+            <div class="gloss-term">The Wealth Comparison</div>
+            <div class="gloss-def">For each scenario, wealth at the horizon = home equity + investment portfolio. Home equity = home value at horizon minus remaining loan balance. The investment portfolio starts with whatever cash is left after the down payment (savings minus down payment) and grows at your investment return rate. The minimum-down scenario has the most cash invested from day one, but the highest monthly payment. Other scenarios have less initial capital but invest the monthly payment savings each month.</div>
+          </div>
+
+          <div class="gloss-item">
+            <div class="gloss-term">Monthly Savings Logic</div>
+            <div class="gloss-def">The minimum-down scenario sets the reference monthly burden (highest payment + PMI). Every other scenario has a lower monthly burden. That monthly difference is invested each month at your investment return rate. This means the "no PMI" or "max down" scenarios are credited for every dollar saved on mortgage payments — the question is whether those savings outweigh starting with less invested capital.</div>
+          </div>
+
+          <div class="gloss-item">
+            <div class="gloss-term">PMI Calculation</div>
+            <div class="gloss-def">PMI applies when the down payment is less than 20% of the purchase price. It's calculated as (original loan balance × PMI rate) ÷ 12 per month. PMI automatically cancels when the outstanding loan balance reaches 78% of the original purchase price (per federal law). The cancellation month is computed analytically from the amortization schedule and is reflected accurately in the month-by-month simulation.</div>
+          </div>
+
+          <div class="gloss-item">
+            <div class="gloss-term">The Crossover Point</div>
+            <div class="gloss-def">There is generally a year at which the larger-down-payment scenario overtakes the minimum. Early on, the minimum scenario benefits from having more capital invested. Over time, the interest savings and PMI avoidance from putting more down compound and eventually catch up. The chart shows this crossover clearly. If your horizon falls before the crossover, minimum down wins. After it, more down wins.</div>
+          </div>
+
+          <div class="gloss-item">
+            <div class="gloss-term">What the Calculator Doesn't Model</div>
+            <div class="gloss-def">This model does not account for: tax deductibility of mortgage interest (reduces the effective cost of a larger loan for some taxpayers); the fact that putting less than 20% down may result in a slightly higher interest rate from some lenders (typically 0.125–0.375% higher); the liquidity value of keeping cash accessible vs. locked in equity; or the behavioral reality that some people don't actually invest the monthly savings. Adjust your investment return assumption downward if you're uncertain whether the freed-up capital would truly be invested.</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <a href="/rvb" class="tool-crosslink no-print">
+    <div class="tool-crosslink-icon" style="background:#4f46e5">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+    </div>
+    <div class="tool-crosslink-text">
+      <strong>Rent vs. Buy Analysis</strong>
+      <span>Still deciding whether to buy at all? The full Rent vs. Buy Analysis compares total cost of ownership against renting, including opportunity cost, equity growth, and break-even timeline.</span>
+    </div>
+    <span class="tool-crosslink-arrow">→</span>
+  </a>
+
+  <!-- Footer -->
+  <footer class="site-footer no-print">
+    <div class="footer-links">
+      <a href="/swap">Home Swap Calculator</a>
+      <a href="/rvb">Rent vs. Buy Analysis</a>
+      <a href="/compound">Compound Growth</a>
+      <a href="/downpayment">Down Payment Optimizer</a>
+      <a href="/refi">Refinance Calculator</a>
+      <a href="/payoff">Payoff Calculator</a>
+      <a href="/faq">FAQ</a>
+      <a href="/learn">Learn</a>
+      <a href="/about">About</a>
+      <a href="/privacy">Privacy</a>
+    </div>
+    <div class="footer-note">For informational purposes only. Not financial advice. &copy; 2026</div>
+  </footer>
+
+</div><!-- /app -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="downpayment.js?v=1"></script>
+<script>
+/* ── Field tip tooltips ── */
+(function () {
+  var popup = document.createElement('div');
+  popup.className = 'tip-popup';
+  document.body.appendChild(popup);
+  var active = null;
+  function show(btn) {
+    active = btn; btn.classList.add('tip-active');
+    popup.textContent = btn.getAttribute('data-tip');
+    popup.style.display = 'block';
+    var r = btn.getBoundingClientRect();
+    var pw = popup.offsetWidth, ph = popup.offsetHeight, m = 10;
+    var left = r.left + r.width / 2 - pw / 2;
+    var top = r.top - ph - 8;
+    if (left < m) left = m;
+    if (left + pw > window.innerWidth - m) left = window.innerWidth - pw - m;
+    if (top < m) top = r.bottom + 8;
+    popup.style.left = left + 'px'; popup.style.top = top + 'px';
+  }
+  function hide() {
+    if (active) active.classList.remove('tip-active');
+    active = null; popup.style.display = 'none';
+  }
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest && e.target.closest('.tip-btn');
+    if (btn) { e.stopPropagation(); if (active === btn) { hide(); return; } hide(); show(btn); }
+    else { hide(); }
+  });
+  window.addEventListener('scroll', hide, { passive: true });
+  window.addEventListener('resize', function () { if (active) show(active); });
+}());
+</script>
+<div class="mobile-sticky-bar no-print">
+  <div class="msb-item">
+    <div class="msb-label">Best Wealth</div>
+    <div class="msb-value" id="mbar-v1">—</div>
+  </div>
+  <div class="msb-divider"></div>
+  <div class="msb-item">
+    <div class="msb-label">Best Strategy</div>
+    <div class="msb-value" id="mbar-v2">—</div>
+  </div>
+</div>
+<script src="/nav.js"></script>
+</body>
+</html>
