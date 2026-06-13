@@ -1952,6 +1952,13 @@ details.adv-section[open] .adv-chevron { transform: rotate(180deg); }
   .landing-hero-text h1 { font-size: 22px; }
   .context-chart-wrap { height: 240px; }
   .chart-controls { gap: 10px; }
+
+  /* Down Payment Optimizer */
+  .print-full       { display: none; }
+  .dp-sc-dp-amt     { font-size: 20px; }
+  .dp-sc-badge-row  { min-height: 42px; }
+  .dp-reserve-note  { padding: 10px 12px; font-size: 12px; }
+  .pmi-input-row    { flex-wrap: wrap; }
 }
 
 /* ── Calc grid equal 2-col ── */
@@ -2750,6 +2757,10 @@ details.adv-section[open] .adv-chevron { transform: rotate(180deg); }
 }
 
 @media (max-width: 600px) {
-  .dp-scenario-grid { grid-template-columns: 1fr; gap: 10px; }
+  .dp-scenario-grid { grid-template-columns: 1fr; gap: 10px; padding: 4px 14px 16px; }
   .dp-chart-wrap    { height: 180px; }
+  .dp-sc-hd         { padding: 12px 14px 10px; }
+  .dp-sc-body       { padding: 12px 14px 14px; }
+  .dp-chart-section { padding: 0 14px 6px; }
+  .dp-insight       { margin: 0 14px 16px !important; }
 }

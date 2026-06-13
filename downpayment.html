@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"></noscript>
-  <link rel="stylesheet" href="styles.css?v=41">
+  <link rel="stylesheet" href="styles.css?v=42">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -89,7 +89,7 @@
       <button class="btn-text" id="shareBtn">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:3px"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>Share
       </button>
-      <button class="btn-print" id="printBtn">⎙ Print / Export PDF</button>
+      <button class="btn-print" id="printBtn">⎙ Print<span class="print-full"> / Export PDF</span></button>
       <button class="btn-text" id="resetBtn">Reset</button>
     </div>
   </header>
@@ -285,13 +285,13 @@
       <div class="dp-scenario-grid" id="dpScenarioCards"></div>
 
       <!-- Insight / verdict -->
-      <div class="refi-verdict refi-verdict--info" id="dpInsight" style="margin:0 20px 20px">
+      <div class="refi-verdict refi-verdict--info dp-insight" id="dpInsight" style="margin:0 20px 20px">
         <div class="refi-verdict-icon">→</div>
         <div class="refi-verdict-text"><p>Adjust your inputs to see the comparison.</p></div>
       </div>
 
       <!-- Wealth over time chart -->
-      <div style="padding:0 20px 6px">
+      <div class="dp-chart-section" style="padding:0 20px 6px">
         <div style="font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px">TOTAL WEALTH OVER TIME</div>
         <div class="dp-chart-wrap">
           <canvas id="dpChart" height="220"></canvas>
