@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"></noscript>
-  <link rel="stylesheet" href="styles.css?v=45">
+  <link rel="stylesheet" href="styles.css?v=46">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -488,12 +488,12 @@
       <!-- Cash Position -->
       <div class="results-section">
         <div class="results-sec-title">CASH POSITION</div>
-        <div class="r-row" data-detail>
+        <div class="r-row" data-detail id="r-saleProceedsRow">
           <span>Sale proceeds (equity – selling costs)</span>
           <span id="r-saleProceeds"></span>
         </div>
         <div class="r-row" data-detail>
-          <span>Expendable cash</span>
+          <span id="r-expendableCashLabel">Expendable cash</span>
           <span id="r-expendableCash"></span>
         </div>
         <div class="r-row r-total">
@@ -1063,7 +1063,7 @@
 </div><!-- /app -->
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<script src="calculator.js?v=13"></script>
+<script src="calculator.js?v=14"></script>
 <script>
   (function() {
     function makeCollapse(toggleId, bodyId) {

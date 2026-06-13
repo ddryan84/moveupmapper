@@ -414,7 +414,10 @@ function setHTML(id, v) { const el = $(id); if (el) el.innerHTML = v; }
 /* ── Render ── */
 function render(c, s) {
   // Cash Position
+  const saleProceedsRow = $('r-saleProceedsRow');
+  if (saleProceedsRow) saleProceedsRow.style.display = s.buyerMode === 'firstTime' ? 'none' : '';
   setText('r-saleProceeds', fmt(c.saleProceeds));
+  setText('r-expendableCashLabel', s.buyerMode === 'firstTime' ? 'Available savings' : 'Expendable cash');
   setText('r-expendableCash', fmt(s.expendableCash));
   const tcEl = $('r-totalCash');
   tcEl.textContent = fmt(c.totalCash);

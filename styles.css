@@ -680,14 +680,14 @@ label {
 .alert-body .alert-title { font-weight: 700; margin-bottom: 1px; }
 .alert-body .alert-sub { font-weight: 400; font-size: 12px; }
 
-.results-section { padding: 12px 16px; border-bottom: 1px solid var(--border); }
+.results-section { padding: 14px 18px; border-bottom: 1px solid var(--border); }
 .results-section:last-child { border-bottom: none; }
 .results-sec-title {
   font-size: 11px;
   font-weight: 700;
   letter-spacing: .07em;
   color: var(--text-muted);
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   padding-left: 8px;
   border-left: 2px solid var(--indigo);
 }
@@ -698,17 +698,19 @@ label {
   gap: 8px;
   font-size: 13px;
   color: var(--text);
-  padding: 2px 0;
+  padding: 4px 0;
 }
 .r-row span:first-child { color: var(--gray-700); flex: 1; }
-.r-row span:last-child { font-weight: 500; white-space: nowrap; }
+.r-row span:last-child { font-weight: 500; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .r-total {
   font-weight: 600;
   font-size: 13.5px;
-  padding: 4px 0 2px;
+  border-top: 1px solid var(--border);
+  margin-top: 4px;
+  padding: 6px 0 2px;
 }
 .r-bold { font-weight: 700; font-size: 14px; }
-.r-divider { height: 1px; background: var(--border); margin: 6px 0; }
+.r-divider { height: 1px; background: var(--border); margin: 4px 0; }
 .results-card.simplified [data-detail] { display: none; }
 .results-card:not(.simplified) [data-simple] { display: none; }
 
@@ -717,7 +719,7 @@ label {
 .amber { color: var(--amber) !important; }
 
 /* ── Ratio Bar ── */
-.ratio-bar-outer { margin: 8px 0 6px; }
+.ratio-bar-outer { margin: 14px 0 8px; }
 .ratio-bar-track {
   position: relative;
   height: 8px;
@@ -753,7 +755,7 @@ label {
 
 /* ── Monthly Remaining ── */
 .monthly-remaining {
-  margin-top: 10px;
+  margin-top: 16px;
   background: var(--gray-50);
   border-radius: var(--radius-sm);
   padding: 8px 12px;
