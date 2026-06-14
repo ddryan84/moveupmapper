@@ -630,7 +630,10 @@ label {
 .card-body--prospect { padding-top: 26px; }
 /* Pushes the Buying Costs toggle to the bottom of the right card */
 .card-body-spacer { flex: 1; }
-@media (max-width: 900px) { .card-body-spacer { display: none; } }
+@media (max-width: 900px) {
+  .card-body-spacer { display: none; }
+  .card-body--prospect { padding-top: 16px; }
+}
 
 .swap-results-card {
   margin-top: 16px;
