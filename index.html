@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"></noscript>
-  <link rel="stylesheet" href="styles.css?v=31">
+  <link rel="stylesheet" href="styles.css?v=48">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -74,7 +74,7 @@
   <section class="landing-hero">
     <div class="landing-hero-text">
       <h1>Housing decisions start with better math.</h1>
-      <p>Five free calculators that model the full financial picture — not just a monthly payment. No account or personal data required.</p>
+      <p>Six free calculators that model the full financial picture — not just a monthly payment. No account or personal data required.</p>
     </div>
     <div class="tool-carousel">
       <button class="carousel-btn carousel-btn--prev" id="carouselPrev" aria-label="Previous calculators" disabled>
@@ -159,6 +159,38 @@
       <button class="carousel-dot active" data-idx="0" aria-label="Show calculators 1–3"></button>
       <button class="carousel-dot" data-idx="1" aria-label="Show calculators 2–4"></button>
       <button class="carousel-dot" data-idx="2" aria-label="Show calculators 3–5"></button>
+      <button class="carousel-dot" data-idx="3" aria-label="Show calculators 4–6"></button>
+    </div>
+  </section>
+
+  <!-- Calculator Finder -->
+  <section class="calc-finder">
+    <div class="calc-finder-label">Not sure where to start?</div>
+    <div class="calc-finder-grid">
+      <a href="/swap" class="calc-finder-item">
+        <span class="calc-finder-q">Can I sell my home and buy a new one?</span>
+        <span class="calc-finder-tool">Home Swap Calculator →</span>
+      </a>
+      <a href="/rvb" class="calc-finder-item">
+        <span class="calc-finder-q">Should I rent or buy?</span>
+        <span class="calc-finder-tool">Rent vs. Buy Analysis →</span>
+      </a>
+      <a href="/refi" class="calc-finder-item">
+        <span class="calc-finder-q">Is refinancing worth it?</span>
+        <span class="calc-finder-tool">Refinance Calculator →</span>
+      </a>
+      <a href="/payoff" class="calc-finder-item">
+        <span class="calc-finder-q">How fast can I pay off my mortgage?</span>
+        <span class="calc-finder-tool">Payoff Calculator →</span>
+      </a>
+      <a href="/downpayment" class="calc-finder-item">
+        <span class="calc-finder-q">How much money should I put towards a down payment?</span>
+        <span class="calc-finder-tool">Down Payment Optimizer →</span>
+      </a>
+      <a href="/compound" class="calc-finder-item">
+        <span class="calc-finder-q">How will my savings or investments grow over time?</span>
+        <span class="calc-finder-tool">Compound Growth Calculator →</span>
+      </a>
     </div>
   </section>
 
@@ -344,7 +376,7 @@
 
 <script>
 (function () {
-  var SHOW = 3, TOTAL = 5, MAX = TOTAL - SHOW; // MAX = 2
+  var SHOW = 3, TOTAL = 6, MAX = TOTAL - SHOW; // MAX = 3
   var offset = 0;
   var track    = document.getElementById('toolTrack');
   var viewport = document.querySelector('.tool-carousel-viewport');
