@@ -616,6 +616,22 @@ label {
 }
 
 /* ── Swap Results: wide card below inputs, two columns ── */
+/* ── Swap input card layout (balances card heights) ── */
+.calc-grid--equal > .card {
+  display: flex;
+  flex-direction: column;
+}
+.calc-grid--equal > .card > .card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+/* Compensates for buyer-mode-bar height on the left card */
+.card-body--prospect { padding-top: 26px; }
+/* Pushes the Buying Costs toggle to the bottom of the right card */
+.card-body-spacer { flex: 1; }
+@media (max-width: 900px) { .card-body-spacer { display: none; } }
+
 .swap-results-card {
   margin-top: 16px;
 }

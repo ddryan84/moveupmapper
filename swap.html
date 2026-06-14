@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"></noscript>
-  <link rel="stylesheet" href="styles.css?v=46">
+  <link rel="stylesheet" href="styles.css?v=47">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -300,7 +300,7 @@
           <div class="card-sub">The home you want to buy</div>
         </div>
       </div>
-      <div class="card-body" style="padding-top:26px">
+      <div class="card-body card-body--prospect">
 
         <div class="field">
           <label>PURCHASE PRICE</label>
@@ -308,6 +308,7 @@
             <span class="affix">$</span>
             <input type="number" id="purchasePrice" min="0" step="1000">
           </div>
+          <div class="helper">Target price for the new home</div>
         </div>
 
         <div class="two-col">
@@ -355,7 +356,7 @@
         <div class="two-col">
           <div class="field">
             <div class="field-row-head">
-              <label>HOME INS.</label>
+              <label>HOME INSURANCE</label>
               <div class="mode-toggle">
                 <button class="mode-btn active" id="hoiModeDollar">$</button>
                 <button class="mode-btn" id="hoiModePct">%</button>
@@ -383,6 +384,7 @@
           </div>
         </div>
 
+        <div class="card-body-spacer"></div>
         <button type="button" class="section-collapse-hdr mt-sm" id="buyCostsToggle" aria-expanded="false">
           <div class="section-label">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
@@ -555,7 +557,7 @@
           <span id="r-propTax"></span>
         </div>
         <div class="r-row" id="r-pmiRow" data-detail>
-          <span>PMI</span>
+          <span>Monthly PMI</span>
           <span id="r-pmi"></span>
         </div>
         <div class="r-row" data-detail>
