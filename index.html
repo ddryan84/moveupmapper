@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"></noscript>
-  <link rel="stylesheet" href="styles.css?v=48">
+  <link rel="stylesheet" href="styles.css?v=49">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -164,35 +164,41 @@
   </section>
 
   <!-- Calculator Finder -->
-  <section class="calc-finder">
-    <div class="calc-finder-label">Not sure where to start?</div>
-    <div class="calc-finder-grid">
-      <a href="/swap" class="calc-finder-item">
-        <span class="calc-finder-q">Can I sell my home and buy a new one?</span>
-        <span class="calc-finder-tool">Home Swap Calculator →</span>
-      </a>
-      <a href="/rvb" class="calc-finder-item">
-        <span class="calc-finder-q">Should I rent or buy?</span>
-        <span class="calc-finder-tool">Rent vs. Buy Analysis →</span>
-      </a>
-      <a href="/refi" class="calc-finder-item">
-        <span class="calc-finder-q">Is refinancing worth it?</span>
-        <span class="calc-finder-tool">Refinance Calculator →</span>
-      </a>
-      <a href="/payoff" class="calc-finder-item">
-        <span class="calc-finder-q">How fast can I pay off my mortgage?</span>
-        <span class="calc-finder-tool">Payoff Calculator →</span>
-      </a>
-      <a href="/downpayment" class="calc-finder-item">
-        <span class="calc-finder-q">How much money should I put towards a down payment?</span>
-        <span class="calc-finder-tool">Down Payment Optimizer →</span>
-      </a>
-      <a href="/compound" class="calc-finder-item">
-        <span class="calc-finder-q">How will my savings or investments grow over time?</span>
-        <span class="calc-finder-tool">Compound Growth Calculator →</span>
-      </a>
+  <div class="calc-finder-wrap">
+    <button class="calc-finder-toggle" id="calcFinderToggle" aria-expanded="false" aria-controls="calcFinderBody">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <span class="calc-finder-toggle-text">Not sure which calculator to use?</span>
+      <svg class="calc-finder-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="calc-finder-body" id="calcFinderBody" aria-hidden="true">
+      <div class="calc-finder-grid">
+        <a href="/swap" class="calc-finder-item">
+          <span class="calc-finder-q">Can I sell my home and buy a new one?</span>
+          <span class="calc-finder-tool">Home Swap Calculator →</span>
+        </a>
+        <a href="/rvb" class="calc-finder-item">
+          <span class="calc-finder-q">Should I rent or buy?</span>
+          <span class="calc-finder-tool">Rent vs. Buy Analysis →</span>
+        </a>
+        <a href="/refi" class="calc-finder-item">
+          <span class="calc-finder-q">Is refinancing worth it?</span>
+          <span class="calc-finder-tool">Refinance Calculator →</span>
+        </a>
+        <a href="/payoff" class="calc-finder-item">
+          <span class="calc-finder-q">How fast can I pay off my mortgage?</span>
+          <span class="calc-finder-tool">Payoff Calculator →</span>
+        </a>
+        <a href="/downpayment" class="calc-finder-item">
+          <span class="calc-finder-q">How much money should I put towards a down payment?</span>
+          <span class="calc-finder-tool">Down Payment Optimizer →</span>
+        </a>
+        <a href="/compound" class="calc-finder-item">
+          <span class="calc-finder-q">How will my savings or investments grow over time?</span>
+          <span class="calc-finder-tool">Compound Growth Calculator →</span>
+        </a>
+      </div>
     </div>
-  </section>
+  </div>
 
   <!-- Privacy / Trust Strip -->
   <section class="landing-section">
@@ -374,6 +380,20 @@
 
 </div>
 
+<script>
+(function () {
+  var toggle = document.getElementById('calcFinderToggle');
+  var body   = document.getElementById('calcFinderBody');
+  if (toggle && body) {
+    toggle.addEventListener('click', function () {
+      var open = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!open));
+      body.setAttribute('aria-hidden', String(open));
+      body.classList.toggle('open', !open);
+    });
+  }
+}());
+</script>
 <script>
 (function () {
   var SHOW = 3, TOTAL = 6, MAX = TOTAL - SHOW; // MAX = 3
