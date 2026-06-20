@@ -71,6 +71,16 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.moveupmapper.com/learn/fed-funds-vs-mortgage-rates</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.moveupmapper.com/learn/home-prices-vs-incomes</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.moveupmapper.com/faq</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
