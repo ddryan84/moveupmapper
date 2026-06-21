@@ -611,7 +611,11 @@ function render(c, s) {
       const realAmt = wdAmt / Math.pow(1 + inflRate / 100, years);
       if (s.withdrawalInflationAdj) {
         const annualInc = wdAmt * (inflRate / 100);
-        wdInflHint.innerHTML = `At ${inflRate}% inflation, this has the purchasing power of ${fmt(realAmt)}/yr in today's dollars by Year ${years}.<br><span style="opacity:0.85">${fmt(annualInc)} increase per year at ${inflRate}% inflation</span>`;
+        wdInflHint.innerHTML = '';
+        wdInflHint.appendChild(document.createTextNode(`At ${inflRate}% inflation, this has the purchasing power of ${fmt(realAmt)}/yr in today's dollars by Year ${years}.`));
+        wdInflHint.appendChild(document.createElement('br'));
+        var wdSpan = document.createElement('span'); wdSpan.style.opacity = '0.85'; wdSpan.textContent = `${fmt(annualInc)} increase per year at ${inflRate}% inflation`;
+        wdInflHint.appendChild(wdSpan);
       } else {
         wdInflHint.textContent = `At ${inflRate}% inflation, this has the purchasing power of ${fmt(realAmt)}/yr in today's dollars by Year ${years}`;
       }

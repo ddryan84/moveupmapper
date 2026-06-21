@@ -352,7 +352,13 @@ function render() {
     }
 
     verdict.className = 'refi-verdict ' + cls;
-    verdict.innerHTML = `<div class="refi-verdict-icon">${icon}</div><div class="refi-verdict-text"><strong>${heading}</strong><p>${body}</p></div>`;
+    verdict.innerHTML = '';
+    var vIcon = document.createElement('div'); vIcon.className = 'refi-verdict-icon'; vIcon.textContent = icon;
+    var vText = document.createElement('div'); vText.className = 'refi-verdict-text';
+    var vHead = document.createElement('strong'); vHead.textContent = heading;
+    var vBody = document.createElement('p'); vBody.textContent = body;
+    vText.appendChild(vHead); vText.appendChild(vBody);
+    verdict.appendChild(vIcon); verdict.appendChild(vText);
   }
 
   // ── Interest Saved tile label ──
