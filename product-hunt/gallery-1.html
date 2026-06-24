@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1270px; height: 760px; overflow: hidden; }
+  body {
+    background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
+    font-family: 'Inter', Arial, sans-serif;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 64px;
+    gap: 72px;
+  }
+
+  /* Left column */
+  .left {
+    flex: 0 0 480px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .logo-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .logo-icon {
+    width: 38px;
+    height: 38px;
+    background: linear-gradient(135deg, #4f46e5, #818cf8);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .logo-name {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: 0.01em;
+  }
+  h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 46px;
+    font-weight: 700;
+    line-height: 1.15;
+    color: white;
+  }
+  h1 span { color: #818cf8; }
+  .sub {
+    font-size: 16px;
+    line-height: 1.65;
+    color: #94a3b8;
+    max-width: 420px;
+  }
+  .trust-row {
+    display: flex;
+    gap: 20px;
+    margin-top: 4px;
+  }
+  .trust-pill {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 100px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #cbd5e1;
+    letter-spacing: 0.02em;
+  }
+
+  /* Right column — calculator cards */
+  .right {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .calc-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: none;
+  }
+  .calc-card.wide { grid-column: span 2; flex-direction: row; align-items: center; gap: 18px; }
+  .calc-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .calc-name {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: white;
+    line-height: 1.3;
+  }
+  .calc-desc {
+    font-size: 12px;
+    color: #94a3b8;
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+
+  <div class="left">
+    <div class="logo-row">
+      <div class="logo-icon">
+        <svg width="20" height="20" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M16 4 C10.48 4 6 8.48 6 14 C6 20.5 16 29 16 29 C16 29 26 20.5 26 14 C26 8.48 21.52 4 16 4 Z" fill="white"/>
+          <polyline points="13 16.5 16 11.5 19 16.5" fill="none" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <line x1="16" y1="11.5" x2="16" y2="19.5" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <span class="logo-name">Move Up Mapper</span>
+    </div>
+
+    <h1>Six free tools.<br>Every <span>housing</span><br>decision.</h1>
+
+    <p class="sub">Free calculators that show the full financial picture — not just a monthly payment. Every assumption is adjustable. Every formula is transparent.</p>
+
+    <div class="trust-row">
+      <span class="trust-pill">Free forever</span>
+      <span class="trust-pill">No account</span>
+      <span class="trust-pill">Data stays local</span>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="calc-card">
+      <div class="calc-icon" style="background:rgba(79,70,229,0.25)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><polyline points="7 16 11 12 15 16 21 8"/></svg>
+      </div>
+      <div class="calc-name">Rent vs. Buy Analysis</div>
+      <div class="calc-desc">Model both paths across your full time horizon, including opportunity cost of the down payment.</div>
+    </div>
+
+    <div class="calc-card">
+      <div class="calc-icon" style="background:rgba(129,140,248,0.2)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a5b4fc" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16V4m0 0L3 8m4-4l4 4"/><path d="M17 8v12m0 0l4-4m-4 4l-4-4"/></svg>
+      </div>
+      <div class="calc-name">Home Swap Calculator</div>
+      <div class="calc-desc">See if you can afford to sell and buy simultaneously. 10-year buying power projection included.</div>
+    </div>
+
+    <div class="calc-card">
+      <div class="calc-icon" style="background:rgba(13,148,136,0.25)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2dd4bf" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/></svg>
+      </div>
+      <div class="calc-name">Refinance Calculator</div>
+      <div class="calc-desc">Break-even analysis with opportunity cost, net benefit, and no-cost refinance comparison.</div>
+    </div>
+
+    <div class="calc-card">
+      <div class="calc-icon" style="background:rgba(124,58,237,0.25)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <div class="calc-name">Payoff Calculator</div>
+      <div class="calc-desc">Model extra payments, biweekly schedules, and lump sums — with invest-the-difference comparison.</div>
+    </div>
+
+    <div class="calc-card">
+      <div class="calc-icon" style="background:rgba(2,132,199,0.25)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      </div>
+      <div class="calc-name">Down Payment Optimizer</div>
+      <div class="calc-desc">Compare minimum, 20%, and maximum scenarios — PMI duration, opportunity cost, and total wealth.</div>
+    </div>
+
+    <div class="calc-card">
+      <div class="calc-icon" style="background:rgba(8,145,178,0.25)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#67e8f9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+      </div>
+      <div class="calc-name">Compound Growth Calculator</div>
+      <div class="calc-desc">Accumulation and withdrawal phases with inflation adjustment, compounding crossover, and scenario bands.</div>
+    </div>
+  </div>
+
+</body>
+</html>

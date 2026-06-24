@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1270px; height: 760px; overflow: hidden; }
+  body {
+    background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
+    font-family: 'Inter', Arial, sans-serif;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 56px 100px;
+    gap: 44px;
+  }
+
+  .header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-width: 680px;
+  }
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #818cf8;
+  }
+  h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  h1 span { color: #818cf8; }
+  .sub { font-size: 15px; color: #94a3b8; line-height: 1.6; }
+
+  /* Article cards */
+  .articles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    width: 100%;
+  }
+  .article-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.09);
+    border-radius: 14px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .article-tag {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #0891b2;
+  }
+  .article-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.35;
+    color: white;
+  }
+  .article-desc {
+    font-size: 12px;
+    color: #64748b;
+    line-height: 1.55;
+    flex: 1;
+  }
+  .article-link {
+    font-size: 12px;
+    font-weight: 600;
+    color: #818cf8;
+    margin-top: 4px;
+  }
+
+  /* Trust strip */
+  .trust-strip {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+  }
+  .trust-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    text-align: center;
+  }
+  .trust-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(79,70,229,0.15);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .trust-label { font-size: 13px; font-weight: 600; color: white; }
+  .trust-desc { font-size: 11px; color: #64748b; max-width: 140px; line-height: 1.4; }
+  .trust-divider { width: 1px; height: 48px; background: rgba(255,255,255,0.07); }
+</style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="eyebrow">Learn Section</div>
+    <h1>The math, <span>explained.</span></h1>
+    <p class="sub">Eight in-depth guides that unpack the reasoning behind each calculator — so you understand your decision, not just the output.</p>
+  </div>
+
+  <div class="articles">
+    <div class="article-card">
+      <div class="article-tag" style="color:#4f46e5">Buying</div>
+      <div class="article-title">Rent vs. Buy in 2026: A Complete Financial Framework</div>
+      <div class="article-desc">Why the rent vs. buy decision is never just a monthly payment comparison — and what the full 30-year picture actually looks like.</div>
+      <div class="article-link">Read the guide →</div>
+    </div>
+    <div class="article-card">
+      <div class="article-tag" style="color:#0891b2">Market</div>
+      <div class="article-title">The Fed Funds Rate vs. Mortgage Rates: Why They Don't Move Together</div>
+      <div class="article-desc">When the Fed cuts rates, mortgage rates often don't follow. Here's why — and what buyers should actually be watching.</div>
+      <div class="article-link">Read the guide →</div>
+    </div>
+    <div class="article-card">
+      <div class="article-tag">Mortgages</div>
+      <div class="article-title">How Mortgage Rates Affect Buying Power</div>
+      <div class="article-desc">A 1-point rate move shifts your maximum purchase price by roughly 10%. The math behind why that's larger than most buyers expect.</div>
+      <div class="article-link">Read the guide →</div>
+    </div>
+    <div class="article-card">
+      <div class="article-tag">Mortgages</div>
+      <div class="article-title">When Does Refinancing Actually Make Sense?</div>
+      <div class="article-desc">The "1% rule" is a shortcut, not a framework. A complete guide to break-even analysis and the term reset problem.</div>
+      <div class="article-link">Read the guide →</div>
+    </div>
+    <div class="article-card">
+      <div class="article-tag" style="color:#0891b2">Market</div>
+      <div class="article-title">The Mortgage Rate Lock-In Effect: Why Millions of Homeowners Won't Sell</div>
+      <div class="article-desc">~60% of U.S. mortgages carry rates below 4%. How that's choking supply and what it means for buyers today.</div>
+      <div class="article-link">Read the guide →</div>
+    </div>
+    <div class="article-card" style="background:rgba(79,70,229,0.08);border-color:rgba(79,70,229,0.25);justify-content:center;align-items:center;text-align:center;gap:16px">
+      <div style="font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:700;color:white;line-height:1.3">Free.<br>No account.<br>Your data stays<br>in your browser.</div>
+      <div style="font-size:12px;color:#818cf8;font-weight:600">moveupmapper.com</div>
+    </div>
+  </div>
+
+</body>
+</html>

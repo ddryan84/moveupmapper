@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1270px; height: 760px; overflow: hidden; }
+  body {
+    background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
+    font-family: 'Inter', Arial, sans-serif;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 56px 80px 48px;
+    gap: 40px;
+  }
+
+  .header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-width: 720px;
+  }
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #818cf8;
+  }
+  h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: white;
+  }
+  h1 span { color: #818cf8; }
+  .sub {
+    font-size: 15px;
+    color: #94a3b8;
+    line-height: 1.6;
+  }
+
+  /* Chart area */
+  .chart-wrap {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 18px;
+    padding: 32px 40px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .chart-labels {
+    display: flex;
+    gap: 24px;
+  }
+  .chart-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #cbd5e1;
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+  /* SVG chart */
+  .chart-svg-wrap { width: 100%; }
+
+  /* Stats row */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .stat {
+    background: rgba(255,255,255,0.04);
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .stat-label { font-size: 11px; color: #64748b; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; }
+  .stat-value { font-size: 22px; font-weight: 700; color: white; }
+  .stat-value.green { color: #34d399; }
+  .stat-value.indigo { color: #818cf8; }
+  .stat-sub { font-size: 11px; color: #64748b; }
+</style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="eyebrow">Rent vs. Buy Analysis</div>
+    <h1>Most calculators show a payment.<br>This one shows <span>both paths.</span></h1>
+    <p class="sub">Model equity growth vs. what a renter builds by investing the same capital — including the opportunity cost of the down payment — across your full time horizon.</p>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-labels">
+      <div class="chart-label"><div class="dot" style="background:#4f46e5"></div>Buyer equity</div>
+      <div class="chart-label"><div class="dot" style="background:#0891b2"></div>Renter invested capital</div>
+      <div class="chart-label"><div class="dot" style="background:#475569;border:1px dashed #64748b;background:transparent;width:18px;height:2px;border-radius:0"></div><span style="margin-left:-8px">Contributions only</span></div>
+    </div>
+
+    <div class="chart-svg-wrap">
+      <svg viewBox="0 0 1100 260" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+        <defs>
+          <linearGradient id="equityFill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#4f46e5" stop-opacity="0.25"/>
+            <stop offset="100%" stop-color="#4f46e5" stop-opacity="0.02"/>
+          </linearGradient>
+          <linearGradient id="renterFill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#0891b2" stop-opacity="0.2"/>
+            <stop offset="100%" stop-color="#0891b2" stop-opacity="0.02"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Grid lines -->
+        <line x1="0" y1="52" x2="1100" y2="52" stroke="#ffffff" stroke-opacity="0.05" stroke-width="1"/>
+        <line x1="0" y1="104" x2="1100" y2="104" stroke="#ffffff" stroke-opacity="0.05" stroke-width="1"/>
+        <line x1="0" y1="156" x2="1100" y2="156" stroke="#ffffff" stroke-opacity="0.05" stroke-width="1"/>
+        <line x1="0" y1="208" x2="1100" y2="208" stroke="#ffffff" stroke-opacity="0.05" stroke-width="1"/>
+
+        <!-- Y axis labels -->
+        <text x="0" y="50" fill="#475569" font-size="11" font-family="Arial">$800k</text>
+        <text x="0" y="102" fill="#475569" font-size="11" font-family="Arial">$600k</text>
+        <text x="0" y="154" fill="#475569" font-size="11" font-family="Arial">$400k</text>
+        <text x="0" y="206" fill="#475569" font-size="11" font-family="Arial">$200k</text>
+
+        <!-- X axis labels -->
+        <text x="95" y="250" fill="#475569" font-size="11" font-family="Arial" text-anchor="middle">Yr 1</text>
+        <text x="280" y="250" fill="#475569" font-size="11" font-family="Arial" text-anchor="middle">Yr 5</text>
+        <text x="465" y="250" fill="#475569" font-size="11" font-family="Arial" text-anchor="middle">Yr 10</text>
+        <text x="650" y="250" fill="#475569" font-size="11" font-family="Arial" text-anchor="middle">Yr 15</text>
+        <text x="835" y="250" fill="#475569" font-size="11" font-family="Arial" text-anchor="middle">Yr 20</text>
+        <text x="1020" y="250" fill="#475569" font-size="11" font-family="Arial" text-anchor="middle">Yr 25</text>
+
+        <!-- Contributions only (dashed) -->
+        <polyline points="95,232 280,218 465,204 650,190 835,176 1020,162"
+          fill="none" stroke="#475569" stroke-width="1.5" stroke-dasharray="5,4" stroke-linecap="round"/>
+
+        <!-- Renter invested capital fill (starts higher, crosses at yr 8, ends lower) -->
+        <polygon points="95,218 280,202 391,188 465,184 650,162 835,134 1020,99 1020,232 95,232"
+          fill="url(#renterFill)"/>
+        <!-- Renter line -->
+        <polyline points="95,218 280,202 391,188 465,184 650,162 835,134 1020,99"
+          fill="none" stroke="#0891b2" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+        <!-- Buyer equity fill (starts lower, crosses at yr 8, ends higher) -->
+        <polygon points="95,228 280,208 391,188 465,172 650,138 835,100 1020,63 1020,232 95,232"
+          fill="url(#equityFill)"/>
+        <!-- Buyer equity line -->
+        <polyline points="95,228 280,208 391,188 465,172 650,138 835,100 1020,63"
+          fill="none" stroke="#4f46e5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+        <!-- Crossover annotation -->
+        <line x1="391" y1="20" x2="391" y2="232" stroke="#f59e0b" stroke-width="1" stroke-dasharray="4,3" stroke-opacity="0.6"/>
+        <circle cx="391" cy="188" r="4" fill="#f59e0b" opacity="0.9"/>
+        <text x="398" y="32" fill="#f59e0b" font-size="11" font-family="Arial" font-weight="600">Equity crossover</text>
+        <text x="398" y="46" fill="#f59e0b" font-size="11" font-family="Arial">~Year 8</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat">
+      <div class="stat-label">Purchase price</div>
+      <div class="stat-value">$500,000</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Down payment</div>
+      <div class="stat-value">$100,000</div>
+      <div class="stat-sub">20% — invested if renting</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Buyer equity · Yr 25</div>
+      <div class="stat-value indigo">$756,000</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Renter wealth · Yr 25</div>
+      <div class="stat-value green">$618,000</div>
+      <div class="stat-sub">at 7% invested return</div>
+    </div>
+  </div>
+
+</body>
+</html>

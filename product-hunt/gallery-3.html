@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1270px; height: 760px; overflow: hidden; }
+  body {
+    background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
+    font-family: 'Inter', Arial, sans-serif;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 56px 80px;
+    gap: 80px;
+  }
+
+  .left {
+    flex: 0 0 420px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #818cf8;
+  }
+  h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: white;
+  }
+  h1 span { color: #818cf8; }
+  .sub {
+    font-size: 15px;
+    color: #94a3b8;
+    line-height: 1.65;
+  }
+  .feature-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 4px;
+  }
+  .feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .feature-icon {
+    width: 28px;
+    height: 28px;
+    background: rgba(79,70,229,0.2);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .feature-text { font-size: 14px; color: #cbd5e1; line-height: 1.5; }
+  .feature-text strong { color: white; font-weight: 600; }
+
+  /* Right: affordability card mockup */
+  .right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .mock-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 24px 28px;
+  }
+  .mock-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #64748b;
+    margin-bottom: 18px;
+  }
+
+  /* Affordability meter */
+  .afford-row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .afford-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .afford-label { font-size: 13px; color: #94a3b8; }
+  .afford-pct { font-size: 22px; font-weight: 700; }
+  .afford-pct.green { color: #34d399; }
+  .afford-pct.amber { color: #f59e0b; }
+  .afford-track {
+    height: 10px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 100px;
+    position: relative;
+    overflow: visible;
+  }
+  .afford-fill {
+    height: 100%;
+    border-radius: 100px;
+  }
+  .afford-threshold {
+    position: absolute;
+    top: -4px;
+    width: 2px;
+    height: 18px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 1px;
+  }
+  .afford-threshold-label {
+    position: absolute;
+    top: 18px;
+    font-size: 10px;
+    color: #64748b;
+    transform: translateX(-50%);
+    white-space: nowrap;
+  }
+
+  .divider { height: 1px; background: rgba(255,255,255,0.06); margin: 4px 0; }
+
+  /* Summary stats */
+  .summary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .summary-item { display: flex; flex-direction: column; gap: 3px; }
+  .summary-label { font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: 0.06em; }
+  .summary-val { font-size: 18px; font-weight: 700; color: white; }
+  .summary-sub { font-size: 11px; color: #64748b; }
+
+  .scenario-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+  .tab {
+    padding: 6px 16px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .tab.active { background: #4f46e5; color: white; }
+  .tab.inactive { background: rgba(255,255,255,0.07); color: #94a3b8; }
+</style>
+</head>
+<body>
+
+  <div class="left">
+    <div class="eyebrow">Home Swap Calculator</div>
+    <h1>Know your <span>numbers</span><br>before you<br>negotiate.</h1>
+    <p class="sub">Model your current equity, target purchase price, and income in one place. See instantly whether the swap works — and how waiting changes the picture.</p>
+
+    <div class="feature-list">
+      <div class="feature-item">
+        <div class="feature-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div class="feature-text"><strong>28% / 36% affordability thresholds</strong> — color-coded in real time as you adjust inputs</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div class="feature-text"><strong>10-year buying power projection</strong> — see how income growth and home price headwinds play out over time</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div class="feature-text"><strong>Scenario A / B comparison</strong> — model two homes side by side without losing your inputs</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="mock-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
+        <div class="mock-title">Affordability</div>
+        <div class="scenario-tabs">
+          <div class="tab active">Scenario A</div>
+          <div class="tab inactive">Scenario B</div>
+        </div>
+      </div>
+
+      <div class="afford-row">
+        <div class="afford-label-row">
+          <span class="afford-label">Housing-to-income ratio</span>
+          <span class="afford-pct green">27.4%</span>
+        </div>
+        <div class="afford-track">
+          <div class="afford-fill" style="width:27.4%;background:linear-gradient(90deg,#34d399,#10b981)"></div>
+          <div class="afford-threshold" style="left:28%"><span class="afford-threshold-label">28% comfort</span></div>
+          <div class="afford-threshold" style="left:36%"><span class="afford-threshold-label">36% ceiling</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mock-card">
+      <div class="mock-title">Cash Position at Close</div>
+      <div class="summary-grid">
+        <div class="summary-item">
+          <div class="summary-label">Sale proceeds</div>
+          <div class="summary-val">$312,400</div>
+          <div class="summary-sub">after selling costs</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-label">Down payment needed</div>
+          <div class="summary-val">$120,000</div>
+          <div class="summary-sub">20% of $600,000</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-label">Cash remaining</div>
+          <div class="summary-val" style="color:#34d399">$192,400</div>
+          <div class="summary-sub">after down payment</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-label">New monthly P&amp;I</div>
+          <div class="summary-val">$3,153</div>
+          <div class="summary-sub">at 6.875% / 30 yr</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mock-card">
+      <div class="mock-title">10-Year Buying Power Projection</div>
+      <svg viewBox="0 0 620 90" xmlns="http://www.w3.org/2000/svg" style="width:100%">
+        <defs>
+          <linearGradient id="bpFill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#4f46e5" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#4f46e5" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <line x1="0" y1="22" x2="620" y2="22" stroke="#ffffff" stroke-opacity="0.04" stroke-width="1"/>
+        <line x1="0" y1="44" x2="620" y2="44" stroke="#ffffff" stroke-opacity="0.04" stroke-width="1"/>
+        <line x1="0" y1="66" x2="620" y2="66" stroke="#ffffff" stroke-opacity="0.04" stroke-width="1"/>
+        <polygon points="0,70 62,64 124,57 186,52 248,48 310,45 372,44 434,44 496,45 558,47 620,50 620,88 0,88"
+          fill="url(#bpFill)"/>
+        <polyline points="0,70 62,64 124,57 186,52 248,48 310,45 372,44 434,44 496,45 558,47 620,50"
+          fill="none" stroke="#4f46e5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="372" cy="44" r="4" fill="#818cf8"/>
+        <text x="378" y="38" fill="#818cf8" font-size="10" font-family="Arial" font-weight="600">Peak · Yr 7</text>
+      </svg>
+    </div>
+  </div>
+
+</body>
+</html>
