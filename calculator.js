@@ -52,7 +52,6 @@ const DEFAULTS = {
   // Growth rates
   wageGrowth:      3,
   homeValGrowth:   3,
-  equityGrowth:    4,
   savingsRate:     5,
   investmentGrowth: 7,
   // Cost headwinds
@@ -210,7 +209,7 @@ function calculate(s) {
   const sellingCosts   = realtorFees + transferTax + (isFirst ? 0 : s.preSaleRepairs + s.sellerTitleFees);
   // First-time buyers have no current home — zero out rates that only apply to existing owners
   const effHomeValGrowth     = isFirst ? 0 : s.homeValGrowth;
-  const effEquityGrowth      = isFirst ? 0 : s.equityGrowth;
+  const effEquityGrowth      = effHomeValGrowth;
   // Property tax and maintenance growth apply to any prospective home purchase, including first-time buyers
   const effPropTaxGrowth     = s.propTaxGrowth;
   const effMaintenanceGrowth = s.maintenanceGrowth;
@@ -308,7 +307,7 @@ function calculate(s) {
   });
 
   // Net growth vs headwinds
-  const avgGrowth = (s.wageGrowth + effHomeValGrowth + effEquityGrowth + s.savingsRate + s.investmentGrowth) / 5;
+  const avgGrowth = (s.wageGrowth + effHomeValGrowth + s.savingsRate + s.investmentGrowth) / 4;
   const avgHeadwind = (effPropTaxGrowth + s.inflationRate + effMaintenanceGrowth) / 3;
   const netRate = avgGrowth - avgHeadwind;
 
@@ -584,10 +583,6 @@ function render(c, s) {
     equityHelper.textContent = 'Remaining mortgage balance owed';
     if (loanFields) loanFields.style.display = '';
   }
-  setText('equityGrowthSub', amortActive
-    ? 'Overridden — using amortization schedule'
-    : 'Equity portion appreciation');
-
   // Affordable Range
   const minMonthly = s.monthlyIncome * 0.10;
   const maxMonthly = s.monthlyIncome * 0.50;
@@ -729,7 +724,7 @@ function syncBuyerMode(mode) {
   if (cashHelper) cashHelper.textContent = isFirst ? 'Total savings available for a down payment' : 'Savings you can put toward the purchase';
 
   // Grey out / restore the growth-rate inputs that only apply to current homeowners
-  const ownerOnlyInputs = ['homeValGrowth', 'equityGrowth'];
+  const ownerOnlyInputs = ['homeValGrowth'];
   const s = getState();
   for (const id of ownerOnlyInputs) {
     const el = $(id);
@@ -850,7 +845,6 @@ function bindInputs() {
   }
   numCtrl('wageGrowth',       'wageGrowth');
   numCtrl('homeValGrowth',     'homeValGrowth');
-  numCtrl('equityGrowth',      'equityGrowth');
   numCtrl('savingsRate',       'savingsRate');
   numCtrl('investmentGrowth',  'investmentGrowth');
   numCtrl('propTaxGrowth',       'propTaxGrowth');

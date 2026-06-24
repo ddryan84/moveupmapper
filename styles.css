@@ -956,14 +956,12 @@ input[type=range]::-moz-range-thumb {
 .bp-stat-delta { font-size: 12px; margin-top: 3px; }
 
 .bp-layout {
-  display: grid;
-  grid-template-columns: 1fr 280px;
-  gap: 0;
+  display: flex;
+  flex-direction: column;
 }
-@media (max-width: 900px) { .bp-layout { grid-template-columns: 1fr; } }
 .bp-chart-area {
   padding: 16px 20px;
-  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 .chart-legend {
   display: flex;
@@ -988,9 +986,30 @@ input[type=range]::-moz-range-thumb {
 }
 
 .bp-controls {
-  padding: 16px;
+  display: flex;
+  align-items: stretch;
   background: var(--gray-50);
-  overflow-y: auto;
+}
+.bp-controls .ctrl-section {
+  flex: 1;
+  padding: 14px 16px;
+  margin-bottom: 0;
+  border-right: 1px solid var(--border);
+}
+.bp-controls .ctrl-section:last-child { border-right: none; }
+@media (max-width: 900px) {
+  .bp-controls { flex-wrap: wrap; }
+  .bp-controls .ctrl-section {
+    flex: 1 1 calc(50% - 1px);
+    border-bottom: 1px solid var(--border);
+  }
+  .bp-controls .ctrl-section:nth-child(even) { border-right: none; }
+  .bp-controls .ctrl-section:nth-last-child(-n+2):not(:nth-child(even) ~ *) { border-bottom: none; }
+}
+@media (max-width: 540px) {
+  .bp-controls { flex-direction: column; }
+  .bp-controls .ctrl-section { flex: none; border-right: none; }
+  .bp-controls .ctrl-section:last-child { border-bottom: none; }
 }
 .ctrl-section { margin-bottom: 16px; }
 .ctrl-section:last-child { margin-bottom: 0; }
@@ -2079,7 +2098,7 @@ details.adv-section[open] .adv-chevron { transform: rotate(180deg); }
   .swap-col          { padding: 14px 14px; }
   .buyer-mode-inline { flex-wrap: wrap; justify-content: flex-end; }
   .horizon-inner     { padding: 12px 14px; gap: 12px; }
-  .bp-controls       { padding: 12px; }
+  .bp-controls .ctrl-section { padding: 12px; }
   .glossary-body     { padding: 4px 14px 16px; }
   .faq-body          { padding: 8px 14px 16px; }
   .desc-box          { padding: 12px 14px; }
@@ -2719,7 +2738,7 @@ details.adv-section[open] .adv-chevron { transform: rotate(180deg); }
   .calc-grid { display: block; }
   .calc-grid .card { margin-bottom: 16px; page-break-inside: avoid; }
   .wide-card { page-break-inside: avoid; }
-  .bp-layout { grid-template-columns: 1fr; }
+  .bp-controls { flex-direction: column; }
 }
 
 /* ── Down Payment Optimizer ──────────────────────────────────────────────── */
