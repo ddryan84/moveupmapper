@@ -260,7 +260,7 @@
     <div class="card wide-card" style="margin-top:16px">
       <div class="card-head">
         <div>
-          <div class="card-title">Housing Affordability, 1990–2024</div>
+          <div class="card-title">Housing Affordability, 1990–2025</div>
           <div class="card-sub">All series indexed to 2000 = 100, so growth rates are directly comparable regardless of unit</div>
         </div>
       </div>
@@ -286,7 +286,7 @@
         <div class="context-chart-wrap">
           <canvas id="affordabilityChart"></canvas>
         </div>
-        <div class="chart-data-source">Sources: FRED (MSPUS, HOUST1F), U.S. Census Bureau, BLS CPI-U. Annual averages, 1990–2024. Single-family starts = FRED HOUST1F, thousands of units.</div>
+        <div class="chart-data-source">Sources: FRED (MSPUS, HOUST1F), U.S. Census Bureau, BLS CPI-U. Annual averages, 1990–2025. Single-family starts = FRED HOUST1F, thousands of units. 2025 household income is estimated.</div>
       </div>
     </div>
 
@@ -294,7 +294,7 @@
     <div class="card wide-card">
       <div class="card-head">
         <div>
-          <div class="card-title">Mortgage Rate History, 1990–2024</div>
+          <div class="card-title">Mortgage Rate History, 1990–2025</div>
           <div class="card-sub">30 and 15-year fixed, annual averages. Current rates in long-term context.</div>
         </div>
       </div>
@@ -302,7 +302,7 @@
         <div class="context-chart-wrap">
           <canvas id="rateChart"></canvas>
         </div>
-        <div class="chart-data-source">Source: Freddie Mac Primary Mortgage Market Survey (PMMS). Annual averages. 15-year fixed data begins 1991.</div>
+        <div class="chart-data-source">Source: Freddie Mac Primary Mortgage Market Survey (PMMS). Annual averages, 1990–2025. 15-year fixed data begins 1991; 2025 15-yr rate is estimated.</div>
       </div>
     </div>
 
@@ -454,35 +454,35 @@
 (function () {
   'use strict';
 
-  // ── Affordability data (2000–2024) ─────────────────────────────────────────
+  // ── Affordability data (1990–2025) ─────────────────────────────────────────
   var years = [1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,
                2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,
                2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,
-               2020,2021,2022,2023,2024];
+               2020,2021,2022,2023,2024,2025];
 
   // Median home sales price (FRED MSPUS), $thousands, annual averages
   var homePriceRaw = [122.9,120.0,122.0,126.5,130.0,133.9,140.0,146.0,152.5,161.0,
                       167.6,173.1,186.0,192.1,218.2,236.6,243.8,245.0,229.6,215.7,
                       222.7,224.9,244.4,266.2,285.8,294.2,305.1,322.4,325.3,320.3,
-                      328.2,383.0,433.0,426.5,419.0];
+                      328.2,383.0,433.0,426.5,419.0,415.4];
 
-  // Median household income (Census Bureau), $thousands, annual
+  // Median household income (Census Bureau), $thousands, annual; 2025 estimated
   var incomeRaw = [29.9,30.1,30.6,31.2,32.3,34.1,35.5,37.0,38.9,40.7,
                    42.0,42.2,42.4,43.3,44.3,46.3,48.2,50.2,50.3,49.8,
                    49.3,50.1,51.0,51.9,53.7,56.5,59.0,61.4,63.2,68.7,
-                   67.5,70.8,74.6,80.6,83.7];
+                   67.5,70.8,74.6,80.6,83.7,85.8];
 
   // CPI-U annual index (BLS), 2000 = 100
   var cpiRaw = [75.9,79.1,81.5,83.9,86.1,88.5,91.1,93.3,94.7,96.8,
                 100.0,102.8,104.5,106.9,109.7,113.4,117.1,120.4,125.0,124.6,
                 126.6,130.5,133.0,135.1,137.3,137.1,139.0,141.4,144.6,147.0,
-                148.4,155.5,168.2,176.9,182.5];
+                148.4,155.5,168.2,176.9,182.5,187.1];
 
   // Single-family housing starts (FRED HOUST1F), thousands of units, annual averages
   var supplyRaw = [894.8,840.4,1029.9,1126.0,1198.4,1076.2,1160.9,1133.7,1271.4,1302.4,
                    1230.9,1273.3,1358.6,1499.0,1610.5,1715.8,1465.4,1046.0,622.0,445.1,
                    471.2,430.6,535.3,617.6,647.9,714.5,781.5,848.9,876.0,888.0,
-                   991.4,1127.9,975.2,947.0,1001.0];
+                   991.4,1127.9,1003.8,947.0,1015.3,941.3];
 
   // Index all series to 2000 = 100 (year 2000 is at array index 10)
   function toIndex(arr) {
@@ -608,18 +608,18 @@
   var rateYears = [1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,
                    2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,
                    2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,
-                   2020,2021,2022,2023,2024];
+                   2020,2021,2022,2023,2024,2025];
 
-  // Freddie Mac PMMS, annual averages
+  // Freddie Mac PMMS, annual averages; 2025 15-yr estimated from historical spread
   var rate30 = [10.13,9.25,8.43,7.31,8.38,7.93,7.81,7.60,6.94,7.44,
                 8.05,6.97,6.54,5.83,5.84,5.87,6.41,6.34,6.03,5.04,
                 4.69,4.45,3.66,3.98,4.17,3.85,3.65,3.99,4.54,3.94,
-                3.11,2.96,5.34,6.81,6.72];
+                3.11,2.96,5.34,6.81,6.72,6.60];
 
   var rate15 = [null,8.69,7.96,6.83,7.86,7.48,7.32,7.13,6.59,7.06,
                 7.72,6.50,6.01,5.17,5.21,5.42,6.07,6.03,5.62,4.57,
                 4.10,3.68,2.93,3.11,3.28,3.05,2.93,3.27,4.00,3.38,
-                2.61,2.27,4.62,6.13,6.06];
+                2.61,2.27,4.62,6.13,6.06,5.91];
 
   new Chart(document.getElementById('rateChart'), {
     type: 'line',
