@@ -728,38 +728,58 @@
 
       <div class="bp-controls">
 
-        <div class="ctrl-section">
-          <div class="ctrl-section-title">TARGET PRICE ASSUMPTION</div>
-          <div class="ctrl-row">
-            <div class="ctrl-info">
-              <div class="ctrl-icon headwind-icon">⇥</div>
-              <div>
-                <div class="ctrl-name">Target price over time</div>
-                <div class="ctrl-sub">Does your target home stay flat or also rise?</div>
+        <!-- Column 1: Target price + Net summary stacked -->
+        <div class="bp-ctrl-col">
+          <div class="ctrl-section">
+            <div class="ctrl-section-title">TARGET PRICE ASSUMPTION</div>
+            <div class="ctrl-row">
+              <div class="ctrl-info">
+                <div class="ctrl-icon headwind-icon">⇥</div>
+                <div>
+                  <div class="ctrl-name">Target price over time</div>
+                  <div class="ctrl-sub">Does your target home stay flat or also rise?</div>
+                </div>
+              </div>
+              <div class="ctrl-input">
+                <div class="mode-toggle">
+                  <button class="mode-btn active" id="tpModeFixed">Fixed</button>
+                  <button class="mode-btn" id="tpModeRising">Rising</button>
+                </div>
               </div>
             </div>
-            <div class="ctrl-input">
-              <div class="mode-toggle">
-                <button class="mode-btn active" id="tpModeFixed">Fixed</button>
-                <button class="mode-btn" id="tpModeRising">Rising</button>
+            <div class="ctrl-row" id="targetPriceGrowthRow" style="display:none">
+              <div class="ctrl-info">
+                <div class="ctrl-icon headwind-icon">↗</div>
+                <div>
+                  <div class="ctrl-name">Target price growth</div>
+                  <div class="ctrl-sub">Annual appreciation of your target home</div>
+                </div>
+              </div>
+              <div class="ctrl-input">
+                <input type="number" id="targetPriceGrowth" min="0" max="20" step="0.5">
+                <span class="ctrl-unit">%</span>
               </div>
             </div>
           </div>
-          <div class="ctrl-row" id="targetPriceGrowthRow" style="display:none">
-            <div class="ctrl-info">
-              <div class="ctrl-icon headwind-icon">↗</div>
-              <div>
-                <div class="ctrl-name">Target price growth</div>
-                <div class="ctrl-sub">Annual appreciation of your target home</div>
-              </div>
-            </div>
-            <div class="ctrl-input">
-              <input type="number" id="targetPriceGrowth" min="0" max="20" step="0.5">
-              <span class="ctrl-unit">%</span>
-            </div>
-          </div>
-        </div>
 
+          <div class="ctrl-section net-section">
+            <div class="ctrl-section-title">NET GROWTH VS. HEADWINDS</div>
+            <div class="net-row">
+              <span>Avg growth:</span>
+              <span id="bp-avgGrowth" class="green"></span>
+            </div>
+            <div class="net-row">
+              <span>Avg headwind:</span>
+              <span id="bp-avgHeadwind" class="red"></span>
+            </div>
+            <div class="net-total">
+              <span id="bp-netRate"></span>
+              <span class="net-label">net annual rate</span>
+            </div>
+          </div>
+        </div><!-- /.bp-ctrl-col -->
+
+        <!-- Column 2: Growth rates -->
         <div class="ctrl-section">
           <div class="ctrl-section-title">GROWTH RATES (ANNUAL)</div>
 
@@ -808,6 +828,7 @@
           </div>
         </div>
 
+        <!-- Column 3: Cost headwinds -->
         <div class="ctrl-section">
           <div class="ctrl-section-title">COST HEADWINDS (ANNUAL)</div>
 
@@ -856,21 +877,6 @@
           </div>
         </div>
 
-        <div class="ctrl-section net-section">
-          <div class="ctrl-section-title">NET GROWTH VS. HEADWINDS</div>
-          <div class="net-row">
-            <span>Avg growth:</span>
-            <span id="bp-avgGrowth" class="green"></span>
-          </div>
-          <div class="net-row">
-            <span>Avg headwind:</span>
-            <span id="bp-avgHeadwind" class="red"></span>
-          </div>
-          <div class="net-total">
-            <span id="bp-netRate"></span>
-            <span class="net-label">net annual rate</span>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -1126,7 +1132,7 @@
 (function () {
   var btn = document.getElementById('simplifyBtn');
   var card = btn.closest('.results-card');
-  var simplified = localStorage.getItem('resultsSimplified') === '1';
+  var simplified = localStorage.getItem('resultsSimplified') !== '0';
   function apply() {
     card.classList.toggle('simplified', simplified);
     btn.textContent = simplified ? 'Show all' : 'Simplify';

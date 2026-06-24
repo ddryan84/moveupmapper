@@ -987,29 +987,33 @@ input[type=range]::-moz-range-thumb {
 
 .bp-controls {
   display: flex;
-  align-items: stretch;
-  background: var(--gray-50);
+  gap: 12px;
+  padding: 12px;
+  background: var(--gray-100);
+}
+.bp-ctrl-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
 }
 .bp-controls .ctrl-section {
   flex: 1;
   padding: 14px 16px;
   margin-bottom: 0;
-  border-right: 1px solid var(--border);
+  background: white;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow);
 }
-.bp-controls .ctrl-section:last-child { border-right: none; }
 @media (max-width: 900px) {
   .bp-controls { flex-wrap: wrap; }
-  .bp-controls .ctrl-section {
-    flex: 1 1 calc(50% - 1px);
-    border-bottom: 1px solid var(--border);
-  }
-  .bp-controls .ctrl-section:nth-child(even) { border-right: none; }
-  .bp-controls .ctrl-section:nth-last-child(-n+2):not(:nth-child(even) ~ *) { border-bottom: none; }
+  .bp-ctrl-col { flex: 1 1 100%; flex-direction: row; }
+  .bp-controls > .ctrl-section { flex: 1 1 calc(50% - 6px); }
 }
 @media (max-width: 540px) {
   .bp-controls { flex-direction: column; }
-  .bp-controls .ctrl-section { flex: none; border-right: none; }
-  .bp-controls .ctrl-section:last-child { border-bottom: none; }
+  .bp-ctrl-col { flex-direction: column; }
 }
 .ctrl-section { margin-bottom: 16px; }
 .ctrl-section:last-child { margin-bottom: 0; }
@@ -1066,12 +1070,7 @@ input[type=range]::-moz-range-thumb {
   background: transparent;
 }
 .ctrl-unit { padding-right: 6px; font-size: 11px; color: var(--text-muted); }
-.net-section {
-  background: white;
-  border-radius: var(--radius-sm);
-  border: 1.5px solid var(--border);
-  padding: 10px 12px;
-}
+.net-section { }
 .net-row {
   display: flex;
   justify-content: space-between;
@@ -2739,6 +2738,7 @@ details.adv-section[open] .adv-chevron { transform: rotate(180deg); }
   .calc-grid .card { margin-bottom: 16px; page-break-inside: avoid; }
   .wide-card { page-break-inside: avoid; }
   .bp-controls { flex-direction: column; }
+  .bp-ctrl-col { flex-direction: column; }
 }
 
 /* ── Down Payment Optimizer ──────────────────────────────────────────────── */
