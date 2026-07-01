@@ -57,6 +57,16 @@
   to   = "/learn/amortization-schedule"
   status = 301
 
+[[redirects]]
+  from = "/afford.html"
+  to   = "/afford"
+  status = 301
+
+[[redirects]]
+  from = "/proceeds.html"
+  to   = "/proceeds"
+  status = 301
+
 # Security headers for all pages
 [[headers]]
   for = "/*"

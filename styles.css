@@ -3051,6 +3051,7 @@ details.adv-section[open] .adv-chevron { transform: rotate(180deg); }
 .proceeds-total-label { font-size: 11px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--text-muted); }
 .proceeds-total-value { font-size: 26px; font-weight: 700; color: var(--green); }
 .proceeds-total-value--neg { color: var(--red); }
+.proceeds-subtotal-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0 8px; border-top: 2px solid var(--border); margin-top: 2px; font-size: 13px; }
 @media (max-width: 600px) {
   .proceeds-waterfall { padding: 0 14px 8px; }
   .proceeds-total-row { padding: 12px 14px 16px; }

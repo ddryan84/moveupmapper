@@ -65,16 +65,19 @@
     if (netStatEl) netStatEl.style.color = r.net < 0 ? 'var(--red)' : '';
 
     // Waterfall
-    setEl('wf-sale',    fmt(r.sp));
-    setEl('wf-listing', fmtSigned(r.listing));
-    setEl('wf-buyer',   fmtSigned(r.buyer));
-    setEl('wf-closing', fmtSigned(r.closing));
-    setEl('wf-credits', r.credits > 0 ? fmtSigned(r.credits) : '—');
-    setEl('wf-mortgage', fmtSigned(r.mort));
-    setEl('wf-net',     fmt(r.net));
+    setEl('wf-sale',        fmt(r.sp));
+    setEl('wf-listing',     fmtSigned(r.listing));
+    setEl('wf-buyer',       r.buyer > 0 ? fmtSigned(r.buyer) : '—');
+    setEl('wf-closing',     fmtSigned(r.closing));
+    setEl('wf-credits',     r.credits > 0 ? fmtSigned(r.credits) : '—');
+    setEl('wf-after-costs', fmt(r.sp - r.totalCosts));
+    setEl('wf-mortgage',    fmtSigned(r.mort));
+    setEl('wf-net',         fmt(r.net));
 
     var creditsRow = document.getElementById('wf-credits-row');
     if (creditsRow) creditsRow.style.opacity = r.credits > 0 ? '1' : '0.4';
+    var buyerRowEl = document.getElementById('wf-buyer-row');
+    if (buyerRowEl) buyerRowEl.style.opacity = r.buyer > 0 ? '1' : '0.4';
 
     var netTotalEl = document.getElementById('wf-net');
     if (netTotalEl) netTotalEl.className = 'proceeds-total-value' + (r.net < 0 ? ' proceeds-total-value--neg' : '');

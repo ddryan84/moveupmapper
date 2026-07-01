@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"></noscript>
-  <link rel="stylesheet" href="styles.css?v=50">
+  <link rel="stylesheet" href="styles.css?v=51">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -179,7 +179,7 @@
         <div class="field">
           <div class="label-tip-row">
             <label>OTHER CLOSING COSTS</label>
-            <button class="tip-btn" aria-label="Learn more" data-tip="Other selling costs — enter as a percentage of sale price or a flat dollar amount. Use the % / $ toggle on the right of the field to switch. Typically includes: title insurance (seller's portion, often 0.3–0.5%), transfer or excise taxes (varies widely by state — from 0% in some states to 1%+ in others), escrow or closing agent fees (0.1–0.3%), attorney fees if required in your state, recording fees, and any HOA transfer fees. Use 1–2% as a rough estimate; your title company can provide a precise seller's net sheet.">?</button>
+            <button class="tip-btn" aria-label="Learn more" data-tip="Other selling costs — enter as a percentage of sale price or a flat dollar amount. Use the % / $ toggle on the right of the field to switch. Typically includes: title insurance (seller's portion, often 0.3–0.5%), transfer or excise taxes (varies widely by state — from 0% in some states to 1%+ in others), escrow or closing agent fees (0.1–0.3%), attorney fees if required in your state, recording fees, HOA transfer fees, and prorated property taxes owed through the closing date. Use 1–2% as a rough estimate; your title company can provide a precise seller's net sheet.">?</button>
           </div>
           <div class="input-wrap other-costs-wrap">
             <span class="affix" id="otherCostsPrefix" style="display:none">$</span>
@@ -270,7 +270,7 @@
         <span class="proceeds-row-label">Listing Agent Commission</span>
         <span class="proceeds-row-value proceeds-row-value--sub" id="wf-listing">—</span>
       </div>
-      <div class="proceeds-row">
+      <div class="proceeds-row" id="wf-buyer-row">
         <span class="proceeds-row-label">Buyer's Agent Contribution</span>
         <span class="proceeds-row-value proceeds-row-value--sub" id="wf-buyer">—</span>
       </div>
@@ -281,6 +281,10 @@
       <div class="proceeds-row" id="wf-credits-row">
         <span class="proceeds-row-label" style="color:var(--text-muted)">Repair Credits / Concessions</span>
         <span class="proceeds-row-value proceeds-row-value--sub" id="wf-credits">—</span>
+      </div>
+      <div class="proceeds-subtotal-row">
+        <span class="proceeds-row-label--main">Net After Selling Costs</span>
+        <span class="proceeds-row-value" id="wf-after-costs">—</span>
       </div>
       <div class="proceeds-row">
         <span class="proceeds-row-label proceeds-row-label--main">Mortgage Payoff</span>
@@ -321,7 +325,7 @@
 
           <div class="gloss-item">
             <div class="gloss-term">Other Closing Costs (Seller Side)</div>
-            <div class="gloss-def">Sellers typically pay: title insurance (owner's policy, usually 0.3–0.5% of sale price); transfer or excise tax (also called a deed tax or stamp tax, ranging from zero in some states to over 1.5% in others like New York or Washington); escrow or settlement fees (split with buyer or paid fully by seller depending on local custom, typically $500–$2,000); recording fees ($50–$200); and any HOA transfer or certification fees ($100–$500). States vary widely — California sellers often pay more in transfer taxes than those in Texas, for example.</div>
+            <div class="gloss-def">Sellers typically pay: title insurance (owner's policy, usually 0.3–0.5% of sale price); transfer or excise tax (also called a deed tax or stamp tax, ranging from zero in some states to over 1.5% in others like New York or Washington); escrow or settlement fees (split with buyer or paid fully by seller depending on local custom, typically $500–$2,000); recording fees ($50–$200); HOA transfer or certification fees ($100–$500); and prorated property taxes. Property taxes are prorated at closing based on the portion of the year each party owned the home — in states that pay in arrears, the seller credits the buyer for taxes not yet paid; in states that prepay, the buyer reimburses the seller. In high-tax areas this proration can easily run $2,000–$5,000+. States vary widely — California sellers often pay more in transfer taxes than those in Texas, for example.</div>
           </div>
 
           <div class="gloss-item">

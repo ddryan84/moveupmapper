@@ -6,6 +6,11 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://www.moveupmapper.com/afford</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://www.moveupmapper.com/swap</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -32,6 +37,11 @@
   </url>
   <url>
     <loc>https://www.moveupmapper.com/payoff</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.moveupmapper.com/proceeds</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
