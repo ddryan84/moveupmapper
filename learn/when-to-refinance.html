@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css?v=31">
+  <link rel="stylesheet" href="/styles.css?v=50">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -57,11 +57,14 @@
       <div class="nav-dropdown">
         <button type="button" class="page-nav-link nav-dropdown-btn" aria-haspopup="true">Calculators <svg class="nav-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
         <div class="nav-dropdown-menu">
-          <a href="/swap" class="nav-dropdown-item">Home Swap Calculator</a>
-          <a href="/rvb" class="nav-dropdown-item">Rent vs. Buy Analysis</a>
+          <a href="/afford" class="nav-dropdown-item">Affordability Calculator</a>
           <a href="/compound" class="nav-dropdown-item">Compound Growth</a>
-          <a href="/refi" class="nav-dropdown-item">Refi Calculator</a>
+          <a href="/downpayment" class="nav-dropdown-item">Down Payment Optimizer</a>
+          <a href="/swap" class="nav-dropdown-item">Home Swap Calculator</a>
+          <a href="/proceeds" class="nav-dropdown-item">Net Proceeds</a>
           <a href="/payoff" class="nav-dropdown-item">Payoff Calculator</a>
+          <a href="/refi" class="nav-dropdown-item">Refi Calculator</a>
+          <a href="/rvb" class="nav-dropdown-item">Rent vs. Buy Analysis</a>
         </div>
       </div>
       <a href="/faq"      class="page-nav-link">FAQ</a>
@@ -93,9 +96,9 @@
     <!-- Article body -->
     <div class="article-body">
 
-      <p>The most common piece of refinancing advice is that you should refinance when rates drop by at least 1%. It's tidy and easy to remember. It's also too simple to be reliably useful — it can push you into a refinance that costs you money, or cause you to pass on one that would have meaningfully benefited you.</p>
+      <p>The most common piece of refinancing advice is that you should refinance when rates drop by at least 1%. It's tidy and easy to remember. It's also too simple to be reliably useful: it can push you into a refinance that costs you money, or cause you to pass on one that would have meaningfully benefited you.</p>
 
-      <p>The right question isn't whether the rate drop is large enough. It's whether the monthly savings you'd gain will repay the upfront closing costs before you sell or move — and whether the term you're refinancing into works in your favor, not against it.</p>
+      <p>The right question isn't whether the rate drop is large enough. It's whether the monthly savings you'd gain will repay the upfront closing costs before you sell or move, and whether the term you're refinancing into works in your favor, not against it.</p>
 
       <p>This guide walks through the full decision framework: calculating your actual break-even, understanding the term reset problem, navigating no-cost refinances and cash-out options, and recognizing the clear cases where refinancing doesn't make sense.</p>
 
@@ -103,11 +106,11 @@
 
       <h2>The Break-Even Framework</h2>
 
-      <p>Every refinance has a cost and a benefit. The cost is upfront — closing costs, which typically run 2–3% of the loan amount. The benefit is ongoing — a lower monthly payment. Break-even is the point where the accumulated monthly savings repay those upfront costs.</p>
+      <p>Every refinance has a cost and a benefit. The cost is upfront: closing costs, which typically run 2–3% of the loan amount. The benefit is ongoing: a lower monthly payment. Break-even is the point where the accumulated monthly savings repay those upfront costs.</p>
 
-      <p><strong>Break-even (months) = closing costs ÷ monthly payment savings</strong></p>
+      <p>Break-even (months) = closing costs ÷ monthly payment savings</p>
 
-      <p>If you plan to stay in the home longer than the break-even period, the refinance is profitable. If you'll sell or move before then, it isn't — regardless of how attractive the rate looks.</p>
+      <p>If you plan to stay in the home longer than the break-even period, the refinance is profitable. If you'll sell or move before then, it isn't, regardless of how attractive the rate looks.</p>
 
       <p>Let's put numbers to it. Say you have a $350,000 remaining mortgage balance and can drop from 7.25% to 6.50% on a new 30-year loan.</p>
 
@@ -116,20 +119,20 @@
         <li>New P&amp;I payment (6.50% on $350,000): approximately $2,213/month</li>
         <li>Monthly savings: $175/month</li>
         <li>Closing costs (estimate 2.5%): $8,750</li>
-        <li>Break-even: $8,750 ÷ $175 = <strong>50 months (about 4.2 years)</strong></li>
+        <li>Break-even: $8,750 ÷ $175 = 50 months (about 4.2 years)</li>
       </ul>
 
-      <p>If you plan to stay at least 5 more years, this refinance makes sense. If you're likely to sell in 3 years, it doesn't — you'd spend $8,750 to save roughly $6,300 before moving, a net loss of $2,450.</p>
+      <p>If you plan to stay at least 5 more years, this refinance makes sense. If you're likely to sell in 3 years, it doesn't. You'd spend $8,750 to save roughly $6,300 before moving, a net loss of $2,450.</p>
 
       <div class="article-callout">
-        <p><strong>The break-even period is the single most important number in a refinancing decision.</strong> It translates the abstract question of "is this a good deal?" into a concrete question: "will I be in this home long enough?"</p>
+        <p>The break-even period is the single most important number in a refinancing decision. It translates the abstract question of "is this a good deal?" into a concrete question: "will I be in this home long enough?"</p>
       </div>
 
       <hr class="article-divider">
 
       <h2>Why the "1% Rule" Falls Apart</h2>
 
-      <p>The 1% rule — refinance when you can drop your rate by at least one percentage point — ignores both sides of the break-even equation. A 1% rate drop on a small remaining balance produces modest monthly savings, while a 0.5% rate drop on a large balance can produce substantial savings. The relevant variable isn't just the rate differential; it's the rate differential applied to your specific balance.</p>
+      <p>The 1% rule (refinance when you can drop your rate by at least one percentage point) ignores both sides of the break-even equation. A 1% rate drop on a small remaining balance produces modest monthly savings, while a 0.5% rate drop on a large balance can produce substantial savings. The relevant variable isn't just the rate differential; it's the rate differential applied to your specific balance.</p>
 
       <p>Consider two borrowers:</p>
 
@@ -170,7 +173,7 @@
         </tbody>
       </table>
 
-      <p>Borrower A hits the "1% rule" threshold but has a 40-month break-even and relatively small absolute savings. Borrower B drops only 0.5% but saves $185/month — though the larger loan means higher closing costs and an 81-month break-even. Neither case is obviously right or wrong without knowing how long each borrower plans to stay.</p>
+      <p>Borrower A hits the "1% rule" threshold but has a 40-month break-even and relatively small absolute savings. Borrower B drops only 0.5% but saves $185/month, though the larger loan means higher closing costs and an 81-month break-even. Neither case is obviously right or wrong without knowing how long each borrower plans to stay.</p>
 
       <p>The rule of thumb works best as a rough filter for large loans in the early years of a mortgage, and becomes increasingly unreliable as balance shrinks or time horizon shortens.</p>
 
@@ -178,30 +181,30 @@
 
       <h2>The Term Reset Problem</h2>
 
-      <p>Most refinancing discussions focus only on the rate. But the term matters just as much — sometimes more.</p>
+      <p>Most refinancing discussions focus only on the rate. But the term matters just as much, sometimes more.</p>
 
       <p>When you refinance into a new 30-year loan, you reset the amortization clock back to day one. Even if you're 10 or 15 years into your current loan, you're now starting over: most of your new payment goes to interest, equity builds slowly, and your payoff date pushes out by the number of years you reset.</p>
 
-      <p>A borrower 12 years into a 30-year mortgage has 18 years remaining. Refinancing into a new 30-year loan effectively extends their mortgage by 12 years — even though the monthly payment drops and the rate is lower. The lower payment looks attractive, but it contains a hidden cost: they've added 12 years of mortgage payments to their financial future.</p>
+      <p>A borrower 12 years into a 30-year mortgage has 18 years remaining. Refinancing into a new 30-year loan effectively extends their mortgage by 12 years, even though the monthly payment drops and the rate is lower. The lower payment looks attractive, but it contains a hidden cost: they've added 12 years of mortgage payments to their financial future.</p>
 
       <div class="article-callout article-callout--amber">
-        <p><strong>Refinancing from 18 years remaining into a new 30-year loan extends your payoff date by 12 years.</strong> A portion of the "monthly savings" isn't savings at all — it's cost deferral. You're paying less now in exchange for paying longer.</p>
+        <p>Refinancing from 18 years remaining into a new 30-year loan extends your payoff date by 12 years. A portion of the "monthly savings" isn't savings at all; it's cost deferral. You're paying less now in exchange for paying longer.</p>
       </div>
 
-      <p>The alternative is to match the new loan's term to your remaining term, or choose something in between. A refinance from 18 years remaining into a new 15-year loan captures the rate savings without extending the payoff date — and typically comes with a rate that's 0.5% lower than the 30-year equivalent, widening the interest savings further. The payment will be somewhat higher than a new 30-year, but the total cost over the remaining life of the loan is substantially lower.</p>
+      <p>The alternative is to match the new loan's term to your remaining term, or choose something in between. A refinance from 18 years remaining into a new 15-year loan captures the rate savings without extending the payoff date, and typically comes with a rate that's 0.5% lower than the 30-year equivalent, widening the interest savings further. The payment will be somewhat higher than a new 30-year, but the total cost over the remaining life of the loan is substantially lower.</p>
 
-      <p>When evaluating a refinance, calculate the total interest you'd pay under each scenario — current loan to payoff, 30-year refinance to payoff, 15- or 20-year refinance to payoff — and compare those numbers alongside the monthly payment difference. The full-cost picture is often very different from the monthly-savings picture.</p>
+      <p>When evaluating a refinance, calculate the total interest you'd pay under each scenario (current loan to payoff, 30-year refinance to payoff, 15- or 20-year refinance to payoff) and compare those numbers alongside the monthly payment difference. The full-cost picture is often very different from the monthly-savings picture.</p>
 
       <hr class="article-divider">
 
       <h2>No-Cost Refinances: Are They Actually Free?</h2>
 
-      <p>Some lenders offer "no-closing-cost" refinances, which can seem like an obvious choice — you get a lower rate with no upfront payment. But closing costs don't disappear; they're rolled into the loan balance or paid via a slightly higher rate than you'd otherwise qualify for.</p>
+      <p>Some lenders offer "no-closing-cost" refinances, which can seem like an obvious choice: you get a lower rate with no upfront payment. But closing costs don't disappear; they're rolled into the loan balance or paid via a slightly higher rate than you'd otherwise qualify for.</p>
 
-      <p>A no-cost refinance at 6.625% versus a standard refinance at 6.50% might look like a small difference. On a $400,000 balance over 30 years, that 0.125% rate difference costs approximately $12,000 in additional interest — about $33/month extra for 30 years. A no-cost refinance makes sense when the upfront cash matters (you're short on liquidity, or the break-even would be very long anyway), but it's not free — it trades upfront cost for a permanently higher rate.</p>
+      <p>A no-cost refinance at 6.625% versus a standard refinance at 6.50% might look like a small difference. On a $400,000 balance over 30 years, that 0.125% rate difference costs approximately $12,000 in additional interest, or about $33/month extra for 30 years. A no-cost refinance makes sense when the upfront cash matters (you're short on liquidity, or the break-even would be very long anyway), but it's not free; it trades upfront cost for a permanently higher rate.</p>
 
       <div class="article-callout article-callout--amber">
-        <p><strong>The right question for a no-cost refinance:</strong> How long would it take for the extra interest from the higher rate to exceed the closing costs you avoided? If you'd hit that threshold before your planned move, the standard refinance was actually cheaper — you just felt the cost differently.</p>
+        <p>The right question for a no-cost refinance: How long would it take for the extra interest from the higher rate to exceed the closing costs you avoided? If you'd hit that threshold before your planned move, the standard refinance was actually cheaper; you just felt the cost differently.</p>
       </div>
 
       <hr class="article-divider">
@@ -210,7 +213,7 @@
 
       <p>A cash-out refinance replaces your existing mortgage with a larger one, and you receive the difference in cash. It's commonly used for home improvements, debt consolidation, or large expenses. The math differs from a rate-and-term refinance in important ways.</p>
 
-      <p>First, you're borrowing more — so even at a lower rate, your new monthly payment may be higher than your current one. The "savings" framing doesn't apply the same way. The relevant question is: what's the cost of this capital compared to alternatives?</p>
+      <p>First, you're borrowing more, so even at a lower rate, your new monthly payment may be higher than your current one. The "savings" framing doesn't apply the same way. The relevant question is: what's the cost of this capital compared to alternatives?</p>
 
       <p>If you're consolidating credit card debt at 22% into a mortgage at 6.75%, the interest rate savings are real and large. But there's a meaningful trade-off: you're converting unsecured debt into debt secured by your home. If you fall behind on a credit card, your credit suffers. If you fall behind on a mortgage, you risk foreclosure. The cheaper rate comes with higher collateral risk.</p>
 
@@ -225,10 +228,10 @@
       <p>The strongest cases for refinancing share a few common features:</p>
 
       <ul>
-        <li><strong>You're early in your loan</strong> — the balance is high (so the absolute dollar savings are large), and a new 30-year term doesn't extend your payoff date by much; refinancing year 3 of a 30-year loses only 3 years, while refinancing year 22 loses far more</li>
-        <li><strong>Your break-even is well inside your expected stay</strong> — if you plan to be in the home 7+ more years and break-even is 24 months, the math is compelling</li>
-        <li><strong>Rates have dropped materially from your current rate</strong> — not because of the 1% rule, but because a larger rate drop produces faster break-even on any balance</li>
-        <li><strong>You're switching from an adjustable-rate to a fixed-rate mortgage</strong> — rate certainty has real value that the break-even math doesn't fully capture, especially if you plan to stay long-term</li>
+        <li><strong>You're early in your loan:</strong> the balance is high (so the absolute dollar savings are large), and a new 30-year term doesn't extend your payoff date by much; refinancing year 3 of a 30-year loses only 3 years, while refinancing year 22 loses far more</li>
+        <li><strong>Your break-even is well inside your expected stay:</strong> if you plan to be in the home 7+ more years and break-even is 24 months, the math is compelling</li>
+        <li><strong>Rates have dropped materially from your current rate:</strong> not because of the 1% rule, but because a larger rate drop produces faster break-even on any balance</li>
+        <li><strong>You're switching from an adjustable-rate to a fixed-rate mortgage:</strong> rate certainty has real value that the break-even math doesn't fully capture, especially if you plan to stay long-term</li>
       </ul>
 
       <hr class="article-divider">
@@ -242,7 +245,7 @@
         <li><strong>You're far into a long-term loan.</strong> Refinancing from year 22 of a 30-year mortgage into a new 30-year loan adds 22 years to your payoff timeline. Even at a meaningfully lower rate, the term extension can cost more in total interest than you save from the rate drop.</li>
         <li><strong>Your credit score or equity position has declined.</strong> A refinance that qualifies you for a higher rate than you'd hoped, or requires PMI you don't currently pay, may eliminate the benefit you were counting on.</li>
         <li><strong>Closing costs will exceed total interest savings.</strong> If you're within 5 years of payoff, the remaining interest on your current loan may be less than what you'd spend on closing costs. Run the numbers.</li>
-        <li><strong>You're cashing out equity to fund consumption.</strong> Using your home as a piggy bank for non-appreciating spending — vacations, consumer goods — converts cheap, long-term wealth into short-term consumption at the cost of home equity and an extended mortgage.</li>
+        <li><strong>You're cashing out equity to fund consumption.</strong> Using your home as a piggy bank for non-appreciating spending (vacations, consumer goods) converts cheap, long-term wealth into short-term consumption at the cost of home equity and an extended mortgage.</li>
       </ul>
 
       <hr class="article-divider">
@@ -253,11 +256,11 @@
 
       <ol>
         <li><strong>What's my current rate and remaining mortgage balance?</strong> These set the baseline for any comparison.</li>
-        <li><strong>What rate can I actually qualify for?</strong> Get a real quote — advertised rates often assume excellent credit and 20%+ equity.</li>
+        <li><strong>What rate can I actually qualify for?</strong> Get a real quote; advertised rates often assume excellent credit and 20%+ equity.</li>
         <li><strong>What are the all-in closing costs?</strong> Include origination fees, appraisal, title, recording, and any points paid to buy down the rate.</li>
-        <li><strong>What's my monthly P&amp;I savings, and how many months to break even?</strong> Divide closing costs by monthly savings — that's the number of months you need to stay to profit from the refinance.</li>
+        <li><strong>What's my monthly P&amp;I savings, and how many months to break even?</strong> Divide closing costs by monthly savings; that's the number of months you need to stay to profit from the refinance.</li>
         <li><strong>How long do I plan to stay?</strong> Compare this to your break-even. If you're unsure, use a conservative estimate.</li>
-        <li><strong>What term am I refinancing into, and what does that do to my total interest paid through payoff?</strong> Model at least two term options — the monthly payment tells only half the story.</li>
+        <li><strong>What term am I refinancing into, and what does that do to my total interest paid through payoff?</strong> Model at least two term options; the monthly payment tells only half the story.</li>
       </ol>
 
       <!-- Calculator CTA -->
@@ -270,7 +273,7 @@
         </div>
         <div class="article-cta-text">
           <strong>Calculate your actual break-even</strong>
-          <p>The Move Up Mapper Refinance Calculator shows your monthly savings, break-even timeline, and net benefit after accounting for closing costs and opportunity cost — using your actual balance, current rate, and expected stay.</p>
+          <p>The Move Up Mapper Refinance Calculator shows your monthly savings, break-even timeline, and net benefit after accounting for closing costs and opportunity cost, using your actual balance, current rate, and expected stay.</p>
           <a href="/refi">Open the Refinance Break-Even Calculator →</a>
         </div>
       </div>
@@ -282,9 +285,9 @@
       <ul>
         <li>The "1% rule" is a rough heuristic, not a decision framework. The real test is break-even: closing costs divided by monthly savings equals the number of months you need to stay for the refinance to pay off.</li>
         <li>Break-even typically ranges from 18 to 60 months depending on loan size, rate drop, and local closing costs. If you expect to stay well past your break-even, refinancing is favorable. If you're likely to sell before then, it isn't.</li>
-        <li>Term matters as much as rate. Refinancing into a new 30-year resets the amortization clock. A shorter new term — matched to your remaining years or something in between — often produces better total outcomes than chasing the lowest monthly payment.</li>
+        <li>Term matters as much as rate. Refinancing into a new 30-year resets the amortization clock. A shorter new term, matched to your remaining years or something in between, often produces better total outcomes than chasing the lowest monthly payment.</li>
         <li>No-cost refinances trade upfront savings for a permanently higher rate. Run the numbers on how long that rate premium costs you before deciding it's actually cheaper.</li>
-        <li>Cash-out refinances require a separate analysis: they're a borrowing decision, not just a rate decision. The relevant comparison is the cost of the cash versus your alternatives — not just the mortgage rate itself.</li>
+        <li>Cash-out refinances require a separate analysis: they're a borrowing decision, not just a rate decision. The relevant comparison is the cost of the cash versus your alternatives, not just the mortgage rate itself.</li>
         <li>The clearest cases against refinancing: planning to sell soon, being deep into a long-term loan, or having closing costs that exceed remaining interest savings.</li>
       </ul>
 
@@ -294,11 +297,13 @@
   <!-- Footer -->
   <footer class="site-footer no-print">
     <div class="footer-links">
+      <a href="/afford">Affordability Calculator</a>
       <a href="/swap">Home Swap Calculator</a>
       <a href="/rvb">Rent vs. Buy Analysis</a>
       <a href="/compound">Compound Growth</a>
       <a href="/refi">Refinance Calculator</a>
       <a href="/payoff">Payoff Calculator</a>
+      <a href="/proceeds">Net Proceeds</a>
       <a href="/faq">FAQ</a>
       <a href="/learn">Learn</a>
       <a href="/about">About</a>

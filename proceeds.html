@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Sale Net Proceeds Calculator — Move Up Mapper</title>
+  <meta name="description" content="Estimate what you'll actually walk away with after selling your home. Enter your sale price, mortgage balance, commissions, and closing costs to see your net proceeds.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Move Up Mapper">
+  <meta property="og:title" content="Home Sale Net Proceeds Calculator — Move Up Mapper">
+  <meta property="og:description" content="What will you net from selling your home? Model agent commissions, closing costs, mortgage payoff, and seller credits to see your actual take-home amount.">
+  <meta property="og:url" content="https://www.moveupmapper.com/proceeds">
+  <meta property="og:image" content="https://www.moveupmapper.com/social-card.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Move Up Mapper — Free Housing &amp; Investment Calculators">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Home Sale Net Proceeds Calculator — Move Up Mapper">
+  <meta name="twitter:description" content="What will you net from selling your home? Model agent commissions, closing costs, and mortgage payoff to see your actual take-home amount.">
+  <link rel="canonical" href="https://www.moveupmapper.com/proceeds">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"></noscript>
+  <link rel="stylesheet" href="styles.css?v=50">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Home Sale Net Proceeds Calculator",
+    "url": "https://www.moveupmapper.com/proceeds",
+    "description": "Calculate your net proceeds from selling a home after agent commissions, closing costs, mortgage payoff, and seller credits.",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "isAccessibleForFree": true,
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "provider": { "@type": "Organization", "name": "Move Up Mapper", "url": "https://www.moveupmapper.com" }
+  }
+  </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YCEFCLSHX0"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YCEFCLSHX0');
+  </script>
+</head>
+<body>
+<nav class="site-nav no-print">
+  <div class="site-nav-inner">
+    <a href="/" class="site-brand">
+      <img src="favicon.svg" width="28" height="28" alt="" style="border-radius:7px;flex-shrink:0;display:block">
+      <span class="brand-name">Move Up Mapper</span>
+    </a>
+    <div class="page-nav-links">
+      <div class="nav-dropdown">
+        <button type="button" class="page-nav-link nav-dropdown-btn active" aria-haspopup="true">Calculators <svg class="nav-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="/afford" class="nav-dropdown-item">Affordability Calculator</a>
+          <a href="/compound" class="nav-dropdown-item">Compound Growth</a>
+          <a href="/downpayment" class="nav-dropdown-item">Down Payment Optimizer</a>
+          <a href="/swap" class="nav-dropdown-item">Home Swap Calculator</a>
+          <a href="/proceeds" class="nav-dropdown-item active">Net Proceeds</a>
+          <a href="/payoff" class="nav-dropdown-item">Payoff Calculator</a>
+          <a href="/refi" class="nav-dropdown-item">Refi Calculator</a>
+          <a href="/rvb" class="nav-dropdown-item">Rent vs. Buy Analysis</a>
+        </div>
+      </div>
+      <a href="/faq"    class="page-nav-link">FAQ</a>
+      <a href="/learn"  class="page-nav-link">Learn</a>
+      <a href="/market" class="page-nav-link">Market</a>
+      <a href="/about"  class="page-nav-link">About</a>
+    </div>
+  </div>
+</nav>
+<div class="app">
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-icon" style="background:#d97706">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+        <path d="M9 12l2 2 4-4"/>
+      </svg>
+    </div>
+    <div>
+      <h1>Home Sale Net Proceeds</h1>
+      <p class="header-sub">Estimate what you'll actually walk away with after agent commissions, closing costs, and your mortgage payoff</p>
+    </div>
+    <div class="header-actions" style="margin-left:auto;display:flex;gap:8px;align-items:center;flex-shrink:0">
+      <button class="btn-text" id="resetBtn">Reset</button>
+      <button class="btn-text" id="shareBtn">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:3px"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>Share
+      </button>
+      <button class="btn-print" id="printBtn">⎙ Print<span class="print-full"> / Export PDF</span></button>
+    </div>
+  </header>
+
+  <!-- About -->
+  <details class="about-expand no-print">
+    <summary>About this calculator</summary>
+    <div class="about-content">
+      <p>Gross equity (the difference between your home's value and your mortgage balance) is not what you pocket when you sell. Selling costs typically consume 6–9% of the sale price before the mortgage is paid off. This calculator walks through every major deduction: listing agent commission, any buyer's agent contribution, other closing costs (title, transfer tax, escrow, attorney fees, recording), and seller concessions or repair credits. The result is your estimated net proceeds: the cash you'd receive at closing.</p>
+      <br>
+      <p><strong>NAR Settlement note (2024):</strong> Rules around buyer's agent compensation have changed. Sellers are no longer required to offer buyer's agent commissions through the MLS. Buyer's agent compensation is now negotiated directly between buyers and their agents. Use the buyer's agent field to model any contribution you've agreed to make — or set it to 0% if the buyer is handling their agent's compensation separately.</p>
+      <p class="about-disclaimer"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span><strong>Not financial advice.</strong> This tool provides estimates only. Actual closing costs vary by state, county, loan type, and negotiated terms. Get a seller's net sheet from a title company or real estate attorney for accurate figures specific to your transaction.</span></p>
+    </div>
+  </details>
+
+  <!-- Inputs -->
+  <div class="card wide-card" style="margin-top:8px;position:relative;z-index:2">
+    <div class="card-head">
+      <div class="card-icon" style="background:#6b7280">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-title">Your Sale Details</div>
+        <div class="card-sub">Sale price, mortgage balance, and estimated selling costs</div>
+      </div>
+    </div>
+    <div class="card-body">
+
+      <div class="two-col">
+        <div class="field">
+          <div class="label-tip-row">
+            <label>EXPECTED SALE PRICE</label>
+            <button class="tip-btn" aria-label="Learn more" data-tip="The price you expect to sell for, net of any price reductions. If you're in the process of listing, use your list price or an estimate from a comparative market analysis (CMA) your agent has prepared. The more accurate this number, the more useful your net proceeds estimate will be.">?</button>
+          </div>
+          <div class="input-wrap prefix">
+            <span class="affix">$</span>
+            <input type="number" id="salePrice" min="50000" max="20000000" step="5000">
+          </div>
+        </div>
+        <div class="field">
+          <div class="label-tip-row">
+            <label>REMAINING MORTGAGE BALANCE</label>
+            <button class="tip-btn" aria-label="Learn more" data-tip="The principal balance still owed on your mortgage as of your expected closing date. Check your most recent mortgage statement for your current balance, then subtract a few months of principal payments if closing is several months away. Your mortgage servicer can also provide a payoff quote that includes any accrued interest through a specific date.">?</button>
+          </div>
+          <div class="input-wrap prefix">
+            <span class="affix">$</span>
+            <input type="number" id="mortgage" min="0" step="5000">
+          </div>
+          <div class="helper">Principal balance remaining — check your mortgage statement</div>
+        </div>
+      </div>
+
+      <div style="border-top:1px solid var(--border);margin:4px 0 16px"></div>
+      <div style="font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px">SELLING COSTS</div>
+
+      <div class="two-col">
+        <div class="field">
+          <div class="label-tip-row">
+            <label>LISTING AGENT COMMISSION</label>
+            <button class="tip-btn" aria-label="Learn more" data-tip="The commission paid to your listing (seller's) agent, as a percentage of the sale price. Since the 2024 NAR settlement, listing agent commissions are negotiated independently. Common rates range from 1.5–3%, depending on the market, agent, and services provided. Discount brokers and flat-fee MLS services may offer lower rates. This is the only commission you must pay as a seller.">?</button>
+          </div>
+          <div class="input-wrap suffix">
+            <input type="number" id="listingComm" min="0" max="10" step="0.25">
+            <span class="affix">%</span>
+          </div>
+        </div>
+        <div class="field">
+          <div class="label-tip-row">
+            <label>BUYER'S AGENT CONTRIBUTION</label>
+            <button class="tip-btn" aria-label="Learn more" data-tip="Any amount you agree to contribute toward the buyer's agent commission. Since the 2024 NAR settlement, sellers are no longer required to offer buyer's agent compensation through the MLS — buyers negotiate this directly with their agents. However, sellers sometimes offer a contribution as a concession to attract buyers. Set this to 0% if the buyer is covering their own agent's fee. Typical contributions, when offered, range from 2–3%.">?</button>
+          </div>
+          <div class="input-wrap suffix">
+            <input type="number" id="buyerComm" min="0" max="10" step="0.25">
+            <span class="affix">%</span>
+          </div>
+          <div class="helper">Optional — set to 0% if buyer handles their own agent's fee</div>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="field">
+          <div class="label-tip-row">
+            <label>OTHER CLOSING COSTS</label>
+            <button class="tip-btn" aria-label="Learn more" data-tip="Other selling costs — enter as a percentage of sale price or a flat dollar amount. Use the % / $ toggle on the right of the field to switch. Typically includes: title insurance (seller's portion, often 0.3–0.5%), transfer or excise taxes (varies widely by state — from 0% in some states to 1%+ in others), escrow or closing agent fees (0.1–0.3%), attorney fees if required in your state, recording fees, and any HOA transfer fees. Use 1–2% as a rough estimate; your title company can provide a precise seller's net sheet.">?</button>
+          </div>
+          <div class="input-wrap other-costs-wrap">
+            <span class="affix" id="otherCostsPrefix" style="display:none">$</span>
+            <input type="number" id="otherCosts" min="0" max="10" step="0.25">
+            <div class="other-costs-unit-toggle" id="otherCostsModeToggle">
+              <button type="button" class="other-costs-btn active" data-mode="pct">%</button>
+              <button type="button" class="other-costs-btn" data-mode="dollar">$</button>
+            </div>
+          </div>
+          <div class="helper" id="otherCostsHelper">Title, transfer tax, escrow, attorney — typically 1–2% of sale price</div>
+        </div>
+        <div class="field">
+          <div class="label-tip-row">
+            <label>REPAIR CREDITS &amp; CONCESSIONS</label>
+            <button class="tip-btn" aria-label="Learn more" data-tip="Any dollar amount you agree to credit the buyer at closing — for inspection repairs, a closing cost credit, or a price reduction in lieu of repairs. These are negotiated after inspections and appraisals. Enter your best estimate; you can adjust once you have a signed contract. Larger credits reduce your net proceeds dollar-for-dollar.">?</button>
+          </div>
+          <div class="input-wrap prefix">
+            <span class="affix">$</span>
+            <input type="number" id="credits" min="0" step="500" placeholder="0">
+          </div>
+          <div class="helper">Dollar amount credited to buyer at closing — leave blank if none</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div class="card wide-card" style="margin-top:8px">
+
+    <div class="card-head">
+      <div class="card-icon" style="background:#d97706">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="4" y="2" width="16" height="20" rx="2"/>
+          <line x1="8" y1="8" x2="16" y2="8"/>
+          <line x1="8" y1="12" x2="16" y2="12"/>
+          <line x1="8" y1="16" x2="11" y2="16"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-title">Net Proceeds Breakdown</div>
+        <div class="card-sub">Results update instantly as you adjust inputs</div>
+      </div>
+    </div>
+
+    <!-- Stat tiles -->
+    <div class="refi-stats-grid">
+      <div class="bp-stat">
+        <div class="bp-stat-label">NET PROCEEDS</div>
+        <div class="refi-stat-value" id="stat-net">—</div>
+        <div class="bp-stat-delta" style="font-size:11px;color:var(--text-muted)">cash at closing</div>
+      </div>
+      <div class="bp-stat">
+        <div class="bp-stat-label">GROSS EQUITY</div>
+        <div class="refi-stat-value" id="stat-gross-equity">—</div>
+        <div class="bp-stat-delta" style="font-size:11px;color:var(--text-muted)">before selling costs</div>
+      </div>
+      <div class="bp-stat">
+        <div class="bp-stat-label">TOTAL SELLING COSTS</div>
+        <div class="refi-stat-value" id="stat-total-costs">—</div>
+        <div class="bp-stat-delta" style="font-size:11px;color:var(--text-muted)">commissions + closing</div>
+      </div>
+      <div class="bp-stat">
+        <div class="bp-stat-label">COST AS % OF SALE</div>
+        <div class="refi-stat-value" id="stat-cost-pct">—</div>
+        <div class="bp-stat-delta" style="font-size:11px;color:var(--text-muted)">total costs / sale price</div>
+      </div>
+    </div>
+
+    <!-- Verdict -->
+    <div class="refi-verdict refi-verdict--info card-verdict-inset" id="proceedsVerdict">
+      <div class="refi-verdict-icon">ℹ</div>
+      <div class="refi-verdict-text">
+        <strong>Enter your sale price and mortgage balance above</strong>
+        <p>The calculator will show a complete breakdown of selling costs and your estimated net proceeds at closing.</p>
+      </div>
+    </div>
+
+    <!-- Waterfall -->
+    <div class="proceeds-waterfall">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px">CLOSING WATERFALL</div>
+
+      <div class="proceeds-row">
+        <span class="proceeds-row-label proceeds-row-label--main">Sale Price</span>
+        <span class="proceeds-row-value" id="wf-sale">—</span>
+      </div>
+      <div class="proceeds-row">
+        <span class="proceeds-row-label">Listing Agent Commission</span>
+        <span class="proceeds-row-value proceeds-row-value--sub" id="wf-listing">—</span>
+      </div>
+      <div class="proceeds-row">
+        <span class="proceeds-row-label">Buyer's Agent Contribution</span>
+        <span class="proceeds-row-value proceeds-row-value--sub" id="wf-buyer">—</span>
+      </div>
+      <div class="proceeds-row">
+        <span class="proceeds-row-label">Other Closing Costs</span>
+        <span class="proceeds-row-value proceeds-row-value--sub" id="wf-closing">—</span>
+      </div>
+      <div class="proceeds-row" id="wf-credits-row">
+        <span class="proceeds-row-label" style="color:var(--text-muted)">Repair Credits / Concessions</span>
+        <span class="proceeds-row-value proceeds-row-value--sub" id="wf-credits">—</span>
+      </div>
+      <div class="proceeds-row">
+        <span class="proceeds-row-label proceeds-row-label--main">Mortgage Payoff</span>
+        <span class="proceeds-row-value proceeds-row-value--sub" id="wf-mortgage">—</span>
+      </div>
+    </div>
+
+    <div class="proceeds-total-row">
+      <span class="proceeds-total-label">Net Proceeds</span>
+      <span class="proceeds-total-value" id="wf-net">—</span>
+    </div>
+
+  </div><!-- /results card -->
+
+  <!-- Key Concepts -->
+  <details class="card wide-card glossary-card">
+    <summary class="card-head">
+      <div class="card-icon" style="background:#d97706">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-title">Closing Costs &amp; What to Expect</div>
+        <div class="card-sub">What sellers typically pay, how commissions work post-NAR settlement, and capital gains considerations</div>
+      </div>
+      <svg class="adv-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left:auto;flex-shrink:0"><polyline points="6 9 12 15 18 9"/></svg>
+    </summary>
+    <div class="glossary-body">
+      <div class="gloss-group">
+        <div class="gloss-group-title">Selling Costs Explained</div>
+        <div class="gloss-grid">
+
+          <div class="gloss-item">
+            <div class="gloss-term">Agent Commissions (Post-NAR Settlement)</div>
+            <div class="gloss-def">Before August 2024, sellers were effectively required to offer buyer's agent compensation through the MLS (typically 2.5–3%) in addition to their own agent's commission, for a total of 5–6%. Following the NAR settlement, this is no longer required. Sellers now only need to pay their listing agent. Buyers negotiate their agent's compensation directly. In practice, many sellers still offer a buyer's agent contribution as a concession to attract buyers, but it's now a choice rather than a default. This calculator separates the two to give you full control.</div>
+          </div>
+
+          <div class="gloss-item">
+            <div class="gloss-term">Other Closing Costs (Seller Side)</div>
+            <div class="gloss-def">Sellers typically pay: title insurance (owner's policy, usually 0.3–0.5% of sale price); transfer or excise tax (also called a deed tax or stamp tax, ranging from zero in some states to over 1.5% in others like New York or Washington); escrow or settlement fees (split with buyer or paid fully by seller depending on local custom, typically $500–$2,000); recording fees ($50–$200); and any HOA transfer or certification fees ($100–$500). States vary widely — California sellers often pay more in transfer taxes than those in Texas, for example.</div>
+          </div>
+
+          <div class="gloss-item">
+            <div class="gloss-term">Repair Credits and Concessions</div>
+            <div class="gloss-def">After a home inspection, buyers often request either repairs or a credit in lieu of repairs. A credit is applied at closing, reducing your net proceeds dollar-for-dollar. Concessions can also take the form of closing cost credits — sellers agree to contribute toward the buyer's loan costs, reducing the cash the buyer needs at closing. From a seller's perspective, a $5,000 repair credit and a $5,000 closing cost credit have identical financial impact. Enter your estimated total concession amount in the field above.</div>
+          </div>
+
+          <div class="gloss-item">
+            <div class="gloss-term">Mortgage Payoff vs. Statement Balance</div>
+            <div class="gloss-def">Your mortgage payoff amount is slightly higher than the principal balance shown on your statement. The payoff includes all accrued interest through the closing date (often 15–30 days of additional interest), any prepayment penalties if applicable, and recording fees for the reconveyance of the deed of trust. Contact your servicer for an official payoff quote timed to your expected closing date. In this calculator, use your best estimate — the difference from your statement balance is typically small (a few hundred dollars).</div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="gloss-group">
+        <div class="gloss-group-title">Capital Gains Considerations</div>
+        <div class="gloss-grid">
+
+          <div class="gloss-item">
+            <div class="gloss-term">The Primary Residence Exclusion</div>
+            <div class="gloss-def">If you've owned and lived in your home as your primary residence for at least 2 of the last 5 years, you can exclude up to $250,000 of capital gain from federal income tax ($500,000 for married couples filing jointly). Capital gain is calculated as your net sale price minus your adjusted cost basis (original purchase price plus capital improvements). This exclusion can only be used once every two years. This calculator does not model capital gains — consult a tax professional if your gain may exceed these thresholds.</div>
+          </div>
+
+          <div class="gloss-item">
+            <div class="gloss-term">When Capital Gains May Apply</div>
+            <div class="gloss-def">Capital gains on home sales above the exclusion amount are taxed at long-term rates (0%, 15%, or 20% depending on your income) if you've owned the home for more than one year. Short-term gains (held less than one year) are taxed at ordinary income rates. If your home has appreciated significantly — particularly in high-appreciation markets over the past 5–10 years — your gain may exceed the exclusion. Keep records of all capital improvements, as these increase your cost basis and reduce your taxable gain.</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <a href="/swap" class="tool-crosslink no-print">
+    <div class="tool-crosslink-icon" style="background:#818cf8">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/>
+        <polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/>
+      </svg>
+    </div>
+    <div class="tool-crosslink-text">
+      <strong>Home Swap Calculator</strong>
+      <span>Using your proceeds to buy another home? The Home Swap Calculator compares your current home against a prospective one — monthly affordability, buying power over time, and post-purchase cash position.</span>
+    </div>
+    <span class="tool-crosslink-arrow">→</span>
+  </a>
+
+  <a href="/afford" class="tool-crosslink no-print">
+    <div class="tool-crosslink-icon" style="background:#7c3aed">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+        <line x1="12" y1="22" x2="12" y2="12"/>
+        <line x1="9" y1="12" x2="15" y2="12"/>
+      </svg>
+    </div>
+    <div class="tool-crosslink-text">
+      <strong>Affordability Calculator</strong>
+      <span>Know your proceeds — now figure out what you can buy next. Enter your income, debts, and the down payment you'll have available to see your maximum purchase price and monthly payment.</span>
+    </div>
+    <span class="tool-crosslink-arrow">→</span>
+  </a>
+
+  <!-- Footer -->
+  <footer class="site-footer no-print">
+    <div class="footer-links">
+      <a href="/afford">Affordability Calculator</a>
+      <a href="/swap">Home Swap Calculator</a>
+      <a href="/rvb">Rent vs. Buy Analysis</a>
+      <a href="/compound">Compound Growth</a>
+      <a href="/downpayment">Down Payment Optimizer</a>
+      <a href="/refi">Refinance Calculator</a>
+      <a href="/payoff">Payoff Calculator</a>
+      <a href="/proceeds">Net Proceeds</a>
+      <a href="/faq">FAQ</a>
+      <a href="/learn">Learn</a>
+      <a href="/about">About</a>
+      <a href="/privacy">Privacy</a>
+    </div>
+    <div class="footer-note">For informational purposes only. Not financial advice. &copy; 2026</div>
+  </footer>
+
+</div><!-- /app -->
+
+<script src="proceeds.js?v=1"></script>
+<script>
+/* ── Field tip tooltips ── */
+(function () {
+  var popup = document.createElement('div');
+  popup.className = 'tip-popup';
+  document.body.appendChild(popup);
+  var active = null;
+  function show(btn) {
+    active = btn; btn.classList.add('tip-active');
+    popup.textContent = btn.getAttribute('data-tip');
+    popup.style.display = 'block';
+    var r = btn.getBoundingClientRect();
+    var pw = popup.offsetWidth, ph = popup.offsetHeight, m = 10;
+    var left = r.left + r.width / 2 - pw / 2;
+    var top = r.top - ph - 8;
+    if (left < m) left = m;
+    if (left + pw > window.innerWidth - m) left = window.innerWidth - pw - m;
+    if (top < m) top = r.bottom + 8;
+    popup.style.left = left + 'px'; popup.style.top = top + 'px';
+  }
+  function hide() {
+    if (active) active.classList.remove('tip-active');
+    active = null; popup.style.display = 'none';
+  }
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest && e.target.closest('.tip-btn');
+    if (btn) { e.stopPropagation(); if (active === btn) { hide(); return; } hide(); show(btn); }
+    else { hide(); }
+  });
+  window.addEventListener('scroll', hide, { passive: true });
+  window.addEventListener('resize', function () { if (active) show(active); });
+}());
+</script>
+<div class="mobile-sticky-bar no-print">
+  <div class="msb-item">
+    <div class="msb-label">Net Proceeds</div>
+    <div class="msb-value" id="mbar-v1">—</div>
+  </div>
+  <div class="msb-divider"></div>
+  <div class="msb-item">
+    <div class="msb-label">Selling Costs</div>
+    <div class="msb-value" id="mbar-v2">—</div>
+  </div>
+</div>
+<script src="/nav.js"></script>
+</body>
+</html>

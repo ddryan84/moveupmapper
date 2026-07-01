@@ -797,10 +797,12 @@ function populateFields() {
 
   const wdFieldsEl = document.getElementById('withdrawalFields');
   if (wdFieldsEl) wdFieldsEl.style.display = wdEnabled ? '' : 'none';
-  const wdAmtWrap = document.getElementById('withdrawalAmountWrap');
-  const wdPctWrap = document.getElementById('withdrawalPercentWrap');
-  if (wdAmtWrap) wdAmtWrap.style.display = wdType === 'fixed'   ? '' : 'none';
-  if (wdPctWrap) wdPctWrap.style.display = wdType === 'percent' ? '' : 'none';
+  const wdAmtInput = document.getElementById('withdrawalAmount');
+  const wdPctInput = document.getElementById('withdrawalPercent');
+  const wdDollarPrefix = document.getElementById('wdDollarPrefix');
+  if (wdAmtInput) wdAmtInput.style.display = wdType === 'fixed' ? '' : 'none';
+  if (wdPctInput) wdPctInput.style.display = wdType === 'percent' ? '' : 'none';
+  if (wdDollarPrefix) wdDollarPrefix.style.display = wdType === 'fixed' ? '' : 'none';
   const wdBadge = document.getElementById('withdrawal-enabled-badge');
   if (wdBadge) wdBadge.style.display = wdEnabled ? '' : 'none';
 }
@@ -907,10 +909,12 @@ function bindInputs() {
       state.withdrawalType = t;
       document.querySelectorAll('[data-wd-type]').forEach(b =>
         b.classList.toggle('active', b.dataset.wdType === t));
-      const wdAmtWrap = document.getElementById('withdrawalAmountWrap');
-      const wdPctWrap = document.getElementById('withdrawalPercentWrap');
-      if (wdAmtWrap) wdAmtWrap.style.display = t === 'fixed'   ? '' : 'none';
-      if (wdPctWrap) wdPctWrap.style.display = t === 'percent' ? '' : 'none';
+      const wdAmtInput = document.getElementById('withdrawalAmount');
+      const wdPctInput = document.getElementById('withdrawalPercent');
+      const wdDollarPrefix = document.getElementById('wdDollarPrefix');
+      if (wdAmtInput) wdAmtInput.style.display = t === 'fixed' ? '' : 'none';
+      if (wdPctInput) wdPctInput.style.display = t === 'percent' ? '' : 'none';
+      if (wdDollarPrefix) wdDollarPrefix.style.display = t === 'fixed' ? '' : 'none';
       recalc();
       if (lastCalcResult) updateWithdrawalHints(lastCalcResult, state);
     });

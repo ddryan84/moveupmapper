@@ -5,11 +5,11 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FAQ — Move Up Mapper</title>
-  <meta name="description" content="Answers to common questions about the Move Up Mapper calculators — how the math works, what each input means, and how to get the most out of each tool.">
+  <meta name="description" content="Answers to common questions about the Move Up Mapper calculators: how the math works, what each input means, and how to get the most out of each tool.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Move Up Mapper">
   <meta property="og:title" content="FAQ — Move Up Mapper">
-  <meta property="og:description" content="Answers to common questions about the Move Up Mapper calculators — home swapping, rent vs. buy analysis, and compound growth — how the math works and what each field means.">
+  <meta property="og:description" content="Answers to common questions about the Move Up Mapper calculators: affordability, home swapping, rent vs. buy, refinancing, payoff, and more. How the math works and what each input means.">
   <meta property="og:url" content="https://www.moveupmapper.com/faq">
   <meta property="og:image" content="https://www.moveupmapper.com/social-card.jpg">
   <meta property="og:image:width" content="1200">
@@ -17,13 +17,13 @@
   <meta property="og:image:alt" content="Move Up Mapper — Free Housing & Investment Calculators">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="FAQ — Move Up Mapper">
-  <meta name="twitter:description" content="Answers to common questions about the Move Up Mapper calculators — home swapping, rent vs. buy analysis, and compound growth — how the math works and what each field means.">
+  <meta name="twitter:description" content="Answers to common questions about the Move Up Mapper calculators: affordability, home swapping, rent vs. buy, refinancing, payoff, and more. How the math works and what each input means.">
   <link rel="canonical" href="https://www.moveupmapper.com/faq">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"></noscript>
-  <link rel="stylesheet" href="styles.css?v=31">
+  <link rel="stylesheet" href="styles.css?v=50">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -182,12 +182,14 @@
       <div class="nav-dropdown">
         <button type="button" class="page-nav-link nav-dropdown-btn" aria-haspopup="true">Calculators <svg class="nav-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
         <div class="nav-dropdown-menu">
-          <a href="/swap" class="nav-dropdown-item">Home Swap Calculator</a>
-          <a href="/rvb" class="nav-dropdown-item">Rent vs. Buy Analysis</a>
+          <a href="/afford" class="nav-dropdown-item">Affordability Calculator</a>
           <a href="/compound" class="nav-dropdown-item">Compound Growth</a>
           <a href="/downpayment" class="nav-dropdown-item">Down Payment Optimizer</a>
-          <a href="/refi" class="nav-dropdown-item">Refi Calculator</a>
+          <a href="/swap" class="nav-dropdown-item">Home Swap Calculator</a>
+          <a href="/proceeds" class="nav-dropdown-item">Net Proceeds</a>
           <a href="/payoff" class="nav-dropdown-item">Payoff Calculator</a>
+          <a href="/refi" class="nav-dropdown-item">Refi Calculator</a>
+          <a href="/rvb" class="nav-dropdown-item">Rent vs. Buy Analysis</a>
         </div>
       </div>
       <a href="/faq"      class="page-nav-link active">FAQ</a>
@@ -212,8 +214,43 @@
     </div>
   </header>
 
-  <!-- Home Swap Calculator -->
+  <!-- Affordability Calculator -->
   <div class="card wide-card" style="margin-top:8px">
+    <div class="faq-section-head" style="background:#7c3aed">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+        <line x1="12" y1="11" x2="12" y2="17"/><line x1="9" y1="14" x2="15" y2="14"/>
+      </svg>
+      <span>Affordability Calculator</span>
+    </div>
+    <div class="faq-body">
+
+      <details class="faq-item" open>
+        <summary class="faq-q">What's the difference between what a lender says I qualify for and what I can actually afford?</summary>
+        <div class="faq-a">
+          The amount a lender approves you for is based on their risk thresholds, not your personal financial comfort. Lenders use front-end and back-end DTI limits as qualifying criteria, but approval doesn't mean the payment is sustainable for your lifestyle, savings goals, or other financial obligations. This calculator uses the same 28%/43% DTI math lenders use, but frames the output as a ceiling rather than a target. The most useful output isn't the maximum price you can qualify for; it's the full monthly payment breakdown so you can decide what actually fits your budget.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">What are front-end and back-end DTI limits?</summary>
+        <div class="faq-a">
+          DTI stands for debt-to-income ratio. The front-end DTI (28%) limits your monthly housing costs (principal, interest, taxes, insurance, PMI, and HOA) to 28% of your gross monthly income. The back-end DTI (43%) limits your total monthly debt obligations (housing costs plus car loans, student loans, credit card minimums, and other recurring debts) to 43% of gross monthly income. The calculator solves for the maximum purchase price where both limits are satisfied simultaneously, and flags which one is the binding constraint for your specific situation.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">Why does the rate sensitivity table matter?</summary>
+        <div class="faq-a">
+          Interest rates have an outsized effect on affordability. A 1% rate increase on a $500,000 loan raises your monthly principal and interest payment by roughly $300, which translates directly into a lower maximum purchase price given the same income. The rate sensitivity table shows your buying power at five rate points around your current input so you can see what a move up or down means for your situation without running the calculator multiple times. This is especially useful when rates are moving and you're deciding whether to lock or wait.
+        </div>
+      </details>
+
+    </div><!-- /faq-body -->
+  </div>
+
+  <!-- Home Swap Calculator -->
+  <div class="card wide-card">
     <div class="faq-section-head" style="background:#818cf8">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M7 16V4m0 0L3 8m4-4l4 4"/><path d="M17 8v12m0 0l4-4m-4 4l-4-4"/>
@@ -225,21 +262,21 @@
       <details class="faq-item" open>
         <summary class="faq-q">What is the 28% rule for housing costs?</summary>
         <div class="faq-a">
-          The 28% rule is a guideline suggesting that your monthly housing costs — mortgage P&amp;I, property taxes, and insurance — should not exceed 28% of your monthly take-home pay. Staying below this threshold generally leaves enough income for savings, debt repayment, and everyday spending. It's considered the "comfort zone" for long-term housing affordability, and it's the green threshold you'll see throughout the Home Swap Calculator.
+          The 28% rule is a guideline suggesting that your monthly housing costs (mortgage P&amp;I, property taxes, and insurance) should not exceed 28% of your monthly take-home pay. Staying below this threshold generally leaves enough income for savings, debt repayment, and everyday spending. It's considered the "comfort zone" for long-term housing affordability, and it's the green threshold you'll see throughout the Home Swap Calculator.
         </div>
       </details>
 
       <details class="faq-item">
         <summary class="faq-q">What does the 36% ceiling mean, and what happens if I exceed it?</summary>
         <div class="faq-a">
-          The 36% ceiling is the upper limit most lenders use when qualifying borrowers. If your housing-to-income ratio would exceed 36%, you may be denied for the mortgage, offered a higher rate, or required to put more money down. Even if you're approved, a payment above 36% leaves very little margin for unexpected expenses, income disruptions, or other financial goals. This calculator flags it in red as a hard caution — not necessarily a dealbreaker, but a sign to look for a lower purchase price or a larger down payment.
+          The 36% ceiling is the upper limit most lenders use when qualifying borrowers. If your housing-to-income ratio would exceed 36%, you may be denied for the mortgage, offered a higher rate, or required to put more money down. Even if you're approved, a payment above 36% leaves very little margin for unexpected expenses, income disruptions, or other financial goals. This calculator flags it in red as a hard caution, not necessarily a dealbreaker, but a sign to look for a lower purchase price or a larger down payment.
         </div>
       </details>
 
       <details class="faq-item">
-        <summary class="faq-q">What's the difference between equity and loan balance — and which should I enter?</summary>
+        <summary class="faq-q">What's the difference between equity and loan balance, and which should I enter?</summary>
         <div class="faq-a">
-          Equity is what you <em>own</em>: home value minus mortgage balance. Loan balance is what you <em>owe</em>. Enter whichever number you know — the calculator converts automatically using your home valuation. If you're unsure of your exact equity, check your most recent mortgage statement for the "unpaid principal balance," then switch the input to Loan Balance mode and enter that number instead.
+          Equity is what you <em>own</em>: home value minus mortgage balance. Loan balance is what you <em>owe</em>. Enter whichever number you know; the calculator converts automatically using your home valuation. If you're unsure of your exact equity, check your most recent mortgage statement for the "unpaid principal balance," then switch the input to Loan Balance mode and enter that number instead.
         </div>
       </details>
 
@@ -253,35 +290,35 @@
       <details class="faq-item">
         <summary class="faq-q">How accurate are the 10-year buying power projections?</summary>
         <div class="faq-a">
-          The projections are planning estimates, not forecasts. They're most useful for stress-testing scenarios: try setting wage growth to 1% and home price growth to 5% to model a pessimistic case, then flip it to see an optimistic one. The interest rate is held constant at today's rate, which is a simplification — in reality, if you're buying in a future year, you'd face whatever rates prevail then. The real value of the chart is understanding how sensitive your buying power is to changes in income growth versus cost headwinds, not predicting a specific number.
+          The projections are planning estimates, not forecasts. They're most useful for stress-testing scenarios: try setting wage growth to 1% and home price growth to 5% to model a pessimistic case, then flip it to see an optimistic one. The interest rate is held constant at today's rate, which is a simplification. In reality, if you're buying in a future year, you'd face whatever rates prevail then. The real value of the chart is understanding how sensitive your buying power is to changes in income growth versus cost headwinds, not predicting a specific number.
         </div>
       </details>
 
       <details class="faq-item">
         <summary class="faq-q">Should I include my partner's income in Monthly Take-Home Pay?</summary>
         <div class="faq-a">
-          Yes — if you'll be qualifying for the mortgage jointly, enter your combined after-tax monthly income. This gives you a realistic housing-to-income ratio based on your actual household budget. If only one partner is on the mortgage, enter only that person's income to see the true qualifying ratio lenders will use — even if the other income helps in practice.
+          Yes. If you'll be qualifying for the mortgage jointly, enter your combined after-tax monthly income. This gives you a realistic housing-to-income ratio based on your actual household budget. If only one partner is on the mortgage, enter only that person's income to see the true qualifying ratio lenders will use, even if the other income helps in practice.
         </div>
       </details>
 
       <details class="faq-item">
         <summary class="faq-q">How do I use the Scenario A/B tabs effectively?</summary>
         <div class="faq-a">
-          The scenario tabs let you compare two situations side by side without losing your inputs. A common workflow: set up Scenario A with your first-choice home, then click "Copy A → B" and adjust just the purchase price or interest rate in Scenario B. Switch back and forth to compare results — cash position, monthly costs, and 10-year projections update independently. You can also use the tabs to compare a "buy now" vs. "wait 2 years" scenario by adjusting all the inputs to reflect projected future conditions.
+          The scenario tabs let you compare two situations side by side without losing your inputs. A common workflow: set up Scenario A with your first-choice home, then click "Copy A → B" and adjust just the purchase price or interest rate in Scenario B. Switch back and forth to compare results. Cash position, monthly costs, and 10-year projections update independently. You can also use the tabs to compare a "buy now" vs. "wait 2 years" scenario by adjusting all the inputs to reflect projected future conditions.
         </div>
       </details>
 
       <details class="faq-item">
         <summary class="faq-q">What are typical realtor fees, and are they negotiable?</summary>
         <div class="faq-a">
-          Historically, total realtor commissions ran 5–6% of the sale price, split between the seller's agent and buyer's agent. Following the 2024 National Association of Realtors (NAR) settlement, buyer agent compensation is no longer embedded in the listing and must be negotiated separately. In practice, total fees have become more variable — 4–5% is a reasonable planning estimate, though flat-fee and discount brokers can reduce this significantly if you're willing to take a more active role in the sale process.
+          Historically, total realtor commissions ran 5–6% of the sale price, split between the seller's agent and buyer's agent. Following the 2024 National Association of Realtors (NAR) settlement, buyer agent compensation is no longer embedded in the listing and must be negotiated separately. In practice, total fees have become more variable. 4–5% is a reasonable planning estimate, though flat-fee and discount brokers can reduce this significantly if you're willing to take a more active role in the sale process.
         </div>
       </details>
 
       <details class="faq-item">
         <summary class="faq-q">How should I choose the growth rates and headwind assumptions?</summary>
         <div class="faq-a">
-          The defaults are calibrated to long-run historical averages: 3% wage growth, 3% home appreciation, 7% investment return, 2–3% inflation. For a conservative scenario, reduce wage growth and investment returns, and raise home price growth and inflation. For an optimistic scenario, flip those. The "Net Growth vs. Headwinds" box in the Buying Power section summarizes the balance — a positive net rate means your buying power is improving over time; a negative rate means costs are outpacing your income growth.
+          The defaults are calibrated to long-run historical averages: 3% wage growth, 3% home appreciation, 7% investment return, 2–3% inflation. For a conservative scenario, reduce wage growth and investment returns, and raise home price growth and inflation. For an optimistic scenario, flip those. The "Net Growth vs. Headwinds" box in the Buying Power section summarizes the balance. A positive net rate means your buying power is improving over time; a negative rate means costs are outpacing your income growth.
         </div>
       </details>
 
@@ -301,14 +338,14 @@
       <details class="faq-item">
         <summary class="faq-q">Is it always better to buy than rent?</summary>
         <div class="faq-a">
-          Not necessarily — it depends heavily on your time horizon, local market conditions, and what you'd do with the capital you don't tie up in a down payment. In high-cost markets where home prices are elevated relative to rents, renting and investing the difference can build comparable or greater wealth over a 5–10 year period. The Rent vs. Buy Analysis is specifically designed to model both paths honestly, including the opportunity cost of the down payment and the compounding effect of reinvesting monthly cost savings.
+          Not necessarily. It depends heavily on your time horizon, local market conditions, and what you'd do with the capital you don't tie up in a down payment. In high-cost markets where home prices are elevated relative to rents, renting and investing the difference can build comparable or greater wealth over a 5–10 year period. The Rent vs. Buy Analysis is specifically designed to model both paths honestly, including the opportunity cost of the down payment and the compounding effect of reinvesting monthly cost savings.
         </div>
       </details>
 
       <details class="faq-item">
         <summary class="faq-q">What is PMI, and when can I stop paying it?</summary>
         <div class="faq-a">
-          PMI (Private Mortgage Insurance) is a monthly premium required by most lenders when your down payment is less than 20% of the purchase price. It protects the lender — not you — against default. Typical costs range from $50 to $300/month depending on loan size and credit score. Once you've built 20% equity through appreciation, loan paydown, or a combination of both, you can typically request cancellation in writing. Under the Homeowners Protection Act, lenders must automatically cancel PMI once you reach 22% equity based on the original amortization schedule. The Rent vs. Buy Analysis calculates the exact year PMI drops off and shows it as a callout on the monthly cost chart.
+          PMI (Private Mortgage Insurance) is a monthly premium required by most lenders when your down payment is less than 20% of the purchase price. It protects the lender, not you, against default. Typical costs range from $50 to $300/month depending on loan size and credit score. Once you've built 20% equity through appreciation, loan paydown, or a combination of both, you can typically request cancellation in writing. Under the Homeowners Protection Act, lenders must automatically cancel PMI once you reach 22% equity based on the original amortization schedule. The Rent vs. Buy Analysis calculates the exact year PMI drops off and shows it as a callout on the monthly cost chart.
         </div>
       </details>
 
@@ -317,11 +354,11 @@
         <div class="faq-a">
           Homeownership comes with several potential federal tax benefits, though how much you actually capture depends on whether you itemize deductions:
           <ul style="margin:8px 0 4px;padding-left:18px;display:flex;flex-direction:column;gap:5px">
-            <li><strong>Mortgage interest deduction</strong> — You can deduct interest paid on up to $750,000 of mortgage debt (for loans originated after Dec. 15, 2017). On a $500,000 mortgage at 7%, that's roughly $34,000 of deductible interest in Year 1 alone.</li>
-            <li><strong>Property tax deduction</strong> — State and local property taxes are deductible up to the $10,000 SALT cap, which also covers state income or sales taxes. In high-tax states, this limit is often hit quickly.</li>
-            <li><strong>Capital gains exclusion on sale</strong> — When you sell a primary residence you've lived in for at least 2 of the last 5 years, you can exclude up to $250,000 of gain from taxable income ($500,000 if married filing jointly). This is one of the most significant wealth-building advantages of homeownership.</li>
+            <li><strong>Mortgage interest deduction:</strong> You can deduct interest paid on up to $750,000 of mortgage debt (for loans originated after Dec. 15, 2017). On a $500,000 mortgage at 7%, that's roughly $34,000 of deductible interest in Year 1 alone.</li>
+            <li><strong>Property tax deduction:</strong> State and local property taxes are deductible up to the $10,000 SALT cap, which also covers state income or sales taxes. In high-tax states, this limit is often hit quickly.</li>
+            <li><strong>Capital gains exclusion on sale:</strong> When you sell a primary residence you've lived in for at least 2 of the last 5 years, you can exclude up to $250,000 of gain from taxable income ($500,000 if married filing jointly). This is one of the most significant wealth-building advantages of homeownership.</li>
           </ul>
-          The catch: these deductions only benefit you if your total itemized deductions exceed the standard deduction ($15,000 single / $30,000 married filing jointly for 2025). For many homeowners — especially early in a mortgage when interest is highest — itemizing makes sense, but it becomes less compelling as the loan balance pays down. The Rent vs. Buy Analysis includes a "Do you itemize?" toggle that adjusts the buy-side cost calculations to reflect your actual tax situation.
+          The catch: these deductions only benefit you if your total itemized deductions exceed the standard deduction ($15,000 single / $30,000 married filing jointly for 2025). For many homeowners, especially early in a mortgage when interest is highest, itemizing makes sense, but it becomes less compelling as the loan balance pays down. The Rent vs. Buy Analysis includes a "Do you itemize?" toggle that adjusts the buy-side cost calculations to reflect your actual tax situation.
         </div>
       </details>
 
@@ -329,61 +366,6 @@
         <summary class="faq-q">Is my data saved or shared anywhere?</summary>
         <div class="faq-a">
           No. All calculator inputs are saved only in your browser's local storage so your settings persist between visits. Nothing you enter is transmitted to any server, stored in a database, or shared with anyone. See the <a href="/privacy" style="color:var(--indigo);text-underline-offset:2px">Privacy Policy</a> for full details on what third-party services like Google Analytics collect.
-        </div>
-      </details>
-
-    </div><!-- /faq-body -->
-  </div>
-
-  <!-- Refinance Break-Even Calculator -->
-  <div class="card wide-card">
-    <div class="faq-section-head" style="background:#0d9488">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/>
-      </svg>
-      <span>Refinance Break-Even Calculator</span>
-    </div>
-    <div class="faq-body">
-
-      <details class="faq-item" open>
-        <summary class="faq-q">What's the difference between interest rate and APR — and which do I enter?</summary>
-        <div class="faq-a">
-          Your <strong>interest rate</strong> (also called the note rate) is the annual percentage used to compute your monthly payment. <strong>APR</strong> (Annual Percentage Rate) is a broader disclosure number that folds in certain lender fees — origination charges, mortgage broker fees, mortgage insurance premiums — and expresses the all-in cost of borrowing as a single rate. APR is always ≥ the interest rate; the gap is larger on smaller loans or loans with higher origination fees.<br><br>
-          Enter the <strong>interest rate</strong>, not the APR. The calculator uses your rate to compute monthly payments via the standard amortization formula. APR is a useful comparison tool when shopping across lenders, but it's not the right input for payment math. Your Loan Estimate (the standardized disclosure lenders are required to provide within 3 days of application) lists both clearly — look for "Interest Rate" on page 1, not the "Annual Percentage Rate" box nearby.
-        </div>
-      </details>
-
-      <details class="faq-item">
-        <summary class="faq-q">How is the break-even calculation done?</summary>
-        <div class="faq-a">
-          The break-even is how many months it takes for your cumulative monthly savings to repay your out-of-pocket costs:<br><br>
-          <strong>Monthly savings</strong> = current payment (+ any PMI eliminated) − new payment<br>
-          <strong>Out-of-pocket costs</strong> = lender fees + discount points + prepaid costs − any fees rolled into the loan<br>
-          <strong>Break-even</strong> = out-of-pocket costs ÷ monthly savings<br><br>
-          If you roll closing costs into the new loan, those fees are removed from out-of-pocket but increase the new loan balance — which raises your new payment slightly and reduces monthly savings. Both effects are reflected in the calculation. Discount points and prepaid costs (taxes, insurance, prepaid interest) are always out-of-pocket and cannot be rolled.
-        </div>
-      </details>
-
-      <details class="faq-item">
-        <summary class="faq-q">What are lender fees vs. prepaid costs, and why does it matter?</summary>
-        <div class="faq-a">
-          <strong>Lender fees</strong> (also called closing costs) are permanent transaction costs: origination fees, title insurance, appraisal, recording fees. You pay these once and they're gone — but they can typically be rolled into the new loan balance if you'd prefer not to pay cash upfront.<br><br>
-          <strong>Prepaid costs</strong> are escrow timing costs: property tax reserves, homeowner's insurance reserves, and prepaid interest (the interest owed from your closing date through end of month). These are not really "costs" in the long-run sense — you're prepaying expenses you'd owe anyway — but they require cash at closing and cannot be financed. They factor into your break-even because they affect how much cash you actually need on day one.
-        </div>
-      </details>
-
-      <details class="faq-item">
-        <summary class="faq-q">What are discount points, and when do they make sense?</summary>
-        <div class="faq-a">
-          One discount point costs 1% of your loan balance and typically reduces your interest rate by 0.125–0.25% (the exact reduction varies by lender and market). Points are always paid at closing and cannot be rolled into the loan — you're essentially pre-paying interest to buy a lower rate for the life of the loan.<br><br>
-          Points generally make sense if: (1) you plan to stay well past break-even, (2) you have the cash available and wouldn't otherwise invest it at a higher expected return, and (3) the rate reduction is meaningful enough to shorten your overall break-even to a comfortable horizon. If you're uncertain how long you'll stay, paying points is a riskier bet — you need to stay long enough to recoup the upfront cost through monthly savings.
-        </div>
-      </details>
-
-      <details class="faq-item">
-        <summary class="faq-q">What is the opportunity cost, and why does it reduce net benefit?</summary>
-        <div class="faq-a">
-          Opportunity cost represents what your closing costs could have earned if invested instead of spent on a refinance. If you pay $6,000 out-of-pocket to refinance and your expected investment return is 7%, that money could have grown to roughly $8,400 over 5 years — so the true cost of refinancing is $6,000 plus the $2,400 in foregone returns. The calculator subtracts this from your gross savings to show a <em>net benefit</em> that accounts for both the costs paid and the growth you gave up. You can adjust the assumed investment return in the Advanced section.
         </div>
       </details>
 
@@ -403,42 +385,132 @@
       <details class="faq-item">
         <summary class="faq-q">How should I choose my Annual Return and Return Variance?</summary>
         <div class="faq-a">
-          The Annual Return is your expected average over the full horizon. 7% is a common long-run baseline for a diversified equity portfolio — roughly the historical average of U.S. stocks net of inflation, before fees. Return Variance adds an optimistic and pessimistic band around that base: a variance of 2% means the Optimistic scenario uses 9% and the Pessimistic uses 5%. The band is designed to help you think in ranges rather than a single projected number. For a stock-heavy portfolio, 1–3% variance is reasonable. For bonds or a balanced mix, reduce both the base return and the variance accordingly. Use the chart toggles to isolate a single scenario and see its full stats in the summary panel.
+          The Annual Return is your expected average over the full horizon. 7% is a common long-run baseline for a diversified equity portfolio, roughly the historical average of U.S. stocks net of inflation, before fees. Return Variance adds an optimistic and pessimistic band around that base: a variance of 2% means the Optimistic scenario uses 9% and the Pessimistic uses 5%. The band is designed to help you think in ranges rather than a single projected number. For a stock-heavy portfolio, 1–3% variance is reasonable. For bonds or a balanced mix, reduce both the base return and the variance accordingly. Use the chart toggles to isolate a single scenario and see its full stats in the summary panel.
         </div>
       </details>
 
       <details class="faq-item">
         <summary class="faq-q">What does the compounding crossover year mean?</summary>
         <div class="faq-a">
-          The compounding crossover is the year when your portfolio's annual investment returns first exceed your annual contributions. Before that point, your deposits are the primary engine of growth — what you put in matters more than what the market adds. After it, the portfolio's earnings take over and growth accelerates on its own. For most savers it arrives somewhere between Year 10 and Year 20, depending on the return rate and contribution level. The dashed "Contributions only" line on the growth chart makes this concrete: it shows what your balance would be with zero return, so the gap between it and the base line is the compounding added on top.
+          The compounding crossover is the year when your portfolio's annual investment returns first exceed your annual contributions. Before that point, your deposits are the primary engine of growth. After it, the portfolio's earnings take over and growth accelerates on its own. For most savers it arrives somewhere between Year 10 and Year 20, depending on the return rate and contribution level. The dashed "Contributions only" line on the growth chart makes this concrete: it shows what your balance would be with zero return, so the gap between it and the base line is the compounding added on top.
         </div>
       </details>
 
       <details class="faq-item">
         <summary class="faq-q">Why does the inflation-adjusted balance look so much smaller than the nominal figure?</summary>
         <div class="faq-a">
-          Because inflation compounds in the same direction as price increases, the gap between a nominal balance and its real purchasing power widens substantially over long horizons. A $1,000,000 balance 30 years from now at 3% annual inflation is only worth about $412,000 in today's dollars — a 59% reduction in purchasing power. The Purchasing Power section on the calculator makes this explicit: it shows your projected nominal balance, what it's worth in today's dollars, and the gap between the two. Over a 30-year horizon at 3% inflation, prices roughly 2.4× — meaning your nominal balance needs to be 2.4× higher just to match today's purchasing power.
+          Because inflation compounds in the same direction as price increases, the gap between a nominal balance and its real purchasing power widens substantially over long horizons. A $1,000,000 balance 30 years from now at 3% annual inflation is only worth about $412,000 in today's dollars, a 59% reduction in purchasing power. The Purchasing Power section on the calculator makes this explicit: it shows your projected nominal balance, what it's worth in today's dollars, and the gap between the two. Over a 30-year horizon at 3% inflation, prices roughly 2.4×, meaning your nominal balance needs to be 2.4× higher just to match today's purchasing power.
         </div>
       </details>
 
       <details class="faq-item">
         <summary class="faq-q">How does the Withdrawal Phase work, and when should I use it?</summary>
         <div class="faq-a">
-          The Withdrawal Phase models the drawdown period — what happens to your portfolio after you stop contributing and start spending it. Enable it in the Withdrawal Phase section of the input card, then set your annual withdrawal as a fixed dollar amount or a percentage of the remaining balance. The simulation picks up from whatever balance your portfolio reaches at the end of the accumulation period, applies your return rate, subtracts your withdrawal each year, and runs until the portfolio is depleted or 50 years have passed. A second chart appears showing the full drawdown trajectory across base, optimistic, and pessimistic scenarios. Use it to model retirement income: if you save for 25 years and then withdraw $60,000/year, the chart shows how long your portfolio lasts under each scenario.
+          The Withdrawal Phase models the drawdown period, what happens to your portfolio after you stop contributing and start spending it. Enable it in the Withdrawal Phase section of the input card, then set your annual withdrawal as a fixed dollar amount or a percentage of the remaining balance. The simulation picks up from whatever balance your portfolio reaches at the end of the accumulation period, applies your return rate, subtracts your withdrawal each year, and runs until the portfolio is depleted or 50 years have passed. A second chart appears showing the full drawdown trajectory across base, optimistic, and pessimistic scenarios. Use it to model retirement income: if you save for 25 years and then withdraw $60,000/year, the chart shows how long your portfolio lasts under each scenario.
         </div>
       </details>
 
       <details class="faq-item">
         <summary class="faq-q">What is a sustainable withdrawal rate, and how is it calculated?</summary>
         <div class="faq-a">
-          The sustainable withdrawal is the annual amount your portfolio can pay out indefinitely without ever depleting — the point where withdrawals exactly equal the portfolio's annual return and the balance stays flat. It's calculated as: portfolio value at withdrawal start × net annual return rate. For example, a $1,000,000 portfolio earning 7% net can sustain $70,000/year indefinitely. Withdrawing above this causes the balance to shrink over time, eventually to zero. Below it, the portfolio continues to grow. When Inflation Adjusted is enabled, the calculator also shows the real sustainable withdrawal — calculated as portfolio value × (return rate − inflation rate) — representing what you can withdraw indefinitely while also keeping pace with inflation.
+          The sustainable withdrawal is the annual amount your portfolio can pay out indefinitely without ever depleting, the point where withdrawals exactly equal the portfolio's annual return and the balance stays flat. It's calculated as: portfolio value at withdrawal start × net annual return rate. For example, a $1,000,000 portfolio earning 7% net can sustain $70,000/year indefinitely. Withdrawing above this causes the balance to shrink over time, eventually to zero. Below it, the portfolio continues to grow. When Inflation Adjusted is enabled, the calculator also shows the real sustainable withdrawal, calculated as portfolio value × (return rate − inflation rate), representing what you can withdraw indefinitely while also keeping pace with inflation.
         </div>
       </details>
 
       <details class="faq-item">
         <summary class="faq-q">What does "Inflation Adjusted" do in the Withdrawal Phase?</summary>
         <div class="faq-a">
-          With Inflation Adjusted on, your withdrawal amount grows each year at your inflation rate to maintain the same purchasing power throughout the drawdown period. If you withdraw $50,000 in Year 1 at 3% inflation, you'd withdraw $51,500 in Year 2, $53,045 in Year 3, and so on — because what costs $50,000 today will cost more in future years. The hint below the withdrawal input field shows two things: what your stated amount is worth in today's dollars at the start of the withdrawal phase (purchasing power, discounted over your accumulation period), and the annual dollar increase your portfolio must deliver at your inflation rate. When Inflation Adjusted is off, the hint shows only the purchasing power line — a reminder that a fixed nominal withdrawal loses real value each year. Withdrawing a growing amount is more realistic for retirement planning but depletes the portfolio faster than a fixed nominal withdrawal.
+          With Inflation Adjusted on, your withdrawal amount grows each year at your inflation rate to maintain the same purchasing power throughout the drawdown period. If you withdraw $50,000 in Year 1 at 3% inflation, you'd withdraw $51,500 in Year 2, $53,045 in Year 3, and so on, because what costs $50,000 today will cost more in future years. The hint below the withdrawal input field shows two things: what your stated amount is worth in today's dollars at the start of the withdrawal phase, and the annual dollar increase your portfolio must deliver at your inflation rate. When Inflation Adjusted is off, the hint shows only the purchasing power line, a reminder that a fixed nominal withdrawal loses real value each year. Withdrawing a growing amount is more realistic for retirement planning but depletes the portfolio faster than a fixed nominal withdrawal.
+        </div>
+      </details>
+
+    </div><!-- /faq-body -->
+  </div>
+
+  <!-- Down Payment Optimizer -->
+  <div class="card wide-card">
+    <div class="faq-section-head" style="background:#0284c7">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+        <path d="M12 12v6m-3-3l3 3 3-3"/>
+      </svg>
+      <span>Down Payment Optimizer</span>
+    </div>
+    <div class="faq-body">
+
+      <details class="faq-item" open>
+        <summary class="faq-q">How does the calculator compare down payment scenarios?</summary>
+        <div class="faq-a">
+          For each down payment percentage, the calculator computes the monthly payment including PMI where applicable, tracks the exact month PMI drops off, and compares total costs over your expected hold period against what those same dollars would have earned if invested at your specified return rate. The net difference tells you whether a larger down payment actually saves money over your horizon, or whether keeping that cash invested would have come out ahead.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">Should I always put 20% down to avoid PMI?</summary>
+        <div class="faq-a">
+          Not necessarily, and that's exactly what this calculator is designed to challenge. PMI typically costs 0.5–1% of the loan balance per year. On a $400,000 loan, that's $2,000–$4,000 annually. But the dollars you'd put toward a larger down payment to reach 20% could be earning market returns instead. Whether PMI is worth paying depends on how long you'll pay it, what those dollars could earn elsewhere, and how long you plan to stay in the home. For shorter hold periods, a lower down payment often makes more financial sense than the conventional wisdom suggests.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">What investment return should I use for the opportunity cost comparison?</summary>
+        <div class="faq-a">
+          A reasonable baseline is 7%, which approximates the long-run historical average return for a diversified equity portfolio before taxes and fees. If you invest more conservatively in bonds or a balanced fund, use a lower rate: 4–5% is more realistic. If your alternative is a high-yield savings account, use the current yield. Your mortgage rate also provides a useful benchmark: paying extra toward principal is a guaranteed return equal to that rate, so the question is whether your investments can reliably beat it over the same period.
+        </div>
+      </details>
+
+    </div><!-- /faq-body -->
+  </div>
+
+  <!-- Refinance Break-Even Calculator -->
+  <div class="card wide-card">
+    <div class="faq-section-head" style="background:#0d9488">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/>
+      </svg>
+      <span>Refinance Break-Even Calculator</span>
+    </div>
+    <div class="faq-body">
+
+      <details class="faq-item" open>
+        <summary class="faq-q">What's the difference between interest rate and APR, and which do I enter?</summary>
+        <div class="faq-a">
+          Your <strong>interest rate</strong> (also called the note rate) is the annual percentage used to compute your monthly payment. <strong>APR</strong> (Annual Percentage Rate) is a broader disclosure number that folds in certain lender fees (origination charges, mortgage broker fees, mortgage insurance premiums) and expresses the all-in cost of borrowing as a single rate. APR is always ≥ the interest rate; the gap is larger on smaller loans or loans with higher origination fees.<br><br>
+          Enter the <strong>interest rate</strong>, not the APR. The calculator uses your rate to compute monthly payments via the standard amortization formula. APR is a useful comparison tool when shopping across lenders, but it's not the right input for payment math. Your Loan Estimate (the standardized disclosure lenders are required to provide within 3 days of application) lists both clearly. Look for "Interest Rate" on page 1, not the "Annual Percentage Rate" box nearby.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">How is the break-even calculation done?</summary>
+        <div class="faq-a">
+          The break-even is how many months it takes for your cumulative monthly savings to repay your out-of-pocket costs:<br><br>
+          <strong>Monthly savings</strong> = current payment (+ any PMI eliminated) − new payment<br>
+          <strong>Out-of-pocket costs</strong> = lender fees + discount points + prepaid costs − any fees rolled into the loan<br>
+          <strong>Break-even</strong> = out-of-pocket costs ÷ monthly savings<br><br>
+          If you roll closing costs into the new loan, those fees are removed from out-of-pocket but increase the new loan balance, which raises your new payment slightly and reduces monthly savings. Both effects are reflected in the calculation. Discount points and prepaid costs (taxes, insurance, prepaid interest) are always out-of-pocket and cannot be rolled.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">What are lender fees vs. prepaid costs, and why does it matter?</summary>
+        <div class="faq-a">
+          <strong>Lender fees</strong> (also called closing costs) are permanent transaction costs: origination fees, title insurance, appraisal, recording fees. You pay these once and they're gone, but they can typically be rolled into the new loan balance if you'd prefer not to pay cash upfront.<br><br>
+          <strong>Prepaid costs</strong> are escrow timing costs: property tax reserves, homeowner's insurance reserves, and prepaid interest (the interest owed from your closing date through end of month). These are not really "costs" in the long-run sense. You're prepaying expenses you'd owe anyway, but they require cash at closing and cannot be financed. They factor into your break-even because they affect how much cash you actually need on day one.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">What are discount points, and when do they make sense?</summary>
+        <div class="faq-a">
+          One discount point costs 1% of your loan balance and typically reduces your interest rate by 0.125–0.25% (the exact reduction varies by lender and market). Points are always paid at closing and cannot be rolled into the loan. You're essentially pre-paying interest to buy a lower rate for the life of the loan.<br><br>
+          Points generally make sense if: (1) you plan to stay well past break-even, (2) you have the cash available and wouldn't otherwise invest it at a higher expected return, and (3) the rate reduction is meaningful enough to shorten your overall break-even to a comfortable horizon. If you're uncertain how long you'll stay, paying points is a riskier bet. You need to stay long enough to recoup the upfront cost through monthly savings.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">What is the opportunity cost, and why does it reduce net benefit?</summary>
+        <div class="faq-a">
+          Opportunity cost represents what your closing costs could have earned if invested instead of spent on a refinance. If you pay $6,000 out-of-pocket to refinance and your expected investment return is 7%, that money could have grown to roughly $8,400 over 5 years, so the true cost of refinancing is $6,000 plus the $2,400 in foregone returns. The calculator subtracts this from your gross savings to show a <em>net benefit</em> that accounts for both the costs paid and the growth you gave up. You can adjust the assumed investment return in the Advanced section.
         </div>
       </details>
 
@@ -447,9 +519,9 @@
 
   <!-- Payoff Calculator -->
   <div class="card wide-card">
-    <div class="faq-section-head" style="background:#7c3aed">
+    <div class="faq-section-head" style="background:#16a34a">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/>
+        <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
       </svg>
       <span>Payoff Calculator</span>
     </div>
@@ -458,28 +530,65 @@
       <details class="faq-item" open>
         <summary class="faq-q">How does paying extra toward my mortgage actually save interest?</summary>
         <div class="faq-a">
-          Every mortgage payment is split between interest and principal based on your remaining balance. In the early years of a 30-year mortgage, the vast majority of each payment is interest — on a $400,000 loan at 6.75%, you're paying roughly $2,200/month in interest in Year 1 and only $300 toward the balance. When you make an extra payment, the entire amount reduces your principal immediately. A lower principal means less interest accrues the next month, which means a slightly larger portion of every future payment goes to principal instead of interest. That compounding effect is why even modest extra payments — $100–$200/month — can save tens of thousands of dollars over the life of the loan and cut years off the payoff date.
+          Every mortgage payment is split between interest and principal based on your remaining balance. In the early years of a 30-year mortgage, the vast majority of each payment is interest. On a $400,000 loan at 6.75%, you're paying roughly $2,200/month in interest in Year 1 and only $300 toward the balance. When you make an extra payment, the entire amount reduces your principal immediately. A lower principal means less interest accrues the next month, which means a slightly larger portion of every future payment goes to principal instead of interest. That compounding effect is why even modest extra payments of $100–$200/month can save tens of thousands of dollars over the life of the loan and cut years off the payoff date.
         </div>
       </details>
 
       <details class="faq-item">
         <summary class="faq-q">What's the difference between biweekly payments and one extra annual payment?</summary>
         <div class="faq-a">
-          Mathematically, they're nearly equivalent. Paying half your monthly payment every two weeks results in 26 half-payments per year — which equals 13 full monthly payments instead of 12. That one extra payment per year goes entirely to principal. The interest savings are almost identical whether you make biweekly payments or simply add one lump-sum extra payment each December. The practical difference is timing: biweekly payments reduce principal slightly faster throughout the year because extra principal hits earlier, but the long-run savings gap is small. Use whichever fits your cash flow better — the Payoff Calculator lets you model both.
+          Mathematically, they're nearly equivalent. Paying half your monthly payment every two weeks results in 26 half-payments per year, which equals 13 full monthly payments instead of 12. That one extra payment per year goes entirely to principal. The interest savings are almost identical whether you make biweekly payments or simply add one lump-sum extra payment each December. The practical difference is timing: biweekly payments reduce principal slightly faster throughout the year because extra principal hits earlier, but the long-run savings gap is small. Use whichever fits your cash flow better. The Payoff Calculator lets you model both.
         </div>
       </details>
 
       <details class="faq-item">
         <summary class="faq-q">Should I pay off my mortgage early or invest the extra money?</summary>
         <div class="faq-a">
-          It depends on your mortgage rate and your expected investment return, but the math usually favors investing when your rate is below 5–6% and your investment horizon is long. At a 7% mortgage rate, paying down the loan is a guaranteed 7% after-tax return. A diversified stock portfolio might average 7–8% over 20 years — but that return is uncertain and taxable. The calculus shifts in favor of extra payments when: (1) your rate is high enough that the guaranteed return is compelling, (2) you're approaching retirement and reducing risk matters more than maximizing return, or (3) the psychological value of owning your home outright is meaningful to you. Many people do both — contribute enough to their 401(k) to capture any employer match first, then split remaining cash flow between investing and extra mortgage payments.
+          It depends on your mortgage rate and your expected investment return, but the math usually favors investing when your rate is below 5–6% and your investment horizon is long. At a 7% mortgage rate, paying down the loan is a guaranteed 7% after-tax return. A diversified stock portfolio might average 7–8% over 20 years, but that return is uncertain and taxable. The calculus shifts in favor of extra payments when: (1) your rate is high enough that the guaranteed return is compelling, (2) you're approaching retirement and reducing risk matters more than maximizing return, or (3) the psychological value of owning your home outright is meaningful to you. Many people do both. Contribute enough to your 401(k) to capture any employer match first, then split remaining cash flow between investing and extra mortgage payments.
         </div>
       </details>
 
       <details class="faq-item">
         <summary class="faq-q">How do I make sure my extra payment actually reduces principal?</summary>
         <div class="faq-a">
-          Most lenders apply extra payments to principal by default if you're current on your regular payment — but not all do. The safest approach is to make your regular payment first, then submit the extra payment separately with a note or memo designating it "apply to principal." Online payment portals typically have a "principal only" or "additional principal" field. Call your servicer if you're unsure — and after making a few extra payments, verify that your loan balance is declining faster than it would on the standard amortization schedule. If the servicer is applying extra funds to future scheduled payments (advancing your due date) rather than reducing your balance, contact them to request principal-only application.
+          Most lenders apply extra payments to principal by default if you're current on your regular payment, but not all do. The safest approach is to make your regular payment first, then submit the extra payment separately with a note or memo designating it "apply to principal." Online payment portals typically have a "principal only" or "additional principal" field. Call your servicer if you're unsure. After making a few extra payments, verify that your loan balance is declining faster than it would on the standard amortization schedule. If the servicer is applying extra funds to future scheduled payments (advancing your due date) rather than reducing your balance, contact them to request principal-only application.
+        </div>
+      </details>
+
+    </div><!-- /faq-body -->
+  </div>
+
+  <!-- Net Proceeds Calculator -->
+  <div class="card wide-card">
+    <div class="faq-section-head" style="background:#d97706">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="4" y="2" width="16" height="20" rx="2"/>
+        <line x1="8" y1="8" x2="16" y2="8"/>
+        <line x1="8" y1="12" x2="16" y2="12"/>
+        <line x1="8" y1="16" x2="11" y2="16"/>
+      </svg>
+      <span>Net Proceeds Calculator</span>
+    </div>
+    <div class="faq-body">
+
+      <details class="faq-item" open>
+        <summary class="faq-q">What costs should I expect to pay when selling my home?</summary>
+        <div class="faq-a">
+          Selling a home typically involves: a listing agent commission (1.5–3% of the sale price), a buyer agent commission now negotiated separately following the 2024 NAR settlement (typically 2–3%), closing costs such as title fees, transfer taxes, and attorney fees (1–2%), and any seller credits you agree to give the buyer. Together these typically run 5–8% of the sale price before your mortgage balance is accounted for. The Net Proceeds Calculator lets you adjust each line item to match your specific situation and local market.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">What are seller credits, and when do I need to include them?</summary>
+        <div class="faq-a">
+          Seller credits are amounts you agree to pay toward the buyer's costs as part of the purchase contract. They're common when a buyer asks for help with closing costs, when an inspection reveals repairs you'd rather credit than fix, or when you want to make your listing more attractive without reducing the headline price. Credits reduce your net proceeds dollar for dollar, so it's worth modeling them before you agree to them in negotiation.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">What does it mean to be underwater on a sale?</summary>
+        <div class="faq-a">
+          You're underwater when your remaining mortgage balance exceeds what you'll net after selling costs. For example, if you owe $450,000, sell for $500,000, but costs total $55,000, your net proceeds are negative $5,000. You'd need to bring cash to closing to cover the shortfall. The calculator flags this scenario in red so there are no surprises before you list.
         </div>
       </details>
 
@@ -489,12 +598,14 @@
   <!-- Footer -->
   <footer class="site-footer no-print">
     <div class="footer-links">
+      <a href="/afford">Affordability Calculator</a>
       <a href="/swap">Home Swap Calculator</a>
       <a href="/rvb">Rent vs. Buy Analysis</a>
       <a href="/compound">Compound Growth</a>
       <a href="/downpayment">Down Payment Optimizer</a>
       <a href="/refi">Refinance Calculator</a>
       <a href="/payoff">Payoff Calculator</a>
+      <a href="/proceeds">Net Proceeds</a>
       <a href="/faq">FAQ</a>
       <a href="/learn">Learn</a>
       <a href="/about">About</a>

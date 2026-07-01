@@ -539,17 +539,14 @@ function recomputeFromPct() {
 
 function syncDpInput(mode) {
   const el = document.getElementById('downPayment');
-  const affix = document.getElementById('dpAffix');
-  const wrap = document.getElementById('dpInputWrap');
+  const prefix = document.getElementById('dpPrefix');
   if (!el) return;
   if (mode === 'percent') {
-    if (affix) affix.textContent = '%';
-    if (wrap) { wrap.classList.add('suffix'); wrap.classList.remove('prefix'); }
+    if (prefix) prefix.style.display = 'none';
     el.step = '0.5';
     el.value = state.downPaymentPct;
   } else {
-    if (affix) affix.textContent = '$';
-    if (wrap) { wrap.classList.remove('suffix'); wrap.classList.add('prefix'); }
+    if (prefix) prefix.style.display = '';
     el.step = '1000';
     el.value = state.downPayment;
   }
@@ -559,17 +556,14 @@ function syncDpInput(mode) {
 
 function syncHoiInput(mode) {
   const el = document.getElementById('monthlyHOI');
-  const affix = document.getElementById('hoiAffixRvb');
-  const wrap = document.getElementById('hoiInputWrapRvb');
+  const prefix = document.getElementById('hoiPrefix');
   if (!el) return;
   if (mode === 'percent') {
-    if (affix) affix.textContent = '%';
-    if (wrap) { wrap.classList.add('suffix'); wrap.classList.remove('prefix'); }
+    if (prefix) prefix.style.display = 'none';
     el.step = '0.05';
     el.value = state.hoiPct;
   } else {
-    if (affix) affix.textContent = '$';
-    if (wrap) { wrap.classList.remove('suffix'); wrap.classList.add('prefix'); }
+    if (prefix) prefix.style.display = '';
     el.step = '5';
     el.value = state.monthlyHOI;
   }

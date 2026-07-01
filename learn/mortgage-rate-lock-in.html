@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css?v=31">
+  <link rel="stylesheet" href="/styles.css?v=50">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -57,11 +57,14 @@
       <div class="nav-dropdown">
         <button type="button" class="page-nav-link nav-dropdown-btn" aria-haspopup="true">Calculators <svg class="nav-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
         <div class="nav-dropdown-menu">
-          <a href="/swap" class="nav-dropdown-item">Home Swap Calculator</a>
-          <a href="/rvb" class="nav-dropdown-item">Rent vs. Buy Analysis</a>
+          <a href="/afford" class="nav-dropdown-item">Affordability Calculator</a>
           <a href="/compound" class="nav-dropdown-item">Compound Growth</a>
-          <a href="/refi" class="nav-dropdown-item">Refi Calculator</a>
+          <a href="/downpayment" class="nav-dropdown-item">Down Payment Optimizer</a>
+          <a href="/swap" class="nav-dropdown-item">Home Swap Calculator</a>
+          <a href="/proceeds" class="nav-dropdown-item">Net Proceeds</a>
           <a href="/payoff" class="nav-dropdown-item">Payoff Calculator</a>
+          <a href="/refi" class="nav-dropdown-item">Refi Calculator</a>
+          <a href="/rvb" class="nav-dropdown-item">Rent vs. Buy Analysis</a>
         </div>
       </div>
       <a href="/faq"      class="page-nav-link">FAQ</a>
@@ -103,14 +106,14 @@
 
       <p>The core of the lock-in effect is simple: a homeowner who bought or refinanced at a 3% mortgage rate is sitting on a financial asset they will lose the moment they sell. That asset is their cheap financing.</p>
 
-      <p>Consider a homeowner who bought a $450,000 home in early 2021 with 20% down: a $360,000 loan at 3.0%. Their monthly principal and interest payment is <strong>$1,518</strong>.</p>
+      <p>Consider a homeowner who bought a $450,000 home in early 2021 with 20% down: a $360,000 loan at 3.0%. Their monthly principal and interest payment is $1,518.</p>
 
-      <p>If that homeowner sells today and buys a comparable home at the same price, same down payment, same loan balance, at today's rates around 6.875%, their new monthly payment is <strong>$2,365</strong>.</p>
+      <p>If that homeowner sells today and buys a comparable home at the same price, same down payment, same loan balance, at today's rates around 6.875%, their new monthly payment is $2,365.</p>
 
-      <p>The monthly penalty for moving laterally: <strong>$847 per month</strong>. That's more than $10,000 per year in additional housing costs, not for a bigger home or a better neighborhood. Just for the transaction of selling and rebuying at the same level.</p>
+      <p>The monthly penalty for moving laterally: $847 per month. That's more than $10,000 per year in additional housing costs, not for a bigger home or a better neighborhood. Just for the transaction of selling and rebuying at the same level.</p>
 
       <div class="article-callout article-callout--amber">
-        <p><strong>The rate penalty is pure transaction cost.</strong> Unlike buying a larger home (where you at least get more space) or moving to a higher-cost city (where you at least get the job), the rate lock-in penalty buys you nothing. It's $847/month for the privilege of having moved.</p>
+        <p>The rate penalty is pure transaction cost. Unlike buying a larger home (where you at least get more space) or moving to a higher-cost city (where you at least get the job), the rate lock-in penalty buys you nothing. It's $847/month for the privilege of having moved.</p>
       </div>
 
       <p>Here's how the payment gap looks across the rate spectrum, all on the same $360,000 loan balance:</p>
@@ -219,7 +222,7 @@
 
       <p>This would be an interesting quirk if it affected a small share of homeowners. Unfortunately, it's not merely a quirk. It's the defining feature of the current housing market in the United States.</p>
 
-      <p>According to Federal Housing Finance Agency (FHFA) data, roughly <strong>60% of outstanding U.S. mortgage balances</strong> carry interest rates below 4%. The pandemic-era refinancing wave, which ran from mid-2020 through early 2022 as the Fed held rates near zero, was the largest single refinancing event in U.S. history. Millions of homeowners either locked in new purchases at generational lows or refinanced existing loans to capture rates they may never see again in their lifetimes.</p>
+      <p>According to Federal Housing Finance Agency (FHFA) data, roughly 60% of outstanding U.S. mortgage balances carry interest rates below 4%. The pandemic-era refinancing wave, which ran from mid-2020 through early 2022 as the Fed held rates near zero, was the largest single refinancing event in U.S. history. Millions of homeowners either locked in new purchases at generational lows or refinanced existing loans to capture rates they may never see again in their lifetimes.</p>
 
       <p>There are approximately 50 million outstanding single-family mortgages in the United States. Even a conservative estimate suggests that 25–30 million of them carry rates that create significant financial friction against selling.</p>
 
@@ -231,7 +234,7 @@
 
       <p>The relationship between the lock-in effect and home prices is counterintuitive but important. The intuitive expectation was straightforward: higher mortgage rates reduce the pool of buyers, soften demand, and eventually bring prices down. The 2022–2025 cycle showed that chain of logic breaks down entirely when high rates also freeze sellers.</p>
 
-      <p>Existing home sales in the United States run at a historical average of roughly 5.5 to 6 million transactions per year. In 2023, 2024, and 2025, that figure remained at approximately <strong>4 million</strong> — the lowest sustained level in over a decade. The drop is almost entirely explained by the collapse in listings from existing homeowners, not by a sudden shortage of buyers.</p>
+      <p>Existing home sales in the United States run at a historical average of roughly 5.5 to 6 million transactions per year. In 2023, 2024, and 2025, that figure remained at approximately 4 million, the lowest sustained level in over a decade. The drop is almost entirely explained by the collapse in listings from existing homeowners, not by a sudden shortage of buyers.</p>
 
       <div class="article-chart">
         <div class="article-chart-title">U.S. Existing Home Sales, Annual (millions, 2015–2025)</div>
@@ -285,7 +288,7 @@
       <p>When supply falls faster than demand, prices stay elevated regardless of affordability. What the rate increase accomplished was not a buyers' market. It accomplished a market where fewer people could afford to buy <em>and</em> fewer people were willing to sell, leaving prices roughly in place while transaction volume collapsed.</p>
 
       <div class="article-callout">
-        <p><strong>The cruel irony of the lock-in effect:</strong> The Federal Reserve raised rates specifically to cool inflation and slow the housing market. But by making it expensive to sell, they inadvertently reduced inventory. That reduction is the one thing that could have meaningfully lowered home prices. High rates cooled demand and froze supply at the same time, and frozen supply won.</p>
+        <p>The cruel irony of the lock-in effect: The Federal Reserve raised rates specifically to cool inflation and slow the housing market. But by making it expensive to sell, they inadvertently reduced inventory. That reduction is the one thing that could have meaningfully lowered home prices. High rates cooled demand and froze supply at the same time, and frozen supply won.</p>
       </div>
 
       <p>This is also why some housing economists refer to the current environment as a "seller's market with no sellers." Active buyers competing for a narrow pool of listings have continued to support asking prices, even as monthly carrying costs have climbed to historically unaffordable levels for new buyers.</p>
@@ -324,7 +327,7 @@
       <p>It's tempting to assume that when rates fall, your buying position improves. But pent-up sellers who are currently locked in will unlock when rates normalize, often at the same time as pent-up buyers re-enter the market. A rate move from 7% to 5.5% could simultaneously release a wave of listings <em>and</em> a wave of buyers, with the net effect on price being unclear or even upward as competition intensifies. Waiting for rates to drop is not the same as waiting for affordability to improve.</p>
 
       <div class="article-callout article-callout--amber">
-        <p><strong>Rate drops release supply alongside demand.</strong> The homeowner who's been waiting to sell at 3% will also be watching the rate ticker. When rates cross their personal threshold, they sell and become a buyer in the same transaction. The unlock is bidirectional, which makes the price effect genuinely uncertain.</p>
+        <p>Rate drops release supply alongside demand. The homeowner who's been waiting to sell at 3% will also be watching the rate ticker. When rates cross their personal threshold, they sell and become a buyer in the same transaction. The unlock is bidirectional, which makes the price effect genuinely uncertain.</p>
       </div>
 
       <h3>Price negotiation leverage is limited in low-inventory markets</h3>
@@ -378,7 +381,7 @@
       <p>Buyers who purchased at 6.5–7.5% rates in 2023 and 2024 have substantially less lock-in risk. As the years pass and these buyers represent a growing share of outstanding mortgages, the aggregate lock-in effect will gradually dilute even without rates falling. The market will slowly normalize, but it's a years-long process, not a quarter-long one.</p>
 
       <div class="article-callout article-callout--green">
-        <p><strong>The lock-in effect is powerful but not permanent.</strong> It's a supply constraint driven by a specific rate cycle that will fade as rates normalize, life events accumulate, and new construction gradually fills the gap. The question for buyers and sellers today is whether their timeline requires acting before that normalization, or whether they have the flexibility to wait.</p>
+        <p>The lock-in effect is powerful but not permanent. It's a supply constraint driven by a specific rate cycle that will fade as rates normalize, life events accumulate, and new construction gradually fills the gap. The question for buyers and sellers today is whether their timeline requires acting before that normalization, or whether they have the flexibility to wait.</p>
       </div>
 
       <hr class="article-divider">
@@ -399,11 +402,13 @@
   <!-- Footer -->
   <footer class="site-footer no-print">
     <div class="footer-links">
+      <a href="/afford">Affordability Calculator</a>
       <a href="/swap">Home Swap Calculator</a>
       <a href="/rvb">Rent vs. Buy Analysis</a>
       <a href="/compound">Compound Growth</a>
       <a href="/refi">Refinance Calculator</a>
       <a href="/payoff">Payoff Calculator</a>
+      <a href="/proceeds">Net Proceeds</a>
       <a href="/faq">FAQ</a>
       <a href="/learn">Learn</a>
       <a href="/about">About</a>

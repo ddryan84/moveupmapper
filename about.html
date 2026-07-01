@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"></noscript>
-  <link rel="stylesheet" href="styles.css?v=32">
+  <link rel="stylesheet" href="styles.css?v=50">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -54,12 +54,14 @@
       <div class="nav-dropdown">
         <button type="button" class="page-nav-link nav-dropdown-btn" aria-haspopup="true">Calculators <svg class="nav-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
         <div class="nav-dropdown-menu">
-          <a href="/swap" class="nav-dropdown-item">Home Swap Calculator</a>
-          <a href="/rvb" class="nav-dropdown-item">Rent vs. Buy Analysis</a>
+          <a href="/afford" class="nav-dropdown-item">Affordability Calculator</a>
           <a href="/compound" class="nav-dropdown-item">Compound Growth</a>
           <a href="/downpayment" class="nav-dropdown-item">Down Payment Optimizer</a>
-          <a href="/refi" class="nav-dropdown-item">Refi Calculator</a>
+          <a href="/swap" class="nav-dropdown-item">Home Swap Calculator</a>
+          <a href="/proceeds" class="nav-dropdown-item">Net Proceeds</a>
           <a href="/payoff" class="nav-dropdown-item">Payoff Calculator</a>
+          <a href="/refi" class="nav-dropdown-item">Refi Calculator</a>
+          <a href="/rvb" class="nav-dropdown-item">Rent vs. Buy Analysis</a>
         </div>
       </div>
       <a href="/faq"      class="page-nav-link">FAQ</a>
@@ -86,21 +88,30 @@
 
   <!-- Content card -->
   <div class="card wide-card" style="margin-top:8px">
-    <div class="prose">
+    <div class="prose" style="max-width:none">
 
       <section class="prose-section">
         <h2>Why This Site Exists</h2>
         <p>
-          Buying a home is likely the largest financial decision you'll ever make — yet most of the tools
-          built to help you do it are either too simple to be useful or too opaque to be trusted. Mortgage
-          calculators show you a monthly payment. Rent vs. buy comparisons flatten a 30-year decision into
-          a single number. And almost none of them show their math.
+          Buying a home is the largest financial decision most people will ever make, yet the tools built
+          to help are either too simple to be useful or too opaque to be trusted. Mortgage calculators show
+          you a monthly payment. Rent vs. buy comparisons flatten a 30-year decision into a single number.
+          Almost none of them show their math.
         </p>
         <p>
-          Move Up Mapper was built to fill that gap. The goal is straightforward: give anyone — a first-time
-          buyer, a long-term renter, someone weighing a move up — a clear, honest picture of what each path
-          actually costs over time, modeled with the same math a lender or financial planner would use.
-          No paywalls. No lead forms. No agenda.
+          I built Move Up Mapper because I ran into this problem firsthand. As a recent homebuyer trying to
+          understand the true costs of buying and eventually refinancing, I couldn't find anything detailed
+          enough to actually rely on. I tried building my own models in Excel, but they were too clunky to
+          iterate on quickly. So I built this instead.
+        </p>
+        <p>
+          It started with the Home Swap Calculator, the tool I personally needed most. From there I kept
+          adding calculators to address other decisions I'd faced or saw others wrestling with. There are
+          now eight of them.
+        </p>
+        <p>
+          No paywalls, no lead forms, no signup, no data collection. I don't appreciate when sites do this
+          to me, so I won't do it to you.
         </p>
 
         <div class="about-trust-strip">
@@ -122,48 +133,37 @@
       <section class="prose-section">
         <h2>The Tools</h2>
         <p>
-          Five calculators, each built around a specific decision. They share a common design principle:
-          show the full picture, not just the headline number, and make every assumption adjustable so
-          you can stress-test your own scenario.
+          Eight housing and financial calculators built to empower buyers, renters, and investors. Fully
+          customizable and tailored to your specific situation and needs.
         </p>
 
         <div class="about-tool-block">
           <div class="about-tool-header">
-            <div class="about-tool-icon" style="background:#4f46e5">
+            <div class="about-tool-icon" style="background:#7c3aed">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M3 3v18h18"/><polyline points="7 16 11 12 15 16 21 8"/>
+                <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+                <line x1="12" y1="11" x2="12" y2="17"/><line x1="9" y1="14" x2="15" y2="14"/>
               </svg>
             </div>
-            <span class="about-tool-name">Rent vs. Buy Analysis</span>
+            <span class="about-tool-name">Affordability Calculator</span>
           </div>
           <p>
-            The centerpiece of the site. Rather than giving you a single break-even number, this tool
-            models the full financial picture across a custom time horizon of 5 to 30 years.
+            Most lenders will tell you what you qualify for. That's not the same thing as what you can actually
+            afford. The people involved in your home purchase each have their own perspective and their own
+            incentives. The only person in the room truly looking out for your monthly budget is you.
           </p>
           <p>
-            <strong>Monthly Cost Comparison</strong> tracks every dollar you'd spend renting versus buying,
-            year by year, across your full horizon. The buying side includes principal and interest, property
-            taxes with annual growth, PMI with automatic drop-off when your loan-to-value ratio reaches 80%,
-            homeowner's insurance, HOA fees, and maintenance costs that scale with your home's appreciated
-            value. The renting side compounds rent at a realistic annual increase and inflates renter's
-            insurance at the general inflation rate — the same rate applied to homeowner's insurance on the
-            buy side. The chart shows exactly where the crossover happens — the year buying becomes cheaper
-            on a monthly basis.
+            This calculator uses the standard 28%/43% debt-to-income limits as a ceiling, not a recommendation.
+            The more useful output is the full monthly payment breakdown covering principal, interest, taxes,
+            insurance, HOA, and PMI where applicable, so you can see what that number actually means for your
+            cash flow, not just whether a bank will approve it.
           </p>
           <p>
-            <strong>Equity vs. Invested Capital Growth</strong> answers the harder question: which path
-            builds more wealth? The equity line tracks the value you've actively built through ownership —
-            principal paid down plus home appreciation above your purchase price. The invested capital line
-            models what happens if a renter invests the same initial capital at a market rate of return,
-            while also reinvesting the annual savings from lower monthly costs. Both scenarios get a fair
-            comparison.
+            A rate sensitivity table shows how your buying power shifts at different interest rates. All results
+            update automatically as you enter or change inputs, so you can immediately see how seemingly minor
+            rate changes shift what you can afford.
           </p>
-          <p>
-            Supporting detail panels break down Year 1 monthly costs by category, show cumulative totals
-            over your full horizon, and display how your amortization split — the ratio of principal to
-            interest — shifts between early and later years of your loan.
-          </p>
-          <a href="/rvb" class="about-tool-link">Open Rent vs. Buy Analysis →</a>
+          <a href="/afford" class="about-tool-link">Open Affordability Calculator →</a>
         </div>
 
         <div class="about-tool-block">
@@ -176,26 +176,52 @@
             <span class="about-tool-name">Home Swap Calculator</span>
           </div>
           <p>
-            Designed for people weighing a move from one home to another — or modeling a first purchase
-            for the very first time. Enter the details of your current financial position and a prospective
-            home side by side to see a full cost breakdown, including your post-purchase cash position,
-            monthly affordability relative to income benchmarks, and how your buying power shifts over the
-            next decade.
+            Most homeowners have a version of this feeling: at some point, the equity I've built in my current
+            home is going to open the door to something bigger or nicer. It's more instinct than math. I built
+            this calculator to make this process more math than instinct.
           </p>
           <p>
-            The <strong>Affordable Price Range</strong> section lets you set a target monthly housing cost
-            and instantly see what purchase price that budget supports — along with an absolute ceiling based
-            on the 36% of income lender threshold and a comparison to your prospective price. The
-            <strong>Buying Power Over Time</strong> chart shows how income growth, home appreciation, and
-            cost headwinds interact to expand or compress your range over ten years, letting you stress-test
-            both optimistic and conservative scenarios.
+            What surprised me was that nothing like this seemed to exist. Plenty of tools model the cost of
+            buying a home from scratch. None that I could find specifically modeled swapping one home for
+            another, netting the sale proceeds, rolling that into your down payment, and comparing the new
+            monthly costs against what you're paying now. So I set to work building this in Excel.
+            Unfortunately, the result was super clunky. So I built this instead.
           </p>
           <p>
-            First-time buyers and existing owners each get a tailored input mode. Scenario A/B tabs let you
-            run two complete comparisons side by side without losing your work — useful for comparing two
-            properties, two down payment strategies, or a "buy now vs. wait" decision.
+            The calculator is detailed by design. I'd rather have more information than not enough. Too few
+            inputs and I begin to doubt the output. First-time buyers and existing owners each get a tailored
+            input mode. Scenario A/B tabs let you run two comparisons simultaneously without losing your work,
+            useful when comparing two properties, two down payment strategies, or a straightforward "buy now
+            vs. wait" decision.
           </p>
           <a href="/swap" class="about-tool-link">Open Home Swap Calculator →</a>
+        </div>
+
+        <div class="about-tool-block">
+          <div class="about-tool-header">
+            <div class="about-tool-icon" style="background:#4f46e5">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 3v18h18"/><polyline points="7 16 11 12 15 16 21 8"/>
+              </svg>
+            </div>
+            <span class="about-tool-name">Rent vs. Buy Analysis</span>
+          </div>
+          <p>
+            At some point, most homeowners were renters. The question of when to make that jump is one of the
+            biggest financial decisions most people will face, and it deserves more than a simple break-even number.
+          </p>
+          <p>
+            I added this calculator because I would have benefited from it when I was weighing this decision.
+            Comparable tools that existed at the time were too simple to trust for a decision that size.
+          </p>
+          <p>
+            It's the most detailed calculator on the site. Rather than giving you a single crossover point, it
+            models the full financial picture across a custom time horizon: monthly costs year by year for both
+            paths, equity vs. what a renter would have if they invested the difference, and how the amortization
+            split shifts over time. Every assumption is adjustable, because the right answer depends entirely on
+            your specific numbers.
+          </p>
+          <a href="/rvb" class="about-tool-link">Open Rent vs. Buy Analysis →</a>
         </div>
 
         <div class="about-tool-block">
@@ -208,42 +234,52 @@
             <span class="about-tool-name">Compound Growth Calculator</span>
           </div>
           <p>
-            Built for anyone modeling long-term savings or investment growth — whether planning for retirement,
-            a major purchase, or simply understanding how compounding works over time. Unlike basic compound
-            interest calculators, this tool accounts for dynamics that simple models miss.
+            This calculator sits slightly outside the housing theme, but the opportunity cost question comes up
+            in almost every other calculator on this site. I thought that thread deserved its own tool.
           </p>
           <p>
-            <strong>Growing Contribution Schedule</strong> models what happens when you save a fixed percentage
-            of a salary that rises over time. Instead of assuming flat annual deposits, the calculator compounds
-            your contribution amount at a separate annual growth rate — producing the accelerating deposit curve
-            that more accurately reflects real saving behavior. <strong>Contribution Frequency</strong> lets you
-            choose weekly through annual deposit schedules, each using the correct sub-annual compounding rate
-            so more frequent contributions properly reflect the additional time they spend earning returns.
+            Compound growth calculators are everywhere. Most show you a projected balance and call it done. They
+            skip inflation and tax drag, which means the number they show you is overly optimistic. And almost
+            none of them let you run the calculation in reverse: instead of projecting forward from what you have,
+            starting from what you want and solving for what you need to save to get there.
           </p>
           <p>
-            A <strong>Return Variance Band</strong> adds optimistic and pessimistic scenarios around your base
-            rate, while <strong>Purchasing Power Adjustment</strong> expresses every projected balance in
-            today's dollars — making the real gap between a nominal balance and its inflation-adjusted value
-            concrete over long horizons. An <strong>Advanced section</strong> adds expense ratios, advisory
-            fees, and tax drag, all of which reduce the effective return before simulation so their compounding
-            cost is fully captured.
-          </p>
-          <p>
-            The <strong>Withdrawal Phase</strong> extends the simulation into the drawdown period, showing how
-            long your portfolio lasts under a fixed or percentage-based withdrawal — and what the sustainable
-            withdrawal rate is given your projected balance and return.
-          </p>
-          <p>
-            A second tab — the <strong>Retirement Goal Planner</strong> — reverses the calculation entirely.
-            Instead of projecting forward from what you have, it starts from what you want: a target annual
-            income in retirement (in today's dollars), a withdrawal horizon, and your expected return. From
-            those inputs, it calculates the required nest egg using the present value of an inflation-adjusted
-            annuity, projects your existing savings forward, and solves for the annual savings needed to fill
-            the gap. Two scenarios are presented side by side: a flat contribution amount you'd save every
-            year, and a growing schedule that starts lower and increases annually — useful for anyone whose
-            income is expected to rise over time.
+            That last scenario was the one I kept running into. The Retirement Goal Planner tab helps solve this.
+            Just give it a target income in retirement, a withdrawal horizon, and an expected return, and it works
+            backwards to tell you the nest egg required and the annual savings needed to hit it, all while
+            accounting for inflation and tax implications.
           </p>
           <a href="/compound" class="about-tool-link">Open Compound Growth Calculator →</a>
+        </div>
+
+        <div class="about-tool-block">
+          <div class="about-tool-header">
+            <div class="about-tool-icon" style="background:#0284c7">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+                <path d="M12 12v6m-3-3l3 3 3-3"/>
+              </svg>
+            </div>
+            <span class="about-tool-name">Down Payment Optimizer</span>
+          </div>
+          <p>
+            The conventional wisdom is that a bigger down payment is always better. Lower monthly payment, less
+            interest, no PMI. It feels responsible. What's harder to see is what you're giving up by locking
+            that extra cash into home equity instead of leaving it in the market.
+          </p>
+          <p>
+            When I bought my home I put about 20% down, mostly focused on keeping the monthly payment
+            manageable. I didn't spend much time thinking about what that same money could have done if I'd
+            put down 10% and invested the difference. A few years later, weighing a move up to a larger home,
+            I found myself wondering if I'd made the right call. I think I probably hadn't.
+          </p>
+          <p>
+            This calculator is designed to answer that question. Enter a purchase price, your available savings,
+            and a rate of return, and it compares the PMI cost of a smaller down payment against the opportunity
+            cost of a larger one, including the exact month PMI drops off for each scenario. Don't just guess
+            like I did. Do the math.
+          </p>
+          <a href="/downpayment" class="about-tool-link">Open Down Payment Optimizer →</a>
         </div>
 
         <div class="about-tool-block">
@@ -256,22 +292,20 @@
             <span class="about-tool-name">Refinance Break-Even Calculator</span>
           </div>
           <p>
-            Designed to answer the central question of any refinance decision: does it actually make financial
-            sense, given your rate, loan balance, closing costs, and how long you plan to stay? Enter your
-            current loan terms alongside the new rate and estimated costs to get a clear read on whether the
-            numbers work.
+            Refinancing sounds simple until you factor in the closing costs. I hadn't fully accounted for those
+            when I started planning a refi shortly after buying my home. Suddenly the question wasn't just "will
+            my monthly payment go down?" It was "how long before the monthly savings actually offset what I
+            paid to close?"
           </p>
           <p>
-            The calculator surfaces three key outputs: your <strong>monthly savings</strong> (or increase, for
-            a shorter-term refi), the <strong>break-even timeline</strong> showing exactly how many months it
-            takes to recover closing costs, and a <strong>net benefit</strong> figure that accounts for the
-            opportunity cost of deploying that cash into a refinance instead of the market.
+            I tried to work through it in Excel. Same result as always: clunky, hard to iterate on, and not
+            detailed enough to fully trust.
           </p>
           <p>
-            A detailed breakdown shows how closing costs, discount points, gross savings, and opportunity cost
-            combine into your final outcome. For rate-and-term-reduction refinances — where the new loan is
-            shorter than the remaining term — the calculator automatically switches to a lifetime interest
-            savings view, since the standard monthly savings framing doesn't apply.
+            This calculator is built around that break-even question. Enter your current loan terms alongside a
+            new rate and estimated closing costs. The calculator tells you exactly how many months it takes to
+            recover what you spent, what you'd net over your full expected stay, and what you'd have if you'd
+            invested that closing cost cash instead.
           </p>
           <a href="/refi" class="about-tool-link">Open Refinance Calculator →</a>
         </div>
@@ -286,43 +320,64 @@
             <span class="about-tool-name">Mortgage Payoff Calculator</span>
           </div>
           <p>
-            Built for homeowners weighing whether to make extra principal payments — and whether that
-            money would work harder paying down the mortgage or invested in the market instead. Enter
-            your remaining balance, interest rate, and term alongside an extra monthly payment or
-            one-time lump sum to see the full impact on your payoff timeline and interest cost.
+            As my income grew through periodic pay raises, I started wondering whether putting extra money toward
+            my mortgage principal made sense for my situation. The standard case for early payoff assumes you're
+            going to hold the loan to term, which I wasn't planning to do. With a likely sale or refinance somewhere in
+            the coming 5 to 10 years, the math looked different, and I wasn't sure extra payments would move
+            the needle as much as just investing that money instead.
           </p>
           <p>
-            The calculator runs a month-by-month amortization for both the standard and accelerated
-            scenarios, surfacing four key outputs: <strong>time saved</strong>, <strong>total interest
-            saved</strong>, the <strong>estimated investment gain</strong> if the same dollars were
-            invested instead, and a <strong>net benefit</strong> that shows which path comes out ahead
-            on paper. A side-by-side amortization table lets you see the first 12 months of both
-            schedules at a glance.
+            This calculator is built to answer exactly that question. Enter your remaining balance, rate, and
+            term alongside a monthly overpayment or one-time lump sum, and it runs a full month-by-month
+            amortization for both the standard and accelerated scenarios, then compares the outcome against
+            what you'd have if you'd invested the same dollars at a market return instead.
           </p>
           <p>
-            Because extra payments deliver a guaranteed return equal to your mortgage rate while
-            investment returns are market-dependent, the verdict section frames the trade-off
-            explicitly — including a close-call branch for scenarios where the two paths are
-            financially equivalent and the decision comes down to personal preference.
+            The key output is the net benefit: which path comes out ahead, by how much, and how that changes
+            depending on how long you actually stay in the home.
           </p>
           <a href="/payoff" class="about-tool-link">Open Payoff Calculator →</a>
+        </div>
+
+        <div class="about-tool-block">
+          <div class="about-tool-header">
+            <div class="about-tool-icon" style="background:#d97706">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="2" width="16" height="20" rx="2"/>
+                <line x1="8" y1="8" x2="16" y2="8"/>
+                <line x1="8" y1="12" x2="16" y2="12"/>
+                <line x1="8" y1="16" x2="11" y2="16"/>
+              </svg>
+            </div>
+            <span class="about-tool-name">Net Proceeds Calculator</span>
+          </div>
+          <p>
+            If you're like me, you probably don't like unfavorable financial surprises. This calculator helps
+            you determine how much you'll actually walk away with after selling your home, after accounting for
+            agent commissions, closing costs, and seller credits. Enter your expected sale price and costs to
+            see a full breakdown of where the money goes before (hopefully some of it) reaches you.
+          </p>
+          <p>
+            The verdict flags whether you're in positive equity territory, close to breaking even, or underwater,
+            so there are no surprises at the closing table.
+          </p>
+          <a href="/proceeds" class="about-tool-link">Open Net Proceeds Calculator →</a>
         </div>
       </section>
 
       <section class="prose-section">
         <h2>What's Coming</h2>
         <p>
-          The calculators are the foundation, but the <a href="/learn">Learn</a> section is where the
-          reasoning behind them gets unpacked. Published guides cover the rent vs. buy framework,
-          amortization math, how mortgage rates compress buying power,
+          The calculators are the foundation, but the <a href="/learn">Learn</a> section is where the reasoning
+          behind them gets unpacked. Published guides cover the rent vs. buy framework, amortization math, how
+          mortgage rates compress buying power,
           <a href="/learn/when-to-refinance">when refinancing actually pencils out</a>, and
           <a href="/learn/extra-mortgage-payments">how to think about extra mortgage payments versus investing</a>.
-          Upcoming topics include why the 20% down payment rule is more flexible than most buyers assume
-          and how PMI is calculated and eliminated.
+          More guides are in the works.
         </p>
         <p>
-          The calculators themselves continue to evolve. If something is missing, confusing, or wrong,
-          the <a href="/faq">FAQ</a> is the right place to start — or reach out directly.
+          If something is missing, confusing, or wrong, the <a href="/faq">FAQ</a> is the right place to start,
+          or reach out directly (once I get around to setting up an email for this website...).
         </p>
       </section>
 
@@ -333,25 +388,30 @@
           the key calculations work:
         </p>
         <ul>
-          <li><strong>Mortgage amortization</strong> uses the standard closed-form formula for remaining
-          loan balance at any point in time — the same math lenders use. Interest is correctly
-          front-loaded in early years, not averaged.</li>
-          <li><strong>PMI drop-off</strong> is tracked month by month. The tools identify the exact month
-          your loan-to-value ratio crosses 80% and remove PMI from that point forward — not as an
-          estimate, but from the amortization schedule itself.</li>
-          <li><strong>Opportunity cost</strong> compounds properly. Each year's cost differential between
-          renting and buying is added to or subtracted from an invested portfolio that itself earns a
-          return — so the renter's alternative isn't overstated.</li>
-          <li><strong>Maintenance costs</strong> scale with your home's appreciated value each year, not
-          the original purchase price, which better reflects how upkeep costs grow over time.</li>
-          <li><strong>HOA, insurance, and tax headwinds</strong> each inflate at their own rates across
-          the 10-year projection, rather than being held flat — which would understate the true cost
-          of ownership over time.</li>
+          <li>Mortgage amortization uses the standard closed-form formula for remaining loan balance at any
+          point in time, the same math lenders use. Interest is correctly front-loaded in early years,
+          not averaged.</li>
+          <li>PMI drop-off is tracked month by month. The tools identify the exact month your loan-to-value
+          ratio crosses 80% and remove PMI from that point forward, not as an estimate, but from the
+          amortization schedule itself.</li>
+          <li>Opportunity cost compounds properly. Each year's cost differential between renting and buying
+          is added to or subtracted from an invested portfolio that itself earns a return, so the renter's
+          alternative isn't overstated.</li>
+          <li>Maintenance costs scale with your home's appreciated value each year, not the original purchase
+          price, which better reflects how upkeep costs grow over time.</li>
+          <li>HOA, insurance, and tax headwinds each inflate at their own rates across the projection, rather
+          than being held flat, which would understate the true cost of ownership over time.</li>
         </ul>
         <p>
-          Default values are calibrated to 2026 national averages: current mortgage rates, median home
-          prices, typical PMI premiums, national property tax averages, and long-run historical returns.
-          Every input can be adjusted to match your specific situation.
+          Default values are calibrated to 2026 national averages: current mortgage rates, median home prices,
+          typical PMI premiums, national property tax averages, and long-run historical returns. Every input
+          can be adjusted to match your specific situation.
+        </p>
+        <p>
+          Where the math ends, judgment begins. Every formula here has a correct answer (it's just math after
+          all). Whether that answer is right for you depends on factors no calculator can quantify: your risk
+          tolerance, your job security, your timeline, how much you value liquidity. The tools give you the
+          numbers. What you do with them is personal.
         </p>
       </section>
 
@@ -359,7 +419,7 @@
         <h2>Your Data</h2>
         <p>
           All calculations happen entirely in your browser. Your inputs are saved in your browser's local
-          storage so your settings persist between visits — but that data is never transmitted to any server,
+          storage so your settings persist between visits, but that data is never transmitted to any server,
           never stored in a database, and never shared with anyone.
         </p>
         <p>
@@ -372,18 +432,18 @@
       <section class="prose-section prose-section--last">
         <h2>A Note on Limitations</h2>
         <p>
-          These tools are built to inform, not to decide. Real estate decisions involve factors no
-          calculator can fully capture: neighborhood trajectory, job stability, school districts, the
-          emotional weight of ownership, local market dynamics, and much more. The numbers here are a
-          starting point — ideally for a conversation that also involves a mortgage professional,
-          financial advisor, or real estate agent who knows your specific situation.
+          These tools are built to inform, not to decide. Real estate decisions involve factors no calculator
+          can fully capture: neighborhood trajectory, job stability, school districts, the emotional weight of
+          ownership, local market dynamics, and much more. The numbers here are a starting point, ideally for
+          a conversation that also involves a mortgage professional, financial advisor, or real estate agent
+          who knows your specific situation.
         </p>
         <p>
-          Use this site to sharpen your thinking and stress-test your assumptions. Use professionals
-          to act on them.
+          Use this site to sharpen your thinking and stress-test your assumptions. Use professionals to act
+          on them.
         </p>
         <p>
-          <strong>Nothing on this site constitutes financial, mortgage, tax, or legal advice.</strong>
+          Nothing on this site constitutes financial, mortgage, tax, or legal advice.
         </p>
       </section>
 
@@ -393,12 +453,14 @@
   <!-- Footer -->
   <footer class="site-footer no-print">
     <div class="footer-links">
+      <a href="/afford">Affordability Calculator</a>
       <a href="/swap">Home Swap Calculator</a>
       <a href="/rvb">Rent vs. Buy Analysis</a>
       <a href="/compound">Compound Growth</a>
       <a href="/downpayment">Down Payment Optimizer</a>
       <a href="/refi">Refinance Calculator</a>
       <a href="/payoff">Payoff Calculator</a>
+      <a href="/proceeds">Net Proceeds</a>
       <a href="/faq">FAQ</a>
       <a href="/learn">Learn</a>
       <a href="/about">About</a>

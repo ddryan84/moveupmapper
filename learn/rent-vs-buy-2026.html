@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css?v=31">
+  <link rel="stylesheet" href="/styles.css?v=50">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -57,11 +57,14 @@
       <div class="nav-dropdown">
         <button type="button" class="page-nav-link nav-dropdown-btn" aria-haspopup="true">Calculators <svg class="nav-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
         <div class="nav-dropdown-menu">
-          <a href="/swap" class="nav-dropdown-item">Home Swap Calculator</a>
-          <a href="/rvb" class="nav-dropdown-item">Rent vs. Buy Analysis</a>
+          <a href="/afford" class="nav-dropdown-item">Affordability Calculator</a>
           <a href="/compound" class="nav-dropdown-item">Compound Growth</a>
-          <a href="/refi" class="nav-dropdown-item">Refi Calculator</a>
+          <a href="/downpayment" class="nav-dropdown-item">Down Payment Optimizer</a>
+          <a href="/swap" class="nav-dropdown-item">Home Swap Calculator</a>
+          <a href="/proceeds" class="nav-dropdown-item">Net Proceeds</a>
           <a href="/payoff" class="nav-dropdown-item">Payoff Calculator</a>
+          <a href="/refi" class="nav-dropdown-item">Refi Calculator</a>
+          <a href="/rvb" class="nav-dropdown-item">Rent vs. Buy Analysis</a>
         </div>
       </div>
       <a href="/faq"      class="page-nav-link">FAQ</a>
@@ -95,9 +98,9 @@
 
       <p>The standard rent vs. buy comparison goes something like this: take your monthly mortgage payment, compare it to your rent, and see which is lower. If the mortgage wins, buy. If rent wins, keep renting.</p>
 
-      <p>This framework is almost always wrong — not because the numbers are off, but because it leaves out most of the actual costs and benefits on both sides. A mortgage payment is not the cost of owning a home. Rent is not the cost of renting. The real comparison is far more nuanced, and the outcome depends heavily on assumptions that most people never examine.</p>
+      <p>This framework is almost always wrong: not because the numbers are off, but because it leaves out most of the actual costs and benefits on both sides. A mortgage payment is not the cost of owning a home. Rent is not the cost of renting. The real comparison is far more nuanced, and the outcome depends heavily on assumptions that most people never examine.</p>
 
-      <p>This guide walks through the complete financial picture — what you're actually paying on each side, what your money could be doing instead, and the single variable that drives most rent vs. buy decisions: time.</p>
+      <p>This guide walks through the complete financial picture: what you're actually paying on each side, what your money could be doing instead, and the single variable that drives most rent vs. buy decisions: time.</p>
 
       <hr class="article-divider">
 
@@ -106,16 +109,16 @@
       <p>The cost of renting is simpler than the cost of owning, which is part of why it gets underestimated. Your true renting costs are:</p>
 
       <ul>
-        <li><strong>Monthly rent</strong> — your base payment</li>
-        <li><strong>Renter's insurance</strong> — typically $15–25/month, often overlooked</li>
-        <li><strong>Rent increases</strong> — historically 3–5% per year in most U.S. markets; over a 10-year horizon this significantly compounds the cost</li>
-        <li><strong>No equity buildup</strong> — not a direct cost, but a real opportunity foregone</li>
+        <li><strong>Monthly rent:</strong> your base payment</li>
+        <li><strong>Renter's insurance:</strong> typically $15–25/month, often overlooked</li>
+        <li><strong>Rent increases:</strong> historically 3–5% per year in most U.S. markets; over a 10-year horizon this significantly compounds the cost</li>
+        <li><strong>No equity buildup:</strong> not a direct cost, but a real opportunity foregone</li>
       </ul>
 
-      <p>The rent increase piece matters more than most renters account for. If you're paying $2,500/month today and rent increases at just 4% annually, you'll be paying around $3,700/month after 10 years. Over that full decade, you'll have paid roughly $360,000 in total rent — not counting renter's insurance.</p>
+      <p>The rent increase piece matters more than most renters account for. If you're paying $2,500/month today and rent increases at just 4% annually, you'll be paying around $3,700/month after 10 years. Over that full decade, you'll have paid roughly $360,000 in total rent, not counting renter's insurance.</p>
 
       <div class="article-callout article-callout--amber">
-        <p><strong>What renters keep:</strong> Flexibility (you can move without transaction costs), no exposure to maintenance surprises, and — critically — your down payment remains liquid and invested. That last point is more valuable than most people realize.</p>
+        <p>What renters keep: Flexibility (you can move without transaction costs), no exposure to maintenance surprises, and, critically, your down payment remains liquid and invested. That last point is more valuable than most people realize.</p>
       </div>
 
       <hr class="article-divider">
@@ -161,9 +164,9 @@
         </tbody>
       </table>
 
-      <p>PMI drops off once your loan-to-value ratio falls below 80% — typically after 5–8 years with normal payments and modest appreciation. The maintenance figure ($375/month in this example) is a long-run average; you won't spend it every month, but large expenses like roofs, HVAC systems, and appliances will consume it over time and then some.</p>
+      <p>PMI drops off once your loan-to-value ratio falls below 80%, typically after 5–8 years with normal payments and modest appreciation. The maintenance figure ($375/month in this example) is a long-run average; you won't spend it every month, but large expenses like roofs, HVAC systems, and appliances will consume it over time and then some.</p>
 
-      <p>One partial offset worth noting: homeowners who itemize deductions on annual tax filings may be able to deduct mortgage interest and property taxes, which can meaningfully reduce their effective carrying cost in the early years of a loan when interest comprises the bulk of each payment. When it comes time to sell, homeowners may also exclude up to $250,000 in capital gains from taxable income — $500,000 for married couples filing jointly — a benefit renters have no equivalent of. Renters generally have no tax advantages tied to their housing costs.</p>
+      <p>One partial offset worth noting: homeowners who itemize deductions on annual tax filings may be able to deduct mortgage interest and property taxes, which can meaningfully reduce their effective carrying cost in the early years of a loan when interest comprises the bulk of each payment. When it comes time to sell, homeowners may also exclude up to $250,000 in capital gains from taxable income ($500,000 for married couples filing jointly), a benefit renters have no equivalent of. Renters generally have no tax advantages tied to their housing costs.</p>
 
       <h3>Upfront costs: the money out the door on day one</h3>
 
@@ -183,7 +186,7 @@
       <p>If you sell in 5–7 years, you'll pay 5–6% of the sale price in agent commissions, plus transfer taxes, title, and escrow fees. On a $500K sale (after modest appreciation), that's $25,000–$30,000 in transaction costs that erodes your equity before you see any of it.</p>
 
       <div class="article-callout">
-        <p><strong>The cost of selling is often the most underestimated number in the rent vs. buy equation.</strong> It's why short time horizons almost always favor renting — you need enough appreciation and equity buildup to absorb those selling costs before the math starts to look good for buyers.</p>
+        <p>The cost of selling is often the most underestimated number in the rent vs. buy equation. It's why short time horizons almost always favor renting: you need enough appreciation and equity buildup to absorb those selling costs before the math starts to look good for buyers.</p>
       </div>
 
       <hr class="article-divider">
@@ -192,7 +195,7 @@
 
       <p>This is the piece that sophisticated renters understand and most buyers overlook. When you put $60,000 into a down payment and closing costs, that money is no longer compounding in the stock market.</p>
 
-      <p>At a 7% long-run nominal return (a reasonable approximation for a diversified equity index fund, before inflation and fund fees — a 5–6% real return after a ~3% inflation drag and typical expense ratios), $60,000 grows to:</p>
+      <p>At a 7% long-run nominal return (a reasonable approximation for a diversified equity index fund, before inflation and fund fees; that's a 5–6% real return after a ~3% inflation drag and typical expense ratios), $60,000 grows to:</p>
 
       <ul>
         <li><strong>5 years:</strong> ~$84,000 (+$24,000)</li>
@@ -200,23 +203,23 @@
         <li><strong>20 years:</strong> ~$232,000 (+$172,000)</li>
       </ul>
 
-      <p>That foregone growth — often called the "opportunity cost of the down payment" — is a real cost of buying that never appears in a mortgage calculator.</p>
+      <p>That foregone growth, often called the "opportunity cost of the down payment," is a real cost of buying that never appears in a mortgage calculator.</p>
 
-      <p>The counterargument is leverage: a home purchase lets you control a $450,000 asset with only $45,000 down. If the home appreciates 4% per year, that's an $18,000 gain on a $45,000 investment — a 40% return in year one. Leverage amplifies gains but also amplifies losses. A 10% price decline would wipe out your entire down payment.</p>
+      <p>The counterargument is leverage: a home purchase lets you control a $450,000 asset with only $45,000 down. If the home appreciates 4% per year, that's an $18,000 gain on a $45,000 investment, a 40% return in year one. Leverage amplifies gains but also amplifies losses. A 10% price decline would wipe out your entire down payment.</p>
 
       <div class="article-callout article-callout--amber">
-        <p><strong>Leverage cuts both ways.</strong> The 2020–2022 housing boom made buyers look like geniuses. The 2008 collapse made buyers look like cautionary tales. Neither period was "normal," and betting heavily on appreciation — rather than treating it as a bonus — is a form of speculation, not a housing strategy.</p>
+        <p>Leverage cuts both ways. The 2020–2022 housing boom made buyers look like geniuses. The 2008 collapse made buyers look like cautionary tales. Neither period was "normal," and betting heavily on appreciation, rather than treating it as a bonus, is a form of speculation, not a housing strategy.</p>
       </div>
 
       <hr class="article-divider">
 
       <h2>The Break-Even Timeline</h2>
 
-      <p>The most useful question in any rent vs. buy analysis is not "which is cheaper per month?" but rather: <strong>"How many years do I need to stay before buying is the better financial outcome?"</strong></p>
+      <p>The most useful question in any rent vs. buy analysis is not "which is cheaper per month?" but rather: "How many years do I need to stay before buying is the better financial outcome?"</p>
 
       <p>The break-even point is the year at which your total cost of buying (carrying costs + opportunity cost of capital + transaction costs) equals your total cost of renting (rent + renter's insurance + the investment gains you'd have accumulated as a renter). After the break-even point, ownership typically wins. Before it, renting is almost always the better financial outcome.</p>
 
-      <p>In most U.S. markets in 2026, the break-even timeline is roughly <strong>5–9 years</strong>. Here's what drives it in each direction:</p>
+      <p>In most U.S. markets in 2026, the break-even timeline is roughly 5–9 years. Here's what drives it in each direction:</p>
 
       <table class="article-data-table">
         <thead>
@@ -266,18 +269,18 @@
 
       <h2>Why Mortgage Rates Change Everything</h2>
 
-      <p>Mortgage rates don't just affect your monthly payment — they ripple through nearly every part of the rent vs. buy comparison. At a 3.5% rate, a $450,000 home with 10% down costs roughly $1,820/month in principal and interest. At 6.75%, that same home costs $2,626/month — a $806/month difference on identical purchases. Over 30 years, that gap is more than $290,000 in additional interest paid.</p>
+      <p>Mortgage rates don't just affect your monthly payment; they ripple through nearly every part of the rent vs. buy comparison. At a 3.5% rate, a $450,000 home with 10% down costs roughly $1,820/month in principal and interest. At 6.75%, that same home costs $2,626/month, an $806/month difference on identical purchases. Over 30 years, that gap is more than $290,000 in additional interest paid.</p>
 
       <p>The effects extend further than just the payment:</p>
 
       <ul>
         <li><strong>Break-even timelines lengthen at higher rates.</strong> More of each payment goes to interest and less to equity in the early years, meaning you're building wealth through ownership more slowly. At 3.5%, you might break even vs. renting in 4–5 years. At 6.75%, that can stretch to 7–9 years in the same market.</li>
-        <li><strong>Higher rates compress home prices — in theory.</strong> When borrowing is expensive, fewer buyers qualify for higher-priced homes, which should put downward pressure on prices. In practice, the 2022–2025 period showed this dynamic is slow: prices softened in some markets but proved sticky nationally because existing homeowners locked into 3% rates were unwilling to sell and give up their cheap financing.</li>
+        <li><strong>Higher rates compress home prices, in theory.</strong> When borrowing is expensive, fewer buyers qualify for higher-priced homes, which should put downward pressure on prices. In practice, the 2022–2025 period showed this dynamic is slow: prices softened in some markets but proved sticky nationally because existing homeowners locked into 3% rates were unwilling to sell and give up their cheap financing.</li>
         <li><strong>The rate lock-in effect traps supply.</strong> Roughly 60% of outstanding U.S. mortgages carry rates below 4%. Homeowners with those loans have a strong financial incentive not to sell and not to move. This reduced supply helps support prices even as affordability has deteriorated significantly.</li>
       </ul>
 
       <div class="article-callout">
-        <p><strong>A rate shift of just 1 percentage point changes your maximum purchase price by roughly 10%.</strong> If you were approved for a $450,000 home at 5.75%, that same monthly payment at 6.75% buys you closer to $405,000 — a $45,000 reduction in purchasing power driven entirely by rates, not prices or income.</p>
+        <p>A rate shift of just 1 percentage point changes your maximum purchase price by roughly 10%. If you were approved for a $450,000 home at 5.75%, that same monthly payment at 6.75% buys you closer to $405,000, a $45,000 reduction in purchasing power driven entirely by rates, not prices or income.</p>
       </div>
 
       <div class="article-chart">
@@ -323,7 +326,7 @@
         <div class="article-chart-source">Source: NAR median existing-home price / FRED (MORTGAGE30US) for buy cost (P&amp;I only, 10% down, 30-year fixed); Zillow Observed Rent Index for rent. 2025–2026 estimated.</div>
       </div>
 
-      <p>For buyers in 2026, this means the "wait for rates to drop" calculation is genuinely complicated. If rates fall from 6.75% to 5.5%, demand could surge and push prices back up — potentially eliminating any affordability gain. The relationship between rates, prices, and the rent vs. buy outcome is dynamic, not linear. The best hedge is to model your specific numbers at your current rate rather than waiting for a market condition that may or may not materialize on your timeline.</p>
+      <p>For buyers in 2026, this means the "wait for rates to drop" calculation is genuinely complicated. If rates fall from 6.75% to 5.5%, demand could surge and push prices back up, potentially eliminating any affordability gain. The relationship between rates, prices, and the rent vs. buy outcome is dynamic, not linear. The best hedge is to model your specific numbers at your current rate rather than waiting for a market condition that may or may not materialize on your timeline.</p>
 
       <hr class="article-divider">
 
@@ -331,32 +334,32 @@
 
       <p>Before running a full analysis, use the price-to-rent ratio to get a quick sense of whether your market leans toward renting or buying. Calculate it like this:</p>
 
-      <p><strong>Price-to-rent ratio = Home purchase price ÷ Annual rent for a comparable home</strong></p>
+      <p>Price-to-rent ratio = Home purchase price ÷ Annual rent for a comparable home</p>
 
       <p>Example: $450,000 home, comparable rental costs $2,400/month ($28,800/year) → P/R ratio = 15.6</p>
 
       <p>General interpretation:</p>
 
       <ul>
-        <li><strong>Below 15:</strong> Market generally favors buying — homes are cheap relative to rents</li>
-        <li><strong>15–20:</strong> Borderline — time horizon and assumptions matter a lot</li>
-        <li><strong>Above 20:</strong> Market generally favors renting — you're paying a significant premium to own</li>
-        <li><strong>Above 25:</strong> Strong renter market — buying requires either a very long horizon or significant appreciation faith</li>
+        <li><strong>Below 15:</strong> Market generally favors buying. Homes are cheap relative to rents.</li>
+        <li><strong>15–20:</strong> Borderline. Time horizon and assumptions matter a lot.</li>
+        <li><strong>Above 20:</strong> Market generally favors renting. You're paying a significant premium to own.</li>
+        <li><strong>Above 25:</strong> Strong renter market. Buying requires either a very long horizon or significant appreciation faith.</li>
       </ul>
 
       <p>In 2026, the median P/R ratio in major U.S. metros is in the 20–28 range. San Francisco, New York, and coastal California markets sit well above 30. Markets like Houston, Cleveland, and Indianapolis are closer to 15–18. This is why rent vs. buy outcomes vary so dramatically by city.</p>
 
       <div class="article-callout article-callout--green">
-        <p><strong>High P/R ratios don't mean you shouldn't buy</strong> — they mean you need to be more confident in your time horizon and more skeptical of assumptions about appreciation. The break-even timeline stretches longer in expensive markets, requiring more certainty about how long you'll stay.</p>
+        <p>High P/R ratios don't mean you shouldn't buy; they mean you need to be more confident in your time horizon and more skeptical of assumptions about appreciation. The break-even timeline stretches longer in expensive markets, requiring more certainty about how long you'll stay.</p>
       </div>
 
       <hr class="article-divider">
 
       <h2>Appreciation: Asset or Assumption?</h2>
 
-      <p>From 2020 to 2022, U.S. median home prices rose roughly 40% in two years. From 2023 into 2024, many markets gave back 10–15% of those gains. The long-run annualized appreciation rate for U.S. homes since 1965 is approximately <strong>4.4% nominally</strong> — but after inflation (~3%), real appreciation averages closer to 1–2% per year.</p>
+      <p>From 2020 to 2022, U.S. median home prices rose roughly 40% in two years. From 2023 into 2024, many markets gave back 10–15% of those gains. The long-run annualized appreciation rate for U.S. homes since 1965 is approximately 4.4% nominally, but after inflation (~3%), real appreciation averages closer to 1–2% per year.</p>
 
-      <p>This matters because most buyers implicitly assume that the past 5 years of appreciation will continue indefinitely. It won't — it never does. Here's how to think about appreciation in your own analysis:</p>
+      <p>This matters because most buyers implicitly assume that the past 5 years of appreciation will continue indefinitely. It won't; it never does. Here's how to think about appreciation in your own analysis:</p>
 
       <ul>
         <li><strong>Treat 0–2% real appreciation as the base case.</strong> If the math works at this rate, you're buying for sound financial reasons.</li>
@@ -371,13 +374,13 @@
       <p>A purely financial analysis will tell you when buying is economically rational. It won't tell you whether it's the right decision for you. A few considerations that belong in the equation even though they don't fit neatly in a spreadsheet:</p>
 
       <h3>Stability and permanence</h3>
-      <p>Ownership provides a degree of control over your living situation that renting doesn't — you can't be asked to move at the end of a lease, you can renovate, and you have a stable payment (on a fixed-rate mortgage) as rents around you inflate. For families with school-age children or long-term community ties, that stability has real value.</p>
+      <p>Ownership provides a degree of control over your living situation that renting doesn't: you can't be asked to move at the end of a lease, you can renovate, and you have a stable payment (on a fixed-rate mortgage) as rents around you inflate. For families with school-age children or long-term community ties, that stability has real value.</p>
 
       <h3>Flexibility and mobility</h3>
-      <p>Renting is dramatically easier to exit. If your job changes, your relationship changes, or your city changes, a lease is a much smaller obstacle than a house. Buyers in the 2020–2022 period who needed to sell in 2023 faced a rude awakening: transaction costs and modest price declines made selling painful even when they wanted to. This is the optionality premium in renting — it's real and it's worth something.</p>
+      <p>Renting is dramatically easier to exit. If your job changes, your relationship changes, or your city changes, a lease is a much smaller obstacle than a house. Buyers in the 2020–2022 period who needed to sell in 2023 faced a rude awakening: transaction costs and modest price declines made selling painful even when they wanted to. This is the optionality premium in renting, and it's real and worth something.</p>
 
       <h3>Psychological considerations</h3>
-      <p>Many people find deep satisfaction in owning a home — the ability to paint walls, plant a garden, build equity you can see. Others find the maintenance burden stressful and the illiquidity anxiety-inducing. Neither reaction is irrational; they're just different risk tolerances and lifestyle preferences. Know which describes you before making the largest financial decision of your life.</p>
+      <p>Many people find deep satisfaction in owning a home, including the ability to paint walls, plant a garden, and build equity they can see. Others find the maintenance burden stressful and the illiquidity anxiety-inducing. Neither reaction is irrational; they're just different risk tolerances and lifestyle preferences. Know which describes you before making the largest financial decision of your life.</p>
 
       <hr class="article-divider">
 
@@ -388,12 +391,12 @@
       <ol>
         <li><strong>How long will I realistically stay?</strong> This is the single most important variable. If there's genuine uncertainty about 5+ years, the financial case for buying is fragile.</li>
         <li><strong>What is the price-to-rent ratio in my market?</strong> Above 20 means you need a longer horizon and should be conservative on appreciation assumptions.</li>
-        <li><strong>Can I absorb the true monthly cost?</strong> Not just principal and interest — include taxes, insurance, PMI if applicable, and a maintenance reserve. If this strains your budget, you're buying more house than you can afford.</li>
+        <li><strong>Can I absorb the true monthly cost?</strong> Not just principal and interest; include taxes, insurance, PMI if applicable, and a maintenance reserve. If this strains your budget, you're buying more house than you can afford.</li>
         <li><strong>What's the opportunity cost of my down payment?</strong> If you're putting down $80,000, model what that money earns invested over your expected time horizon. The gap has to be covered by equity buildup and appreciation.</li>
       </ol>
 
       <div class="article-callout">
-        <p><strong>The goal isn't to conclude that renting or buying is universally better.</strong> The goal is to understand the real numbers behind your specific situation — your local market, your time horizon, your finances — so the decision is informed rather than emotional or conventional.</p>
+        <p>The goal isn't to conclude that renting or buying is universally better. The goal is to understand the real numbers behind your specific situation (your local market, your time horizon, your finances) so the decision is informed rather than emotional or conventional.</p>
       </div>
 
       <!-- Calculator CTA -->
@@ -405,7 +408,7 @@
         </div>
         <div class="article-cta-text">
           <strong>Run the numbers for your situation</strong>
-          <p>The Move Up Mapper Rent vs. Buy Analysis models the full financial comparison — monthly costs, opportunity cost, equity buildup, break-even timeline, and net worth after N years — using your actual numbers.</p>
+          <p>The Move Up Mapper Rent vs. Buy Analysis models the full financial comparison: monthly costs, opportunity cost, equity buildup, break-even timeline, and net worth after N years, using your actual numbers.</p>
           <a href="/rvb">Open the Rent vs. Buy Calculator →</a>
         </div>
       </div>
@@ -418,9 +421,9 @@
         <li>The true cost of buying is 30–60% higher than the mortgage payment alone once you include taxes, insurance, PMI, and maintenance.</li>
         <li>The opportunity cost of your down payment is a real financial cost that most mortgage calculators ignore.</li>
         <li>Break-even timelines in 2026 are typically 5–9 years, longer in high price-to-rent markets.</li>
-        <li>Real (inflation-adjusted) home appreciation averages 1–2% per year over the long run — don't anchor your decision to the 2020–2022 anomaly.</li>
+        <li>Real (inflation-adjusted) home appreciation averages 1–2% per year over the long run. Don't anchor your decision to the 2020–2022 anomaly.</li>
         <li>Time horizon is the most important variable. If you're uncertain about staying 5–9 years or more, the financial case for buying is weak in most 2026 markets.</li>
-        <li>The rent vs. buy decision is not primarily a financial calculation for everyone — stability, flexibility, and lifestyle fit are legitimate inputs that differ by person.</li>
+        <li>The rent vs. buy decision is not primarily a financial calculation for everyone. Stability, flexibility, and lifestyle fit are legitimate inputs that differ by person.</li>
       </ul>
 
     </div>
@@ -429,11 +432,13 @@
   <!-- Footer -->
   <footer class="site-footer no-print">
     <div class="footer-links">
+      <a href="/afford">Affordability Calculator</a>
       <a href="/swap">Home Swap Calculator</a>
       <a href="/rvb">Rent vs. Buy Analysis</a>
       <a href="/compound">Compound Growth</a>
       <a href="/refi">Refinance Calculator</a>
       <a href="/payoff">Payoff Calculator</a>
+      <a href="/proceeds">Net Proceeds</a>
       <a href="/faq">FAQ</a>
       <a href="/learn">Learn</a>
       <a href="/about">About</a>

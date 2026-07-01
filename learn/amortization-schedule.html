@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css?v=31">
+  <link rel="stylesheet" href="/styles.css?v=50">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -57,11 +57,14 @@
       <div class="nav-dropdown">
         <button type="button" class="page-nav-link nav-dropdown-btn" aria-haspopup="true">Calculators <svg class="nav-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
         <div class="nav-dropdown-menu">
-          <a href="/swap" class="nav-dropdown-item">Home Swap Calculator</a>
-          <a href="/rvb" class="nav-dropdown-item">Rent vs. Buy Analysis</a>
+          <a href="/afford" class="nav-dropdown-item">Affordability Calculator</a>
           <a href="/compound" class="nav-dropdown-item">Compound Growth</a>
-          <a href="/refi" class="nav-dropdown-item">Refi Calculator</a>
+          <a href="/downpayment" class="nav-dropdown-item">Down Payment Optimizer</a>
+          <a href="/swap" class="nav-dropdown-item">Home Swap Calculator</a>
+          <a href="/proceeds" class="nav-dropdown-item">Net Proceeds</a>
           <a href="/payoff" class="nav-dropdown-item">Payoff Calculator</a>
+          <a href="/refi" class="nav-dropdown-item">Refi Calculator</a>
+          <a href="/rvb" class="nav-dropdown-item">Rent vs. Buy Analysis</a>
         </div>
       </div>
       <a href="/faq"      class="page-nav-link">FAQ</a>
@@ -95,23 +98,23 @@
 
       <p>One of the most counterintuitive features of a 30-year mortgage is this: your payment stays exactly the same every month for 30 years, but what that payment <em>buys you</em> changes dramatically over time.</p>
 
-      <p>In year one, most of each payment goes to the bank in the form of interest. In year 25, most of it goes to building equity. This isn't a bug in how mortgages are designed — it's a mathematical consequence of how loan repayment works. But if you don't understand it, you'll consistently misread your own financial picture: overestimating how much equity you've built, underestimating the real cost of refinancing, and potentially making timing decisions around selling or moving that work against you.</p>
+      <p>In year one, most of each payment goes to the bank in the form of interest. In year 25, most of it goes to building equity. This isn't a bug in how mortgages are designed; it's a mathematical consequence of how loan repayment works. But if you don't understand it, you'll consistently misread your own financial picture: overestimating how much equity you've built, underestimating the real cost of refinancing, and potentially making timing decisions around selling or moving that work against you.</p>
 
-      <p>This guide explains amortization from the ground up — what it is, why payments are structured the way they are, and what it means practically for refinancing, extra payments, and choosing between a 15- and 30-year term.</p>
+      <p>This guide explains amortization from the ground up: what it is, why payments are structured the way they are, and what it means practically for refinancing, extra payments, and choosing between a 15- and 30-year term.</p>
 
       <hr class="article-divider">
 
       <h2>What "Amortization" Actually Means</h2>
 
-      <p>Amortization comes from the Latin <em>amortire</em> — to extinguish or kill off a debt. In the mortgage context, it means paying off a loan through scheduled, equal payments over a fixed period. Each payment chips away at the balance until, at the end of your term, you owe exactly zero.</p>
+      <p>Amortization comes from the Latin <em>amortire</em>, meaning to extinguish or kill off a debt. In the mortgage context, it means paying off a loan through scheduled, equal payments over a fixed period. Each payment chips away at the balance until, at the end of your term, you owe exactly zero.</p>
 
-      <p>The key word is <em>equal</em>. Your payment stays constant every month — but the math behind it shifts continuously. Here's why.</p>
+      <p>The key word is <em>equal</em>. Your payment stays constant every month, but the math behind it shifts continuously. Here's why.</p>
 
       <p>Every monthly payment has two components: interest on the outstanding balance, and principal repayment. The interest portion is calculated fresh each month on the current balance:</p>
 
-      <p><strong>Monthly interest = remaining balance × (annual rate ÷ 12)</strong></p>
+      <p>Monthly interest = remaining balance × (annual rate ÷ 12)</p>
 
-      <p>Whatever is left of your payment after the interest is covered goes to principal. That principal payment reduces the balance, which reduces next month's interest charge, which frees up a little more of your fixed payment to reduce principal — which reduces the balance further, and so on.</p>
+      <p>Whatever is left of your payment after the interest is covered goes to principal. That principal payment reduces the balance, which reduces next month's interest charge, which frees up a little more of your fixed payment to reduce principal, which reduces the balance further, and so on.</p>
 
       <p>Let's make this concrete. On a $400,000 mortgage at 6.75% for 30 years, your payment is approximately $2,594/month. In month one:</p>
 
@@ -121,7 +124,7 @@
         <li><strong>Remaining balance:</strong> $399,656</li>
       </ul>
 
-      <p>Next month, interest is charged on $399,656 — $1.94 less than before. That $1.94 shifts from the bank's pocket to your equity. The following month, it shifts a bit more. This is the engine of amortization: a slow, self-reinforcing transfer from interest to principal over the life of the loan.</p>
+      <p>Next month, interest is charged on $399,656, $1.94 less than before. That $1.94 shifts from the bank's pocket to your equity. The following month, it shifts a bit more. This is the engine of amortization: a slow, self-reinforcing transfer from interest to principal over the life of the loan.</p>
 
       <hr class="article-divider">
 
@@ -192,39 +195,39 @@
         </tbody>
       </table>
 
-      <p>The interest/principal crossover — the point where more of each payment goes to equity than to the bank — doesn't arrive until around year 21 on a 30-year loan at this rate. For most of the mortgage's life, you are primarily paying for the right to borrow, not for ownership of the home.</p>
+      <p>The interest/principal crossover (the point where more of each payment goes to equity than to the bank) doesn't arrive until around year 21 on a 30-year loan at this rate. For most of the mortgage's life, you are primarily paying for the right to borrow, not for ownership of the home.</p>
 
       <div class="article-callout">
-        <p><strong>After 5 years of $2,594 monthly payments — $155,640 paid in total — your balance has only fallen by about $24,500.</strong> The remaining $131,000 went to interest. You have paid 39% of everything you'll ever pay on this loan, and own roughly 6% more of your home than on day one.</p>
+        <p>After 5 years of $2,594 monthly payments ($155,640 paid in total), your balance has only fallen by about $24,500. The remaining $131,000 went to interest. You have paid 39% of everything you'll ever pay on this loan, and own roughly 6% more of your home than on day one.</p>
       </div>
 
-      <p>This isn't cause for alarm — it's simply how the math works when you borrow a large sum at any meaningful interest rate. But it should recalibrate two common assumptions: that five years of payments equals meaningful equity, and that "I've been paying my mortgage forever" translates to being close to owning the home outright.</p>
+      <p>This isn't cause for alarm; it's simply how the math works when you borrow a large sum at any meaningful interest rate. But it should recalibrate two common assumptions: that five years of payments equals meaningful equity, and that "I've been paying my mortgage forever" translates to being close to owning the home outright.</p>
 
       <hr class="article-divider">
 
-      <h2>Equity Builds Slowly — Then Accelerates</h2>
+      <h2>Equity Builds Slowly, Then Accelerates</h2>
 
-      <p>The amortization curve looks linear from the outside — same payment every month — but the equity it produces is highly non-linear. It starts nearly flat and steepens sharply toward the end of the loan.</p>
+      <p>The amortization curve looks linear from the outside (same payment every month) but the equity it produces is highly non-linear. It starts nearly flat and steepens sharply toward the end of the loan.</p>
 
       <p>On our $400,000 example, cumulative principal paid:</p>
 
       <ul>
-        <li><strong>After 10 years:</strong> ~$58,800 — about 15% of the original loan</li>
-        <li><strong>After 15 years:</strong> ~$106,800 — about 27%</li>
-        <li><strong>After 20 years:</strong> ~$174,000 — about 44%</li>
-        <li><strong>After 25 years:</strong> ~$268,000 — about 67%</li>
+        <li><strong>After 10 years:</strong> ~$58,800, about 15% of the original loan</li>
+        <li><strong>After 15 years:</strong> ~$106,800, about 27%</li>
+        <li><strong>After 20 years:</strong> ~$174,000, about 44%</li>
+        <li><strong>After 25 years:</strong> ~$268,000, about 67%</li>
         <li><strong>Final 5 years:</strong> the remaining 33% ($132,000) gets retired</li>
       </ul>
 
       <p>More than half of all principal repayment on a 30-year loan happens in the final ten years. The practical implication: if you sell or refinance in the first half of a 30-year mortgage, you're leaving the acceleration phase on the table. The years of fast equity buildup are at the back of the schedule, not the front.</p>
 
-      <p>This doesn't mean you should never sell or refinance — there are plenty of good reasons to do both. It does mean you should go in with a clear picture of where you actually stand, not where you assume you stand after years of making payments.</p>
+      <p>This doesn't mean you should never sell or refinance; there are plenty of good reasons to do both. It does mean you should go in with a clear picture of where you actually stand, not where you assume you stand after years of making payments.</p>
 
       <hr class="article-divider">
 
       <h2>The Refinancing Reset: What It Actually Costs You</h2>
 
-      <p>When you refinance into a new 30-year loan, you reset the amortization clock back to day one. That means returning to the front-heavy interest period — where most of each payment goes to interest — regardless of how far into your original loan you were.</p>
+      <p>When you refinance into a new 30-year loan, you reset the amortization clock back to day one. That means returning to the front-heavy interest period (where most of each payment goes to interest), regardless of how far into your original loan you were.</p>
 
       <p>Consider this scenario: you took out your $400,000 mortgage 10 years ago. Your balance is now around $341,000. Rates have dropped, and you refinance into a new 30-year loan at 5.75%. Your new monthly payment on $341,000 at 5.75% is approximately $1,990/month. In month one of the new loan:</p>
 
@@ -234,15 +237,15 @@
         <li><strong>% going to interest:</strong> 82%</li>
       </ul>
 
-      <p>You're back to 82% of your payment going to interest — nearly identical to where you started 10 years ago on your original loan — even though your rate is now a full point lower. The lower rate reduces the absolute interest charge, but the reset loan structure means the ratio is almost exactly where it was in year one.</p>
+      <p>You're back to 82% of your payment going to interest, nearly identical to where you started 10 years ago on your original loan, even though your rate is now a full point lower. The lower rate reduces the absolute interest charge, but the reset loan structure means the ratio is almost exactly where it was in year one.</p>
 
       <div class="article-callout article-callout--amber">
-        <p><strong>A lower rate genuinely reduces total interest paid over the life of the new loan.</strong> But a refinance that resets your term from "20 years left" to "30 years" effectively adds a decade to your mortgage timeline. The monthly payment drops — partly because of the lower rate, and partly because you're spreading the balance over 30 years instead of 20. That term extension is often invisible in the excitement of a lower rate.</p>
+        <p>A lower rate genuinely reduces total interest paid over the life of the new loan. But a refinance that resets your term from "20 years left" to "30 years" effectively adds a decade to your mortgage timeline. The monthly payment drops, partly because of the lower rate and partly because you're spreading the balance over 30 years instead of 20. That term extension is often invisible in the excitement of a lower rate.</p>
       </div>
 
       <p>This is why choosing the right term on a refinance matters as much as the rate itself. Refinancing from a loan with 20 years remaining into a new 20-year loan (rather than 30) keeps your payoff date intact and still lets you capture the rate savings. The payment will be somewhat higher than a 30-year refinance, but you avoid restarting the slow-equity phase of the amortization curve.</p>
 
-      <p>The break-even on a refinance — the number of months it takes for your monthly savings to repay the closing costs — is also directly affected by this dynamic. If you reset to 30 years, your monthly savings look larger, but a portion of that "saving" is really just payment deferral: you're paying less now but will pay more later because the loan runs longer.</p>
+      <p>The break-even on a refinance (the number of months it takes for your monthly savings to repay the closing costs) is also directly affected by this dynamic. If you reset to 30 years, your monthly savings look larger, but a portion of that "saving" is really just payment deferral: you're paying less now but will pay more later because the loan runs longer.</p>
 
       <hr class="article-divider">
 
@@ -250,7 +253,7 @@
 
       <p>Understanding amortization reveals why extra principal payments are more powerful than they appear on the surface. Because interest is charged on the remaining balance every month, each additional dollar of principal you pay today eliminates future interest on that dollar for the rest of the loan's life.</p>
 
-      <p>On a 30-year $400,000 mortgage at 6.75%, the total interest paid over the full term is approximately <strong>$533,800</strong> — you'll pay $933,800 total for a $400,000 loan. Extra payments attack that interest accumulation directly:</p>
+      <p>On a 30-year $400,000 mortgage at 6.75%, the total interest paid over the full term is approximately $533,800; you'll pay $933,800 total for a $400,000 loan. Extra payments attack that interest accumulation directly:</p>
 
       <ul>
         <li><strong>An extra $200/month from the start</strong> shortens the loan by roughly 6 years and saves approximately $120,000 in total interest</li>
@@ -259,10 +262,10 @@
       </ul>
 
       <div class="article-callout article-callout--amber">
-        <p><strong>The earlier in the loan you make extra payments, the more powerful they are.</strong> A $500 extra principal payment in month 1 eliminates 359 months of future interest on that $500. The same payment in year 25 eliminates only 5 years of interest on it. Time is the amplifier — which is exactly the same reason compound growth works.</p>
+        <p>The earlier in the loan you make extra payments, the more powerful they are. A $500 extra principal payment in month 1 eliminates 359 months of future interest on that $500. The same payment in year 25 eliminates only 5 years of interest on it. Time is the amplifier, which is exactly the same reason compound growth works.</p>
       </div>
 
-      <p>One practical consideration: before making extra principal payments, confirm that your lender applies them to principal immediately (most do, but not all), and verify whether your mortgage has a prepayment penalty (rare in conventional loans, more common in certain ARM products). Also weigh the opportunity cost — extra mortgage payments are a guaranteed return equal to your mortgage rate, which looks attractive compared to bonds but may be less attractive than a long-run equity portfolio return if your rate is relatively low.</p>
+      <p>One practical consideration: before making extra principal payments, confirm that your lender applies them to principal immediately (most do, but not all), and verify whether your mortgage has a prepayment penalty (rare in conventional loans, more common in certain ARM products). Also weigh the opportunity cost: extra mortgage payments are a guaranteed return equal to your mortgage rate, which looks attractive compared to bonds but may be less attractive than a long-run equity portfolio return if your rate is relatively low.</p>
 
       <hr class="article-divider">
 
@@ -270,7 +273,7 @@
 
       <p>A 15-year mortgage is not simply a shorter 30-year mortgage. It's a structurally different amortization schedule with a fundamentally different equity trajectory from day one.</p>
 
-      <p>On the same $400,000 at 6.75%, a 15-year loan carries a monthly payment of approximately $3,540 — about $946 more per month than the 30-year payment of $2,594. Here's what that difference buys you:</p>
+      <p>On the same $400,000 at 6.75%, a 15-year loan carries a monthly payment of approximately $3,540, about $946 more per month than the 30-year payment of $2,594. Here's what that difference buys you:</p>
 
       <table class="article-data-table">
         <thead>
@@ -324,33 +327,33 @@
         </tbody>
       </table>
 
-      <p>Notice that month one of both loans charges exactly the same interest: $2,250. Both start with a $400,000 balance at the same rate, so the interest is identical. The difference is that the 15-year payment is $3,540, leaving $1,290 for principal — nearly four times what the 30-year allocates. From month two onward, the 15-year loan's balance drops far faster, generating a compounding advantage in reduced interest charges that accumulates to about $297,000 over the life of the loans.</p>
+      <p>Notice that month one of both loans charges exactly the same interest: $2,250. Both start with a $400,000 balance at the same rate, so the interest is identical. The difference is that the 15-year payment is $3,540, leaving $1,290 for principal, nearly four times what the 30-year allocates. From month two onward, the 15-year loan's balance drops far faster, generating a compounding advantage in reduced interest charges that accumulates to about $297,000 over the life of the loans.</p>
 
-      <p>In exchange for that $297,000 in saved interest, you're paying $946 more per month. Over 15 years that's $170,000 more in total payments — but you also own the home outright 15 years sooner and carry no mortgage obligation in years 16–30. What the $946 monthly difference would earn if invested at 7% over 15 years instead is approximately $290,000 — roughly comparable to the interest savings, which illustrates that at moderate investment return assumptions, the 30-year with disciplined investing can approach similar outcomes to the 15-year. The 15-year wins if you don't invest the difference; the comparison becomes more nuanced if you do.</p>
+      <p>In exchange for that $297,000 in saved interest, you're paying $946 more per month. Over 15 years that's $170,000 more in total payments, but you also own the home outright 15 years sooner and carry no mortgage obligation in years 16–30. What the $946 monthly difference would earn if invested at 7% over 15 years instead is approximately $290,000, roughly comparable to the interest savings, which illustrates that at moderate investment return assumptions, the 30-year with disciplined investing can approach similar outcomes to the 15-year. The 15-year wins if you don't invest the difference; the comparison becomes more nuanced if you do.</p>
 
       <p>One additional advantage of 15-year loans: lenders typically price them 0.5–0.75% lower than 30-year loans, which widens the interest-savings gap further in the 15-year's favor beyond what the table above shows (which uses the same 6.75% rate for both).</p>
 
       <div class="article-callout article-callout--green">
-        <p><strong>The 30-year gives you flexibility.</strong> A lower required payment means more cash available each month — for investing, for emergencies, or for the life expenses that don't stop when you take out a mortgage. The 15-year forces discipline but also reduces optionality. Which tradeoff fits your situation depends on income stability, risk tolerance, and how much you trust yourself to actually invest the difference.</p>
+        <p>The 30-year gives you flexibility. A lower required payment means more cash available each month: for investing, for emergencies, or for the life expenses that don't stop when you take out a mortgage. The 15-year forces discipline but also reduces optionality. Which tradeoff fits your situation depends on income stability, risk tolerance, and how much you trust yourself to actually invest the difference.</p>
       </div>
 
       <hr class="article-divider">
 
       <h2>Reading Your Own Amortization Schedule</h2>
 
-      <p>Your lender is required to provide an amortization schedule — it's typically in your closing documents, and most lenders will provide one on request at any point in the loan. You can also generate one online using your remaining balance, current rate, and remaining term. What to look at:</p>
+      <p>Your lender is required to provide an amortization schedule, typically in your closing documents, and most lenders will provide one on request at any point in the loan. You can also generate one online using your remaining balance, current rate, and remaining term. What to look at:</p>
 
       <h3>Your current month's principal payment</h3>
-      <p>This is the equity you're building this month. On a 30-year loan at year 10, you're adding roughly $675 to your equity per payment — about $8,100 per year. Knowing this number gives you a concrete sense of the equity engine at work, rather than treating it as a black box.</p>
+      <p>This is the equity you're building this month. On a 30-year loan at year 10, you're adding roughly $675 to your equity per payment, about $8,100 per year. Knowing this number gives you a concrete sense of the equity engine at work, rather than treating it as a black box.</p>
 
       <h3>The PMI threshold</h3>
-      <p>If you're paying PMI (required when your loan-to-value ratio exceeds 80%), your amortization schedule will show you when your balance naturally falls below the 20%-equity threshold — assuming a static home value. In practice, if your home has appreciated, you may hit that threshold sooner and can request PMI cancellation in writing. Under the Homeowners Protection Act, lenders must automatically terminate PMI when you reach 22% equity based on the original amortization schedule.</p>
+      <p>If you're paying PMI (required when your loan-to-value ratio exceeds 80%), your amortization schedule will show you when your balance naturally falls below the 20%-equity threshold, assuming a static home value. In practice, if your home has appreciated, you may hit that threshold sooner and can request PMI cancellation in writing. Under the Homeowners Protection Act, lenders must automatically terminate PMI when you reach 22% equity based on the original amortization schedule.</p>
 
       <h3>Your remaining term in context</h3>
-      <p>If you're considering refinancing, your amortization schedule tells you how much equity-building momentum you'd be giving up. Ten years into a 30-year loan, you're approaching year 11 — still in the slow phase, but about to enter the part of the curve where paydown meaningfully accelerates. Fifteen years in, resetting to a new 30-year pushes that acceleration another decade away.</p>
+      <p>If you're considering refinancing, your amortization schedule tells you how much equity-building momentum you'd be giving up. Ten years into a 30-year loan, you're approaching year 11, still in the slow phase but about to enter the part of the curve where paydown meaningfully accelerates. Fifteen years in, resetting to a new 30-year pushes that acceleration another decade away.</p>
 
       <h3>Payoff date and total interest remaining</h3>
-      <p>The schedule shows you not just where you are, but exactly what it will cost to stay the course versus refinance. The remaining total interest on your current loan is the number that should anchor any refinancing conversation — it's the ceiling on what a refinance can save you, before accounting for closing costs and opportunity cost.</p>
+      <p>The schedule shows you not just where you are, but exactly what it will cost to stay the course versus refinance. The remaining total interest on your current loan is the number that should anchor any refinancing conversation: it's the ceiling on what a refinance can save you, before accounting for closing costs and opportunity cost.</p>
 
       <hr class="article-divider">
 
@@ -359,7 +362,7 @@
       <p>Amortization is one of those topics where a little understanding goes a long way. Four things worth keeping in mind across any major mortgage decision:</p>
 
       <ol>
-        <li><strong>Early payments are mostly interest — that's normal, not a flaw.</strong> But it does mean that selling or refinancing in the first five years of a mortgage returns far less equity than many buyers expect. Your balance hasn't dropped much; most of what you've paid has been interest.</li>
+        <li><strong>Early payments are mostly interest; that's normal, not a flaw.</strong> But it does mean that selling or refinancing in the first five years of a mortgage returns far less equity than many buyers expect. Your balance hasn't dropped much; most of what you've paid has been interest.</li>
         <li><strong>Refinancing is a restart, not just a rate adjustment.</strong> The lower rate is real, but the term reset is also real. Evaluate both together: what term makes sense, not just what rate. A 20-year refinance often outperforms a 30-year refinance in total cost even at the same rate, because it keeps you in the faster-paydown part of the curve.</li>
         <li><strong>Extra payments are most valuable early.</strong> The first half of a loan's life is when the balance is highest and interest charges are heaviest. An extra $200/month starting in year one is worth roughly twice what the same $200 saves if you start in year 15.</li>
         <li><strong>The 15-year vs. 30-year decision is a cash flow tradeoff, not just an interest-rate calculation.</strong> The 15-year saves $297,000 in interest and builds equity dramatically faster, but only if you can reliably carry the higher payment. A 30-year with extra payments can approximate the 15-year's outcome with more flexibility, but only if the discipline is actually applied.</li>
@@ -388,10 +391,10 @@
         <li>In year one of a $400,000 mortgage at 6.75%, 87% of each payment goes to interest and only 13% to principal. This ratio shifts gradually over 30 years.</li>
         <li>After 5 years of payments on a 30-year loan, you've paid roughly $155,000 but reduced your balance by only about $24,500. The rest was interest.</li>
         <li>Equity buildup is back-loaded: more than half of all principal repayment on a 30-year loan happens in the final ten years.</li>
-        <li>Refinancing into a new 30-year loan resets the amortization clock — you return to the front-heavy interest phase regardless of how far into your original loan you were. Choosing a shorter new term preserves the paydown momentum you've built.</li>
+        <li>Refinancing into a new 30-year loan resets the amortization clock; you return to the front-heavy interest phase regardless of how far into your original loan you were. Choosing a shorter new term preserves the paydown momentum you've built.</li>
         <li>Extra principal payments are most powerful early in the loan, when each dollar eliminates the most future interest charges. A $200/month extra payment from the start saves approximately $120,000 in total interest and shortens the loan by 6 years.</li>
         <li>A 15-year mortgage costs roughly $946 more per month on the same $400,000 balance, but saves approximately $297,000 in total interest and reaches the interest/principal crossover by year 5 rather than year 21.</li>
-        <li>Reading your amortization schedule before selling, refinancing, or making extra payments gives you a concrete picture of your actual financial position — not the assumed one.</li>
+        <li>Reading your amortization schedule before selling, refinancing, or making extra payments gives you a concrete picture of your actual financial position, not the assumed one.</li>
       </ul>
 
     </div>
@@ -400,11 +403,13 @@
   <!-- Footer -->
   <footer class="site-footer no-print">
     <div class="footer-links">
+      <a href="/afford">Affordability Calculator</a>
       <a href="/swap">Home Swap Calculator</a>
       <a href="/rvb">Rent vs. Buy Analysis</a>
       <a href="/compound">Compound Growth</a>
       <a href="/refi">Refinance Calculator</a>
       <a href="/payoff">Payoff Calculator</a>
+      <a href="/proceeds">Net Proceeds</a>
       <a href="/faq">FAQ</a>
       <a href="/learn">Learn</a>
       <a href="/about">About</a>

@@ -864,17 +864,12 @@ function bindInputs() {
 function syncTaxInput(mode) {
   const s = getState();
   const ptEl = $('propertyTax');
-  const affix = $('taxAffix');
-  const taxWrap = $('taxInputWrap');
+  const prefix = $('taxPrefix');
   if (mode === 'percent') {
-    affix.textContent = '%';
-    taxWrap.classList.add('suffix');
-    taxWrap.classList.remove('prefix');
+    if (prefix) prefix.style.display = 'none';
     ptEl.value = s.propertyTaxPercent;
   } else {
-    affix.textContent = '$';
-    taxWrap.classList.remove('suffix');
-    taxWrap.classList.add('prefix');
+    if (prefix) prefix.style.display = '';
     ptEl.value = s.propertyTaxDollar;
   }
   $('taxModePercent').classList.toggle('active', mode === 'percent');
@@ -884,17 +879,14 @@ function syncTaxInput(mode) {
 function syncHoiInput(mode) {
   const s = getState();
   const el = $('homeownersInsurance');
-  const affix = $('hoiAffix');
-  const wrap = $('hoiInputWrap');
+  const prefix = $('hoiPrefix');
   if (!el) return;
   if (mode === 'percent') {
-    if (affix) affix.textContent = '%';
-    if (wrap) { wrap.classList.add('suffix'); wrap.classList.remove('prefix'); }
+    if (prefix) prefix.style.display = 'none';
     el.step = '0.05';
     el.value = s.hoiPct;
   } else {
-    if (affix) affix.textContent = '$';
-    if (wrap) { wrap.classList.remove('suffix'); wrap.classList.add('prefix'); }
+    if (prefix) prefix.style.display = '';
     el.step = '10';
     el.value = s.homeownersInsurance;
   }

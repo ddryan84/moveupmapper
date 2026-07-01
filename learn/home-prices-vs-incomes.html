@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"></noscript>
-  <link rel="stylesheet" href="/styles.css?v=35">
+  <link rel="stylesheet" href="/styles.css?v=50">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -58,13 +58,14 @@
       <div class="nav-dropdown">
         <button type="button" class="page-nav-link nav-dropdown-btn" aria-haspopup="true">Calculators <svg class="nav-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
         <div class="nav-dropdown-menu">
-          <a href="/swap" class="nav-dropdown-item">Home Swap Calculator</a>
-          <a href="/rvb" class="nav-dropdown-item">Rent vs. Buy Analysis</a>
+          <a href="/afford" class="nav-dropdown-item">Affordability Calculator</a>
           <a href="/compound" class="nav-dropdown-item">Compound Growth</a>
-          <a href="/refi" class="nav-dropdown-item">Refi Calculator</a>
           <a href="/downpayment" class="nav-dropdown-item">Down Payment Optimizer</a>
-          <a href="/refi" class="nav-dropdown-item">Refi Calculator</a>
+          <a href="/swap" class="nav-dropdown-item">Home Swap Calculator</a>
+          <a href="/proceeds" class="nav-dropdown-item">Net Proceeds</a>
           <a href="/payoff" class="nav-dropdown-item">Payoff Calculator</a>
+          <a href="/refi" class="nav-dropdown-item">Refi Calculator</a>
+          <a href="/rvb" class="nav-dropdown-item">Rent vs. Buy Analysis</a>
         </div>
       </div>
       <a href="/faq"      class="page-nav-link">FAQ</a>
@@ -98,15 +99,15 @@
 
       <p>In 2012, the U.S. housing market was still climbing out of the deepest crash since the Great Depression. Prices were low, inventory was high, and first-time buyers had more purchasing power relative to home prices than at almost any point in recent decades. The median American household could comfortably afford the median home.</p>
 
-      <p>That window closed quickly, and it has not reopened. Over the twelve years that followed, U.S. median home prices rose roughly 130% while median household income grew roughly 60%. The gap between those two lines is the defining affordability problem of the current housing era — and understanding what caused it is the starting point for understanding why buying feels so much harder today than it did a generation ago.</p>
+      <p>That window closed quickly, and it has not reopened. Over the twelve years that followed, U.S. median home prices rose roughly 130% while median household income grew roughly 60%. The gap between those two lines is the defining affordability problem of the current housing era, and understanding what caused it is the starting point for understanding why buying feels so much harder today than it did a generation ago.</p>
 
       <hr class="article-divider">
 
       <h2>The Divergence in Numbers</h2>
 
-      <p>The raw figures are straightforward. The U.S. median existing home sales price was approximately <strong>$177,000</strong> in 2012. By 2024 it had reached roughly <strong>$407,000</strong> — a 130% nominal increase, with a peak above $420,000 in 2022. Prices held near that level through 2025 as income growth began to slowly narrow the gap. Median household income over the same period moved from approximately $51,000 to approximately $86,000 by 2025, a gain of roughly 69% — less than half the price appreciation.</p>
+      <p>The raw figures are straightforward. The U.S. median existing home sales price was approximately $177,000 in 2012. By 2024 it had reached roughly $407,000, a 130% nominal increase, with a peak above $420,000 in 2022. Prices held near that level through 2025 as income growth began to slowly narrow the gap. Median household income over the same period moved from approximately $51,000 to approximately $86,000 by 2025, a gain of roughly 69%, less than half the price appreciation.</p>
 
-      <p>The price-to-income ratio captures the gap cleanly. In 2012, the median home cost about <strong>3.5 times</strong> median household income — within the historical range of 3 to 4 that had prevailed for most of the postwar era (the decades following World War II). By 2024 it had risen to approximately <strong>5.1 times</strong> income, easing only marginally to around <strong>5.0 times</strong> by 2025. That may sound like a modest shift in multiples, but the practical effect on monthly payments is severe.</p>
+      <p>The price-to-income ratio captures the gap cleanly. In 2012, the median home cost about 3.5 times median household income, within the historical range of 3 to 4 that had prevailed for most of the postwar era (the decades following World War II). By 2024 it had risen to approximately 5.1 times income, easing only marginally to around 5.0 times by 2025. That may sound like a modest shift in multiples, but the practical effect on monthly payments is severe.</p>
 
       <div class="article-chart">
         <div class="article-chart-title">Home Prices vs. Median Household Income, Indexed to 2012 = 100</div>
@@ -174,12 +175,12 @@
         <div class="article-chart-source">Source: NAR (median existing home sales price) / U.S. Census Bureau (HINC). Both series indexed to 2012 = 100. Annual figures; 2025 estimated.</div>
       </div>
 
-      <p>The payment math makes the divergence concrete. A buyer in 2012 financing the median home ($177,000) with 20% down at that year's average 30-year rate of 3.7% owed roughly <strong>$652 per month</strong> in principal and interest. At a standard 28% front-end debt-to-income ratio, qualifying income was about $27,900 per year — roughly <strong>55% of median household income</strong> at the time. The median American household earned nearly twice what was needed to qualify.</p>
+      <p>The payment math makes the divergence concrete. A buyer in 2012 financing the median home ($177,000) with 20% down at that year's average 30-year rate of 3.7% owed roughly $652 per month in principal and interest. At a standard 28% front-end debt-to-income ratio, qualifying income was about $27,900 per year, roughly 55% of median household income at the time. The median American household earned nearly twice what was needed to qualify.</p>
 
-      <p>A buyer in 2024 financing the median home ($407,000) with 20% down at 7.0% owes roughly <strong>$2,167 per month</strong>. Qualifying income at 28% DTI is about $92,900 per year — approximately 116% of median household income. For the first time in the modern era, the median household earns less than what's needed to qualify for the median home at standard underwriting thresholds.</p>
+      <p>A buyer in 2024 financing the median home ($407,000) with 20% down at 7.0% owes roughly $2,167 per month. Qualifying income at 28% DTI is about $92,900 per year, approximately 116% of median household income. For the first time in the modern era, the median household earns less than what's needed to qualify for the median home at standard underwriting thresholds.</p>
 
       <div class="article-callout article-callout--amber">
-        <p><strong>The affordability inversion.</strong> In 2012, the median household earned nearly twice the qualifying income for the median home. In 2024, it earns less than the qualifying threshold. This isn't a cyclical blip — it reflects a structural shift in the relationship between housing and income that built gradually over more than a decade.</p>
+        <p>The affordability inversion. In 2012, the median household earned nearly twice the qualifying income for the median home. In 2024, it earns less than the qualifying threshold. This isn't a cyclical blip; it reflects a structural shift in the relationship between housing and income that built gradually over more than a decade.</p>
       </div>
 
       <p>Five structural forces drove this divergence. Each one would have raised prices meaningfully on its own. Together, they compounded into the most sustained affordability decline in the postwar record.</p>
@@ -188,7 +189,7 @@
 
       <h2>Force 1: A Decade of Structural Underbuilding</h2>
 
-      <p>The housing crash of 2008–2011 didn't just reduce prices. It effectively shut down the homebuilding industry for years. Annual housing starts, which had run above 1.8 million units per year at the height of the mid-2000s boom, collapsed to fewer than 550,000 in 2009 — the lowest level since records began in the 1950s.</p>
+      <p>The housing crash of 2008–2011 didn't just reduce prices. It effectively shut down the homebuilding industry for years. Annual housing starts, which had run above 1.8 million units per year at the height of the mid-2000s boom, collapsed to fewer than 550,000 in 2009, the lowest level since records began in the 1950s.</p>
 
       <p>The industry recovered, but slowly. Even by 2015, starts were still running around 1.1 million per year, well below the roughly 1.5 million needed to keep pace with household formation. Builders who had gone bankrupt during the crash were slow to re-enter. Skilled construction labor had left the industry and didn't return quickly. Land entitlement backlogs stretched longer. The result was a compounding annual housing deficit that accumulated quietly through the mid-2010s.</p>
 
@@ -246,7 +247,7 @@
         <div class="article-chart-source">Source: U.S. Census Bureau / FRED (HOUST). Annual totals; 2025 estimated. Historical average of ~1.5M reflects estimated household formation demand.</div>
       </div>
 
-      <p>Freddie Mac estimated the total accumulated housing deficit at <strong>3.8 million units</strong> by 2020, before the pandemic price surge further absorbed available inventory. Others have put the figure as high as 5 million. The precise number is disputed; the direction is not. The U.S. entered the 2020s with a substantial shortage of homes relative to the number of households that wanted to own one.</p>
+      <p>Freddie Mac estimated the total accumulated housing deficit at 3.8 million units by 2020, before the pandemic price surge further absorbed available inventory. Others have put the figure as high as 5 million. The precise number is disputed; the direction is not. The U.S. entered the 2020s with a substantial shortage of homes relative to the number of households that wanted to own one.</p>
 
       <p>A shortage of supply with stable or growing demand produces one outcome in every market: higher prices. The underbuilding of the 2010s was the foundation on which the affordability crisis was built.</p>
 
@@ -254,14 +255,14 @@
 
       <h2>Force 2: Zoning and the Cost to Build</h2>
 
-      <p>The slow recovery in housing starts wasn't purely a hangover from the crisis. It also reflected structural constraints on where and what can be built — constraints that haven't meaningfully loosened in most markets.</p>
+      <p>The slow recovery in housing starts wasn't purely a hangover from the crisis. It also reflected structural constraints on where and what can be built, constraints that haven't meaningfully loosened in most markets.</p>
 
-      <p>Single-family zoning covers the majority of residential land in most U.S. cities. This restricts density, limits the number of units that can be built on a given parcel, and by extension limits how much supply can be added in already-desirable urban and suburban markets. Cities where job growth was strongest — coastal metros, tech hubs, university towns — also had the most restrictive land-use rules, creating a mismatch between where people wanted to live and where it was legally or economically viable to build.</p>
+      <p>Single-family zoning covers the majority of residential land in most U.S. cities. This restricts density, limits the number of units that can be built on a given parcel, and by extension limits how much supply can be added in already-desirable urban and suburban markets. Cities where job growth was strongest (coastal metros, tech hubs, university towns) also had the most restrictive land-use rules, creating a mismatch between where people wanted to live and where it was legally or economically viable to build.</p>
 
-      <p>The cost to build a new home has also risen sharply. Construction labor costs increased significantly through the 2010s as the skilled workforce that left during the crash didn't fully return. Material costs — lumber in particular — experienced extreme volatility, with lumber prices spiking more than 300% at various points during the pandemic. Between land costs, permitting fees, impact fees, and construction costs, the floor price for new construction in most metro areas has risen well above what entry-level buyers can afford. Builders have responded by concentrating on the higher end of the market, where margins are sufficient to justify the investment, leaving the bottom of the market chronically undersupplied.</p>
+      <p>The cost to build a new home has also risen sharply. Construction labor costs increased significantly through the 2010s as the skilled workforce that left during the crash didn't fully return. Material costs, lumber in particular, experienced extreme volatility, with lumber prices spiking more than 300% at various points during the pandemic. Between land costs, permitting fees, impact fees, and construction costs, the floor price for new construction in most metro areas has risen well above what entry-level buyers can afford. Builders have responded by concentrating on the higher end of the market, where margins are sufficient to justify the investment, leaving the bottom of the market chronically undersupplied.</p>
 
       <div class="article-callout">
-        <p><strong>The missing entry-level home.</strong> In 1980, roughly a third of new homes built were smaller than 1,400 square feet. By 2020, that share had fallen below 10%. Builders aren't building small homes because the economics don't work at current land and construction costs. The entry-level home that once provided first-time buyers a foothold in ownership has largely disappeared from new construction.</p>
+        <p>The missing entry-level home. In 1980, roughly a third of new homes built were smaller than 1,400 square feet. By 2020, that share had fallen below 10%. Builders aren't building small homes because the economics don't work at current land and construction costs. The entry-level home that once provided first-time buyers a foothold in ownership has largely disappeared from new construction.</p>
       </div>
 
       <hr class="article-divider">
@@ -270,14 +271,14 @@
 
       <p>Supply constraints explain why prices had nowhere to go but up. Low interest rates explain why they went up as fast as they did.</p>
 
-      <p>The Federal Reserve dropped rates to near zero following the 2008 financial crisis and held them there for seven years. Rates rose modestly from 2016 to 2018, then fell again. When the pandemic hit in 2020, they returned to zero and stayed there through early 2022. The result was an extended era of historically cheap mortgage financing — one that allowed buyers to carry far larger loan balances for the same monthly cost.</p>
+      <p>The Federal Reserve dropped rates to near zero following the 2008 financial crisis and held them there for seven years. Rates rose modestly from 2016 to 2018, then fell again. When the pandemic hit in 2020, they returned to zero and stayed there through early 2022. The result was an extended era of historically cheap mortgage financing, one that allowed buyers to carry far larger loan balances for the same monthly cost.</p>
 
-      <p>The mechanism is straightforward: when mortgage rates fall, the same monthly payment supports a much larger loan. A buyer who can afford $1,500 per month in principal and interest can borrow about $296,000 at 4.5% — or $356,000 at 3.0%. That extra $60,000 of borrowing capacity chases the same inventory, pushing prices higher. Multiply that effect across millions of buyers simultaneously and you get a sustained price accelerant that is independent of any improvement in incomes.</p>
+      <p>The mechanism is straightforward: when mortgage rates fall, the same monthly payment supports a much larger loan. A buyer who can afford $1,500 per month in principal and interest can borrow about $296,000 at 4.5%, or $356,000 at 3.0%. That extra $60,000 of borrowing capacity chases the same inventory, pushing prices higher. Multiply that effect across millions of buyers simultaneously and you get a sustained price accelerant that is independent of any improvement in incomes.</p>
 
       <p>This is the core dynamic that made 2020–2022 so extreme. Rates hit all-time lows at exactly the moment when remote-work flexibility allowed buyers to compete in markets they'd never previously considered. Pandemic-era savings had also given many households an unusually large down payment to deploy. The triple coincidence of cheap financing, geographic flexibility, and cash-flush buyers hitting a market with structurally constrained supply produced the fastest two-year price appreciation on record.</p>
 
       <div class="article-callout article-callout--amber">
-        <p><strong>Low rates are a price accelerant, not an affordability fix.</strong> Cheap financing makes monthly payments lower in the short run, but it also enables buyers to bid more for homes — which raises prices. Over time, price appreciation erodes and then reverses the affordability gain from lower rates. The 2012–2022 cycle is the clearest recent illustration: rates were at generational lows the entire time, and affordability still deteriorated sharply because prices rose faster than the rate benefit.</p>
+        <p>Low rates are a price accelerant, not an affordability fix. Cheap financing makes monthly payments lower in the short run, but it also enables buyers to bid more for homes, which raises prices. Over time, price appreciation erodes and then reverses the affordability gain from lower rates. The 2012–2022 cycle is the clearest recent illustration: rates were at generational lows the entire time, and affordability still deteriorated sharply because prices rose faster than the rate benefit.</p>
       </div>
 
       <hr class="article-divider">
@@ -286,11 +287,11 @@
 
       <p>Demographics added a persistent demand tailwind that ran through the entire period and continues today.</p>
 
-      <p>Millennials — roughly defined as those born between 1981 and 1996 — are the largest generation in U.S. history, numbering about 72 million people. The peak homebuying years for any cohort tend to fall in the early-to-mid thirties, when career earnings have grown, family formation is occurring, and the desire for stability typically peaks. For millennials, that window opened around 2015 and runs through approximately 2030.</p>
+      <p>Millennials, roughly defined as those born between 1981 and 1996, are the largest generation in U.S. history, numbering about 72 million people. The peak homebuying years for any cohort tend to fall in the early-to-mid thirties, when career earnings have grown, family formation is occurring, and the desire for stability typically peaks. For millennials, that window opened around 2015 and runs through approximately 2030.</p>
 
-      <p>The timing interacted badly with the supply shortage. The largest generation in history entered peak homebuying years at the same moment the market was running 3–4 million units short. The demographic demand wave didn't cause the supply deficit, but it ensured that the deficit would be felt with maximum intensity — and that the resulting price pressure would last longer than a typical cyclical housing correction.</p>
+      <p>The timing interacted badly with the supply shortage. The largest generation in history entered peak homebuying years at the same moment the market was running 3–4 million units short. The demographic demand wave didn't cause the supply deficit, but it ensured that the deficit would be felt with maximum intensity, and that the resulting price pressure would last longer than a typical cyclical housing correction.</p>
 
-      <p>There is also a compounding effect specific to millennial buyers. Many delayed homeownership longer than previous generations, spending more years in rental housing while saving larger down payments. When they did buy — often later, and often in the higher price brackets associated with their delayed entry — they tended to transact at the middle and upper-middle tiers of the market, putting pressure on exactly the segment where supply was most constrained.</p>
+      <p>There is also a compounding effect specific to millennial buyers. Many delayed homeownership longer than previous generations, spending more years in rental housing while saving larger down payments. When they did buy, often later and often in the higher price brackets associated with their delayed entry, they tended to transact at the middle and upper-middle tiers of the market, putting pressure on exactly the segment where supply was most constrained.</p>
 
       <hr class="article-divider">
 
@@ -298,7 +299,7 @@
 
       <p>The first four forces operated throughout the 2012–2024 period. The fifth is concentrated in the post-2020 era, but its impact on the national median was significant enough to account for a meaningful portion of the total divergence.</p>
 
-      <p>Before 2020, home prices in secondary cities — mid-sized metros without major employment anchors, smaller coastal cities, mountain towns, and Sun Belt suburbs — were largely in line with local income levels. Buyers who worked remotely were a small minority; most homebuying was constrained to within commuting distance of a job.</p>
+      <p>Before 2020, home prices in secondary cities (mid-sized metros without major employment anchors, smaller coastal cities, mountain towns, and Sun Belt suburbs) were largely in line with local income levels. Buyers who worked remotely were a small minority; most homebuying was constrained to within commuting distance of a job.</p>
 
       <p>The mass adoption of remote work changed that constraint. Suddenly a buyer earning a San Francisco salary could purchase in Phoenix, Austin, Boise, Nashville, or any of dozens of metros where prices were a fraction of coastal levels. The effect was immediate and dramatic. Markets that had seen modest price appreciation for a decade experienced 20–40% gains in 18 months as out-of-market buyers, often with larger budgets than local buyers, competed for limited local inventory.</p>
 
@@ -311,16 +312,16 @@
       <p>Understanding the forces behind the divergence matters because they carry different implications for how buyers should think about the market today.</p>
 
       <h3>The affordability problem isn't cyclical</h3>
-      <p>A purely cyclical problem — a demand boom, a speculative bubble — corrects when the cycle turns. The 2012–2025 divergence was not primarily cyclical. Underbuilding is structural. Zoning restrictions are structural. Demographic demand is structural. These forces don't resolve when the Fed raises rates or when sentiment turns cautious. They ease slowly over years, if at all. Buyers waiting for a crash to bring prices back to 2015 levels are likely waiting for something that the underlying structure of the market is actively preventing.</p>
+      <p>A purely cyclical problem (a demand boom, a speculative bubble) corrects when the cycle turns. The 2012–2025 divergence was not primarily cyclical. Underbuilding is structural. Zoning restrictions are structural. Demographic demand is structural. These forces don't resolve when the Fed raises rates or when sentiment turns cautious. They ease slowly over years, if at all. Buyers waiting for a crash to bring prices back to 2015 levels are likely waiting for something that the underlying structure of the market is actively preventing.</p>
 
       <h3>Markets vary enormously</h3>
-      <p>The national median obscures wide variation. Sun Belt markets that absorbed remote-work migration — Phoenix, Austin, Tampa, Nashville — saw extreme appreciation from 2020 to 2022 and have since seen meaningful corrections as that demand normalized. Midwest markets with more balanced supply-demand dynamics have been less extreme in both directions. Highly restrictive coastal metros have barely moved on price despite affordability reaching historic lows, because supply constraints there are severe enough to prevent correction even when demand softens. The question for any buyer is not how the national median is doing, but what the supply and demand dynamics look like in the specific market they're evaluating.</p>
+      <p>The national median obscures wide variation. Sun Belt markets that absorbed remote-work migration (Phoenix, Austin, Tampa, Nashville) saw extreme appreciation from 2020 to 2022 and have since seen meaningful corrections as that demand normalized. Midwest markets with more balanced supply-demand dynamics have been less extreme in both directions. Highly restrictive coastal metros have barely moved on price despite affordability reaching historic lows, because supply constraints there are severe enough to prevent correction even when demand softens. The question for any buyer is not how the national median is doing, but what the supply and demand dynamics look like in the specific market they're evaluating.</p>
 
       <h3>The rent vs. buy calculus has shifted</h3>
-      <p>When home prices are elevated relative to incomes, the monthly cost of owning relative to renting tends to rise. In 2012, buying and renting comparable properties often produced similar monthly costs. In many markets today, the monthly cost of ownership — mortgage, taxes, insurance, and maintenance — substantially exceeds the cost of renting an equivalent unit. That doesn't mean buying is the wrong choice; equity accumulation, tax treatment, inflation hedging, and the stability of a fixed payment all belong in the analysis. But the rent vs. buy calculation in 2026 is genuinely different, and more favorable to renting in more markets, than it was a decade ago.</p>
+      <p>When home prices are elevated relative to incomes, the monthly cost of owning relative to renting tends to rise. In 2012, buying and renting comparable properties often produced similar monthly costs. In many markets today, the monthly cost of ownership (mortgage, taxes, insurance, and maintenance) substantially exceeds the cost of renting an equivalent unit. That doesn't mean buying is the wrong choice; equity accumulation, tax treatment, inflation hedging, and the stability of a fixed payment all belong in the analysis. But the rent vs. buy calculation in 2026 is genuinely different, and more favorable to renting in more markets, than it was a decade ago.</p>
 
       <h3>Down payment and equity matter more than ever</h3>
-      <p>The monthly payment problem is most acute for buyers with small down payments financing at today's rates. A buyer who can put 30–40% down on a home — whether from accumulated savings, equity from a prior home, or other assets — faces a materially different affordability picture than one putting 5% down on the same price. The growing divide between established homeowners (who have been accumulating equity through the price appreciation cycle) and prospective first-time buyers (who are trying to enter the market without that equity head start) is one of the most important structural features of the current housing landscape.</p>
+      <p>The monthly payment problem is most acute for buyers with small down payments financing at today's rates. A buyer who can put 30–40% down on a home (whether from accumulated savings, equity from a prior home, or other assets) faces a materially different affordability picture than one putting 5% down on the same price. The growing divide between established homeowners (who have been accumulating equity through the price appreciation cycle) and prospective first-time buyers (who are trying to enter the market without that equity head start) is one of the most important structural features of the current housing landscape.</p>
 
       <!-- Calculator CTA -->
       <div class="article-cta">
@@ -341,8 +342,8 @@
       <h2>Key Takeaways</h2>
 
       <ul>
-        <li>U.S. median home prices rose roughly 130% between 2012 and 2025 while median household income grew approximately 69%, pushing the price-to-income ratio from a historical 3.5x to around 5.0x — the highest sustained level in the modern era.</li>
-        <li>In 2012, the median household earned nearly twice the income needed to qualify for the median home. By 2024–2025, median household income remained below the standard qualifying threshold — the first time that has been true in the modern era.</li>
+        <li>U.S. median home prices rose roughly 130% between 2012 and 2025 while median household income grew approximately 69%, pushing the price-to-income ratio from a historical 3.5x to around 5.0x, the highest sustained level in the modern era.</li>
+        <li>In 2012, the median household earned nearly twice the income needed to qualify for the median home. By 2024–2025, median household income remained below the standard qualifying threshold, the first time that has been true in the modern era.</li>
         <li>Five structural forces drove the divergence: a post-crisis underbuilding deficit of 3–5 million units; restrictive zoning and rising construction costs; a decade of historically low mortgage rates that supercharged purchasing power; the millennial generation entering peak homebuying years against a supply-constrained market; and post-2020 remote-work demand diffusing into previously affordable secondary markets.</li>
         <li>Unlike a cyclical correction, the primary causes of the divergence are structural and resolve slowly if at all. Buyers expecting a return to 2015 price levels are counting on forces that the underlying supply and demand dynamics actively resist.</li>
         <li>The rent vs. buy calculus in 2024–2026 is materially different than in 2012–2016. Monthly ownership costs now substantially exceed rental costs in many markets, making a rigorous quantitative comparison more important than it has been in recent decades.</li>
@@ -354,12 +355,14 @@
   <!-- Footer -->
   <footer class="site-footer no-print">
     <div class="footer-links">
+      <a href="/afford">Affordability Calculator</a>
       <a href="/swap">Home Swap Calculator</a>
       <a href="/rvb">Rent vs. Buy Analysis</a>
       <a href="/compound">Compound Growth</a>
       <a href="/downpayment">Down Payment Optimizer</a>
       <a href="/refi">Refinance Calculator</a>
       <a href="/payoff">Payoff Calculator</a>
+      <a href="/proceeds">Net Proceeds</a>
       <a href="/faq">FAQ</a>
       <a href="/learn">Learn</a>
       <a href="/about">About</a>

@@ -394,24 +394,28 @@ function updatePmiHint() {
 
 function applyCustomDpMode(mode) {
   state.customDpMode = mode;
-  const pctWrap = document.getElementById('customDpPctWrap');
-  const dolWrap = document.getElementById('customDpDollarWrap');
+  const pctInp = document.getElementById('customDpPct');
+  const dolInp = document.getElementById('customDpDollar');
+  const prefix = document.getElementById('customDpPrefix');
   document.querySelectorAll('.cdp-mode-btn').forEach(b =>
     b.classList.toggle('active', b.dataset.mode === mode)
   );
-  if (pctWrap) pctWrap.style.display = mode === 'pct' ? '' : 'none';
-  if (dolWrap) dolWrap.style.display = mode === 'dollar' ? '' : 'none';
+  if (pctInp) pctInp.style.display = mode === 'pct' ? '' : 'none';
+  if (dolInp) dolInp.style.display = mode === 'dollar' ? '' : 'none';
+  if (prefix) prefix.style.display = mode === 'dollar' ? '' : 'none';
 }
 
 function applyPmiMode(mode) {
   state.pmiMode = mode;
-  const pctWrap = document.getElementById('pmiPctWrap');
-  const dolWrap = document.getElementById('pmiDollarWrap');
+  const pctInp = document.getElementById('pmiRate');
+  const dolInp = document.getElementById('pmiDollar');
+  const prefix = document.getElementById('pmiPrefix');
   document.querySelectorAll('.pmi-mode-btn').forEach(b =>
     b.classList.toggle('active', b.dataset.mode === mode)
   );
-  if (pctWrap) pctWrap.style.display = mode === 'pct' ? '' : 'none';
-  if (dolWrap) dolWrap.style.display = mode === 'dollar' ? '' : 'none';
+  if (pctInp) pctInp.style.display = mode === 'pct' ? '' : 'none';
+  if (dolInp) dolInp.style.display = mode === 'dollar' ? '' : 'none';
+  if (prefix) prefix.style.display = mode === 'dollar' ? '' : 'none';
 }
 
 function recalc() {

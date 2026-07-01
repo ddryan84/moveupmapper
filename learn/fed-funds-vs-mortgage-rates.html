@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css?v=31">
+  <link rel="stylesheet" href="/styles.css?v=50">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -57,11 +57,14 @@
       <div class="nav-dropdown">
         <button type="button" class="page-nav-link nav-dropdown-btn" aria-haspopup="true">Calculators <svg class="nav-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
         <div class="nav-dropdown-menu">
-          <a href="/swap" class="nav-dropdown-item">Home Swap Calculator</a>
-          <a href="/rvb" class="nav-dropdown-item">Rent vs. Buy Analysis</a>
+          <a href="/afford" class="nav-dropdown-item">Affordability Calculator</a>
           <a href="/compound" class="nav-dropdown-item">Compound Growth</a>
-          <a href="/refi" class="nav-dropdown-item">Refi Calculator</a>
+          <a href="/downpayment" class="nav-dropdown-item">Down Payment Optimizer</a>
+          <a href="/swap" class="nav-dropdown-item">Home Swap Calculator</a>
+          <a href="/proceeds" class="nav-dropdown-item">Net Proceeds</a>
           <a href="/payoff" class="nav-dropdown-item">Payoff Calculator</a>
+          <a href="/refi" class="nav-dropdown-item">Refi Calculator</a>
+          <a href="/rvb" class="nav-dropdown-item">Rent vs. Buy Analysis</a>
         </div>
       </div>
       <a href="/faq"      class="page-nav-link">FAQ</a>
@@ -103,31 +106,31 @@
 
       <h2>Two Rates, Two Very Different Jobs</h2>
 
-      <p>The <strong>federal funds rate</strong> is the interest rate at which banks lend overnight reserves to one another. When you hear that "the Fed raised rates," this is what changed. The Federal Open Market Committee (FOMC) sets a target range for this rate and uses open market operations to keep the actual rate within that band.</p>
+      <p>The federal funds rate is the interest rate at which banks lend overnight reserves to one another. When you hear that "the Fed raised rates," this is what changed. The Federal Open Market Committee (FOMC) sets a target range for this rate and uses open market operations to keep the actual rate within that band.</p>
 
       <p>It is an overnight rate. Banks that need to meet their reserve requirements at the end of the day borrow from banks with excess reserves, and they pay the federal funds rate for the privilege. The loan lasts, at most, until the next morning.</p>
 
-      <p>A <strong>30-year fixed mortgage</strong> is a fundamentally different instrument. A lender is committing to a fixed rate on a loan that could remain outstanding for three decades. The borrower might pay it off in 7 years or carry it to term. The lender does not know. What the lender does know is that it needs to price that loan against a benchmark reflecting long-duration, relatively safe investment yields.</p>
+      <p>A 30-year fixed mortgage is a fundamentally different instrument. A lender is committing to a fixed rate on a loan that could remain outstanding for three decades. The borrower might pay it off in 7 years or carry it to term. The lender does not know. What the lender does know is that it needs to price that loan against a benchmark reflecting long-duration, relatively safe investment yields.</p>
 
-      <p>That benchmark is the <strong>10-year U.S. Treasury note</strong>.</p>
+      <p>That benchmark is the 10-year U.S. Treasury note.</p>
 
       <div class="article-callout">
-        <p><strong>The short version:</strong> The Fed controls overnight borrowing costs between banks. Mortgage rates are priced off 10-year Treasury yields, which are set by bond markets and reflect inflation expectations, economic growth, and investor demand, not FOMC decisions.</p>
+        <p>The short version: The Fed controls overnight borrowing costs between banks. Mortgage rates are priced off 10-year Treasury yields, which are set by bond markets and reflect inflation expectations, economic growth, and investor demand, not FOMC decisions.</p>
       </div>
 
       <hr class="article-divider">
 
       <h2>Why the 10-Year Treasury Drives Mortgage Rates</h2>
 
-      <p>Most 30-year mortgages do not stay on a bank's balance sheet. They get bundled into mortgage-backed securities (MBS) and sold to investors — pension funds, insurance companies, foreign central banks, and the Fed itself during quantitative easing (QE) periods. These investors buy MBS in competition with other fixed-income alternatives, most importantly U.S. Treasury bonds.</p>
+      <p>Most 30-year mortgages do not stay on a bank's balance sheet. They get bundled into mortgage-backed securities (MBS) and sold to investors: pension funds, insurance companies, foreign central banks, and the Fed itself during quantitative easing (QE) periods. These investors buy MBS in competition with other fixed-income alternatives, most importantly U.S. Treasury bonds.</p>
 
-      <p>A 10-year Treasury is the closest duration match to the typical mortgage. Even though a mortgage is technically 30 years, the average borrower refinances or moves within 7 to 10 years, making the effective duration much closer to 10 years than 30. The same logic explains why other mortgage products are benchmarked differently. A 15-year fixed mortgage is priced against shorter-duration Treasuries and typically carries a rate 50 to 75 basis points below the 30-year fixed, because the lender's capital is at risk for less time and the prepayment window is narrower. Adjustable-rate mortgages (ARMs) — such as the common 5/1 or 7/1 ARM — are tied to even shorter maturities; their adjustment index is usually the Secured Overnight Financing Rate (SOFR), which tracks the federal funds rate closely. This is why ARMs and 15-year fixed loans are more sensitive to Fed rate decisions than the 30-year fixed.</p>
+      <p>A 10-year Treasury is the closest duration match to the typical mortgage. Even though a mortgage is technically 30 years, the average borrower refinances or moves within 7 to 10 years, making the effective duration much closer to 10 years than 30. The same logic explains why other mortgage products are benchmarked differently. A 15-year fixed mortgage is priced against shorter-duration Treasuries and typically carries a rate 50 to 75 basis points below the 30-year fixed, because the lender's capital is at risk for less time and the prepayment window is narrower. Adjustable-rate mortgages (ARMs), such as the common 5/1 or 7/1 ARM, are tied to even shorter maturities; their adjustment index is usually the Secured Overnight Financing Rate (SOFR), which tracks the federal funds rate closely. This is why ARMs and 15-year fixed loans are more sensitive to Fed rate decisions than the 30-year fixed.</p>
 
       <p>For the 30-year fixed, if a 10-year Treasury yields 4.5%, an investor buying MBS needs to earn more than that to compensate for additional risks: the chance that the borrower refinances early (prepayment risk), defaults, or that MBS are less liquid than Treasuries.</p>
 
-      <p>The premium above the 10-year Treasury yield that mortgage investors require is called the <strong>mortgage spread</strong>. Looking at data going back to the early 1990s, this spread has typically ranged from 150 to 200 basis points in normal market conditions, with roughly 170 basis points as a reliable long-run midpoint. When the 10-year Treasury yields 2.0%, the 30-year mortgage rate will typically land around 3.7%. When the 10-year is at 4.5%, expect a mortgage rate around 6.2%.</p>
+      <p>The premium above the 10-year Treasury yield that mortgage investors require is called the mortgage spread. Looking at data going back to the early 1990s, this spread has typically ranged from 150 to 200 basis points in normal market conditions, with roughly 170 basis points as a reliable long-run midpoint. When the 10-year Treasury yields 2.0%, the 30-year mortgage rate will typically land around 3.7%. When the 10-year is at 4.5%, expect a mortgage rate around 6.2%.</p>
 
-      <p>Here is how the three rates have moved together — and diverged — over the past decade:</p>
+      <p>Here is how the three rates have moved together and diverged over the past decade:</p>
 
       <div class="article-chart">
         <div class="article-chart-title">Fed Funds Rate vs. 10-Year Treasury vs. 30-Year Mortgage (2016–2025)</div>
@@ -290,13 +293,13 @@
         </tbody>
       </table>
 
-      <p>The spread widened dramatically in 2022 and has remained elevated since — a full percentage point above the historical norm. This is one of the most underappreciated reasons mortgage rates have stayed as high as they have. Even if the 10-year Treasury yielded 3.5%, a 250-basis-point spread would still produce a 6.0% mortgage rate.</p>
+      <p>The spread widened dramatically in 2022 and has remained elevated since, now sitting a full percentage point above the historical norm. This is one of the most underappreciated reasons mortgage rates have stayed as high as they have. Even if the 10-year Treasury yielded 3.5%, a 250-basis-point spread would still produce a 6.0% mortgage rate.</p>
 
       <div class="article-callout article-callout--amber">
-        <p><strong>Why has the spread been so wide?</strong> Primarily because prepayment risk is asymmetric in a high-rate environment. Almost no one is refinancing, which means MBS investors are locked into bonds at below-market rates for longer than historical models predicted. The uncertainty around when, or whether, they will see their capital returned at a useful reinvestment rate commands a significant premium.</p>
+        <p>Why has the spread been so wide? Primarily because prepayment risk is asymmetric in a high-rate environment. Almost no one is refinancing, which means MBS investors are locked into bonds at below-market rates for longer than historical models predicted. The uncertainty around when, or whether, they will see their capital returned at a useful reinvestment rate commands a significant premium.</p>
       </div>
 
-      <p>The spread narrowing back toward 170 basis points would lower mortgage rates by nearly a full percentage point without the 10-year Treasury moving at all. That compression is plausible if refinancing volumes normalize, but it is driven by MBS market mechanics — not Fed policy.</p>
+      <p>The spread narrowing back toward 170 basis points would lower mortgage rates by nearly a full percentage point without the 10-year Treasury moving at all. That compression is plausible if refinancing volumes normalize, but it is driven by MBS market mechanics, not Fed policy.</p>
 
       <hr class="article-divider">
 
@@ -305,7 +308,7 @@
       <p>Since the 30-year mortgage tracks the 10-year Treasury plus a spread, the question becomes: what moves the 10-year Treasury? The answer is bond markets pricing the future path of inflation and economic growth over the next decade.</p>
 
       <h3>Inflation expectations</h3>
-      <p>The 10-year Treasury yield has two components: the real yield (what investors demand above inflation) and expected inflation over the decade. If bond markets believe inflation will average 3% over the next 10 years, they will demand a yield well above 3% just to break even in real terms. This is why mortgage rates rose so aggressively in 2022 — not merely because the FOMC was hiking, but because the bond market repriced long-run inflation expectations upward. The Fed's rate hikes influence those expectations, but bond markets make their own assessment and look ahead.</p>
+      <p>The 10-year Treasury yield has two components: the real yield (what investors demand above inflation) and expected inflation over the decade. If bond markets believe inflation will average 3% over the next 10 years, they will demand a yield well above 3% just to break even in real terms. This is why mortgage rates rose so aggressively in 2022: not merely because the FOMC was hiking, but because the bond market repriced long-run inflation expectations upward. The Fed's rate hikes influence those expectations, but bond markets make their own assessment and look ahead.</p>
 
       <h3>Economic growth outlook</h3>
       <p>Strong economic growth increases demand for capital, putting upward pressure on long-term rates. Conversely, recession fears push investors toward the safety of Treasuries, driving prices up and yields down. This is why mortgage rates often fall sharply during recessions and in anticipation of them, even before the Fed acts.</p>
@@ -329,7 +332,7 @@
       <p>The FOMC cut rates three times in late 2024, bringing the federal funds rate down by 100 basis points. Mortgage rates, after a brief dip, ended the year roughly where they started. The 10-year Treasury did not fall. Bond markets revised their expectations for how quickly inflation would return to 2%, pushed back their timeline for further Fed cuts, and priced in persistent structural deficits requiring more long-term Treasury issuance. Mortgage rates followed the 10-year, not the Fed.</p>
 
       <div class="article-callout">
-        <p><strong>The 2024 lesson in one sentence:</strong> The Fed cut short-term rates, but the bond market did not believe long-run inflation was solved, so the 10-year Treasury did not cooperate, and neither did mortgages.</p>
+        <p>The 2024 lesson in one sentence: The Fed cut short-term rates, but the bond market did not believe long-run inflation was solved, so the 10-year Treasury did not cooperate, and neither did mortgages.</p>
       </div>
 
       <hr class="article-divider">
@@ -374,7 +377,7 @@
       <p>Because mortgage rates are set by markets, they are unpredictable over any 6 to 12 month horizon. If a lender offers a rate buydown, the break-even analysis should be run against your actual expected hold period, not against an optimistic scenario where rates fall and you refinance in two years anyway. The rate you buy down to today is guaranteed. The rate you hope to refinance into is not.</p>
 
       <div class="article-callout article-callout--green">
-        <p><strong>The most useful reframe:</strong> Instead of asking "when will the Fed cut so rates fall," ask "what would inflation expectations and 10-year Treasury yields need to look like for mortgages to reach X%?" That question has a concrete answer rooted in bond market mechanics, not a date-dependent bet on FOMC committee votes.</p>
+        <p>The most useful reframe: Instead of asking "when will the Fed cut so rates fall," ask "what would inflation expectations and 10-year Treasury yields need to look like for mortgages to reach X%?" That question has a concrete answer rooted in bond market mechanics, not a date-dependent bet on FOMC committee votes.</p>
       </div>
 
       <!-- Calculator CTA -->
@@ -397,7 +400,7 @@
 
       <ul>
         <li>The federal funds rate is an overnight interbank lending rate. The 30-year mortgage rate is priced off the 10-year U.S. Treasury yield plus a spread. They are different markets responding to different signals, which is why they do not move in lockstep.</li>
-        <li>The 10-year Treasury yield is set by bond markets pricing long-run inflation expectations and economic growth, not FOMC votes. The spread between the 10-year and the 30-year mortgage has historically averaged around 170 basis points but widened to 250 to 280 basis points in 2022 to 2025 — adding roughly a percentage point to mortgage rates above and beyond what the 10-year alone would explain.</li>
+        <li>The 10-year Treasury yield is set by bond markets pricing long-run inflation expectations and economic growth, not FOMC votes. The spread between the 10-year and the 30-year mortgage has historically averaged around 170 basis points but widened to 250 to 280 basis points in 2022 to 2025, adding roughly a percentage point to mortgage rates above and beyond what the 10-year alone would explain.</li>
         <li>In 2024, the Fed cut the federal funds rate by 100 basis points. The 10-year Treasury barely moved, and mortgage rates ended the year near where they started, a real-world demonstration of the disconnect.</li>
         <li>Fed rate cuts do have direct effects on adjustable-rate mortgages, HELOCs, and short-term construction financing. Indirectly, cuts can improve builder economics and loosen credit conditions, but these effects on housing supply typically take 18 to 36 months to materialize.</li>
         <li>Watching the 10-year Treasury and monthly inflation data (CPI, PCE) gives a more reliable signal on mortgage rate direction than tracking Fed meeting outcomes. The most useful question is not "when will the Fed cut?" but "what does the bond market believe about long-run inflation?"</li>
@@ -409,11 +412,13 @@
   <!-- Footer -->
   <footer class="site-footer no-print">
     <div class="footer-links">
+      <a href="/afford">Affordability Calculator</a>
       <a href="/swap">Home Swap Calculator</a>
       <a href="/rvb">Rent vs. Buy Analysis</a>
       <a href="/compound">Compound Growth</a>
       <a href="/refi">Refinance Calculator</a>
       <a href="/payoff">Payoff Calculator</a>
+      <a href="/proceeds">Net Proceeds</a>
       <a href="/faq">FAQ</a>
       <a href="/learn">Learn</a>
       <a href="/about">About</a>

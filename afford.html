@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Affordability Calculator — Move Up Mapper</title>
+  <meta name="description" content="Find out how much house your income can support. Enter your income, debts, and down payment to get a maximum purchase price, monthly payment breakdown, and DTI analysis.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Move Up Mapper">
+  <meta property="og:title" content="Home Affordability Calculator — Move Up Mapper">
+  <meta property="og:description" content="How much house can you afford? Enter income, debts, and down payment to see your maximum purchase price, monthly PITI breakdown, and debt-to-income ratios.">
+  <meta property="og:url" content="https://www.moveupmapper.com/afford">
+  <meta property="og:image" content="https://www.moveupmapper.com/social-card.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Move Up Mapper — Free Housing &amp; Investment Calculators">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Home Affordability Calculator — Move Up Mapper">
+  <meta name="twitter:description" content="How much house can you afford? Enter income, debts, and down payment to see your maximum purchase price and monthly payment breakdown.">
+  <link rel="canonical" href="https://www.moveupmapper.com/afford">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"></noscript>
+  <link rel="stylesheet" href="styles.css?v=50">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Home Affordability Calculator",
+    "url": "https://www.moveupmapper.com/afford",
+    "description": "Calculate how much house your income, debts, and down payment can support — with a maximum purchase price, full monthly payment breakdown, and DTI analysis.",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "isAccessibleForFree": true,
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "provider": { "@type": "Organization", "name": "Move Up Mapper", "url": "https://www.moveupmapper.com" }
+  }
+  </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YCEFCLSHX0"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YCEFCLSHX0');
+  </script>
+</head>
+<body>
+<nav class="site-nav no-print">
+  <div class="site-nav-inner">
+    <a href="/" class="site-brand">
+      <img src="favicon.svg" width="28" height="28" alt="" style="border-radius:7px;flex-shrink:0;display:block">
+      <span class="brand-name">Move Up Mapper</span>
+    </a>
+    <div class="page-nav-links">
+      <div class="nav-dropdown">
+        <button type="button" class="page-nav-link nav-dropdown-btn active" aria-haspopup="true">Calculators <svg class="nav-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="/afford" class="nav-dropdown-item active">Affordability Calculator</a>
+          <a href="/compound" class="nav-dropdown-item">Compound Growth</a>
+          <a href="/downpayment" class="nav-dropdown-item">Down Payment Optimizer</a>
+          <a href="/swap" class="nav-dropdown-item">Home Swap Calculator</a>
+          <a href="/proceeds" class="nav-dropdown-item">Net Proceeds</a>
+          <a href="/payoff" class="nav-dropdown-item">Payoff Calculator</a>
+          <a href="/refi" class="nav-dropdown-item">Refi Calculator</a>
+          <a href="/rvb" class="nav-dropdown-item">Rent vs. Buy Analysis</a>
+        </div>
+      </div>
+      <a href="/faq"    class="page-nav-link">FAQ</a>
+      <a href="/learn"  class="page-nav-link">Learn</a>
+      <a href="/market" class="page-nav-link">Market</a>
+      <a href="/about"  class="page-nav-link">About</a>
+    </div>
+  </div>
+</nav>
+<div class="app">
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-icon" style="background:#7c3aed">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+        <line x1="12" y1="22" x2="12" y2="12"/>
+        <line x1="9" y1="12" x2="15" y2="12"/>
+      </svg>
+    </div>
+    <div>
+      <h1>Home Affordability Calculator</h1>
+      <p class="header-sub">How much house can your income support? Get a maximum purchase price, full monthly payment breakdown, and DTI analysis.</p>
+    </div>
+    <div class="header-actions" style="margin-left:auto;display:flex;gap:8px;align-items:center;flex-shrink:0">
+      <button class="btn-text" id="resetBtn">Reset</button>
+      <button class="btn-text" id="shareBtn">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:3px"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>Share
+      </button>
+      <button class="btn-print" id="printBtn">⎙ Print<span class="print-full"> / Export PDF</span></button>
+    </div>
+  </header>
+
+  <!-- About -->
+  <details class="about-expand no-print">
+    <summary>About this calculator</summary>
+    <div class="about-content">
+      <p>This calculator uses standard debt-to-income (DTI) guidelines (the same ratios lenders use) to estimate the maximum home price your income and debt load can support. The front-end DTI (housing costs only) is capped at 28% of gross monthly income; the back-end DTI (housing plus all other monthly debts) is capped at 43%. The more restrictive of the two constraints determines your maximum purchase price. Monthly costs include principal &amp; interest, property tax, homeowner's insurance, PMI (if your down payment is below 20%), and any HOA dues.</p>
+      <p class="about-disclaimer"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span><strong>Not financial advice.</strong> This tool uses standard guidelines as a starting point. Actual loan approval depends on your credit score, employment history, reserve requirements, loan type, and lender-specific overlays. Consult a licensed mortgage professional before making decisions.</span></p>
+    </div>
+  </details>
+
+  <!-- Inputs -->
+  <div class="calc-grid calc-grid--equal" style="margin-top:8px">
+
+    <!-- Your Finances -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-icon" style="background:#6b7280">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+          </svg>
+        </div>
+        <div>
+          <div class="card-title">Your Finances</div>
+          <div class="card-sub">Income and existing monthly debt obligations</div>
+        </div>
+      </div>
+      <div class="card-body">
+
+        <div class="field">
+          <div class="label-tip-row">
+            <label>ANNUAL GROSS INCOME</label>
+            <button class="tip-btn" aria-label="Learn more" data-tip="Use your total gross (pre-tax) household income for the year — all borrowers who will be on the loan. Lenders use gross income, not take-home pay, to calculate DTI ratios. Include salary, wages, self-employment income (typically a 2-year average), and any documented recurring income such as rental income or alimony.">?</button>
+          </div>
+          <div class="input-wrap prefix">
+            <span class="affix">$</span>
+            <input type="number" id="income" min="10000" max="5000000" step="5000">
+          </div>
+          <div class="helper">Combined gross household income for all borrowers</div>
+        </div>
+
+        <div class="field" style="margin-bottom:0">
+          <div class="label-tip-row">
+            <label>MONTHLY DEBT PAYMENTS</label>
+            <button class="tip-btn" aria-label="Learn more" data-tip="Include all minimum monthly payments that appear on your credit report: car loans, student loans, credit card minimums, personal loans, child support, and alimony. Do not include the future mortgage payment (that's what we're solving for) or utilities, insurance, groceries, or other living expenses. If a debt will be paid off before closing, you may be able to exclude it — ask your lender.">?</button>
+          </div>
+          <div class="input-wrap prefix">
+            <span class="affix">$</span>
+            <input type="number" id="debts" min="0" step="50">
+          </div>
+          <div class="helper">Car loans, student loans, credit card minimums (not the future mortgage)</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Down Payment & Loan -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-icon" style="background:#7c3aed">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+        </div>
+        <div>
+          <div class="card-title">Loan Details</div>
+          <div class="card-sub">Down payment, rate, and term</div>
+        </div>
+      </div>
+      <div class="card-body">
+
+        <div class="field">
+          <div class="label-tip-row">
+            <label>DOWN PAYMENT</label>
+            <button class="tip-btn" aria-label="Learn more" data-tip="The cash you'll bring to closing toward the purchase price. A larger down payment increases your maximum purchase price by reducing the loan amount and, if you reach 20%, eliminating PMI. Remember to keep reserves for closing costs (typically 2–5% of purchase price), moving expenses, and at least 3–6 months of emergency funds — don't commit all available cash.">?</button>
+          </div>
+          <div class="input-wrap prefix">
+            <span class="affix">$</span>
+            <input type="number" id="downPayment" min="0" step="5000">
+          </div>
+          <div class="helper">Cash toward the purchase; a higher down payment raises your maximum price</div>
+        </div>
+
+        <div class="field">
+          <div class="label-tip-row">
+            <label>MORTGAGE RATE</label>
+            <button class="tip-btn" aria-label="Learn more" data-tip="The interest rate on your mortgage — use the note rate, not APR. Rate affects both your monthly payment and your maximum purchase price: a 1% increase in rate reduces buying power by roughly 10%. Check current rates with a lender or broker for an accurate estimate; the rate shown here is illustrative.">?</button>
+          </div>
+          <div class="input-wrap suffix">
+            <input type="number" id="rate" min="1" max="20" step="0.125">
+            <span class="affix">%</span>
+          </div>
+          <div class="rate-slider-row">
+            <span class="horizon-edge-label">3%</span>
+            <input type="range" id="rateSlider" min="3" max="12" step="0.125" value="6.75">
+            <span class="horizon-edge-label">12%</span>
+          </div>
+          <div class="helper">Use the interest rate, not APR</div>
+        </div>
+
+        <div class="field" style="margin-bottom:0">
+          <label>LOAN TERM</label>
+          <div class="input-wrap" style="padding:0">
+            <select id="term" class="input-select" style="height:36px;padding:0 10px;width:100%">
+              <option value="30" selected>30 years</option>
+              <option value="20">20 years</option>
+              <option value="15">15 years</option>
+            </select>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- /calc-grid -->
+
+  <!-- Advanced -->
+  <div class="card wide-card" style="margin-top:8px">
+    <button type="button" class="section-collapse-hdr" id="advToggle" aria-expanded="false" style="border-radius:var(--radius)">
+      <div class="section-label">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        ADVANCED ASSUMPTIONS
+      </div>
+      <svg class="collapse-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="section-collapse-body" id="advBody" style="max-height:0;overflow:hidden">
+      <div class="card-body" style="padding-top:8px">
+        <div class="two-col">
+          <div class="field">
+            <div class="label-tip-row">
+              <label>PROPERTY TAX RATE</label>
+              <button class="tip-btn" aria-label="Learn more" data-tip="Annual property tax as a percentage of home value. The national average is roughly 1.0–1.2%, but rates vary significantly by state and county, from under 0.3% in Hawaii to over 2.5% in New Jersey. Use your specific county's rate for accuracy. You can find local rates on your county assessor's website or by asking a local real estate agent.">?</button>
+            </div>
+            <div class="input-wrap other-costs-wrap">
+              <span class="affix" id="taxDollarPrefix" style="display:none">$</span>
+              <input type="number" id="taxRate" min="0" max="5" step="0.1">
+              <div class="other-costs-unit-toggle">
+                <button type="button" class="other-costs-btn active" data-tax-mode="pct">%</button>
+                <button type="button" class="other-costs-btn" data-tax-mode="dollar">$</button>
+              </div>
+            </div>
+            <div class="helper" id="taxHelper">Annual rate as % of home value; varies widely by location</div>
+          </div>
+          <div class="field">
+            <div class="label-tip-row">
+              <label>HOMEOWNER'S INSURANCE</label>
+              <button class="tip-btn" aria-label="Learn more" data-tip="Annual homeowner's insurance as a percentage of home value. The national average is roughly 0.4–0.7% annually, though this varies significantly by location, coverage level, and home characteristics. High-risk areas (hurricane, flood, wildfire zones) can be substantially higher. Lenders require a minimum level of coverage and will include insurance in your escrow calculation.">?</button>
+            </div>
+            <div class="input-wrap other-costs-wrap">
+              <span class="affix" id="insDollarPrefix" style="display:none">$</span>
+              <input type="number" id="insRate" min="0" max="5" step="0.05">
+              <div class="other-costs-unit-toggle">
+                <button type="button" class="other-costs-btn active" data-ins-mode="pct">%</button>
+                <button type="button" class="other-costs-btn" data-ins-mode="dollar">$</button>
+              </div>
+            </div>
+            <div class="helper" id="insHelper">Annual insurance premium as % of home value</div>
+          </div>
+        </div>
+        <div class="two-col">
+          <div class="field">
+            <div class="label-tip-row">
+              <label>HOA DUES (MONTHLY)</label>
+              <button class="tip-btn" aria-label="Learn more" data-tip="Monthly homeowner's association fees, if applicable. HOA dues are included in your total monthly housing payment and count toward your front-end DTI, reducing the P&I payment you can support at a given income level. If you're looking at a condo or planned community, factor in the actual HOA amount you've been quoted.">?</button>
+            </div>
+            <div class="input-wrap prefix">
+              <span class="affix">$</span>
+              <input type="number" id="hoa" min="0" step="25" placeholder="0">
+            </div>
+            <div class="helper">Monthly HOA dues (leave blank if none)</div>
+          </div>
+          <div class="field">
+            <div class="label-tip-row">
+              <label>PMI RATE</label>
+              <button class="tip-btn" aria-label="Learn more" data-tip="Private Mortgage Insurance (PMI) is required when your down payment is less than 20% of the purchase price. It's typically 0.5–1.5% of the original loan amount annually, depending on your LTV ratio and credit score. PMI cancels automatically when your loan balance reaches 78% of the original purchase price. This calculator applies one rate across the modeled price; in practice, your PMI rate depends on your actual down payment and credit profile.">?</button>
+            </div>
+            <div class="input-wrap other-costs-wrap">
+              <span class="affix" id="pmiDollarPrefix" style="display:none">$</span>
+              <input type="number" id="pmiRate" min="0.1" max="3" step="0.05">
+              <div class="other-costs-unit-toggle">
+                <button type="button" class="other-costs-btn active" data-pmi-mode="pct">%</button>
+                <button type="button" class="other-costs-btn" data-pmi-mode="dollar">$/mo</button>
+              </div>
+            </div>
+            <div class="helper" id="pmiHelper">Annual PMI as % of loan; applies only if down payment &lt; 20%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div class="card wide-card" style="margin-top:8px">
+
+    <div class="card-head">
+      <div class="card-icon" style="background:#7c3aed">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/>
+          <line x1="6" y1="20" x2="6" y2="14"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-title">Affordability Analysis</div>
+        <div class="card-sub">Results update instantly as you adjust inputs</div>
+      </div>
+    </div>
+
+    <!-- Stat tiles -->
+    <div class="refi-stats-grid">
+      <div class="bp-stat">
+        <div class="bp-stat-label">MAX PURCHASE PRICE</div>
+        <div class="refi-stat-value" id="stat-maxprice">—</div>
+        <div class="bp-stat-delta" style="font-size:11px;color:var(--text-muted)">at DTI limit</div>
+      </div>
+      <div class="bp-stat">
+        <div class="bp-stat-label">TOTAL MONTHLY PAYMENT</div>
+        <div class="refi-stat-value" id="stat-monthly">—</div>
+        <div class="bp-stat-delta" style="font-size:11px;color:var(--text-muted)">PITI + HOA</div>
+      </div>
+      <div class="bp-stat">
+        <div class="bp-stat-label">FRONT-END DTI</div>
+        <div class="refi-stat-value" id="stat-frontdti">—</div>
+        <div class="bp-stat-delta" style="font-size:11px;color:var(--text-muted)">28% guideline</div>
+      </div>
+      <div class="bp-stat">
+        <div class="bp-stat-label">BACK-END DTI</div>
+        <div class="refi-stat-value" id="stat-backdti">—</div>
+        <div class="bp-stat-delta" style="font-size:11px;color:var(--text-muted)">43% guideline</div>
+      </div>
+    </div>
+
+    <!-- Verdict -->
+    <div class="refi-verdict refi-verdict--info card-verdict-inset" id="affordVerdict">
+      <div class="refi-verdict-icon">ℹ</div>
+      <div class="refi-verdict-text">
+        <strong>Enter your income and finances above</strong>
+        <p>The calculator will show your maximum purchase price and monthly payment breakdown based on standard lending DTI guidelines.</p>
+      </div>
+    </div>
+
+    <!-- Payment breakdown -->
+    <div class="card-inner-section">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px">MONTHLY PAYMENT BREAKDOWN</div>
+
+      <div class="afford-breakdown-row">
+        <span>Principal &amp; Interest</span>
+        <strong id="break-pni">—</strong>
+      </div>
+      <div class="afford-breakdown-row">
+        <span>Property Tax</span>
+        <strong id="break-tax">—</strong>
+      </div>
+      <div class="afford-breakdown-row">
+        <span>Homeowner's Insurance</span>
+        <strong id="break-ins">—</strong>
+      </div>
+      <div class="afford-breakdown-row" id="break-pmi-row">
+        <span style="color:var(--text-muted)">PMI <span style="font-size:11px">(if &lt;20% down)</span></span>
+        <strong id="break-pmi">—</strong>
+      </div>
+      <div class="afford-breakdown-row">
+        <span>HOA Dues</span>
+        <strong id="break-hoa">—</strong>
+      </div>
+      <div class="afford-breakdown-total">
+        <span>Total Monthly</span>
+        <span id="break-total">—</span>
+      </div>
+    </div>
+
+    <!-- DTI bars -->
+    <div class="card-inner-section">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px">DEBT-TO-INCOME RATIOS</div>
+
+      <div class="afford-dti-row">
+        <div class="afford-dti-header">
+          <span class="afford-dti-label">Front-end DTI <span style="font-weight:400;text-transform:none;letter-spacing:0">(housing only)</span></span>
+          <span class="afford-dti-value" id="stat-frontdti-2">—</span>
+        </div>
+        <div class="afford-dti-track"><div class="afford-dti-fill afford-dti-fill--green" id="dti-front-fill" style="width:0%"></div></div>
+        <div class="afford-dti-limit">28% conventional guideline</div>
+      </div>
+
+      <div class="afford-dti-row" style="margin-top:14px">
+        <div class="afford-dti-header">
+          <span class="afford-dti-label">Back-end DTI <span style="font-weight:400;text-transform:none;letter-spacing:0">(all debts)</span></span>
+          <span class="afford-dti-value" id="stat-backdti-2">—</span>
+        </div>
+        <div class="afford-dti-track"><div class="afford-dti-fill afford-dti-fill--green" id="dti-back-fill" style="width:0%"></div></div>
+        <div class="afford-dti-limit">43% conventional guideline</div>
+      </div>
+    </div>
+
+    <!-- Rate sensitivity -->
+    <div class="card-inner-section" style="overflow-x:auto">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px">RATE SENSITIVITY: HOW RATE CHANGES AFFECT YOUR MAX PRICE</div>
+      <table class="afford-sens-table">
+        <thead>
+          <tr>
+            <th>Rate</th>
+            <th>Max Purchase Price</th>
+            <th>Monthly Payment</th>
+          </tr>
+        </thead>
+        <tbody id="sensRows">
+          <tr><td colspan="3" style="color:var(--text-muted);font-size:12px">Enter your income above to see rate sensitivity.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div><!-- /results card -->
+
+  <!-- Key Concepts -->
+  <details class="card wide-card glossary-card">
+    <summary class="card-head">
+      <div class="card-icon" style="background:#7c3aed">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="card-title">How It Works &amp; Key Concepts</div>
+        <div class="card-sub">DTI limits, what counts toward housing costs, and what the calculator doesn't model</div>
+      </div>
+      <svg class="adv-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left:auto;flex-shrink:0"><polyline points="6 9 12 15 18 9"/></svg>
+    </summary>
+    <div class="glossary-body">
+      <div class="gloss-group">
+        <div class="gloss-group-title">DTI Guidelines</div>
+        <div class="gloss-grid">
+
+          <div class="gloss-item">
+            <div class="gloss-term">Front-End DTI (28%)</div>
+            <div class="gloss-def">The front-end ratio (also called the housing ratio) measures total monthly housing costs (principal, interest, property tax, insurance, PMI, and HOA) as a percentage of gross monthly income. Conventional lenders typically cap this at 28%. FHA loans allow up to 31%. This ratio prevents the mortgage alone from consuming too large a share of income, leaving no room for other obligations.</div>
+          </div>
+
+          <div class="gloss-item">
+            <div class="gloss-term">Back-End DTI (43%)</div>
+            <div class="gloss-def">The back-end ratio measures total monthly debt obligations (housing costs plus all other recurring debt payments: car loans, student loans, credit card minimums, personal loans) as a percentage of gross monthly income. The conventional limit is 43%; some loan programs allow up to 50% with compensating factors. This is typically the binding constraint for borrowers carrying significant non-housing debt. If your back-end ratio is close to the limit, paying off other debts before applying can significantly increase your buying power.</div>
+          </div>
+
+          <div class="gloss-item">
+            <div class="gloss-term">Which Constraint Binds?</div>
+            <div class="gloss-def">This calculator solves for the maximum purchase price that satisfies both DTI limits and uses whichever is more restrictive. For borrowers with little non-housing debt, the front-end ratio (28%) typically binds first. For borrowers with car loans, student debt, or other obligations, the back-end ratio (43%) often determines the ceiling. The binding constraint is shown in the analysis; reducing the binding debt type will have the biggest effect on your buying power.</div>
+          </div>
+
+          <div class="gloss-item">
+            <div class="gloss-term">The Math Behind the Number</div>
+            <div class="gloss-def">The calculator solves for a purchase price P such that total monthly housing costs equal the maximum permitted by the more restrictive DTI. Because monthly costs include both loan-dependent items (P&amp;I, PMI) and price-dependent items (property tax, insurance), the solution requires solving a simple linear equation. PMI is handled by checking whether a 20% down payment is achievable at the no-PMI solution; if not, the PMI-adjusted formula is used instead.</div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="gloss-group">
+        <div class="gloss-group-title">What This Calculator Doesn't Model</div>
+        <div class="gloss-grid">
+
+          <div class="gloss-item">
+            <div class="gloss-term">Credit Score Impact</div>
+            <div class="gloss-def">DTI limits are just one component of loan approval. Credit score has an equal or greater impact on whether you qualify and what rate you receive. A score below 620 typically disqualifies conventional financing; below 740, you'll pay a higher rate. A borrower with a 780 score and 41% back-end DTI may qualify easily; one with a 640 score and 38% back-end DTI may face denial. This calculator cannot model credit score effects — get a pre-approval to understand your actual rate.</div>
+          </div>
+
+          <div class="gloss-item">
+            <div class="gloss-term">Loan Type Variations</div>
+            <div class="gloss-def">Different loan types carry different DTI limits. FHA loans allow front-end DTI up to 31% and back-end up to 43–50% (with compensating factors). VA loans for eligible veterans have no hard DTI limit but use a residual income test. USDA rural loans cap at 41% back-end. Jumbo loans (above conforming limits) typically require lower DTIs (often 36–38% back-end) and larger down payments. This calculator uses conventional conforming guidelines as a baseline.</div>
+          </div>
+
+          <div class="gloss-item">
+            <div class="gloss-term">Reserves and Cash-to-Close</div>
+            <div class="gloss-def">Lenders require cash not just for the down payment but for closing costs (typically 2–5% of the purchase price), prepaid items (homeowner's insurance upfront, property tax escrow), and post-closing reserves (often 2–6 months of PITI). Many borrowers who technically qualify on DTI are limited in practice by available cash. A $500,000 home might require $25,000 down plus $15,000–$20,000 in closing costs and reserves, for a total of $40,000–$45,000 cash to close.</div>
+          </div>
+
+          <div class="gloss-item">
+            <div class="gloss-term">True Cost of Ownership</div>
+            <div class="gloss-def">What you can borrow and what you can comfortably afford are different questions. This calculator shows the maximum lenders will approve — it says nothing about maintenance (budget 1–2% of home value annually), capital improvements, or the risk of income disruption. A payment at 28% of gross income may feel tight once you account for taxes, retirement contributions, healthcare, and lifestyle. Many financial planners suggest targeting 25% or less of gross income for housing costs rather than the 28% ceiling lenders use.</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <a href="/downpayment" class="tool-crosslink no-print">
+    <div class="tool-crosslink-icon" style="background:#0284c7">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+      </svg>
+    </div>
+    <div class="tool-crosslink-text">
+      <strong>Down Payment Optimizer</strong>
+      <span>Know your price range? Compare minimum, 20%, and maximum down payment scenarios side by side — monthly cost, PMI duration, and total wealth at your time horizon.</span>
+    </div>
+    <span class="tool-crosslink-arrow">→</span>
+  </a>
+
+  <a href="/rvb" class="tool-crosslink no-print">
+    <div class="tool-crosslink-icon" style="background:#4f46e5">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+    </div>
+    <div class="tool-crosslink-text">
+      <strong>Rent vs. Buy Analysis</strong>
+      <span>Still weighing ownership vs. renting? The full Rent vs. Buy analysis models total cost of ownership, equity growth, and break-even timeline side by side.</span>
+    </div>
+    <span class="tool-crosslink-arrow">→</span>
+  </a>
+
+  <!-- Footer -->
+  <footer class="site-footer no-print">
+    <div class="footer-links">
+      <a href="/afford">Affordability Calculator</a>
+      <a href="/swap">Home Swap Calculator</a>
+      <a href="/rvb">Rent vs. Buy Analysis</a>
+      <a href="/compound">Compound Growth</a>
+      <a href="/downpayment">Down Payment Optimizer</a>
+      <a href="/refi">Refinance Calculator</a>
+      <a href="/payoff">Payoff Calculator</a>
+      <a href="/proceeds">Net Proceeds</a>
+      <a href="/faq">FAQ</a>
+      <a href="/learn">Learn</a>
+      <a href="/about">About</a>
+      <a href="/privacy">Privacy</a>
+    </div>
+    <div class="footer-note">For informational purposes only. Not financial advice. &copy; 2026</div>
+  </footer>
+
+</div><!-- /app -->
+
+<script src="afford.js?v=1"></script>
+<script>
+/* ── Field tip tooltips ── */
+(function () {
+  var popup = document.createElement('div');
+  popup.className = 'tip-popup';
+  document.body.appendChild(popup);
+  var active = null;
+  function show(btn) {
+    active = btn; btn.classList.add('tip-active');
+    popup.textContent = btn.getAttribute('data-tip');
+    popup.style.display = 'block';
+    var r = btn.getBoundingClientRect();
+    var pw = popup.offsetWidth, ph = popup.offsetHeight, m = 10;
+    var left = r.left + r.width / 2 - pw / 2;
+    var top = r.top - ph - 8;
+    if (left < m) left = m;
+    if (left + pw > window.innerWidth - m) left = window.innerWidth - pw - m;
+    if (top < m) top = r.bottom + 8;
+    popup.style.left = left + 'px'; popup.style.top = top + 'px';
+  }
+  function hide() {
+    if (active) active.classList.remove('tip-active');
+    active = null; popup.style.display = 'none';
+  }
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest && e.target.closest('.tip-btn');
+    if (btn) { e.stopPropagation(); if (active === btn) { hide(); return; } hide(); show(btn); }
+    else { hide(); }
+  });
+  window.addEventListener('scroll', hide, { passive: true });
+  window.addEventListener('resize', function () { if (active) show(active); });
+}());
+</script>
+<div class="mobile-sticky-bar no-print">
+  <div class="msb-item">
+    <div class="msb-label">Max Price</div>
+    <div class="msb-value" id="mbar-v1">—</div>
+  </div>
+  <div class="msb-divider"></div>
+  <div class="msb-item">
+    <div class="msb-label">Monthly Payment</div>
+    <div class="msb-value" id="mbar-v2">—</div>
+  </div>
+</div>
+<script src="/nav.js"></script>
+</body>
+</html>

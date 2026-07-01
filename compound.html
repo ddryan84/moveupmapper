@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"></noscript>
-  <link rel="stylesheet" href="styles.css?v=35">
+  <link rel="stylesheet" href="styles.css?v=50">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-YCEFCLSHX0"></script>
   <script>
@@ -44,12 +44,14 @@
       <div class="nav-dropdown">
         <button type="button" class="page-nav-link nav-dropdown-btn active" aria-haspopup="true">Calculators <svg class="nav-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
         <div class="nav-dropdown-menu">
-          <a href="/swap" class="nav-dropdown-item">Home Swap Calculator</a>
-          <a href="/rvb" class="nav-dropdown-item">Rent vs. Buy Analysis</a>
+          <a href="/afford" class="nav-dropdown-item">Affordability Calculator</a>
           <a href="/compound" class="nav-dropdown-item active">Compound Growth</a>
           <a href="/downpayment" class="nav-dropdown-item">Down Payment Optimizer</a>
-          <a href="/refi" class="nav-dropdown-item">Refi Calculator</a>
+          <a href="/swap" class="nav-dropdown-item">Home Swap Calculator</a>
+          <a href="/proceeds" class="nav-dropdown-item">Net Proceeds</a>
           <a href="/payoff" class="nav-dropdown-item">Payoff Calculator</a>
+          <a href="/refi" class="nav-dropdown-item">Refi Calculator</a>
+          <a href="/rvb" class="nav-dropdown-item">Rent vs. Buy Analysis</a>
         </div>
       </div>
       <a href="/faq"      class="page-nav-link">FAQ</a>
@@ -300,20 +302,15 @@
 
         <div id="withdrawalFields" style="display:none">
           <div class="field" style="margin-bottom:16px">
-            <div class="field-row-head">
-              <label>ANNUAL WITHDRAWAL</label>
-              <div class="mode-toggle" style="gap:0">
-                <button class="mode-btn active" data-wd-type="fixed">$</button>
-                <button class="mode-btn" data-wd-type="percent">%</button>
-              </div>
-            </div>
-            <div class="input-wrap prefix" id="withdrawalAmountWrap">
-              <span class="affix">$</span>
+            <label>ANNUAL WITHDRAWAL</label>
+            <div class="input-wrap other-costs-wrap">
+              <span class="affix" id="wdDollarPrefix">$</span>
               <input type="number" id="withdrawalAmount" min="0" step="1000">
-            </div>
-            <div class="input-wrap suffix" id="withdrawalPercentWrap" style="display:none">
-              <input type="number" id="withdrawalPercent" min="0" max="100" step="0.1">
-              <span class="affix">% of balance/yr</span>
+              <input type="number" id="withdrawalPercent" min="0" max="100" step="0.1" style="display:none">
+              <div class="other-costs-unit-toggle">
+                <button class="other-costs-btn active" data-wd-type="fixed">$</button>
+                <button class="other-costs-btn" data-wd-type="percent">%</button>
+              </div>
             </div>
             <div class="helper" id="withdrawal-amount-helper">Annual dollar amount withdrawn from the portfolio each year</div>
             <div id="wd-infl-hint" class="wd-infl-hint" style="display:none"></div>
@@ -1036,12 +1033,14 @@ The erosion compounds in reverse, just as investment returns compound forward: e
 
   <footer class="site-footer no-print">
     <div class="footer-links">
+      <a href="/afford">Affordability Calculator</a>
       <a href="/swap">Home Swap Calculator</a>
       <a href="/rvb">Rent vs. Buy Analysis</a>
       <a href="/compound">Compound Growth</a>
       <a href="/downpayment">Down Payment Optimizer</a>
       <a href="/refi">Refinance Calculator</a>
       <a href="/payoff">Payoff Calculator</a>
+      <a href="/proceeds">Net Proceeds</a>
       <a href="/faq">FAQ</a>
       <a href="/learn">Learn</a>
       <a href="/about">About</a>

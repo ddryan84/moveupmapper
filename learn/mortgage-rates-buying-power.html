@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css?v=31">
+  <link rel="stylesheet" href="/styles.css?v=50">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -57,11 +57,14 @@
       <div class="nav-dropdown">
         <button type="button" class="page-nav-link nav-dropdown-btn" aria-haspopup="true">Calculators <svg class="nav-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
         <div class="nav-dropdown-menu">
-          <a href="/swap" class="nav-dropdown-item">Home Swap Calculator</a>
-          <a href="/rvb" class="nav-dropdown-item">Rent vs. Buy Analysis</a>
+          <a href="/afford" class="nav-dropdown-item">Affordability Calculator</a>
           <a href="/compound" class="nav-dropdown-item">Compound Growth</a>
-          <a href="/refi" class="nav-dropdown-item">Refi Calculator</a>
+          <a href="/downpayment" class="nav-dropdown-item">Down Payment Optimizer</a>
+          <a href="/swap" class="nav-dropdown-item">Home Swap Calculator</a>
+          <a href="/proceeds" class="nav-dropdown-item">Net Proceeds</a>
           <a href="/payoff" class="nav-dropdown-item">Payoff Calculator</a>
+          <a href="/refi" class="nav-dropdown-item">Refi Calculator</a>
+          <a href="/rvb" class="nav-dropdown-item">Rent vs. Buy Analysis</a>
         </div>
       </div>
       <a href="/faq"      class="page-nav-link">FAQ</a>
@@ -93,7 +96,7 @@
     <!-- Article body -->
     <div class="article-body">
 
-      <p>If you've spent any time shopping for a home in the last few years, you've likely experienced this: rates go up, and suddenly the homes you were looking at are out of reach. Rates come down a little, and they're within reach again. The connection feels intuitive — higher rates mean higher payments — but most buyers don't know how large the effect actually is, or why.</p>
+      <p>If you've spent any time shopping for a home in the last few years, you've likely experienced this: rates go up, and suddenly the homes you were looking at are out of reach. Rates come down a little, and they're within reach again. The connection feels intuitive: higher rates mean higher payments. But most buyers don't know how large the effect actually is, or why.</p>
 
       <p>The short version: a 1-percentage-point increase in mortgage rates reduces your maximum purchase price by roughly 10%, assuming you're targeting a fixed monthly payment. That's not a rounding error. On a $500,000 home, that's $50,000 of buying power evaporating from a single rate point. On a $700,000 home, it's $70,000.</p>
 
@@ -105,17 +108,17 @@
 
       <p>Every fixed-rate mortgage uses the same underlying formula to convert a loan amount into a monthly payment. If you borrow <em>L</em> dollars at a monthly interest rate of <em>r</em> for <em>n</em> months, your payment <em>P</em> is:</p>
 
-      <p><strong>P = L × r × (1 + r)<sup>n</sup> ÷ [(1 + r)<sup>n</sup> − 1]</strong></p>
+      <p>P = L × r × (1 + r)<sup>n</sup> ÷ [(1 + r)<sup>n</sup> − 1]</p>
 
       <p>The term <em>r × (1 + r)<sup>n</sup> ÷ [(1 + r)<sup>n</sup> − 1]</em> is called the mortgage factor: the monthly payment per dollar borrowed. At 3%, the factor for a 30-year loan is about 0.00421. At 7%, it's about 0.00665. That difference looks small, but it represents a 58% increase in your monthly payment for the same loan amount.</p>
 
       <p>When you're buying a home with a fixed monthly budget, the loan amount you can support is simply:</p>
 
-      <p><strong>Maximum loan = monthly budget ÷ mortgage factor</strong></p>
+      <p>Maximum loan = monthly budget ÷ mortgage factor</p>
 
       <p>As the rate rises, the factor rises, and the loan amount your budget supports falls. The relationship is non-linear (the impact of a rate increase is slightly larger at lower rates than at higher ones), but across the 4–8% range where most buyers operate, a 1-point increase costs approximately 10% of purchasing power every time.</p>
 
-      <p>Put simply: the rate determines how much of your monthly payment goes to interest versus principal, and a higher rate means a larger share goes to interest — leaving less room to pay down a bigger loan. Your income didn't change, your down payment didn't change, but what the bank will lend you did.</p>
+      <p>Put simply: the rate determines how much of your monthly payment goes to interest versus principal, and a higher rate means a larger share goes to interest, leaving less room to pay down a bigger loan. Your income didn't change, your down payment didn't change, but what the bank will lend you did.</p>
 
       <hr class="article-divider">
 
@@ -172,10 +175,10 @@
         </tbody>
       </table>
 
-      <p>A few things to notice here. First, the "10% per point" rule holds up well across the 4–7% range that most buyers encounter, though the impact is slightly larger at lower starting rates (where the factor scales more steeply) and somewhat smaller at higher rates. Second, the cumulative effect is severe: a buyer in 2021 at 3% could afford a $593K loan, while the same buyer in 2023 at 7% could support only $376K — a reduction of $217,000, or 37%, with no change in income or down payment.</p>
+      <p>A few things to notice here. First, the "10% per point" rule holds up well across the 4–7% range that most buyers encounter, though the impact is slightly larger at lower starting rates (where the factor scales more steeply) and somewhat smaller at higher rates. Second, the cumulative effect is severe: a buyer in 2021 at 3% could afford a $593K loan, while the same buyer in 2023 at 7% could support only $376K, a reduction of $217,000 or 37%, with no change in income or down payment.</p>
 
       <div class="article-callout">
-        <p><strong>The rate move from 3% to 7% that happened between 2021 and 2023 was the largest sustained rate increase in 40 years.</strong> A buyer with a $2,500/month P&amp;I budget lost over $217,000 in buying power without their income changing at all. During the same period, home prices rose rather than fell — compressing affordability from both sides simultaneously.</p>
+        <p>The rate move from 3% to 7% that happened between 2021 and 2023 was the largest sustained rate increase in 40 years. A buyer with a $2,500/month P&amp;I budget lost over $217,000 in buying power without their income changing at all. During the same period, home prices rose rather than fell, compressing affordability from both sides simultaneously.</p>
       </div>
 
       <div class="article-chart">
@@ -286,7 +289,7 @@
       <p><strong>Second, price discovery is slow.</strong> Housing markets are illiquid. A seller who wants $600,000 will hold the listing for months before dropping to $560,000, during which time buyers at the higher rate are simply priced out rather than getting the home cheaper. The price correction, when it comes, is gradual, often spread over years rather than weeks.</p>
 
       <div class="article-callout article-callout--amber">
-        <p><strong>Don't count on rate increases to make homes cheaper in the short run.</strong> Over the 2022–2024 period, the 30-year rate roughly doubled from 3% to 6–7%, but median national home prices declined only modestly — and in many metros, not at all. Affordability deteriorated substantially, but through payment increases rather than price reductions.</p>
+        <p>Don't count on rate increases to make homes cheaper in the short run. Over the 2022–2024 period, the 30-year rate roughly doubled from 3% to 6–7%, but median national home prices declined only modestly and, in many metros, not at all. Affordability deteriorated substantially, but through payment increases rather than price reductions.</p>
       </div>
 
       <hr class="article-divider">
@@ -380,11 +383,13 @@
   <!-- Footer -->
   <footer class="site-footer no-print">
     <div class="footer-links">
+      <a href="/afford">Affordability Calculator</a>
       <a href="/swap">Home Swap Calculator</a>
       <a href="/rvb">Rent vs. Buy Analysis</a>
       <a href="/compound">Compound Growth</a>
       <a href="/refi">Refinance Calculator</a>
       <a href="/payoff">Payoff Calculator</a>
+      <a href="/proceeds">Net Proceeds</a>
       <a href="/faq">FAQ</a>
       <a href="/learn">Learn</a>
       <a href="/about">About</a>

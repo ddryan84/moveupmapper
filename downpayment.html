@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"></noscript>
-  <link rel="stylesheet" href="styles.css?v=42">
+  <link rel="stylesheet" href="styles.css?v=50">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -58,12 +58,14 @@
       <div class="nav-dropdown">
         <button type="button" class="page-nav-link nav-dropdown-btn active" aria-haspopup="true">Calculators <svg class="nav-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
         <div class="nav-dropdown-menu">
-          <a href="/swap" class="nav-dropdown-item">Home Swap Calculator</a>
-          <a href="/rvb" class="nav-dropdown-item">Rent vs. Buy Analysis</a>
+          <a href="/afford" class="nav-dropdown-item">Affordability Calculator</a>
           <a href="/compound" class="nav-dropdown-item">Compound Growth</a>
           <a href="/downpayment" class="nav-dropdown-item active">Down Payment Optimizer</a>
-          <a href="/refi" class="nav-dropdown-item">Refi Calculator</a>
+          <a href="/swap" class="nav-dropdown-item">Home Swap Calculator</a>
+          <a href="/proceeds" class="nav-dropdown-item">Net Proceeds</a>
           <a href="/payoff" class="nav-dropdown-item">Payoff Calculator</a>
+          <a href="/refi" class="nav-dropdown-item">Refi Calculator</a>
+          <a href="/rvb" class="nav-dropdown-item">Rent vs. Buy Analysis</a>
         </div>
       </div>
       <a href="/faq"    class="page-nav-link">FAQ</a>
@@ -87,11 +89,11 @@
       <p class="header-sub">Find the right balance between paying down your mortgage and keeping capital invested</p>
     </div>
     <div class="header-actions" style="margin-left:auto;display:flex;gap:8px;align-items:center;flex-shrink:0">
+      <button class="btn-text" id="resetBtn">Reset</button>
       <button class="btn-text" id="shareBtn">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:3px"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>Share
       </button>
       <button class="btn-print" id="printBtn">⎙ Print<span class="print-full"> / Export PDF</span></button>
-      <button class="btn-text" id="resetBtn">Reset</button>
     </div>
   </header>
 
@@ -190,18 +192,15 @@
       <div class="field">
         <div class="label-tip-row">
           <label>CUSTOM SCENARIO <span style="font-weight:500;font-size:11px;color:var(--text-muted);text-transform:none;letter-spacing:0">(optional)</span></label>
-          <div class="pmi-mode-toggle">
-            <button type="button" class="pmi-mode-btn cdp-mode-btn active" data-mode="pct">%</button>
-            <button type="button" class="pmi-mode-btn cdp-mode-btn" data-mode="dollar">$</button>
-          </div>
         </div>
-        <div id="customDpPctWrap" class="input-wrap suffix">
+        <div class="input-wrap other-costs-wrap">
+          <span class="affix" id="customDpPrefix" style="display:none">$</span>
           <input type="number" id="customDpPct" min="1" max="99" step="0.5" placeholder="e.g. 15">
-          <span class="affix">%</span>
-        </div>
-        <div id="customDpDollarWrap" class="input-wrap prefix" style="display:none">
-          <span class="affix">$</span>
-          <input type="number" id="customDpDollar" min="1000" step="1000" placeholder="e.g. 75000">
+          <input type="number" id="customDpDollar" min="1000" step="1000" placeholder="e.g. 75000" style="display:none">
+          <div class="other-costs-unit-toggle">
+            <button type="button" class="other-costs-btn cdp-mode-btn active" data-mode="pct">%</button>
+            <button type="button" class="other-costs-btn cdp-mode-btn" data-mode="dollar">$</button>
+          </div>
         </div>
         <div class="helper">Test a specific down payment alongside the defaults — appears as a 4th scenario card</div>
       </div>
@@ -232,18 +231,13 @@
               <label>PMI RATE</label>
               <button class="tip-btn" aria-label="Learn more" data-tip="Private Mortgage Insurance (PMI) is required when your down payment is less than 20% of the home price. Enter a percentage (annual % of original loan, typically 0.5–1.5%) or switch to $/mo to enter the flat monthly amount from your lender's quote. PMI automatically cancels when your loan-to-value ratio reaches 78% of the original purchase price.">?</button>
             </div>
-            <div class="pmi-input-row">
-              <div id="pmiPctWrap" class="input-wrap suffix">
-                <input type="number" id="pmiRate" min="0.1" max="2.5" step="0.05">
-                <span class="affix">%</span>
-              </div>
-              <div id="pmiDollarWrap" class="input-wrap prefix" style="display:none">
-                <span class="affix">$</span>
-                <input type="number" id="pmiDollar" min="1" max="9999" step="1" placeholder="e.g. 250">
-              </div>
-              <div class="pmi-mode-toggle">
-                <button type="button" class="pmi-mode-btn active" data-mode="pct">%</button>
-                <button type="button" class="pmi-mode-btn" data-mode="dollar">$/mo</button>
+            <div class="input-wrap other-costs-wrap">
+              <span class="affix" id="pmiPrefix" style="display:none">$</span>
+              <input type="number" id="pmiRate" min="0.1" max="2.5" step="0.05">
+              <input type="number" id="pmiDollar" min="1" max="9999" step="1" placeholder="e.g. 250" style="display:none">
+              <div class="other-costs-unit-toggle">
+                <button type="button" class="other-costs-btn pmi-mode-btn active" data-mode="pct">%</button>
+                <button type="button" class="other-costs-btn pmi-mode-btn" data-mode="dollar">$/mo</button>
               </div>
             </div>
             <div class="helper" id="pmiHelper">Annual PMI as % of original loan — typically 0.5–1.5% depending on credit score and lender. PMI rates are also tiered by LTV: a 5% down loan will usually carry a higher rate than a 15% down loan. If your scenarios span a wide range of down payments, consider running the calculator separately with different PMI rates to reflect this.</div>
@@ -379,12 +373,14 @@
   <!-- Footer -->
   <footer class="site-footer no-print">
     <div class="footer-links">
+      <a href="/afford">Affordability Calculator</a>
       <a href="/swap">Home Swap Calculator</a>
       <a href="/rvb">Rent vs. Buy Analysis</a>
       <a href="/compound">Compound Growth</a>
       <a href="/downpayment">Down Payment Optimizer</a>
       <a href="/refi">Refinance Calculator</a>
       <a href="/payoff">Payoff Calculator</a>
+      <a href="/proceeds">Net Proceeds</a>
       <a href="/faq">FAQ</a>
       <a href="/learn">Learn</a>
       <a href="/about">About</a>
