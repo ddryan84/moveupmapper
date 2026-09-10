@@ -212,12 +212,8 @@
         var ltvIdx = findLtvBandIndex(grid.ltvBands, inp.ltv);
         var armArr = grid.specialAttributes.arm;
         var armPts = armArr ? armArr[ltvIdx] : null;
-        if (armPts == null) {
+        if (armPts == null || armPts === 0) {
           armHintEl.textContent = '';
-        } else if (armPts === 0) {
-          armHintEl.textContent = inp.rateType === 'arm'
-            ? 'No ARM adjustment at this LTV — only applies above 90%'
-            : 'ARM adds no adjustment at this LTV — only applies above 90%';
         } else {
           armHintEl.textContent = inp.rateType === 'arm'
             ? 'ARM adds ' + fmtPoints(armPts) + ' at this LTV'

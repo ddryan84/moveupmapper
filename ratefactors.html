@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"></noscript>
-  <link rel="stylesheet" href="styles.css?v=101">
+  <link rel="stylesheet" href="styles.css?v=108">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -127,11 +127,11 @@
           <button class="tip-btn" aria-label="Learn more" data-tip="Lenders price loans in credit-score bands, not by exact score — a 719 and a 700 are priced identically, but a 720 gets a meaningfully better price. This is the single biggest driver of the adjustment below.">?</button>
         </div>
         <div class="rate-slider-row">
-          <span class="horizon-edge-label">300</span>
-          <input type="range" id="ficoScore" min="300" max="850" step="1" value="720" style="accent-color:#475569">
-          <span class="horizon-edge-label">850</span>
+          <span class="horizon-edge-label" style="font-size:13px">300</span>
+          <input type="range" id="ficoScore" class="rf-slider" min="300" max="850" step="1" value="720" style="color:#475569">
+          <span class="horizon-edge-label" style="font-size:13px">850</span>
         </div>
-        <div class="field-note">Score: <strong id="ficoScoreVal">720</strong></div>
+        <div class="field-note" style="font-size:13px">Score: <strong id="ficoScoreVal">720</strong></div>
       </div>
 
       <div class="field" style="margin-bottom:0">
@@ -140,75 +140,73 @@
           <button class="tip-btn" aria-label="Learn more" data-tip="Expressed here as a percentage of the purchase price. A larger down payment means a lower loan-to-value (LTV) ratio, which is the second major pricing input — less of the home's value is at risk for the lender.">?</button>
         </div>
         <div class="rate-slider-row">
-          <span class="horizon-edge-label">3%</span>
-          <input type="range" id="downPayment" min="3" max="97" step="1" value="20" style="accent-color:#475569">
-          <span class="horizon-edge-label">97%</span>
+          <span class="horizon-edge-label" style="font-size:13px">3%</span>
+          <input type="range" id="downPayment" class="rf-slider" min="3" max="97" step="1" value="20" style="color:#475569">
+          <span class="horizon-edge-label" style="font-size:13px">97%</span>
         </div>
-        <div class="field-note">Down: <strong id="downPctVal">20%</strong> · Loan-to-value: <strong id="ltvVal">80%</strong></div>
+        <div class="field-note" style="font-size:13px">Down: <strong id="downPctVal">20%</strong> · Loan-to-value: <strong id="ltvVal">80%</strong></div>
       </div>
 
-      <div class="two-col" style="margin-top:28px;margin-bottom:28px">
-        <div class="field">
-          <div class="label-tip-row">
-            <label style="font-size:12px">LOAN PURPOSE</label>
-            <button class="tip-btn" aria-label="Learn more" data-tip="Purchases get the best pricing. Refinancing where you take no cash out prices a bit worse, since the lender has less data on why you're refinancing. Cash-out refinancing prices worse still — you're increasing the loan balance against the same collateral, which is more risk to the lender.">?</button>
+      <div class="two-col" style="margin-top:28px;margin-bottom:0;gap:28px">
+        <div>
+          <div class="field" style="margin-bottom:24px">
+            <div class="label-tip-row">
+              <label style="font-size:12px">LOAN PURPOSE</label>
+              <button class="tip-btn" aria-label="Learn more" data-tip="Purchases get the best pricing. Refinancing where you take no cash out prices a bit worse, since the lender has less data on why you're refinancing. Cash-out refinancing prices worse still — you're increasing the loan balance against the same collateral, which is more risk to the lender.">?</button>
+            </div>
+            <div class="filing-toggle">
+              <button type="button" class="mode-btn active" data-loan-purpose="purchase">Purchase</button>
+              <button type="button" class="mode-btn" data-loan-purpose="noCashoutRefi">Refinance</button>
+              <button type="button" class="mode-btn" data-loan-purpose="cashoutRefi">Cash-out</button>
+            </div>
           </div>
-          <div class="filing-toggle">
-            <button type="button" class="mode-btn active" data-loan-purpose="purchase">Purchase</button>
-            <button type="button" class="mode-btn" data-loan-purpose="noCashoutRefi">Refinance</button>
-            <button type="button" class="mode-btn" data-loan-purpose="cashoutRefi">Cash-out</button>
+          <div class="field" style="margin-bottom:24px">
+            <div class="label-tip-row">
+              <label style="font-size:12px">PROPERTY TYPE</label>
+              <button class="tip-btn" aria-label="Learn more" data-tip="Condos and 2-4 unit properties price slightly worse than a standalone single-family home — they're harder to resell in a foreclosure and, for multi-unit, income can be less predictable. Manufactured homes carry a flat adjustment reflecting their different resale/appraisal dynamics.">?</button>
+            </div>
+            <div class="input-wrap" style="padding:0">
+              <select id="propertyType" class="input-select" style="height:36px;padding:0 10px;width:100%">
+                <option value="singleFamily" selected>Single-family home</option>
+                <option value="condo">Condominium</option>
+                <option value="multiUnit">2-4 unit property</option>
+                <option value="manufactured">Manufactured home</option>
+              </select>
+            </div>
           </div>
-        </div>
-        <div class="field">
-          <div class="label-tip-row">
-            <label style="font-size:12px">OCCUPANCY</label>
-            <button class="tip-btn" aria-label="Learn more" data-tip="You're far less likely to walk away from the home you actually live in than a property you rent out or use occasionally. Second homes and investment properties carry a substantial price adjustment — often the largest single line item on the breakdown below.">?</button>
-          </div>
-          <div class="filing-toggle">
-            <button type="button" class="mode-btn active" data-occupancy="primary">Primary</button>
-            <button type="button" class="mode-btn" data-occupancy="secondHome">2nd Home</button>
-            <button type="button" class="mode-btn" data-occupancy="investment">Investment</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="two-col">
-        <div class="field">
-          <div class="label-tip-row">
-            <label style="font-size:12px">PROPERTY TYPE</label>
-            <button class="tip-btn" aria-label="Learn more" data-tip="Condos and 2-4 unit properties price slightly worse than a standalone single-family home — they're harder to resell in a foreclosure and, for multi-unit, income can be less predictable. Manufactured homes carry a flat adjustment reflecting their different resale/appraisal dynamics.">?</button>
-          </div>
-          <div class="input-wrap" style="padding:0">
-            <select id="propertyType" class="input-select" style="height:36px;padding:0 10px;width:100%">
-              <option value="singleFamily" selected>Single-family home</option>
-              <option value="condo">Condominium</option>
-              <option value="multiUnit">2-4 unit property</option>
-              <option value="manufactured">Manufactured home</option>
-            </select>
+          <div class="field">
+            <div class="label-tip-row">
+              <label style="font-size:12px">SECONDARY FINANCING</label>
+              <button class="tip-btn" aria-label="Learn more" data-tip="A HELOC (home equity line of credit) or second mortgage taken out alongside this loan, sitting behind it. Combined leverage against the home is higher than the first mortgage's LTV (loan-to-value) alone suggests, so it carries its own adjustment on top of everything else.">?</button>
+            </div>
+            <div class="mode-toggle">
+              <button type="button" class="mode-btn active" data-secondary-financing="no">No</button>
+              <button type="button" class="mode-btn" data-secondary-financing="yes">Yes</button>
+            </div>
           </div>
         </div>
-        <div class="field">
-          <div class="label-tip-row">
-            <label style="font-size:12px">RATE TYPE</label>
-            <button class="tip-btn" aria-label="Learn more" data-tip="In this grid, ARMs only carry a price adjustment above 90% loan-to-value (the lender is taking on payment-shock risk on top of a loan that's already a larger share of the home's value). At 90% LTV or below, Freddie Mac doesn't price an ARM any differently from a fixed-rate loan — so toggling this won't move your rate unless your down payment is under 10%.">?</button>
+        <div>
+          <div class="field" style="margin-bottom:24px">
+            <div class="label-tip-row">
+              <label style="font-size:12px">OCCUPANCY</label>
+              <button class="tip-btn" aria-label="Learn more" data-tip="You're far less likely to walk away from the home you actually live in than a property you rent out or use occasionally. Second homes and investment properties carry a substantial price adjustment — often the largest single line item on the breakdown below.">?</button>
+            </div>
+            <div class="filing-toggle">
+              <button type="button" class="mode-btn active" data-occupancy="primary">Primary</button>
+              <button type="button" class="mode-btn" data-occupancy="secondHome">2nd Home</button>
+              <button type="button" class="mode-btn" data-occupancy="investment">Investment</button>
+            </div>
           </div>
-          <div class="mode-toggle">
-            <button type="button" class="mode-btn active" data-rate-type="fixed">Fixed</button>
-            <button type="button" class="mode-btn" data-rate-type="arm">ARM</button>
-          </div>
-          <div class="field-note" id="armHint"></div>
-        </div>
-      </div>
-
-      <div class="two-col" style="margin-bottom:0">
-        <div class="field" style="margin-bottom:0">
-          <div class="label-tip-row">
-            <label>SECONDARY FINANCING</label>
-            <button class="tip-btn" aria-label="Learn more" data-tip="A HELOC (home equity line of credit) or second mortgage taken out alongside this loan, sitting behind it. Combined leverage against the home is higher than the first mortgage's LTV (loan-to-value) alone suggests, so it carries its own adjustment on top of everything else.">?</button>
-          </div>
-          <div class="mode-toggle">
-            <button type="button" class="mode-btn active" data-secondary-financing="no">No</button>
-            <button type="button" class="mode-btn" data-secondary-financing="yes">Yes</button>
+          <div class="field">
+            <div class="label-tip-row">
+              <label style="font-size:12px">RATE TYPE</label>
+              <button class="tip-btn" aria-label="Learn more" data-tip="In this grid, ARMs only carry a price adjustment above 90% loan-to-value (the lender is taking on payment-shock risk on top of a loan that's already a larger share of the home's value). At 90% LTV or below, Freddie Mac doesn't price an ARM any differently from a fixed-rate loan — so toggling this won't move your rate unless your down payment is under 10%.">?</button>
+            </div>
+            <div class="mode-toggle" style="width:175px">
+              <button type="button" class="mode-btn active" style="flex:1" data-rate-type="fixed">Fixed</button>
+              <button type="button" class="mode-btn" style="flex:1" data-rate-type="arm">ARM</button>
+            </div>
+            <div class="field-note" id="armHint"></div>
           </div>
         </div>
       </div>
@@ -300,16 +298,18 @@
       <div class="gloss-group" style="margin-top:0">
         <div class="gloss-group-title">By Credit Score — at your current down payment</div>
         <div style="overflow-x:auto">
-          <table class="afford-sens-table">
+          <table class="afford-sens-table rf-sens-table">
+            <colgroup><col style="width:48%"><col style="width:29%"><col style="width:23%"></colgroup>
             <thead><tr><th>Credit Score</th><th>Adjustment</th><th>Est. Rate</th></tr></thead>
             <tbody id="rfFicoSensRows"></tbody>
           </table>
         </div>
       </div>
-      <div class="gloss-group">
+      <div class="gloss-group" style="margin-top:40px">
         <div class="gloss-group-title">By Down Payment — at your current credit score</div>
         <div style="overflow-x:auto">
-          <table class="afford-sens-table">
+          <table class="afford-sens-table rf-sens-table">
+            <colgroup><col style="width:48%"><col style="width:29%"><col style="width:23%"></colgroup>
             <thead><tr><th>Loan-to-Value</th><th>Adjustment</th><th>Est. Rate</th></tr></thead>
             <tbody id="rfLtvSensRows"></tbody>
           </table>
@@ -449,7 +449,7 @@
 
 <script src="mortgage-rates.js?v=1"></script>
 <script src="ratefactors-data.js?v=1"></script>
-<script src="ratefactors.js?v=6"></script>
+<script src="ratefactors.js?v=9"></script>
 <script>
 /* ── Field tip tooltips ── */
 (function () {

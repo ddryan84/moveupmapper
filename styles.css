@@ -937,39 +937,38 @@ input[type=range] {
   position: relative;
   z-index: 1;
   background: transparent;
+  color: var(--indigo);
 }
+/* Flat neutral track: no slider on the site represents a fixed 0-100%
+   ratio with a universal good/bad direction (DTI, the one thing this
+   gradient was originally tuned for, renders as its own colored fill bar
+   on the Affordability calculator instead), so a traffic-light gradient
+   here would be arbitrary at best and backwards at worst depending on
+   which direction a given slider's "better" value points. */
 input[type=range]::-webkit-slider-runnable-track {
   height: 6px;
   border-radius: 3px;
-  /* 28% ideal → (28-10)/40 = 45%; 36% caution → (36-10)/40 = 65% of slider range */
-  background: linear-gradient(to right,
-    var(--green-light) 0%,
-    var(--green-light) 45%,
-    var(--amber-light) 45%,
-    var(--amber-light) 65%,
-    var(--red-light) 65%,
-    var(--red-light) 100%
-  );
+  background: var(--gray-200);
 }
 input[type=range]::-moz-range-track {
   height: 6px;
   border-radius: 3px;
-  background: linear-gradient(to right,
-    var(--green-light) 0%,
-    var(--green-light) 45%,
-    var(--amber-light) 45%,
-    var(--amber-light) 65%,
-    var(--red-light) 65%,
-    var(--red-light) 100%
-  );
+  background: var(--gray-200);
 }
+/* Rate Factors: a soft tint on the otherwise-neutral track, matching the
+   page's slate accent instead of the plain sitewide gray. */
+input[type=range].rf-slider::-webkit-slider-runnable-track { background: #9db6c9; }
+input[type=range].rf-slider::-moz-range-track { background: #9db6c9; }
+/* Closing Timeline: soft teal tint on the day-count sliders. */
+input[type=range].tl-slider::-webkit-slider-runnable-track { background: #a8d1c3; }
+input[type=range].tl-slider::-moz-range-track { background: #a8d1c3; }
 input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
   width: 18px; height: 18px;
   border-radius: 50%;
   background: white;
-  border: 2px solid var(--indigo);
+  border: 2px solid currentColor;
   box-shadow: 0 1px 4px rgba(0,0,0,.2);
   margin-top: -6px;
   cursor: grab;
@@ -978,7 +977,7 @@ input[type=range]::-moz-range-thumb {
   width: 18px; height: 18px;
   border-radius: 50%;
   background: white;
-  border: 2px solid var(--indigo);
+  border: 2px solid currentColor;
   box-shadow: 0 1px 4px rgba(0,0,0,.2);
   cursor: grab;
 }
@@ -3128,6 +3127,9 @@ details.adv-section[open] > summary .adv-chevron { transform: rotate(180deg); }
 .afford-sens-table tr:last-child td { border-bottom: none; }
 .afford-sens-current td { background: var(--gray-50); font-weight: 600; }
 .afford-sens-badge { font-size: 10px; font-weight: 700; background: #7c3aed; color: white; padding: 1px 5px; border-radius: 3px; margin-left: 5px; letter-spacing: .02em; }
+/* Rate Factors: fixed column widths so the two sensitivity tables' columns
+   line up vertically regardless of each table's own header/content length. */
+.rf-sens-table { table-layout: fixed; }
 
 /* ── Closing Timeline: vertical step list ── */
 .mum-timeline { position: relative; padding-left: 28px; }

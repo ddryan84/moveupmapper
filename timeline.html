@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"></noscript>
-  <link rel="stylesheet" href="styles.css?v=101">
+  <link rel="stylesheet" href="styles.css?v=108">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -170,7 +170,7 @@
         </div>
         <div class="rate-slider-row">
           <span class="horizon-edge-label">7d</span>
-          <input type="range" id="daysToSell" min="7" max="120" step="1" value="45" style="accent-color:#1d4ed8">
+          <input type="range" id="daysToSell" class="tl-slider" min="7" max="120" step="1" value="45" style="color:#1d4ed8">
           <span class="horizon-edge-label">120d</span>
         </div>
         <div class="field-note">List to accepted offer: <strong id="daysToSellVal">45 days</strong></div>
@@ -183,7 +183,7 @@
         </div>
         <div class="rate-slider-row">
           <span class="horizon-edge-label">7d</span>
-          <input type="range" id="daysToBuy" min="7" max="120" step="1" value="30" style="accent-color:#1d4ed8">
+          <input type="range" id="daysToBuy" class="tl-slider" min="7" max="120" step="1" value="30" style="color:#1d4ed8">
           <span class="horizon-edge-label">120d</span>
         </div>
         <div class="field-note">Shopping to signed contract: <strong id="daysToBuyVal">30 days</strong></div>
@@ -196,7 +196,7 @@
         </div>
         <div class="rate-slider-row">
           <span class="horizon-edge-label">14d</span>
-          <input type="range" id="escrowDays" min="14" max="60" step="1" value="30" style="accent-color:#1d4ed8">
+          <input type="range" id="escrowDays" class="tl-slider" min="14" max="60" step="1" value="30" style="color:#1d4ed8">
           <span class="horizon-edge-label">60d</span>
         </div>
         <div class="field-note">Contract to closing, both sides: <strong id="escrowDaysVal">30 days</strong></div>
