@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"></noscript>
-  <link rel="stylesheet" href="styles.css?v=108">
+  <link rel="stylesheet" href="styles.css?v=112">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -135,7 +135,7 @@
         <div class="card-sub">Enter your home price, available cash, and loan terms</div>
       </div>
     </div>
-    <div class="card-body">
+    <div class="card-body dp-input-body">
 
       <div class="two-col">
         <div class="field">
@@ -164,7 +164,7 @@
           </div>
           <div class="rate-slider-row">
             <span class="horizon-edge-label">3%</span>
-            <input type="range" id="mortgageRateSlider" min="3" max="12" step="0.125" value="6.75">
+            <input type="range" id="mortgageRateSlider" class="dp-rate-slider" min="3" max="12" step="0.125" value="6.75">
             <span class="horizon-edge-label">12%</span>
           </div>
           <div class="helper">Use the interest rate, not APR</div>
@@ -243,7 +243,7 @@
         <div class="two-col" style="margin-top:14px">
           <div class="field">
             <div class="label-tip-row">
-              <label>INVESTMENT RETURN</label>
+              <label>EXPECTED INVESTMENT RETURN</label>
               <button class="tip-btn" aria-label="Learn more" data-tip="The annual return you'd earn by investing your down payment savings in a diversified portfolio instead. Historical U.S. equity returns have averaged roughly 7% annually in real terms. Lower this if you're more conservative or would invest in bonds or cash.">?</button>
             </div>
             <div class="input-wrap suffix">

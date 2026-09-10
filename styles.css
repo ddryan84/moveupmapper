@@ -962,6 +962,16 @@ input[type=range].rf-slider::-moz-range-track { background: #9db6c9; }
 /* Closing Timeline: soft teal tint on the day-count sliders. */
 input[type=range].tl-slider::-webkit-slider-runnable-track { background: #a8d1c3; }
 input[type=range].tl-slider::-moz-range-track { background: #a8d1c3; }
+/* Down Payment Optimizer & Affordability Calculator: the mortgage rate
+   sliders keep a green-to-red gradient, since a lower rate is
+   unambiguously better here (unlike the flat neutral tracks used
+   elsewhere on the site). */
+input[type=range].dp-rate-slider::-webkit-slider-runnable-track {
+  background: linear-gradient(to right, var(--green-light), var(--amber-light), var(--red-light));
+}
+input[type=range].dp-rate-slider::-moz-range-track {
+  background: linear-gradient(to right, var(--green-light), var(--amber-light), var(--red-light));
+}
 input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
@@ -1810,6 +1820,52 @@ details[open] > .faq-q::after {
 .compound-tile-body > .two-col:last-child,
 #withdrawalFields > .field:last-child {
   margin-bottom: 0;
+}
+
+/* Roomier input spacing on the Down Payment Optimizer's input card,
+   matching refi/swap/rvb/compound. */
+.dp-input-body > .field,
+.dp-input-body > .two-col,
+#advBody > .field,
+#advBody > .two-col {
+  margin-bottom: 24px;
+}
+.dp-input-body > .field:last-child,
+.dp-input-body > .two-col:last-child,
+#advBody > .field:last-child,
+#advBody > .two-col:last-child {
+  margin-bottom: 0;
+}
+.dp-input-body .two-col {
+  gap: 20px;
+}
+
+/* Roomier input spacing on the Affordability Calculator's input cards
+   and Advanced section, matching refi/swap/rvb/compound/downpayment. */
+.afford-input-body > .field,
+.afford-input-body > .two-col {
+  margin-bottom: 24px;
+}
+.afford-input-body > .field:last-child,
+.afford-input-body > .two-col:last-child {
+  margin-bottom: 0;
+}
+.afford-input-body .two-col {
+  gap: 20px;
+}
+
+/* Roomier input spacing on the Net Proceeds calculator's input card,
+   matching refi/swap/rvb/compound/downpayment/afford. */
+.proceeds-input-body > .field,
+.proceeds-input-body > .two-col {
+  margin-bottom: 24px;
+}
+.proceeds-input-body > .field:last-child,
+.proceeds-input-body > .two-col:last-child {
+  margin-bottom: 0;
+}
+.proceeds-input-body .two-col {
+  gap: 20px;
 }
 
 /* Advanced collapsible section (compound page) */
