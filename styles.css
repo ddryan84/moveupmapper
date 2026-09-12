@@ -962,10 +962,10 @@ input[type=range].rf-slider::-moz-range-track { background: #9db6c9; }
 /* Closing Timeline: soft teal tint on the day-count sliders. */
 input[type=range].tl-slider::-webkit-slider-runnable-track { background: #a8d1c3; }
 input[type=range].tl-slider::-moz-range-track { background: #a8d1c3; }
-/* Down Payment Optimizer & Affordability Calculator: the mortgage rate
-   sliders keep a green-to-red gradient, since a lower rate is
-   unambiguously better here (unlike the flat neutral tracks used
-   elsewhere on the site). */
+/* Down Payment Optimizer, Affordability Calculator & Refinance
+   Break-Even Calculator: the mortgage rate sliders keep a green-to-red
+   gradient, since a lower rate is unambiguously better here (unlike
+   the flat neutral tracks used elsewhere on the site). */
 input[type=range].dp-rate-slider::-webkit-slider-runnable-track {
   background: linear-gradient(to right, var(--green-light), var(--amber-light), var(--red-light));
 }

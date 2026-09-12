@@ -179,7 +179,7 @@
           <div class="label-tip-row"><label>PMI ELIMINATION</label><button class="tip-btn" aria-label="Learn more" data-tip="PMI (Private Mortgage Insurance) drops off once your loan-to-value ratio reaches 80%, regardless of whether you refinance. Only check this box if refinancing itself is the reason PMI goes away — for example, because you're paying down enough at closing to cross the 20% equity threshold. If PMI would drop off on its own soon, don't count it as a refinance benefit.">?</button></div>
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
             <input type="checkbox" id="pmiEliminated" style="width:16px;height:16px;cursor:pointer;accent-color:var(--indigo);flex-shrink:0">
-            <label for="pmiEliminated" style="font-size:13px;color:var(--text);cursor:pointer;font-weight:400;letter-spacing:0;text-transform:none;line-height:1.4">Refinancing will eliminate my PMI</label>
+            <label for="pmiEliminated" style="font-size:13px;color:var(--text-muted);cursor:pointer;font-weight:400;letter-spacing:0;text-transform:none;line-height:1.4">Refinancing will eliminate my PMI</label>
           </div>
           <div id="pmiAmountField" style="display:none">
             <div class="input-wrap prefix">
@@ -218,7 +218,7 @@
             </div>
             <div class="rate-slider-row">
               <span class="horizon-edge-label">2%</span>
-              <input type="range" id="newRateSlider" min="2" max="10" step="0.125" value="5.75">
+              <input type="range" id="newRateSlider" class="dp-rate-slider" min="2" max="10" step="0.125" value="5.75">
               <span class="horizon-edge-label">10%</span>
             </div>
             <div class="helper">Use the interest rate, not APR</div>
