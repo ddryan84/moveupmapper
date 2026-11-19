@@ -1,9 +1,9 @@
 {
-  "thirtyYear": 7.11,
-  "thirtyYearDate": "2026-11-12",
-  "fifteenYear": 6.45,
-  "fifteenYearDate": "2026-11-12",
-  "updated": "2026-11-12",
+  "thirtyYear": 7.28,
+  "thirtyYearDate": "2026-11-19",
+  "fifteenYear": 6.66,
+  "fifteenYearDate": "2026-11-19",
+  "updated": "2026-11-19",
   "source": "Freddie Mac Primary Mortgage Market Survey (PMMS), via FRED",
   "sourceUrl": "https://fred.stlouisfed.org/series/MORTGAGE30US"
 }
